@@ -25,14 +25,14 @@ class Solution {
     }
     
     private TreeNode sortedArrayToBST(int[] nums, int left, int right) {
-        // base case
+        // base case when termination is needed.
         if (left > right) {
             return null;
         }
 
         TreeNode root = new TreeNode();
         
-        // base case
+        // base case when there is a single node left.
         if (left == right) {
             root.val = nums[left];
             root.left = root.right = null;
