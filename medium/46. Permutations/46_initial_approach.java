@@ -10,12 +10,15 @@ import java.util.List;
 public class Solution {
     public  List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> mainArray = new ArrayList<>();
+
+        // base case if there's only one integer in the array.
         if (nums.length == 1) {
             List<Integer> array = new ArrayList<>();
             array.add(nums[0]);
             mainArray.add(array);
             return mainArray;
         }
+        // base case if there are only two integers in the array.
         if (nums.length == 2) {
             List<Integer> arrayA = new ArrayList<>();
             List<Integer> arrayB = new ArrayList<>();
@@ -30,6 +33,8 @@ public class Solution {
         List<Integer> tempList;
         int[] tempArray;
         int index;
+        // add one element to the tempList.
+        // remove that element from the nums.
         for (int i = 0; i < nums.length; i++) {
             tempList = new ArrayList<>();
             tempList.add(nums[i]);
@@ -41,7 +46,7 @@ public class Solution {
                     index++;
                 }
             }
-
+            // combine tempList with possible permutations.
             for (List<Integer> a : permute(tempArray)) {
                 mainArray.add(combine(tempList, a));
             }
@@ -49,6 +54,7 @@ public class Solution {
         return mainArray;
     }
 
+    // helper function to combine two lists.
     private static List<Integer> combine(List<Integer> first, List<Integer> second) {
         List<Integer> newList = new ArrayList<>();
         for (Integer x : first) {

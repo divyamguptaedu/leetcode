@@ -18,14 +18,17 @@ public class Solution {
             holder.add(x);
         }
         List<Integer> answer = new ArrayList<>();
+        // initially holder has all elements and answer has none.
         return helper(mainArray, holder, answer);
     }
 
     private List<List<Integer>> helper(List<List<Integer>> mainArray, List<Integer> holder, List<Integer> answer) {
+        // base case when holder is empty and the answer can be added to the mainArray.
         if (holder.isEmpty()) {
             mainArray.add(answer);
             return mainArray;
         }
+        // for each element in the holder, add to the answer, remove from the holder, and recurse.
         List<Integer> newHolder;
         List<Integer> newAnswer;
         for (int x : holder) {

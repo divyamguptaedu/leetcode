@@ -25,17 +25,25 @@ class Solution {
     }
     
     private TreeNode sortedArrayToBST(int[] nums, int left, int right) {
+        // base case
         if (left > right) {
             return null;
         }
+
         TreeNode root = new TreeNode();
+        
+        // base case
         if (left == right) {
             root.val = nums[left];
             root.left = root.right = null;
             return root;
         }
+
+        // finding a new middle to add
         int mid = left + (right - left)/2;
         root.val = nums[mid];
+
+        // dividing the array and recursing on each part.
         root.left = sortedArrayToBST(nums, left, mid-1);
         root.right = sortedArrayToBST(nums, mid+1, right);
         return root;

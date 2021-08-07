@@ -24,6 +24,7 @@ class Solution {
         if (root == null) {
             return 0;
         }
+        // choose the maximum of left and right depth
         return Math.max(1 + maxDepth(root.left), 1 + maxDepth(root.right));
     }
 }
