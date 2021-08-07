@@ -1,9 +1,11 @@
-#### Hey, I'm Divyam! 
-<img width="150" alt="main_photo" src="https://user-images.githubusercontent.com/30758479/128587549-9033ee00-62ab-4eba-b894-8c0fd2eb9d28.png">
+<img align="left" width="230" alt="main_photo" src="https://user-images.githubusercontent.com/30758479/128587549-9033ee00-62ab-4eba-b894-8c0fd2eb9d28.png">
 
-+ An aspiring tech entrepreneur and computer science undergraduate at Georgia Tech looking to expand my knowledge and revolutionize the world through new initiatives inspired by past and present learning experiences. 
-+ Currently looking for undergraduate research opportunities and internships for the Summer of 2022. 
-+ Connect with me on __[LinkedIn](https://www.linkedin.com/in/divyam-gupta-1875081b9/)__.
+#### Hey, I'm Divyam! 
+   An aspiring tech entrepreneur and computer science undergraduate at Georgia Tech looking to expand my knowledge and revolutionize the world through new           initiatives inspired by past and present learning experiences.  <br />  <br /> 
+   Connect with me on __[LinkedIn](https://www.linkedin.com/in/divyam-gupta-1875081b9/)__. <br /> 
+   Reach me at divyam@gatech.edu.
+   
+<br /> 
 
 #### Action Plan:
 | Problem No. | Name | Approach | Stated Difficulty | Personal Difficulty |
