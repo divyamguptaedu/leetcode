@@ -21,11 +21,13 @@ class Solution {
         }
         String newString;
         int newIndex;
+        // using recursion to add "(" n times.
         if (start < n) {
             newString = answer + "(";
             newIndex = start + 1;
             helper(newIndex, end, n, newString, result);
         }
+        // using recursion to add ")" n times.
         if (end < start) {
             newString = answer + ")";
             newIndex = end + 1;

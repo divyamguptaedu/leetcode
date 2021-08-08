@@ -6,6 +6,7 @@ Memory Usage: 41.6 MB, less than 54.75% of Java online submissions for Top K Fre
 
 class Solution {
     public static int[] topKFrequent(int[] nums, int k) {
+        // add all the frequencies in a hashmap.
         HashMap<Integer, Integer> valueMap = new HashMap<>();
         for (int x : nums) {
             if (valueMap.get(x) == null) {
@@ -14,7 +15,7 @@ class Solution {
                 valueMap.put(x, valueMap.get(x) + 1);
             }
         }
-
+        // formed a priority queue to sort the hashmap keys based on frequencies.
         Queue<Integer> maxHeap = new PriorityQueue<>((a, b) -> valueMap.get(a) - valueMap.get(b));
         for (int y : valueMap.keySet()) {
             maxHeap.add(y);
@@ -23,6 +24,7 @@ class Solution {
             }
         }
 
+        // removing the maximum k times from the queue.
         int[] result = new int[k];
         for (int i = 0; i < k; i++) {
             result[i] = maxHeap.poll();

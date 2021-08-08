@@ -9,6 +9,7 @@ class Solution {
     	int count = 0;
     	for (int i = 0; i < s.length(); i++) {
     		for (int j = i + 1; j < s.length() + 1; j++) {
+                // get the substring and check if it's a palindrome
     			if (isPalindrome(s.substring(i, j))) {
     				count++;
     			}
@@ -16,7 +17,8 @@ class Solution {
     	}
         return count;
     }
-    
+
+    // checks if the passed in string is a palindrome using recursion.
     private boolean isPalindrome(String s) {
 
         if (s.length() < 2) {

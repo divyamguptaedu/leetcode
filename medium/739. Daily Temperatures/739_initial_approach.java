@@ -11,6 +11,7 @@ class Solution {
         for (int i = 0; i < temperatures.length; i++) {
             found = false;
             for (int j = i + 1; j < temperatures.length; j++) {
+                // if we find a day with hotter temp, store the difference.
                 if (temperatures[j] > temperatures[i]) {
                     result[i] = j - i;
                     found = true;
@@ -19,6 +20,7 @@ class Solution {
                     continue;
                 }
             }
+            // if not found, store 0.
             if (!found) {
                 result[i] = 0;
             }

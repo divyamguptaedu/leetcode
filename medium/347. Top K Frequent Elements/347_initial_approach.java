@@ -6,6 +6,7 @@ Memory Usage: 48.4 MB, less than 5.11% of Java online submissions for Top K Freq
 
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
+    	// add all the frequencies in a hashmap.
     	HashMap<Integer, Integer> valueMap = new HashMap<>();
     	for (int x : nums) {
     		if (valueMap.get(x) == null) {
@@ -16,11 +17,13 @@ class Solution {
     	}
     	int[] result = new int[k];
     	for (int i = 0; i < k; i++) {
+    		// removing the maximum k times from the hashmap.
     		result[i] = removeMaximum(valueMap);
     	}
     	return result;
     }
 
+    // helper function to remove the key with the highest value;
     private int removeMaximum(HashMap<Integer, Integer> valueMap) {
     	int maxKey = 0;
     	int maxValue = 0;

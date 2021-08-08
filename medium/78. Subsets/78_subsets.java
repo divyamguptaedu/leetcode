@@ -15,6 +15,7 @@ class Solution {
             List<List<Integer>> newAnswers = new ArrayList<>();
             
             List<Integer> tempArray;
+            // add the newElement in all lists of the result list.
             for (List<Integer> ans : result) {
                 tempArray = new ArrayList<>();
                 for (Integer x : ans) {
@@ -25,6 +26,7 @@ class Solution {
                 newAnswers.add(tempArray);
             }
             
+            // add the new answers to the result.
             for (List<Integer> newAddition : newAnswers) {
                 result.add(newAddition);
             }
