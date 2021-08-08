@@ -19,6 +19,7 @@ class Solution {
         Queue<Integer> maxHeap = new PriorityQueue<>((a, b) -> valueMap.get(a) - valueMap.get(b));
         for (int y : valueMap.keySet()) {
             maxHeap.add(y);
+            // sticks the size of the maxHeap to k.
             if (maxHeap.size() > k) {
                 maxHeap.poll();
             }
