@@ -2,8 +2,8 @@
 
 #### Hey, I'm Divyam! 
    An aspiring tech entrepreneur and computer science undergraduate at Georgia Tech looking to expand my knowledge and revolutionize the world through new           initiatives inspired by past and present learning experiences.  <br />  <br /> 
-   Connect with me on __[LinkedIn](https://www.linkedin.com/in/divyam-gupta-1875081b9/)__. <br /> 
-   Reach me at divyam@gatech.edu.
+   Connect with me on __[LinkedIn](https://www.linkedin.com/in/divyam-gupta-1875081b9/)__ <br /> 
+   Reach me at divyam@gatech.edu
    
 <br /> 
 
@@ -23,3 +23,9 @@
 | __[617](https://leetcode.com/problems/merge-two-binary-trees/)__ | Merge Two Binary Trees | Used recursion to update the first tree based on the data found in the second tree. | Easy | Easy |
 | __[46](https://leetcode.com/problems/permutations/)__ | Permutations | <strong>Initial Approach:</strong> Used recursion to freeze one element of the array and swap others in all possible ways. <br /> <strong>Better Approach:</strong> Used recursion to remove each element from the holder and add to each possible permutation answer.  | Medium | Hard |
 | __[763](https://leetcode.com/problems/partition-labels/)__ | Partition Labels | Used hashmap to track the last index of each element and update start/end based on elements found in between. | Medium | Medium |
+| __[22](https://leetcode.com/problems/generate-parentheses/)__ | Generate Parentheses | Used recursion to add "(" and ")" n times each in different combinations. | Medium | Medium |
+| __[78](https://leetcode.com/problems/subsets/)__ | Subsets | Used for-loops to add each element in a set of old answers. | Medium | Easy |
+| __[739](https://leetcode.com/problems/daily-temperatures/)__ | Daily Temperatures | <strong>Initial Approach:</strong> Used for-loops to calculate difference from the next warm day. <br /> <strong>Better Approach:</strong> Used stack to track the last index and calculate the difference if greater found. | Medium | Medium |
+| __[230](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)__ | Kth Smallest Element in a BST | <strong>Initial Approach:</strong> Performed in-order traversal and returned the kth element. <br /> <strong>Better Approach:</strong> Used the same approach, but stopped the traversal when kth smallest element is found. | Medium | Medium |
+| __[647](https://leetcode.com/problems/palindromic-substrings/)__ | Palindromic Substrings | <strong>Initial Approach:</strong> Interated through the string and checked if it's a palindrome using pointer approach. <br /> <strong>Better Approach:</strong> Used recursion to build the isPalindrome function. Improves runtime. | Medium | Medium |
+| __[347](https://leetcode.com/problems/top-k-frequent-elements/)__ | Top K Frequent Elements | <strong>Initial Approach:</strong> Created a hashmap of the frequencies and then removed the key with max freq. k times. <br /> <strong>Mediocre Approach:</strong> Used a maxHeap to sort the frequencies and then match with the key. <br /> <strong>Better Approach:</strong> Used priority queue to sort the keys based on frequencies and pop the queue k times. | Medium | Hard |
