@@ -29,3 +29,14 @@
 | __[230](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)__ | Kth Smallest Element in a BST | <strong>Initial Approach:</strong> Performed in-order traversal and returned the kth element. <br /> <strong>Better Approach:</strong> Used the same approach, but stopped the traversal when kth smallest element is found. | Medium | Medium |
 | __[647](https://leetcode.com/problems/palindromic-substrings/)__ | Palindromic Substrings | <strong>Initial Approach:</strong> Interated through the string and checked if it's a palindrome using pointer approach. <br /> <strong>Better Approach:</strong> Used recursion to build the isPalindrome function. Improves runtime. | Medium | Medium |
 | __[347](https://leetcode.com/problems/top-k-frequent-elements/)__ | Top K Frequent Elements | <strong>Initial Approach:</strong> Created a hashmap of the frequencies and then removed the key with max freq. k times. <br /> <strong>Mediocre Approach:</strong> Used a maxHeap to sort the frequencies and then match with the key. <br /> <strong>Better Approach:</strong> Used priority queue to sort the keys based on frequencies and pop the queue k times. | Medium | Hard |
+| __[48](https://leetcode.com/problems/rotate-image/)__ | Rotate Image | Used swapping and reversing technique to perform the rotation. | Medium | Medium |
+| __[49](https://leetcode.com/problems/group-anagrams/)__ | Group Anagrams | Converted each string to a char array and used HashMap to store anagrams. | Medium | Medium |
+| __[39](https://leetcode.com/problems/combination-sum/)__ | Combination Sum | Used recursion to find each possible combination and add to result if valid. | Medium | Medium |
+| __[215](https://leetcode.com/problems/kth-largest-element-in-an-array/)__ | Kth Largest In Array | Used priority queue as max heap to store values and pop k times. | Medium | Easy |
+| __[238](https://leetcode.com/problems/product-of-array-except-self/)__ | Product of Array Except Self | Formed left product and right product arrays to track result. | Medium | Medium |
+| __[102](https://leetcode.com/problems/binary-tree-level-order-traversal/)__ | Binary Tree Level Order Traversal | Used queue to form each level list and add to the result. | Medium | Medium |
+| __[42](https://leetcode.com/problems/trapping-rain-water/)__ | Trapping Rainwater | <strong>Initial Approach:</strong> Interate over the height array and left leftMax and rightMax each time to compute result. <br /> <strong>Better Approach:</strong> Kept track of leftMax and rightMax each time to compute result. | Hard | Hard |
+
+
+
+
