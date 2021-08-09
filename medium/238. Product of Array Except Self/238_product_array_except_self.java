@@ -6,6 +6,7 @@ Memory Usage: 52.3 MB, less than 27.93% of Java online submissions for Product o
 
 class Solution {
     public int[] productExceptSelf(int[] nums) {
+            // form product array from left;
        	int[] productFromLeft = new int[nums.length];
        	int oldProduct = 1;
        	for (int i = 0; i < nums.length; i++) {
@@ -13,6 +14,7 @@ class Solution {
        		oldProduct = productFromLeft[i];
        	}
 
+            // form product array from right;
        	int[] productFromRight = new int[nums.length];
        	oldProduct = 1;
        	for (int i = nums.length - 1; i >= 0; i--) {
@@ -22,6 +24,7 @@ class Solution {
 
        	int[] result = new int[nums.length];
 
+            // use left and right product arrays to calculate result;
        	for (int i = 0; i < nums.length; i++) {
        		if (i == 0) {
        			result[i] = productFromRight[i + 1];

@@ -12,9 +12,13 @@ class Solution {
         List<String> tempList;
         String temp;
         for (String s : strs) {
+            
+            // convert each string to char array and sort.
         	charArray = s.toCharArray();
         	Arrays.sort(charArray);
         	temp = new String(charArray);
+
+            // add the sorted char array string to the hashmap.
         	if (hashmap.get(temp) == null) {
         		tempList = new ArrayList<String>();
         		tempList.add(s);
@@ -25,6 +29,8 @@ class Solution {
         		hashmap.put(temp, tempList);
         	}
         }
+
+        // return values;
         for (List<String> x : hashmap.values()) {
         	result.add(x);
         }

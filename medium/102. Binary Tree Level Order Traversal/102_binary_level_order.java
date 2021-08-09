@@ -27,11 +27,16 @@ class Solution {
        		return result;
        	}
        	List<Integer> level;
+
+            // add first level to a queue;
        	Queue<TreeNode> queue = new ArrayDeque<>();
        	queue.add(root);
+
+            // while queue is not empty, find the next level and add to result;
        	while (!queue.isEmpty()) {
        		int size = queue.size();
        		level = new ArrayList<>();
+
        		while (size != 0) {
        			TreeNode temp = queue.peek();
        			level.add(temp.val);
@@ -44,6 +49,8 @@ class Solution {
        			queue.poll();
        			size--;
        		}
+                  
+                  // add the new level to the result;
        		result.add(level);
        	}
        	return result;
