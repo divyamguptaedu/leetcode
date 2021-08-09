@@ -1,7 +1,7 @@
 """
 Performance:
-Runtime: 309 ms, faster than 5.11% of Java online submissions for Trapping Rain Water.
-Memory Usage: 38.6 MB, less than 49.15% of Java online submissions for Trapping Rain Water.
+Runtime: 149 ms, faster than 5.11% of Java online submissions for Trapping Rain Water.
+Memory Usage: 38.7 MB, less than 49.15% of Java online submissions for Trapping Rain Water.
 """
 
 import java.util.Arrays;
@@ -19,7 +19,9 @@ class Solution {
         int minimum;
         for (int i = 0; i < height.length; i++) {
             leftMax = findLeftMax(height, i);
-            rightMax = findRightMax(height, i);
+            if (i !< rightMax) {
+                rightMax = findRightMax(height, i);
+            }
             minimum = Math.min(height[leftMax], height[rightMax]);
             if (minimum - height[i] > 0) {
                 result += minimum - height[i];
