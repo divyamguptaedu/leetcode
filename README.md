@@ -35,6 +35,7 @@
 | __[215](https://leetcode.com/problems/kth-largest-element-in-an-array/)__ | Kth Largest In Array | Used priority queue as max heap to store values and pop k times. | Medium | Easy |
 | __[238](https://leetcode.com/problems/product-of-array-except-self/)__ | Product of Array Except Self | Formed left product and right product arrays to track result. | Medium | Medium |
 | __[102](https://leetcode.com/problems/binary-tree-level-order-traversal/)__ | Binary Tree Level Order Traversal | Used queue to form each level list and add to the result. | Medium | Medium |
+| __[42](https://leetcode.com/problems/trapping-rain-water/)__ | Trapping Rainwater | <strong>Initial Approach:</strong> Interate over the height array and left leftMax and rightMax each time to compute result. <br /> <strong>Better Approach:</strong> Kept track of leftMax and rightMax each time to compute result. | Hard | Hard |
 
 
 
