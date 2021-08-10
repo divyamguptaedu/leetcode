@@ -6,7 +6,7 @@ Memory Usage: 35.7 MB, less than 65.76% of Java online submissions for Unique Bi
 
 class Solution {
     public int numTrees(int n) {
-
+        // O(1) return;
     	if (n == 1) {
     		return 1;
     	}
@@ -18,22 +18,24 @@ class Solution {
 
     private int helper(int n, HashMap<Integer, Integer> hashMap) {
 
+        // base case;
     	if (n == 0 || n == 1) {
     		return 1;
     	}
 
+        // stores value #optimization
     	if (hashMap.get(n) != null) {
     		return hashMap.get(n);
     	}
 
     	int count = 0;
 
+        // algorithm
     	for (int i = 1; i <= n; i++) {
     		count = count + (helper(i - 1, hashMap) * helper(n - i, hashMap));
     	}
 
     	hashMap.put(n, count);
     	return hashMap.get(n);
-
     }
 }

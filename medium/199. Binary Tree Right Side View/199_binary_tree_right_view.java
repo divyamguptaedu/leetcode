@@ -30,6 +30,7 @@ class Solution {
 
         queue.add(root);
 
+        // add the last element of the level order traversal.
         while (!queue.isEmpty()) {
         	int size = queue.size();
         	for (int i = 1; i <= size; i++) {

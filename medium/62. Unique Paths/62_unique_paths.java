@@ -7,6 +7,7 @@ Memory Usage: 35.9 MB, less than 49.44% of Java online submissions for Unique Pa
 class Solution {
     public int uniquePaths(int m, int n) {
         int[] array = new int[n];
+        // incrementing count at last index;
         for (int i = 0; i < m; i++) {
         	for (int j = 0; j < n; j++) {
         		if (i == 0 || j == 0) {
@@ -16,6 +17,7 @@ class Solution {
         		}
         	}
         }
+        // return last index;
         int sum = array[n - 1];
         return sum;
     }

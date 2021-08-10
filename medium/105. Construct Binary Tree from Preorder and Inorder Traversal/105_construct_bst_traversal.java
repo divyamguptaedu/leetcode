@@ -28,6 +28,7 @@ class Solution {
         index = 0;
         indexMap = new HashMap<>();
 
+        // add all inorder indexes in the map;
         for (int i = 0; i < inorder.length; i++) {
         	indexMap.put(inorder[i], i);
         }
@@ -42,6 +43,7 @@ class Solution {
 		if (left > right) {
 			return null;
 		}
+		// form a root and set lefts and right according to the preorder;
 		int tempVal = preorder[index++];
 		TreeNode root = new TreeNode(tempVal);
 		root.left = helper(preorder, left, indexMap.get(tempVal) - 1);

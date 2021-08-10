@@ -29,6 +29,7 @@ class Solution {
 		if (root == null) {
 			return;
 		}
+		// flattens the tree in ascending order;
 		flatten(root.right);
 		flatten(root.left);
 		root.left = null;

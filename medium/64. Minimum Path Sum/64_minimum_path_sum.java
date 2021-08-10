@@ -19,12 +19,13 @@ class Solution {
 			grid[i][0] += grid[i - 1][0];
 		}
 
+		// set the last index to the minimum sum;
 		for (int i = 1; i < n; i++) {
 			for (int j = 1; j < m; j++) {
 				grid[i][j] += Math.min(grid[i - 1][j], grid[i][j - 1]);
 			}
 		}
-
+		// return the last index;
 		int minimum = grid[n - 1][m - 1];
 		return minimum;
 

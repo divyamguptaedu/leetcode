@@ -6,6 +6,8 @@ Memory Usage: 52 MB, less than 89.93% of Java online submissions for Find the Du
 
 class Solution {
     public int findDuplicate(int[] nums) {
+
+        // add all x in nums to a hashmap and return if already added.
         HashMap<Integer, Boolean> hashMap = new HashMap<>();
         for (int x : nums) {
         	if (hashMap.get(x) == null) {
