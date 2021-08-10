@@ -36,6 +36,15 @@
 | __[238](https://leetcode.com/problems/product-of-array-except-self/)__ | Product of Array Except Self | Formed left product and right product arrays to track result. | Medium | Medium |
 | __[102](https://leetcode.com/problems/binary-tree-level-order-traversal/)__ | Binary Tree Level Order Traversal | Used queue to form each level list and add to the result. | Medium | Medium |
 | __[42](https://leetcode.com/problems/trapping-rain-water/)__ | Trapping Rainwater | <strong>Initial Approach:</strong> Interate over the height array and left leftMax and rightMax each time to compute result. <br /> <strong>Better Approach:</strong> Kept track of leftMax and rightMax each time to compute result. | Hard | Hard |
+| __[287](https://leetcode.com/problems/find-the-duplicate-number/)__ | Find the Duplicate Number | Used a hashmap/set to add all nums in the array and return if already added. | Medium | Easy |
+| __[199](https://leetcode.com/problems/binary-tree-right-side-view/)__ | Binary Tree Right Side View | Built the result array adding all the last elements of the level order traversal. | Medium | Easy |
+| __[64](https://leetcode.com/problems/minimum-path-sum/)__ | Minimum Path Sum | Used iteration of each possible path to compute sum and have the minimum at the last index. | Medium | Medium |
+| __[62](https://leetcode.com/problems/unique-paths/)__ | Unique Paths | Used iteration of each possible path and incremented the count. | Medium | Medium |
+| __[96](https://leetcode.com/problems/unique-binary-search-trees/)__ | Unique Binary Search Trees | Used hashmap to store maximum possible combinations and used recursion to calculate for any n. | Medium | Medium |
+| __[114](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/)__ | Flatten Binary Tree to Linked List | Used recursion to find the previous node and set to the right, leaving all lefts as null. | Medium | Medium |
+| __[105](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)__ | Construct Binary Tree from Preorder and Inorder Traversal | Used the inorder indexes and preorder traversal to build the tree. | Medium | Medium |
+| __[208](https://leetcode.com/problems/implement-trie-prefix-tree/)__ | Implement Trie (Prefix Tree) | Created a node with Node[26] children and used recursion to initialize each character according to the string.  | Medium | Medium |
+| __[297](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)__ | Serialize and Deserialize Binary Tree | Found preorder traversal and converted into a string to serialize. Split the string and form the tree from the preorder traversal.  | Hard | Medium |
 
 
 
