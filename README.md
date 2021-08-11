@@ -45,7 +45,12 @@
 | __[105](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)__ | Construct Binary Tree from Preorder and Inorder Traversal | Used the inorder indexes and preorder traversal to build the tree. | Medium | Medium |
 | __[208](https://leetcode.com/problems/implement-trie-prefix-tree/)__ | Implement Trie (Prefix Tree) | Created a node with Node[26] children and used recursion to initialize each character according to the string.  | Medium | Medium |
 | __[297](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)__ | Serialize and Deserialize Binary Tree | Found preorder traversal and converted into a string to serialize. Split the string and form the tree from the preorder traversal.  | Hard | Medium |
-
-
-
-
+| __[394](https://leetcode.com/problems/decode-string/)__ | Decode String | Used condition statements to do the tasks. Followed stack approach to save the result.  | Medium | Medium |
+| __[621](https://leetcode.com/problems/task-scheduler/)__ | Task Scheduler | Used hashmap and queue to compute idle time. | Medium | Medium |
+| __[11](https://leetcode.com/problems/container-with-most-water/)__ | Container With Most Water | Used two pointer approach to calculate volume between two heights. | Medium | Medium |
+| __[337](https://leetcode.com/problems/house-robber-iii/)__ | House Robber III | Got level order traversal and returned maximum of alternate levels' sum. | Medium | Medium |
+| __[236](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)__ | Lowest Common Ancestor of a Binary Tree | Performing a traversal and returning the common ancestor. | Medium | Medium |
+| __[75](https://leetcode.com/problems/sort-colors/)__ | Sort Colors | Used hashmap to store frequencies and priority queue to get ordered keys. | Medium | Medium |
+| __[17](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)__ | Letter Combinations of a Phone Number | Used a switch statement and got all possible combinations of the two strings. | Medium | Medium |
+| __[200](https://leetcode.com/problems/number-of-islands/)__ | Number of Islands | Found all adjacent 1s and turned them into Xs and incremented the counter. Did this for all i,j. | Medium | Medium |
+| __[279](https://leetcode.com/problems/perfect-squares/)__ | Perfect Squares | Used the square-root approach and then stored the minimum. | Medium | Medium |
