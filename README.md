@@ -54,3 +54,4 @@
 | __[17](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)__ | Letter Combinations of a Phone Number | Used a switch statement and got all possible combinations of the two strings. | Medium | Medium |
 | __[200](https://leetcode.com/problems/number-of-islands/)__ | Number of Islands | Found all adjacent 1s and turned them into Xs and incremented the counter. Did this for all i,j. | Medium | Medium |
 | __[279](https://leetcode.com/problems/perfect-squares/)__ | Perfect Squares | Used the square-root approach and then stored the minimum. | Medium | Medium |
+| __[437](https://leetcode.com/problems/path-sum-iii/)__ | Path Sum III | Incremented the counter with left and right root recursion and new target sum. | Medium | Medium |
