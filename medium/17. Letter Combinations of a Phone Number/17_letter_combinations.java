@@ -25,11 +25,14 @@ class Solution {
     	String temp = digits.substring(1);
     	String code = digitCode(number);
 
+        // get all combinations;
     	for (int i = 0; i < code.length(); i++) {
     		allCombinations(temp, answer + code.charAt(i), result);
     	}
     }
 
+
+    // returns the string associated with that number of the phone;
     private String digitCode(char digit) {
     	switch (digit) {
     		case '2' : return "abc";

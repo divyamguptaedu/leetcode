@@ -18,6 +18,7 @@ class Solution {
         return robHelper(root, false);
     }
 
+    // get level order traversal and return maximum of alternate levels' sum;
     public int robHelper(TreeNode root, Boolean isParentRobbed) {
     	if (root == null) {
     		return 0;

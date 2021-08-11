@@ -12,6 +12,8 @@ class Solution {
         int m = grid.length;
         int n = grid[0].length;
         int count = 0;
+
+        // make all adjacent 1s as X and increment count;
         for (int i = 0; i < m ; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == '1') {
@@ -27,6 +29,8 @@ class Solution {
             return;
         }
         grid[i][j] = 'X';
+
+        // check all adjacents;
         checkAdjacent(grid, m, n, i - 1, j);
         checkAdjacent(grid, m, n, i + 1, j);
         checkAdjacent(grid, m, n, i, j - 1);

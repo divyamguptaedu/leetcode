@@ -9,6 +9,8 @@ class Solution {
         if (n == 0) {
         	return tasks.length;
         }
+
+        // create a hashmap with values of each unique task;
         HashMap<Character, Integer> valueMap = new HashMap<>();
         for (int i = 0; i < tasks.length; i++) {
         	if (valueMap.get(tasks[i]) == null) {
@@ -18,13 +20,16 @@ class Solution {
         	}
         }
 
+        // add all values to the queue in a descending order;
         PriorityQueue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
         for (int x : valueMap.values()) {
         	queue.add(x);
         }
+        // get the tast with the maximum frequency;
         int maximum = queue.poll();
         int idleTime = (maximum - 1) * n;
 
+        // compute idle time;
         while (!queue.isEmpty()) {
         	int current = queue.poll();
         	if (current == maximum) {
@@ -35,6 +40,7 @@ class Solution {
 
         int result;
 
+        // return idleTime + tasks.length;
         if (idleTime > 0) {
         	result = idleTime + tasks.length;
         } else {

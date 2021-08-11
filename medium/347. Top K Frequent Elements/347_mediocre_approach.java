@@ -37,37 +37,76 @@ class Solution {
 
 
 
-// class Solution {
-//     public String decodeString(String s) {
-//         if(s==null || s.length() ==0){
-//             return s;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// median finder
+// PriorityQueue<Integer> minQueue;
+// PriorityQueue<Integer> maxQueue;
+// int size1 = 0;
+// int size2 = 0;
+// public MedianFinder() {
+//     minQueue = new PriorityQueue<>();
+//     maxQueue = new PriorityQueue<>(Collections.reverseOrder());
+//     size1 = 0;
+//     size2 = 0;
+// }
+
+// public void addNum(int num) {
+//     if(size1 == 0){
+//         minQueue.add(num);
+//         size1++;
+//         return;
+//     }
+//     if(size1 >= size2){
+//         if(num > minQueue.peek()){
+//             int poll = minQueue.poll();
+//             minQueue.add(num);
+//             maxQueue.add(poll);
+//             size2++;
+//         }else{
+//             maxQueue.add(num);
+//             size2++;
 //         }
-//         String curr = "";
-//         int num =0;
-//         Stack<String> d = new Stack<>();
-//         for(int i = 0; i<s.length(); i++){
-//             char ch = s.charAt(i);
-//             if(Character.isDigit(ch)){
-//                 num = num*10 + ch - '0';
-//             }
-//             else if(ch == '['){
-//                 d.push(curr);
-//                 d.push(String.valueOf(num));
-//                 num =0;
-//                 curr = "";
-//             }
-//             else if(ch == ']'){
-//                 int times = Integer.parseInt(d.pop());
-//                 StringBuilder sb = new StringBuilder();
-//                 for(int j =0; j<times; j++){
-//                     sb.append(curr);
-//                 }
-//                 curr = d.pop() + sb.toString();
-//             }
-//             else{
-//                 curr += ch;
-//             }
+//     }else{
+//         if(maxQueue.peek() > num){
+//             int poll = maxQueue.poll();
+//             minQueue.add(poll);
+//             maxQueue.add(num);
+//         }else{
+//             minQueue.add(num);
 //         }
-//        return curr; 
+//         size1++;
+//     }
+// }
+
+// public double findMedian() {
+//     if(size1 == size2){
+//         return (minQueue.peek() * 1.0 + maxQueue.peek() * 1.0)/2;
+//     }else{
+//         if(size1 > size2){
+//             return minQueue.peek();
+//         }else{
+//             return maxQueue.peek();
+//         }
 //     }
 // }

@@ -13,11 +13,17 @@ class Solution {
     	int left = 0;
     	int right = height.length - 1;
 
+
     	while (right > left) {
+            // compute volume between left and right;
     		int temp = (right - left) * (Math.min(height[left], height[right]));
+
+            // if right is larger, increment left;
     		if (height[right] > height[left]) {
     			result = Math.max(result, temp);
     			left++;
+
+            // if left is larger, decrement right;
     		} else {
     			result = Math.max(result, temp);
     			right--;
