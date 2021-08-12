@@ -1,3 +1,9 @@
+"""
+Performance:
+Runtime: 31 ms, faster than 50.50% of Java online submissions for Longest Palindromic Substring.
+Memory Usage: 39.7 MB, less than 37.90% of Java online submissions for Longest Palindromic Substring.
+"""
+
 class Solution {
 
     public String longestPalindrome(String s) {
@@ -7,6 +13,7 @@ class Solution {
         if (s.length() == 1) {
         	return s;
         }
+
 
         String longest = s.subString(0, 1);
         for (int i = 0; i < s.length(); i++) {
@@ -22,6 +29,7 @@ class Solution {
         return longest;
     }
 
+    // helper to get the maximum length palindrome;
     private String helper(String s, int i, int j) {
     	while (i >= 0 && j <= s.length() - 1 && s.charAt(i) == s.charAt(j)) {
     		i--;

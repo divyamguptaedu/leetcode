@@ -1,3 +1,9 @@
+"""
+Performance:
+Runtime: 2 ms, faster than 59.31% of Java online submissions for Add Two Numbers.
+Memory Usage: 39.4 MB, less than 50.53% of Java online submissions for Add Two Numbers.
+"""
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -17,6 +23,7 @@ class Solution {
 	   	ListNode result = new ListNode(0);
 	    temp = result;
 
+	    // added and carrie over the remainder;
 	    while (l1 != null || l2 != null || carryOver != 0) {
 
 	        if (l1 != null) {

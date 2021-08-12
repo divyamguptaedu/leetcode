@@ -1,3 +1,9 @@
+"""
+Performance:
+Runtime: 18 ms, faster than 86.65% of Java online submissions for 3Sum.
+Memory Usage: 43.5 MB, less than 29.40% of Java online submissions for 3Sum.
+"""
+
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
 

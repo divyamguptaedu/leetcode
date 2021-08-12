@@ -1,5 +1,12 @@
+"""
+Performance:
+Runtime: 84 ms, faster than 51.82% of Java online submissions for Find Median from Data Stream.
+Memory Usage: 66.5 MB, less than 48.58% of Java online submissions for Find Median from Data Stream.
+"""
+
 class MedianFinder {
 
+    // form a minHeap and a maxHeap;
     PriorityQueue<Integer> minQueue;
     PriorityQueue<Integer> maxQueue;
     int sizeA = 0;
@@ -10,6 +17,7 @@ class MedianFinder {
         maxQueue = new PriorityQueue<>(Collections.reverseOrder());
     }
 
+    // add half elements to min and half to max.
     public void addNum(int num) {
         if (sizeA == 0){
             minQueue.add(num);
@@ -38,6 +46,7 @@ class MedianFinder {
         }
     }
 
+    // compute median easily by just peeking;
     public double findMedian() {
         if(sizeA == sizeB){
             return (minQueue.peek() + maxQueue.peek()) / 2.0;

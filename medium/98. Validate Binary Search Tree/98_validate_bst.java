@@ -1,3 +1,9 @@
+"""
+Performance:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Validate Binary Search Tree.
+Memory Usage: 38.5 MB, less than 66.89% of Java online submissions for Validate Binary Search Tree.
+"""
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
