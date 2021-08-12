@@ -55,3 +55,18 @@
 | __[200](https://leetcode.com/problems/number-of-islands/)__ | Number of Islands | Found all adjacent 1s and turned them into Xs and incremented the counter. Did this for all i,j. | Medium | Medium |
 | __[279](https://leetcode.com/problems/perfect-squares/)__ | Perfect Squares | Used the square-root approach and then stored the minimum. | Medium | Medium |
 | __[437](https://leetcode.com/problems/path-sum-iii/)__ | Path Sum III | Incremented the counter with left and right root recursion and new target sum. | Medium | Medium |
+| __[295](https://leetcode.com/problems/find-median-from-data-stream/)__ | Find Median from Data Stream | <strong>Initial Approach:</strong> Formed a minHeap and computed the median by removing and adding elements each time. <br /> <strong>Better Approach:</strong> Formed a minHeap and a maxHeap to store elements and get median in O(1) time. | Hard | Medium |
+| __[2](https://leetcode.com/problems/add-two-numbers/)__ | Add Two Numbers | Used a simple carry-over approach to compute the sum. | Medium | Easy |
+| __[55](https://leetcode.com/problems/jump-game/)__ | Jump Game | Used a simple i + nums[i] approach to jump. | Medium | Easy |
+| __[31](https://leetcode.com/problems/next-permutation/)__ | Next Permutation | Found the next bigger number by checking from the end and swapping. | Medium | Medium |
+| __[45](https://leetcode.com/problems/jump-game-ii/)__ | Jump Game II | Used interation and computed the minimum steps required to reach the end. | Medium | Medium |
+| __[152](https://leetcode.com/problems/maximum-product-subarray/)__ | Maximum Product Subarray | <strong>Initial Approach:</strong> Iterated over the array to choose the maximum product. <br /> <strong>Better Approach:</strong> Considered three possibilies each time and stores the result. | Medium | Medium |
+| __[3](https://leetcode.com/problems/longest-substring-without-repeating-characters/)__ | Longest Substring Without Repeating Characters | Used a hashSet to store the seen characters and computed the maximum length each time. | Medium | Medium |
+| __[5](https://leetcode.com/problems/longest-palindromic-substring/)__ | Longest Palindromic Substring | Used recursion and interation to get the maximum length palindrome. | Medium | Medium |
+| __[98](https://leetcode.com/problems/validate-binary-search-tree/)__ | Validate Binary Search Tree | Used recursion on each left and right node. Returned false if larger or smaller. | Medium | Easy |
+| __[15](https://leetcode.com/problems/3sum/)__ | 3 Sum | Used three pointers and incremented the pointer based on result. | Medium | Medium |
+
+
+
+
+
