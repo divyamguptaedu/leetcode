@@ -65,6 +65,16 @@
 | __[5](https://leetcode.com/problems/longest-palindromic-substring/)__ | Longest Palindromic Substring | Used recursion and interation to get the maximum length palindrome. | Medium | Medium |
 | __[98](https://leetcode.com/problems/validate-binary-search-tree/)__ | Validate Binary Search Tree | Used recursion on each left and right node. Returned false if larger or smaller. | Medium | Easy |
 | __[15](https://leetcode.com/problems/3sum/)__ | 3 Sum | Used three pointers and incremented the pointer based on result. | Medium | Medium |
+| __[207](https://leetcode.com/problems/course-schedule/)__ | Course Schedule | Used the graph and queue approach to get the courses required. | Medium | Medium |
+| __[416](https://leetcode.com/problems/partition-equal-subset-sum/)__ | Partition Equal Subset Sum | Iterated over the array and check each partition if it equal to subset sum. Stored the answer for faster runtime. | Medium | Medium |
+| __[494](https://leetcode.com/problems/target-sum/submissions/)__ | Target Sum | <strong>Initial Approach:</strong> Recursed on all possible sums. Both increasing and decreasing. <br /> <strong>Better Approach:</strong> Stored answers to increase runtime. | Medium | Medium |
+| __[438](https://leetcode.com/problems/find-all-anagrams-in-a-string/)__ | Find all anagrams in a String | <strong>Initial Approach:</strong> Stores a sorted character array and made a new one for each entry. <br /> <strong>Better Approach:</strong> Formed two lists and avoided sorting each time. | Medium | Medium |
+| __[240](https://leetcode.com/problems/search-a-2d-matrix-ii/)__ | Search a 2D Matrix II | Started from the right corner and change row/colomn according to comparisons. | Medium | Medium |
+| __[300](https://leetcode.com/problems/longest-increasing-subsequence/submissions/)__ | Longest Increasing Subsequence | Used binary search to find position. | Medium | Medium |
+| __[128](https://leetcode.com/problems/longest-consecutive-sequence/)__ | Longest Consecutive Sequence | Used hashmap and ignored the duplicates. | Medium | Medium |
+| __[148](https://leetcode.com/problems/sort-list/)__ | Sort List | Used simple merge sort. | Medium | Medium |
+| __[72](https://leetcode.com/problems/edit-distance/)__ | Edit Distance | Chose a minimum each time and used storage for optimization. | Medium | Medium |
+| __[239](https://leetcode.com/problems/sliding-window-maximum/)__ | Sliding Window Maximum | Used a queue to find maximum each time add to the result. | Medium | Medium |
 
 
 
