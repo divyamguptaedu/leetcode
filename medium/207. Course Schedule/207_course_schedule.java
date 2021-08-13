@@ -7,8 +7,11 @@ Memory Usage: 44.5 MB, less than 12.36% of Java online submissions for Course Sc
 public class Solution {
     
     public boolean canFinish(int numCourses, int[][] prerequisites) {
+        // graph to track pointers;
         ArrayList[] graph = new ArrayList[numCourses];
         int[] degree = new int[numCourses];
+
+        // for cycle detection;
         Queue queue = new LinkedList();
         int count = 0;
         
@@ -27,6 +30,7 @@ public class Solution {
             }
         }
         
+        // increase count till the queue is not empty;
         while (queue.size() != 0) {
             int course = (int) queue.poll();
             for (int i = 0; i < graph[course].size(); i++) {
@@ -38,6 +42,8 @@ public class Solution {
                 }
             }
         }
+
+        // if the courses are exactly what we want;
         if (count == numCourses) {
             return true;
         }

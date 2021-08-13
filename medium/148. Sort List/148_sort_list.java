@@ -14,17 +14,21 @@ Memory Usage: 53.5 MB, less than 5.64% of Java online submissions for Sort List.
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
 class Solution {
     public ListNode sortList(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
+        // use merge sort;
         ListNode middle = getMiddle(head);
         ListNode left = sortList(head);
         ListNode right = sortList(middle);
         return merge(left, right);
     }
 
+
+    // merge two nodes after comparison;
     ListNode merge(ListNode one, ListNode two) {
         ListNode tempHead = new ListNode();
         ListNode tail = tempHead;
@@ -47,6 +51,7 @@ class Solution {
         return tempHead.next;
     }
 
+    // helper method to find middle for merge sort;
     ListNode getMiddle(ListNode head) {
         ListNode previous = null;
         while (head != null && head.next != null) {

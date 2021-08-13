@@ -8,6 +8,7 @@ class Solution {
 
     public List<Integer> findAnagrams(String s, String p) {
 
+        // form two lists for alphabets;
         int[] listOne = new int[26];
         int[] listTwo = new int[26];
         List<Integer> array = new ArrayList<>();
@@ -16,6 +17,7 @@ class Solution {
             return array;
         }
         
+        // increment for those found;
         for (int i = 0; i < p.length(); i++) {
             listOne[s.charAt(i) - 'a']++;
             listTwo[p.charAt(i) - 'a']++;
@@ -24,10 +26,12 @@ class Solution {
         int start = 0;
         int end = p.length();
         
+        // if two lists are equal, add the start;
         if (Arrays.equals(listOne, listTwo)) {
             array.add(start);
         }
         
+        // interate;
         while (end < s.length()) {
             listOne[s.charAt(start) - 'a']--;
             listOne[s.charAt(end) - 'a']++;

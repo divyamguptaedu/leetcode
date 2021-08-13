@@ -9,10 +9,13 @@ public class Solution {
     public int longestConsecutive(int[] num) {
         int longest = 0;
         Map<Integer, Integer> valueMap = new HashMap<Integer, Integer>();
+
         for (int i = 0; i < num.length; i++) {
+            // remove duplicates;
             if (valueMap.containsKey(num[i])) {
             	continue;
             }
+            // put all uniques in the hashmap;
             valueMap.put(num[i], 1);  
             int start = num[i];
             int end = num[i];
@@ -24,6 +27,7 @@ public class Solution {
             valueMap.put(end, end - start + 1);
             valueMap.put(start, end - start + 1);
         }
+        // return the longest;
         return longest;
     }
     

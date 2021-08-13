@@ -11,6 +11,7 @@ class Solution {
             return new int[0];
         }
         
+        // form a queue for the k indexes each time;
         int[] result = new int[n - k + 1];
         Deque<Integer> queue = new ArrayDeque<>();
         
@@ -21,8 +22,11 @@ class Solution {
             while (queue.size() > 0 && nums[queue.peekLast()] < nums[i]) {
                 queue.pollLast();
             }
+            // get the maximum;
             queue.offerLast(i);
             if (i >= k - 1) {
+
+                // add to result;
                 result[i - k + 1] = nums[queue.peekFirst()];
             }
         }

@@ -15,6 +15,7 @@ class Solution {
         int rowIndex = 0;
         int colIndex = matrix[0].length - 1;
         
+        // start from the right corner and change row/colomn according to comparisons;
         while (rowIndex < matrix.length && colIndex >= 0) {
             if (matrix[rowIndex][colIndex] == target) {
                 return true;

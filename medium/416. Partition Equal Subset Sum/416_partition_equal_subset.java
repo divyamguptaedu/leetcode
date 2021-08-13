@@ -15,10 +15,12 @@ class Solution {
             return false;
         sum = sum >> 1;
 
+        // optimization for speed;
         boolean[] store = new boolean[sum+1];
 
         store[0] = true;
 
+        // checked each index;
         for(int i = 1; i <= nums.length; i++){
             for(int j = sum; j >= 1; j--){
                 
@@ -26,6 +28,7 @@ class Solution {
                     store[j] = store[j] || store[j - nums[i-1]];
             }
         }
+        
         return store[sum];        
     }
 }
