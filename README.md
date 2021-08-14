@@ -83,7 +83,7 @@
 | __[34](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)__ | Find First and Last Position of Element in Sorted Array | Used while loops to search for the first and last occurance of the element given. | Medium | Easy |
 | __[322](https://leetcode.com/problems/coin-change/)__ | Coin Change | Used brute-force recursion with optimization to increase runtime. | Medium | Medium |
 | __[221](https://leetcode.com/problems/maximal-square/)__ | Maximal Square | Used brute-force with optimization to increase runtime. | Medium | Medium |
-| __[142](Linked List Cycle II)__ | Linked List Cycle II | <strong>Initial Approach:</strong> Used a hashset for storing seen elements. <br /> <strong>Better Approach:</strong> Used the two pointer faster approach to detect the cycle. | Medium | Medium |
+| __[142](https://leetcode.com/problems/linked-list-cycle-ii/)__ | Linked List Cycle II | <strong>Initial Approach:</strong> Used a hashset for storing seen elements. <br /> <strong>Better Approach:</strong> Used the two pointer faster approach to detect the cycle. | Medium | Medium |
 | __[56](https://leetcode.com/problems/merge-intervals/)__ | Merge Intervals | Checked the next's [0] index and compared with previous's [1] index. | Medium | Medium |
 | __[139](https://leetcode.com/problems/word-break/)__ | Word Break | Get substring index and recurse. | Medium | Medium |
 | __[138](https://leetcode.com/problems/copy-list-with-random-pointer/)__ | Copy List with Random Pointer | Used hashmap to store all new created nodes and then just tracked the next and random pointers. | Medium | Medium |
