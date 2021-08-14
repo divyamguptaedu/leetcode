@@ -75,6 +75,20 @@
 | __[148](https://leetcode.com/problems/sort-list/)__ | Sort List | Used simple merge sort. | Medium | Medium |
 | __[72](https://leetcode.com/problems/edit-distance/)__ | Edit Distance | Chose a minimum each time and used storage for optimization. | Medium | Medium |
 | __[239](https://leetcode.com/problems/sliding-window-maximum/)__ | Sliding Window Maximum | Used a queue to find maximum each time add to the result. | Medium | Medium |
+| __[19](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)__ | Remove Nth Node From End of List | Used two pointers to reach the node before the one to be removed. | Medium | Easy |
+| __[33](https://leetcode.com/problems/search-in-rotated-sorted-array/)__ | Search in Rotated Sorted Array | Used the binary search algorithm for logn time. | Medium | Easy |
+| __[189](https://leetcode.com/problems/rotate-array/)__ | Rotate Array | Used reversing the array approach to do in-place rotation. | Medium | Easy |
+| __[146](https://leetcode.com/problems/lru-cache/)__ | LRU Cache | Used the hashmap data structure for faster runtime. | Medium | Easy |
+| __[79](https://leetcode.com/problems/word-search/)__ | Word Search | Iterated over the array and checked the adjacents to find the word. | Medium | Easy |
+| __[34](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)__ | Find First and Last Position of Element in Sorted Array | Used while loops to search for the first and last occurance of the element given. | Medium | Easy |
+| __[322](https://leetcode.com/problems/coin-change/)__ | Coin Change | Used brute-force recursion with optimization to increase runtime. | Medium | Medium |
+| __[221](https://leetcode.com/problems/maximal-square/)__ | Maximal Square | Used brute-force with optimization to increase runtime. | Medium | Medium |
+| __[142](Linked List Cycle II)__ | Linked List Cycle II | <strong>Initial Approach:</strong> Used a hashset for storing seen elements. <br /> <strong>Better Approach:</strong> Used the two pointer faster approach to detect the cycle. | Medium | Medium |
+| __[56](https://leetcode.com/problems/merge-intervals/)__ | Merge Intervals | Checked the next's [0] index and compared with previous's [1] index. | Medium | Medium |
+| __[139](https://leetcode.com/problems/word-break/)__ | Word Break | Get substring index and recurse. | Medium | Medium |
+| __[138](https://leetcode.com/problems/copy-list-with-random-pointer/)__ | Copy List with Random Pointer | Used hashmap to store all new created nodes and then just tracked the next and random pointers. | Medium | Medium |
+| __[198](https://leetcode.com/problems/house-robber/)__ | House Robber | Used a simple two pointer approach to check the houses. | Medium | Medium |
+| __[560](https://leetcode.com/problems/subarray-sum-equals-k/)__ | Subarray Sum Equals K | Used a hashmap to store answers and recalculate sum. | Medium | Medium |
 
 
 
