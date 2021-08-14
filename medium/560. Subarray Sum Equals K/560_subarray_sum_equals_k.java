@@ -10,11 +10,13 @@ public class Solution {
     	int sum = 0;
     	HashMap<Integer, Integer> valueMap = new HashMap<>();
     	valueMap.put(0, 1);
+        // keep checking sum and add to hashmap;
     	for (int i = 0; i < nums.length; i++) {
     		sum += nums[i];
     		if (valueMap.containsKey(sum - k)) {
     			count += valueMap.get(sum - k);
     		}
+            // add to hashmap;
     		valueMap.put(sum, valueMap.getOrDefault(sum, 0) + 1);
     	}
     	return count;

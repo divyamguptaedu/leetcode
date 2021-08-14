@@ -10,6 +10,7 @@ class Solution {
         List<int[]> result = new ArrayList<int[]>();
         int x = intervals[0][0];
         int y = intervals[0][1];
+        // check the next's [0] and compare;
         for (int i = 1; i < intervals.length; i++) {
             if (intervals[i][0] <= y) {
                 y = Math.max(y, intervals[i][1]);
@@ -19,6 +20,7 @@ class Solution {
                 y = intervals[i][1];
             }
         }
+        // add to result as a new array;
         result.add(new int[]{x, y});
         return result.toArray(new int[result.size()][]);
     }

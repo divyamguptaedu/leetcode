@@ -13,6 +13,7 @@ class Solution {
     	if (storage.containsKey(s) && !storage.get(s)) {
     		return false;
     	}
+        // find index and substring;
     	for (String string : wordDict) {
     		int length = string.length();
     		if (s.indexOf(string) == 0) {
@@ -21,6 +22,7 @@ class Solution {
     			}
     		}
     	}
+        // add to storage for optimization;
     	storage.put(s, false);
     	return false;
     }

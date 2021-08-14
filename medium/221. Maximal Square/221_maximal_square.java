@@ -9,7 +9,9 @@ class Solution {
     	int row = matrix.length;
     	int col = matrix[0].length;
     	int max = 0;
+        // storage for optimization;
     	int[][] storage = new int[row + 1][col + 1];
+        // brute force;
     	for (int i = 1; i <= row; i++) {
     		for (int j = 1; j <= col; j++) {
     			if (matrix[i - 1][j - 1] == '1') {
@@ -18,6 +20,7 @@ class Solution {
     			}
     		}
     	}
+        // return area;
     	return max * max;
     }
 }

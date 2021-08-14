@@ -14,10 +14,12 @@ class Solution {
         }
         int length = coins.length; 
         int maximum = amount + 1;
+        // for optimization;
         int[] storage = new int[maximum];
         Arrays.fill(storage, maximum);
         storage[0] = 0;
 
+        // brute force;
         for (int i = 1; i <= length; i++) {
             int coin = coins[i - 1];
             for (int j = 0; j <= amount; j++) {

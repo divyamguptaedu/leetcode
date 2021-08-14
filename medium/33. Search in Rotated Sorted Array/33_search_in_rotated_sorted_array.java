@@ -6,6 +6,7 @@ Memory Usage: 39.6 MB, less than 6.10% of Java online submissions for Search in 
 
 class Solution {
     public int search(int[] nums, int target) {
+        // binary search algorithm.
         int begin = 0;
         int end = nums.length - 1;
         while (begin <= end) {

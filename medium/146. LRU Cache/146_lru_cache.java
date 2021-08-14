@@ -19,15 +19,18 @@ class LRUCache {
     private Map<Integer, Node> map; 
 
     public LRUCache(int capacity) {
+        // create temp head and tail nodes;
         this.capacity = capacity;
         dummyHead = new Node();
         dummyTail = new Node();
+        // add to hashmap;
         map = new HashMap<Integer, Node>();
         dummyHead.next = dummyTail;
         dummyTail.prev = dummyHead;
     }
     
     public int get(int key) {
+        // check the hashmap;
         if (map.containsKey(key)) {
             Node node = map.get(key);
             moveToHead(node);
@@ -37,10 +40,12 @@ class LRUCache {
     }
     
     public void put(int key, int value) {
+        // if in hasmap, then just change;
         Node node = map.containsKey(key) ? map.get(key) : new Node();
         node.val = value;
         node.key = key;
         map.put(key, node);
+        // otherwise, move to head;
         moveToHead(node);
         if (map.size() > capacity) {
             Node last = dummyTail.prev;

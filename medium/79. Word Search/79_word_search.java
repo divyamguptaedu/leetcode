@@ -15,6 +15,7 @@ class Solution {
         }
         return false;
     }
+    // use brute force and check adjacents;
     public boolean searchletter(int i, int j, char[][] board, String word,int position) {
         if (position == word.length()) {
             return true;
@@ -27,6 +28,7 @@ class Solution {
         }
         char temp = board[i][j];
         board[i][j] = '!';
+        // check adjacents;
         if (searchletter(i + 1, j, board, word, position + 1)|| 
         	searchletter(i - 1, j, board, word, position + 1)||
           	searchletter(i, j + 1, board, word, position + 1)||

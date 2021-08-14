@@ -26,11 +26,13 @@ class Solution {
         }
         HashMap<Node, Node> valueMap = new HashMap<>();
         Node temp = head;
+        // create new nodes and add to hashmap;
         while (temp != null) {
             valueMap.put(temp, new Node(temp.val));
             temp = temp.next;
         }
         temp = head;
+        // track down the next and random;
         while (temp != null) {
             valueMap.get(temp).next = valueMap.get(temp.next);
             valueMap.get(temp).random = valueMap.get(temp.random);
