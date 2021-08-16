@@ -6,6 +6,7 @@ Memory Usage: 39.2 MB, less than 38.94% of Java online submissions for Regular E
 
 class Solution {
     public boolean isMatch(String text, String pattern) {
+    	// basic recursion;
         if (pattern.isEmpty()) return text.isEmpty();
         boolean first_match = (!text.isEmpty() && (pattern.charAt(0) == text.charAt(0) || pattern.charAt(0) == '.'));
 

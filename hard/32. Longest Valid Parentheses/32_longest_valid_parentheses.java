@@ -5,8 +5,9 @@ Memory Usage: 38.8 MB, less than 90.73% of Java online submissions for Longest V
 """
 
 public class Solution {
-
     public int longestValidParentheses(String s) {
+
+    	// stack for getting the last element;
         int maximum = 0;
         Stack<Integer> stack = new Stack<>();
         stack.push(-1);

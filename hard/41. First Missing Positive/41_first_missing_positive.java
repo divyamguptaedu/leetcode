@@ -10,12 +10,15 @@ class Solution {
         int j;
         int n = nums.length;
         
+        // handle case of a single-element array
         if (n == 1) {
             if (nums[i] == 1) return 2;
             else return 1;
         }
         
+        // try to place numbers in their correct indices
         while (i < n) {  
+            // ignore numbers out of range (negative numbers and numbers greater than length of the array)
             if (nums[i] > 0 && nums[i] <= n && nums[i] != nums[nums[i] - 1]) {
                 swap(nums, i, nums[i] - 1);
             } else {
@@ -23,6 +26,8 @@ class Solution {
             }
         }
         
+        // loop through the array again
+        // find the first number that is not at its correct index
         for (i = 0; i < n; i++) {
             if (nums[i] != i + 1) {
                 return i + 1;
