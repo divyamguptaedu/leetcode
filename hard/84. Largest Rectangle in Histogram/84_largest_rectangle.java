@@ -5,6 +5,7 @@ Memory Usage: 49.8 MB, less than 44.84% of Java online submissions for Largest R
 """
 
 class Solution {
+    // using a stack approach to find the maximum area;
     public int largestRectangleArea(int[] heights) {
         int length = heights.length;
         Stack<Integer> s = new Stack<>();

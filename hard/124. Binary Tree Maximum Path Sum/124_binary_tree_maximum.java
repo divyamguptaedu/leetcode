@@ -28,6 +28,8 @@ class Solution {
         return max;
     }
 
+
+    // bfs;
     private int helper(TreeNode root) {
         if (root == null) return 0;
         int left = Math.max(helper(root.left), 0);

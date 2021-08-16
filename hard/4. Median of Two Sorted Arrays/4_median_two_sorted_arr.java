@@ -6,6 +6,7 @@ Memory Usage: 39.7 MB, less than 98.87% of Java online submissions for Median of
 
 class Solution {
 	public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+		// calculate the two medians;
 	    int index1 = 0;
 	    int index2 = 0;
 	    int med1 = 0;
@@ -27,6 +28,7 @@ class Solution {
 	        }
 	    }
 
+	    // find their mean;
 	    // the median is the average of two numbers
 	    if ((nums1.length+nums2.length)%2 == 0) {
 	        return (float)(med1+med2)/2;

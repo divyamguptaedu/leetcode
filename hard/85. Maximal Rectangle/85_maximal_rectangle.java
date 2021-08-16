@@ -18,13 +18,15 @@ class Solution {
                 } else {
                     heights[j] ++;
                 }
-            }            
+            }     
+            // choosing the maximum each time;       
             int area = largestRectangleArea(heights);
             maxArea = Math.max(maxArea, area);
         }
         return maxArea;
  	}
 
+    // helper function from #84 question, to find larget area of histogram;
     private int largestRectangleArea(int[] heights) {
         int length = heights.length;
         Stack<Integer> s = new Stack<>();
