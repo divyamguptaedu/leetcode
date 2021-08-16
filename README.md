@@ -89,6 +89,11 @@
 | __[138](https://leetcode.com/problems/copy-list-with-random-pointer/)__ | Copy List with Random Pointer | Used hashmap to store all new created nodes and then just tracked the next and random pointers. | Medium | Medium |
 | __[198](https://leetcode.com/problems/house-robber/)__ | House Robber | Used a simple two pointer approach to check the houses. | Medium | Medium |
 | __[560](https://leetcode.com/problems/subarray-sum-equals-k/)__ | Subarray Sum Equals K | Used a hashmap to store answers and recalculate sum. | Medium | Medium |
+| __[23](https://leetcode.com/problems/merge-k-sorted-lists/submissions/)__ | Merge k Sorted Lists | Added all the nodes to a priority queue and removed the top one by one creating a new LinkedList. | Hard | Medium |
+| __[85](https://leetcode.com/problems/maximal-rectangle/submissions/)__ | Maximal Rectangle | Used the Largest Rectangle in Histogram approach to find the maximal area each time. | Hard | Medium |
+| __[84](https://leetcode.com/problems/largest-rectangle-in-histogram/)__ | Largest Rectangle in Histogram | Used a stack to calculate the maximum area each time. | Hard | Medium |
+| __[124](https://leetcode.com/problems/binary-tree-maximum-path-sum/)__ | Binary Tree Maximum Path Sum | Used recursion to choose the maximum of path each time. | Hard | Medium |
+| __[4](https://leetcode.com/problems/median-of-two-sorted-arrays/)__ | Median of Two Sorted Arrays | Calculated the two medians and their mean. | Hard | Medium |
 
 
 
