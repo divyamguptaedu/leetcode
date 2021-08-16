@@ -97,7 +97,7 @@
 | __[76](https://leetcode.com/problems/minimum-window-substring/)__ | Minimum Window Substring | Stores the count of each letter and calculated total apperance. | Hard | Medium |
 | __[41](https://leetcode.com/problems/first-missing-positive/submissions/)__ | First Missing Positive | Placed numbers in correct position and found the missing one. | Hard | Medium |
 | __[32](https://leetcode.com/problems/longest-valid-parentheses/)__ | Longest Valid Parentheses | Used the stack approach. | Hard | Medium |
-| __[10](https://leetcode.com/problems/regular-expression-matching/submissions/)__ | Used basic recursion on each possible scenario. | Hard | Medium |
+| __[10](https://leetcode.com/problems/regular-expression-matching/submissions/)__ | Regular Expression Matching | Used basic recursion on each possible scenario. | Hard | Medium |
 
 
 
