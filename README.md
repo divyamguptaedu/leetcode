@@ -94,7 +94,10 @@
 | __[84](https://leetcode.com/problems/largest-rectangle-in-histogram/)__ | Largest Rectangle in Histogram | Used a stack to calculate the maximum area each time. | Hard | Medium |
 | __[124](https://leetcode.com/problems/binary-tree-maximum-path-sum/)__ | Binary Tree Maximum Path Sum | Used recursion to choose the maximum of path each time. | Hard | Medium |
 | __[4](https://leetcode.com/problems/median-of-two-sorted-arrays/)__ | Median of Two Sorted Arrays | Calculated the two medians and their mean. | Hard | Medium |
-
+| __[76](https://leetcode.com/problems/minimum-window-substring/)__ | Minimum Window Substring | Stores the count of each letter and calculated total apperance. | Hard | Medium |
+| __[41](https://leetcode.com/problems/first-missing-positive/submissions/)__ | First Missing Positive | Placed numbers in correct position and found the missing one. | Hard | Medium |
+| __[32](https://leetcode.com/problems/longest-valid-parentheses/)__ | Longest Valid Parentheses | Used the stack approach. | Hard | Medium |
+| __[10](https://leetcode.com/problems/regular-expression-matching/submissions/)__ | Used basic recursion on each possible scenario. | Hard | Medium |
 
 
 
