@@ -1,3 +1,9 @@
+"""
+Performance:
+Runtime: 2 ms, faster than 96.95% of Java online submissions for Count Good Nodes in Binary Tree.
+Memory Usage: 47.6 MB, less than 85.31% of Java online submissions for Count Good Nodes in Binary Tree.
+"""
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -14,7 +20,7 @@
  * }
  */
 class Solution {
-	
+
     int good;
 
     public int goodNodes(TreeNode root) {
