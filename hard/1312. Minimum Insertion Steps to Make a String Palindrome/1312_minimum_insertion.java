@@ -1,3 +1,9 @@
+"""
+Performance:
+Runtime: 17 ms, faster than 68.73% of Java online submissions for Minimum Insertion Steps to Make a String Palindrome.
+Memory Usage: 39.9 MB, less than 92.71% of Java online submissions for Minimum Insertion Steps to Make a String Palindrome.
+"""
+
 class Solution {
 	public int minInsertions(String s) {
         if (s == null || s.isEmpty()) {
