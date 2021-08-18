@@ -1,3 +1,9 @@
+"
+Performance:
+Runtime: 6 ms, faster than 90.48% of Java online submissions for Shortest Bridge.
+Memory Usage: 39.8 MB, less than 59.76% of Java online submissions for Shortest Bridge.
+"
+
 class Solution {
     int row;
     int colomn;

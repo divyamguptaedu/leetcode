@@ -1,3 +1,9 @@
+"
+Performance:
+Runtime: 412 ms, faster than 5.48% of Java online submissions for Maximum Length of a Concatenated String with Unique Characters.
+Memory Usage: 38.8 MB, less than 63.70% of Java online submissions for Maximum Length of a Concatenated String with Unique Characters.
+"
+
 class Solution {
     int ans;
     public int maxLength(List<String> arr) {

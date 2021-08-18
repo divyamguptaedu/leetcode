@@ -1,3 +1,9 @@
+"
+Performance:
+Runtime: 1 ms, faster than 100.00% of Java online submissions for Replace All ?'s to Avoid Consecutive Repeating Characters.
+Memory Usage: 39.2 MB, less than 46.37% of Java online submissions for Replace All ?'s to Avoid Consecutive Repeating Characters.
+"
+
 class Solution {
 	public String modifyString(String s) {
 	    if (s == null || s.isEmpty()) {
