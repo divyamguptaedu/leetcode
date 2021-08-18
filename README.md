@@ -98,6 +98,17 @@
 | __[41](https://leetcode.com/problems/first-missing-positive/submissions/)__ | First Missing Positive | Placed numbers in correct position and found the missing one. | Hard | Medium |
 | __[32](https://leetcode.com/problems/longest-valid-parentheses/)__ | Longest Valid Parentheses | Used the stack approach. | Hard | Medium |
 | __[10](https://leetcode.com/problems/regular-expression-matching/submissions/)__ | Regular Expression Matching | Used basic recursion on each possible scenario. | Hard | Hard |
+| __[489](https://leetcode.com/problems/robot-room-cleaner/)__ | Robot Room Cleaner | Used DFS approach to access each spot and clean. | Hard | Hard |
+| __[1448](https://leetcode.com/problems/count-good-nodes-in-binary-tree/)__ | Count Good Nodes in Binary Tree | Calculate maximum on each route and increase the count after comparing with the root value. | Hard | Medium |
+| __[1822](https://leetcode.com/problems/sign-of-the-product-of-an-array/)__ | Sign of the Product of an Array | Interated and changed the result if any negative is found.  | Easy | Easy |
+| __[706](https://leetcode.com/problems/design-hashmap/)__ | Design HashMap | Formed a linkedList structure to back the hashmap. | Easy | Medium |
+| __[428](https://leetcode.com/problems/serialize-and-deserialize-n-ary-tree/)__ | Serialize and Deserialize N-ary Tree | Used a stringBuilder to serialize and LinkedList to deserialize. | Hard | Hard |
+| __[1344](https://leetcode.com/problems/angle-between-hands-of-a-clock/)__ | Angle Between Hands of a Clock | Used simple mathematics to compute the angle. | Medium | Easy |
+| __[1312](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)__ | Minimum Insertion Steps to Make a String Palindrome | Used iteration and storage to keep track of every letter. | Medium | Hard |
+| __[1578](https://leetcode.com/problems/minimum-deletion-cost-to-avoid-repeating-letters/)__ | Minimum Deletion Cost to Avoid Repeating Letters | Used iteration and evaluated the sum and the maximum each time. | Medium | Hard |
+| __[348](https://leetcode.com/problems/design-tic-tac-toe/)__ | Design Tic-Tac-Toe | Used row/coloum/diagonal/anti-diagonal approach. | Medium | Hard |
+| __[1647](https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/)__ | Converted the string to character array and added to a hashset for unique values. | Used row/coloum/diagonal/anti-diagonal approach. | Medium | Medium |
+
 
 
 
