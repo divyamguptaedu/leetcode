@@ -1,3 +1,9 @@
+"
+Performance:
+Runtime: 120 ms, faster than 77.33% of Java online submissions for Design Search Autocomplete System.
+Memory Usage: 48 MB, less than 88.93% of Java online submissions for Design Search Autocomplete System.
+"
+
 class AutocompleteSystem {
     Trie root;
     StringBuilder stringBuilder;

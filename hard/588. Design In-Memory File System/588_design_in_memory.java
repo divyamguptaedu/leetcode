@@ -1,3 +1,9 @@
+"
+Performance:
+Runtime: 40 ms, faster than 52.07% of Java online submissions for Design In-Memory File System.
+Memory Usage: 39.7 MB, less than 91.05% of Java online submissions for Design In-Memory File System.
+"
+
 class FileSystem {
     private Node root;
 
