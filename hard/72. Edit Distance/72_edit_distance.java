@@ -10,7 +10,7 @@ public class Solution {
     
     public int minDistance(String word1, String word2) {
 		store = new int[word1.length()][word2.length()];
-        return minDistanceHelper(word1, word2, 0, 0);
+        return helper(word1, word2, 0, 0);
     }
     
     private int helper(String word1, String word2, int index1, int index2) {
