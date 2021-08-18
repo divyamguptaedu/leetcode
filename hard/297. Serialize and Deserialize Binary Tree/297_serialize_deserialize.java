@@ -41,7 +41,7 @@ public class Codec {
         return root;
     }
 
-    private TreeNode deserializeHelper(String[] array, int index) {
+    private TreeNode deserializeHelper(String[] array, int[] index) {
     	if (index[0] > array.length || array[index[0]].equals("*")) {
     		index[0]++;
     		return null;

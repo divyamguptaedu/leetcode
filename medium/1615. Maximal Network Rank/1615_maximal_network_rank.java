@@ -1,6 +1,13 @@
+"""
+Performance:
+Runtime: 38 ms, faster than 12.71% of Java online submissions for Maximal Network Rank.
+Memory Usage: 40 MB, less than 29.07% of Java online submissions for Maximal Network Rank.
+"""
+
 class Solution {
     public int maximalNetworkRank(int n, int[][] roads) {
-    	
+
+    	// hashset for unique values;
         int[] degree = new int[n];
         HashSet<String> valueSet = new HashSet<>();
         
@@ -18,6 +25,7 @@ class Solution {
                 if (valueSet.contains((i + "-" + j))) {
                     val -= 1;
                 }
+                // choose maximum;
                 res = Math.max(res, val);
             }
         }

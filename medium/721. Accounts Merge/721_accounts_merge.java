@@ -1,3 +1,9 @@
+"""
+Performance:
+Runtime: 39 ms, faster than 50.24% of Java online submissions for Accounts Merge.
+Memory Usage: 51.3 MB, less than 13.47% of Java online submissions for Accounts Merge.
+"""
+
 class Solution {
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
         Map<String, String> nameMap = new HashMap<>();
