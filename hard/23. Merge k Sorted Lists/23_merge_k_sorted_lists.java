@@ -17,7 +17,7 @@ Memory Usage: 40.5 MB, less than 67.72% of Java online submissions for Merge k S
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         // create a priority queue and add all nodes of each LL;
-        PriorityQueue<ListNode> queue = new PriorityQueue((a, b) -> (a.val - b.val));
+        PriorityQueue<ListNode> queue = new PriorityQueue<>((a, b) -> (a.val - b.val));
         ListNode head = new ListNode(0);
         ListNode tail = head;
         for (ListNode node : lists) {
