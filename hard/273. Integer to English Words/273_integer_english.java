@@ -1,3 +1,9 @@
+"
+Performance:
+Runtime: 9 ms, faster than 67.42% of Java online submissions for Integer to English Words.
+Memory Usage: 39.3 MB, less than 32.53% of Java online submissions for Integer to English Words.
+"
+
 public class Solution {
     private String[] belowTen = new String[] {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
     private String[] belowTwenty = new String[] {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
