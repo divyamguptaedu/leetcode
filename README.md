@@ -107,7 +107,7 @@
 | __[1312](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)__ | Minimum Insertion Steps to Make a String Palindrome | Used iteration and storage to keep track of every letter. | Medium | Hard |
 | __[1578](https://leetcode.com/problems/minimum-deletion-cost-to-avoid-repeating-letters/)__ | Minimum Deletion Cost to Avoid Repeating Letters | Used iteration and evaluated the sum and the maximum each time. | Medium | Hard |
 | __[348](https://leetcode.com/problems/design-tic-tac-toe/)__ | Design Tic-Tac-Toe | Used row/coloum/diagonal/anti-diagonal approach. | Medium | Hard |
-| __[1647](https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/)__ | Converted the string to character array and added to a hashset for unique values. | Used row/coloum/diagonal/anti-diagonal approach. | Medium | Medium |
+| __[1647](https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/)__ | Minimum Deletions to Make Character Frequencies Unique | Converted the string to character array and added to a hashset for unique values. Used row/coloum/diagonal/anti-diagonal approach. | Medium | Medium |
 
 
 
