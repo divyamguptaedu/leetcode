@@ -1,3 +1,9 @@
+"
+Performance:
+Runtime: 9 ms, faster than 64.35% of Java online submissions for Basic Calculator II.
+Memory Usage: 38.8 MB, less than 88.87% of Java online submissions for Basic Calculator II.
+"
+
 class Solution {
     public int calculate(String s) {
 

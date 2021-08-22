@@ -1,3 +1,9 @@
+"
+Performance:
+Runtime: 7 ms, faster than 32.59% of Java online submissions for Restore IP Addresses.
+Memory Usage: 38.9 MB, less than 83.37% of Java online submissions for Restore IP Addresses.
+"
+
 class Solution {
 	public List<String> restoreIpAddresses(String string) {
 	    List<String> result = new LinkedList<>();

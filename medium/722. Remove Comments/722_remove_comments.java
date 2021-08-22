@@ -1,6 +1,8 @@
-import java.util.ArrayList;
-import java.util.List;
-
+"
+Performance
+Runtime: 1 ms, faster than 27.05% of Java online submissions for Remove Comments.
+Memory Usage: 38.1 MB, less than 15.38% of Java online submissions for Remove Comments.
+"
 class Solution {
 
     private void helper(List<String> result , StringBuilder sb){

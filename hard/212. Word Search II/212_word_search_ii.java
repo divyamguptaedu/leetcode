@@ -1,3 +1,9 @@
+"
+Performance:
+Runtime: 71 ms, faster than 83.08% of Java online submissions for Word Search II.
+Memory Usage: 37.8 MB, less than 70.36% of Java online submissions for Word Search II.
+"
+
 class Solution {
 	public List<String> findWords(char[][] board, String[] words) {
 	    List<String> result = new ArrayList<>();

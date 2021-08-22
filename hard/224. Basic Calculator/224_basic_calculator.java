@@ -1,3 +1,9 @@
+"
+Performance:
+Runtime: 5 ms, faster than 86.27% of Java online submissions for Basic Calculator.
+Memory Usage: 38.7 MB, less than 96.04% of Java online submissions for Basic Calculator.
+"
+
 public int calculate(String s) {
 
     Stack<Integer> stack = new Stack<Integer>();

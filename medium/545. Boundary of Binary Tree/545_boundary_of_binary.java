@@ -1,3 +1,9 @@
+"
+Performance:
+Runtime: 3 ms, faster than 8.10% of Java online submissions for Boundary of Binary Tree.
+Memory Usage: 38.8 MB, less than 99.33% of Java online submissions for Boundary of Binary Tree.
+"
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

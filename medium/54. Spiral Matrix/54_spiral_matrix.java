@@ -1,3 +1,9 @@
+"
+Performance:
+Runtime: 0 ms, faster than 100.00% of Java online submissions for Spiral Matrix.
+Memory Usage: 37.4 MB, less than 22.23% of Java online submissions for Spiral Matrix.
+"
+
 class Solution {
     boolean[][] visited;
     List<Integer> res;
