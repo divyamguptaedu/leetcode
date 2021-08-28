@@ -108,6 +108,14 @@
 | __[1578](https://leetcode.com/problems/minimum-deletion-cost-to-avoid-repeating-letters/)__ | Minimum Deletion Cost to Avoid Repeating Letters | Used iteration and evaluated the sum and the maximum each time. | Medium | Hard |
 | __[348](https://leetcode.com/problems/design-tic-tac-toe/)__ | Design Tic-Tac-Toe | Used row/coloum/diagonal/anti-diagonal approach. | Medium | Hard |
 | __[1647](https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/)__ | Minimum Deletions to Make Character Frequencies Unique | Converted the string to character array and added to a hashset for unique values. Used row/coloum/diagonal/anti-diagonal approach. | Medium | Medium |
+| __[136](https://leetcode.com/problems/single-number/)__ | Single Number | Simply use XOR (^) operator to get the number with single occurance. | Easy | Easy |
+| __[1576](https://leetcode.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/)__ | Replace All ?'s to Avoid Consecutive Repeating Characters | Used simple iteration to find the '?' in the character array and replacing them. | Easy | Medium |
+| __[191](https://leetcode.com/problems/number-of-1-bits/)__ | Number of 1 Bits | Divided the n by 2 repeatedly and increased the count whenever its odd. | Easy | Easy |
+| __[338](https://leetcode.com/problems/counting-bits/)__ | Counting Bits | Used iteration and power to compute the number of bits. | Easy | Easy |
+| __[342](https://leetcode.com/problems/power-of-four/)__ | Power of Four | Used recursion with n/4 everytime and returned false when it's not 0. | Easy | Easy |
+| __[716](https://leetcode.com/problems/max-stack/solution/)__ | Max Stack | Used a reversed queue to build a stack. | Easy | Easy |
+| __[938](https://leetcode.com/problems/range-sum-of-bst/)__ | Range Sum of BST | Followed a simple in-order traversal to get sum. | Easy | Easy |
+
 
 
 
