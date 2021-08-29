@@ -115,6 +115,19 @@
 | __[342](https://leetcode.com/problems/power-of-four/)__ | Power of Four | Used recursion with n/4 everytime and returned false when it's not 0. | Easy | Easy |
 | __[716](https://leetcode.com/problems/max-stack/solution/)__ | Max Stack | Used a reversed queue to build a stack. | Easy | Easy |
 | __[938](https://leetcode.com/problems/range-sum-of-bst/)__ | Range Sum of BST | Followed a simple in-order traversal to get sum. | Easy | Easy |
+| __[127](https://leetcode.com/problems/word-ladder/)__ | Word Ladder | Formed a dictionary and used BFS. | Hard | Hard |
+| __[140](https://leetcode.com/problems/word-break-ii/)__ | Word Break II | Formed a dictionary and used recursion. | Hard | Hard |
+| __[158](https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/)__ | Read N Characters Given Read4 II | Used a buff pointer and counter and iterate. | Hard | Hard |
+| __[1751](https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended-ii/)__ | Maximum Number of Events That Can Be Attended II | Sorted based on start date and stored the result for optimization. | Hard | Hard |
+| __[224](https://leetcode.com/problems/basic-calculator/)__ | Basic Calculator | Used the stack approach to determine sign and compute result.  | Hard | Medium |
+| __[239](https://leetcode.com/problems/sliding-window-maximum/)__ | Sliding Window Maximum | Formed a queue for the k indexes each time and got the maximum.  | Hard | Medium |
+| __[273](https://leetcode.com/problems/integer-to-english-words/)__ | Integer to English Words | Used String arrays and mathematics to get the answer. | Hard | Medium |
+| __[315](https://leetcode.com/problems/count-of-smaller-numbers-after-self/)__ | Count of Smaller Numbers After Self | Used a simple iteration approach. Also did the question using BST. | Hard | Hard |
+| __[37](https://leetcode.com/problems/sudoku-solver/)__ | Sudoku Solver | Used three loops and recursion to add and check if its a valid addition. | Hard | Hard |
+| __[829](https://leetcode.com/problems/consecutive-numbers-sum/)__ | Consecutive Numbers Sum | Used a while loop and increased the count. | Hard | Hard |
+
+
+
 
 
 
