@@ -125,6 +125,9 @@
 | __[315](https://leetcode.com/problems/count-of-smaller-numbers-after-self/)__ | Count of Smaller Numbers After Self | Used a simple iteration approach. Also did the question using BST. | Hard | Hard |
 | __[37](https://leetcode.com/problems/sudoku-solver/)__ | Sudoku Solver | Used three loops and recursion to add and check if its a valid addition. | Hard | Hard |
 | __[829](https://leetcode.com/problems/consecutive-numbers-sum/)__ | Consecutive Numbers Sum | Used a while loop and increased the count. | Hard | Hard |
+| __[176](https://leetcode.com/problems/second-highest-salary/)__ | Second Highest Salary | Selected distinct salary from the table, sorted in descending order, and return second by offsetting 1. | Easy | Easy |
+| __[177](https://leetcode.com/problems/nth-highest-salary/)__ | Nth Highest Salary | Selected distinct salary from the table, sorted in descending order, and return nth by offsetting n-1. | Easy | Easy |
+| __[183](https://leetcode.com/problems/customers-who-never-order/)__ | Customers Who Never Order | Selected those customers from customers who doesn't have customerid in orders. | Easy | Easy |
 
 
 
