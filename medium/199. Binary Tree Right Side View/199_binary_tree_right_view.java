@@ -19,6 +19,7 @@ Memory Usage: 37.8 MB, less than 35.75% of Java online submissions for Binary Tr
  *     }
  * }
  */
+
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
     	List<Integer> result = new ArrayList<>();
