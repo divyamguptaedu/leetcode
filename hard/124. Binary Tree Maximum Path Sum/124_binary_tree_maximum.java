@@ -1,9 +1,8 @@
 """
 Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Binary Tree Maximum Path Sum.
-Memory Usage: 40.5 MB, less than 97.65% of Java online submissions for Binary Tree Maximum Path Sum.
+Runtime: 1 ms, faster than 30.05% of Java online submissions for Binary Tree Maximum Path Sum.
+Memory Usage: 45.2 MB, less than 8.76% of Java online submissions for Binary Tree Maximum Path Sum.
 """
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -20,22 +19,25 @@ Memory Usage: 40.5 MB, less than 97.65% of Java online submissions for Binary Tr
  * }
  */
 class Solution {
-
-    int max = Integer.MIN_VALUE;
-
+    int answer;
     public int maxPathSum(TreeNode root) {
+        answer = 0;
         helper(root);
-        return max;
+        return answer;
     }
-
-
-    // bfs;
-    private int helper(TreeNode root) {
-        if (root == null) return 0;
-        int left = Math.max(helper(root.left), 0);
-        int right = Math.max(helper(root.right), 0);
-        max = Math.max(max, root.val + left + right);
-        return root.val + Math.max(left, right);
+    
+    public int helper(TreeNode root){
+        if (root == null) {                      
+            return 0;
+        }
+        int left = helper(root.left);
+        int right = helper(root.right);
+        int temp = Math.max(root.val, Math.max(left, right) + root.val);  
+        int result = Math.max(temp, left + right + root.val);
+        answer = Math.max(answer, result);
+        return temp;
     }
 }
+
+
 
