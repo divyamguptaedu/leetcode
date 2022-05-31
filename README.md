@@ -120,8 +120,8 @@
 | __[763](https://leetcode.com/problems/partition-labels/)__ | Partition Labels | Used hashmap to track the last index of each element and update start/end based on elements found in between. | Medium | Medium |
 | __[829](https://leetcode.com/problems/consecutive-numbers-sum/)__ | Consecutive Numbers Sum | Used a while loop and increased the count. | Hard | Hard |
 | __[938](https://leetcode.com/problems/range-sum-of-bst/)__ | Range Sum of BST | Followed a simple in-order traversal to get sum. | Easy | Easy |
-| __[1344](https://leetcode.com/problems/angle-between-hands-of-a-clock/)__ | Angle Between Hands of a Clock | Used simple mathematics to compute the angle. | Medium | Easy |
 | __[1312](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)__ | Minimum Insertion Steps to Make a String Palindrome | Used iteration and storage to keep track of every letter. | Medium | Hard |
+| __[1344](https://leetcode.com/problems/angle-between-hands-of-a-clock/)__ | Angle Between Hands of a Clock | Used simple mathematics to compute the angle. | Medium | Easy |
 | __[1448](https://leetcode.com/problems/count-good-nodes-in-binary-tree/)__ | Count Good Nodes in Binary Tree | Calculate maximum on each route and increase the count after comparing with the root value. | Hard | Medium |
 | __[1576](https://leetcode.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/)__ | Replace All ?'s to Avoid Consecutive Repeating Characters | Used simple iteration to find the '?' in the character array and replacing them. | Easy | Medium |
 | __[1578](https://leetcode.com/problems/minimum-deletion-cost-to-avoid-repeating-letters/)__ | Minimum Deletion Cost to Avoid Repeating Letters | Used iteration and evaluated the sum and the maximum each time. | Medium | Hard |
