@@ -112,6 +112,9 @@
 | __[437](https://leetcode.com/problems/path-sum-iii/)__ | Path Sum III | Incremented the counter with left and right root recursion and new target sum. | Medium | Medium |
 | __[438](https://leetcode.com/problems/find-all-anagrams-in-a-string/)__ | Find all anagrams in a String | <strong>Initial Approach:</strong> Stores a sorted character array and made a new one for each entry. <br /> <strong>Better Approach:</strong> Formed two lists and avoided sorting each time. | Medium | Medium |
 | __[448](https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/)__ | Find All Numbers Disappeared in an Array | Used a hashmap to find the integers not present in the array. | Easy | Easy |
+| __[474](https://leetcode.com/problems/ones-and-zeroes/)__ | Ones and Zeros | Used coin change principle by considering strings as coins and quantity as money. | Medium | Medium |
+| __[475](https://leetcode.com/problems/heaters/)__ | Heaters | Used simple binary search algorithm to solve. | Medium | Medium |
+| __[477](https://leetcode.com/problems/total-hamming-distance/)__ | Total Hamming Distance | Find binary 1 from Nth binary of num[] and calculate all possibility of the sum.	 | Medium | Medium |
 | __[489](https://leetcode.com/problems/robot-room-cleaner/)__ | Robot Room Cleaner | Used DFS approach to access each spot and clean. | Hard | Hard |
 | __[494](https://leetcode.com/problems/target-sum/submissions/)__ | Target Sum | <strong>Initial Approach:</strong> Recursed on all possible sums. Both increasing and decreasing. <br /> <strong>Better Approach:</strong> Stored answers to increase runtime. | Medium | Medium |
 | __[543](https://leetcode.com/problems/diameter-of-binary-tree/)__ | Diameter of Binary Tree | Used recursion to calculate maximum depth from each node and update the new maximum. | Easy | Medium |
@@ -125,6 +128,8 @@
 | __[763](https://leetcode.com/problems/partition-labels/)__ | Partition Labels | Used hashmap to track the last index of each element and update start/end based on elements found in between. | Medium | Medium |
 | __[829](https://leetcode.com/problems/consecutive-numbers-sum/)__ | Consecutive Numbers Sum | Used a while loop and increased the count. | Hard | Hard |
 | __[938](https://leetcode.com/problems/range-sum-of-bst/)__ | Range Sum of BST | Followed a simple in-order traversal to get sum. | Easy | Easy |
+| __[993](https://leetcode.com/problems/cousins-in-binary-tree/)__ | Cousins in BST | Used BFS to find if nodes have the same level. | Easy | Easy |
+| __[997](https://leetcode.com/problems/find-the-town-judge/)__ | Find the Town Judge | Outdegree should be 0 and indegree should be n - 1. | Easy | Easy |
 | __[1312](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)__ | Minimum Insertion Steps to Make a String Palindrome | Used iteration and storage to keep track of every letter. | Medium | Hard |
 | __[1344](https://leetcode.com/problems/angle-between-hands-of-a-clock/)__ | Angle Between Hands of a Clock | Used simple mathematics to compute the angle. | Medium | Easy |
 | __[1448](https://leetcode.com/problems/count-good-nodes-in-binary-tree/)__ | Count Good Nodes in Binary Tree | Calculate maximum on each route and increase the count after comparing with the root value. | Hard | Medium |
