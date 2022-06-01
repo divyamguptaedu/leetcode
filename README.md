@@ -31,6 +31,7 @@
 | __[42](https://leetcode.com/problems/trapping-rain-water/)__ | Trapping Rainwater | <strong>Initial Approach:</strong> Interate over the height array and left leftMax and rightMax each time to compute result. <br /> <strong>Better Approach:</strong> Kept track of leftMax and rightMax each time to compute result. | Hard | Hard |
 | __[45](https://leetcode.com/problems/jump-game-ii/)__ | Jump Game II | Used interation and computed the minimum steps required to reach the end. | Medium | Medium |
 | __[46](https://leetcode.com/problems/permutations/)__ | Permutations | <strong>Initial Approach:</strong> Used recursion to freeze one element of the array and swap others in all possible ways. <br /> <strong>Better Approach:</strong> Used recursion to remove each element from the holder and add to each possible permutation answer.  | Medium | Hard |
+| __[47]((https://leetcode.com/problems/permutations-ii/))__ | Permutations II | Used swapping and hashing technique to perform the rotation. | Medium | Medium |
 | __[48](https://leetcode.com/problems/rotate-image/)__ | Rotate Image | Used swapping and reversing technique to perform the rotation. | Medium | Medium |
 | __[49](https://leetcode.com/problems/group-anagrams/)__ | Group Anagrams | Converted each string to a char array and used HashMap to store anagrams. | Medium | Medium |
 | __[53](https://leetcode.com/problems/maximum-subarray/)__ | Maximum SubArray | Interated over the array to find a new maximum sum and update the old if required. | Easy | Medium |
@@ -39,6 +40,7 @@
 | __[62](https://leetcode.com/problems/unique-paths/)__ | Unique Paths | Used iteration of each possible path and incremented the count. | Medium | Medium |
 | __[64](https://leetcode.com/problems/minimum-path-sum/)__ | Minimum Path Sum | Used iteration of each possible path to compute sum and have the minimum at the last index. | Medium | Medium |
 | __[70](https://leetcode.com/problems/climbing-stairs/)__ | Climbing Stairs | Used recursion from the top of the stairs with a base case of 1 and 2 steps left. | Easy | Medium |
+| __[71](https://leetcode.com/problems/simplify-path/)__ | Simplify Path | Used path split unit and string builder to simplify path. | Medium | Medium |
 | __[72](https://leetcode.com/problems/edit-distance/)__ | Edit Distance | Chose a minimum each time and used storage for optimization. | Medium | Medium |
 | __[75](https://leetcode.com/problems/sort-colors/)__ | Sort Colors | Used hashmap to store frequencies and priority queue to get ordered keys. | Medium | Medium |
 | __[76](https://leetcode.com/problems/minimum-window-substring/)__ | Minimum Window Substring | Stores the count of each letter and calculated total apperance. | Hard | Medium |
@@ -46,11 +48,14 @@
 | __[79](https://leetcode.com/problems/word-search/)__ | Word Search | Iterated over the array and checked the adjacents to find the word. | Medium | Easy |
 | __[84](https://leetcode.com/problems/largest-rectangle-in-histogram/)__ | Largest Rectangle in Histogram | Used a stack to calculate the maximum area each time. | Hard | Hard |
 | __[85](https://leetcode.com/problems/maximal-rectangle/submissions/)__ | Maximal Rectangle | Used the Largest Rectangle in Histogram approach to find the maximal area each time. | Hard | Hard |
+| __[89](https://leetcode.com/problems/gray-code/)__ | Gray Code | Used bit manipulation and simple iteration strategy. | Hard | Hard |
 | __[96](https://leetcode.com/problems/unique-binary-search-trees/)__ | Unique Binary Search Trees | Used hashmap to store maximum possible combinations and used recursion to calculate for any n. | Medium | Medium |
 | __[98](https://leetcode.com/problems/validate-binary-search-tree/)__ | Validate Binary Search Tree | Used recursion on each left and right node. Returned false if larger or smaller. | Medium | Easy |
+| __[99](https://leetcode.com/problems/recover-binary-search-tree/)__ | Recover Binary Search Tree | Used inorder traversal to recover the binary search tree. | Medium | Easy |
 | __[102](https://leetcode.com/problems/binary-tree-level-order-traversal/)__ | Binary Tree Level Order Traversal | Used queue to form each level list and add to the result. | Medium | Medium |
 | __[104](https://leetcode.com/problems/maximum-depth-of-binary-tree/)__ | Maximum Depth of Binary Tree | Used recursion to go down the tree from both side simultaneously and choose the new maximum depth. | Easy | Easy |
 | __[105](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)__ | Construct Binary Tree from Preorder and Inorder Traversal | Used the inorder indexes and preorder traversal to build the tree. | Medium | Medium |
+| __[106](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)__ | Construct Binary Tree from Preorder and Inorder Traversal | Used the inorder indexes and preorder traversal to build the tree. | Medium | Medium |
 | __[108](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/)__ | Convert Sorted Array to Binary Search Tree | Used binary search approach to choose a new middle everytime and add to the BST. | Easy | Easy |
 | __[114](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/)__ | Flatten Binary Tree to Linked List | Used recursion to find the previous node and set to the right, leaving all lefts as null. | Medium | Medium |
 | __[124](https://leetcode.com/problems/binary-tree-maximum-path-sum/)__ | Binary Tree Maximum Path Sum | Used recursion to choose the maximum of path each time. | Hard | Medium |
