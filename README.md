@@ -29,6 +29,7 @@
 | __[39](https://leetcode.com/problems/combination-sum/)__ | Combination Sum | Used recursion to find each possible combination and add to result if valid. | Medium | Medium |
 | __[41](https://leetcode.com/problems/first-missing-positive/submissions/)__ | First Missing Positive | Placed numbers in correct position and found the missing one. | Hard | Medium |
 | __[42](https://leetcode.com/problems/trapping-rain-water/)__ | Trapping Rainwater | <strong>Initial Approach:</strong> Interate over the height array and left leftMax and rightMax each time to compute result. <br /> <strong>Better Approach:</strong> Kept track of leftMax and rightMax each time to compute result. | Hard | Hard |
+| __[44](https://leetcode.com/problems/wildcard-matching/)__ | Wildcard Matching | Used 2D boolean array with dp approach by moving diagonally down the array. | Hard | Hard |
 | __[45](https://leetcode.com/problems/jump-game-ii/)__ | Jump Game II | Used interation and computed the minimum steps required to reach the end. | Medium | Medium |
 | __[46](https://leetcode.com/problems/permutations/)__ | Permutations | <strong>Initial Approach:</strong> Used recursion to freeze one element of the array and swap others in all possible ways. <br /> <strong>Better Approach:</strong> Used recursion to remove each element from the holder and add to each possible permutation answer.  | Medium | Hard |
 | __[47]((https://leetcode.com/problems/permutations-ii/))__ | Permutations II | Used swapping and hashing technique to perform the rotation. | Medium | Medium |
@@ -39,6 +40,7 @@
 | __[56](https://leetcode.com/problems/merge-intervals/)__ | Merge Intervals | Checked the next's [0] index and compared with previous's [1] index. | Medium | Medium |
 | __[62](https://leetcode.com/problems/unique-paths/)__ | Unique Paths | Used iteration of each possible path and incremented the count. | Medium | Medium |
 | __[64](https://leetcode.com/problems/minimum-path-sum/)__ | Minimum Path Sum | Used iteration of each possible path to compute sum and have the minimum at the last index. | Medium | Medium |
+| __[65](https://leetcode.com/problems/valid-number/)__ | Valid Number | Used character comparison and parsing to check if its a valid number. | Hard | Hard |
 | __[70](https://leetcode.com/problems/climbing-stairs/)__ | Climbing Stairs | Used recursion from the top of the stairs with a base case of 1 and 2 steps left. | Easy | Medium |
 | __[71](https://leetcode.com/problems/simplify-path/)__ | Simplify Path | Used path split unit and string builder to simplify path. | Medium | Medium |
 | __[72](https://leetcode.com/problems/edit-distance/)__ | Edit Distance | Chose a minimum each time and used storage for optimization. | Medium | Medium |
@@ -128,6 +130,7 @@
 | __[763](https://leetcode.com/problems/partition-labels/)__ | Partition Labels | Used hashmap to track the last index of each element and update start/end based on elements found in between. | Medium | Medium |
 | __[829](https://leetcode.com/problems/consecutive-numbers-sum/)__ | Consecutive Numbers Sum | Used a while loop and increased the count. | Hard | Hard |
 | __[938](https://leetcode.com/problems/range-sum-of-bst/)__ | Range Sum of BST | Followed a simple in-order traversal to get sum. | Easy | Easy |
+| __[980](https://leetcode.com/problems/unique-paths-iii/)__ | Unique Paths III | Used DFS along the root and cell to find the unique path. | Hard | Hard |
 | __[993](https://leetcode.com/problems/cousins-in-binary-tree/)__ | Cousins in BST | Used BFS to find if nodes have the same level. | Easy | Easy |
 | __[997](https://leetcode.com/problems/find-the-town-judge/)__ | Find the Town Judge | Outdegree should be 0 and indegree should be n - 1. | Easy | Easy |
 | __[1312](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)__ | Minimum Insertion Steps to Make a String Palindrome | Used iteration and storage to keep track of every letter. | Medium | Hard |
