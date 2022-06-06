@@ -90,7 +90,7 @@
 | __[221](https://leetcode.com/problems/maximal-square/)__ | Maximal Square | Used brute-force with optimization to increase runtime. | Medium | Medium |
 | __[224](https://leetcode.com/problems/basic-calculator/)__ | Basic Calculator | Used the stack approach to determine sign and compute result.  | Hard | Medium |
 | __[225](https://leetcode.com/problems/implement-stack-using-queues/)__ | Implement Stack using Queues | Used two queues to implement a LIFO stack. | Easy | Easy |
-| __[228](https://leetcode.com/problems/summary-ranges/))__ | Summary Ranges | Traversed the entire array and created breakpoint where necessary. | Easy | Easy |
+| __[228](https://leetcode.com/problems/summary-ranges/)__ | Summary Ranges | Traversed the entire array and created breakpoint where necessary. | Easy | Easy |
 | __[230](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)__ | Kth Smallest Element in a BST | <strong>Initial Approach:</strong> Performed in-order traversal and returned the kth element. <br /> <strong>Better Approach:</strong> Used the same approach, but stopped the traversal when kth smallest element is found. | Medium | Medium |
 | __[234](https://leetcode.com/problems/palindrome-linked-list/)__ | Palindrome Linked List | Converting the LinkedList to an array and using the pointer approach to check the pattern. | Easy | Medium |
 | __[236](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)__ | Lowest Common Ancestor of a Binary Tree | Performing a traversal and returning the common ancestor. | Medium | Medium |
@@ -112,6 +112,8 @@
 | __[342](https://leetcode.com/problems/power-of-four/)__ | Power of Four | Used recursion with n/4 everytime and returned false when it's not 0. | Easy | Easy |
 | __[347](https://leetcode.com/problems/top-k-frequent-elements/)__ | Top K Frequent Elements | <strong>Initial Approach:</strong> Created a hashmap of the frequencies and then removed the key with max freq. k times. <br /> <strong>Mediocre Approach:</strong> Used a maxHeap to sort the frequencies and then match with the key. <br /> <strong>Better Approach:</strong> Used priority queue to sort the keys based on frequencies and pop the queue k times. | Medium | Hard |
 | __[348](https://leetcode.com/problems/design-tic-tac-toe/)__ | Design Tic-Tac-Toe | Used row/coloum/diagonal/anti-diagonal approach. | Medium | Hard |
+| __[375](https://leetcode.com/problems/guess-number-higher-or-lower-ii/)__ | Guess Number Higher or Lower II | Chose the starting point that has the minimum payoff. Then, for each starting point, chose the maximum amount of money paid. | Medium | Hard |
+| __[376](https://leetcode.com/problems/wiggle-subsequence/description/)__ | Wiggle Subsequence | Kept a count of positive and negatives and chose the maximum. | Medium | Hard |
 | __[394](https://leetcode.com/problems/decode-string/)__ | Decode String | Used condition statements to do the tasks. Followed stack approach to save the result.  | Medium | Medium |
 | __[416](https://leetcode.com/problems/partition-equal-subset-sum/)__ | Partition Equal Subset Sum | Iterated over the array and check each partition if it equal to subset sum. Stored the answer for faster runtime. | Medium | Medium |
 | __[428](https://leetcode.com/problems/serialize-and-deserialize-n-ary-tree/)__ | Serialize and Deserialize N-ary Tree | Used a stringBuilder to serialize and LinkedList to deserialize. | Hard | Hard |
