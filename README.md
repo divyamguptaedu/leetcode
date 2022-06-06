@@ -74,6 +74,8 @@
 | __[158](https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/)__ | Read N Characters Given Read4 II | Used a buff pointer and counter and iterate. | Hard | Hard |
 | __[160](https://leetcode.com/problems/intersection-of-two-linked-lists/)__ | Intersection of Two Linked Lists | Utilized the efficiency of hashmap data structure to find an already visited node. | Easy | Easy |
 | __[169](https://leetcode.com/problems/majority-element/)__ | Majority Element | Utilized the efficiency of hashmap data structure to track the frequency of each distinct integer in the array and return when condition is fulfilled. | Easy | Easy |
+| __[174](https://leetcode.com/problems/dungeon-game/)__ | Dungeon Game | Use DP to check if the health is enough to get to the end point.
+ | Hard | Hard |
 | __[176](https://leetcode.com/problems/second-highest-salary/)__ | Second Highest Salary | Selected distinct salary from the table, sorted in descending order, and return second by offsetting 1. | Easy | Easy |
 | __[177](https://leetcode.com/problems/nth-highest-salary/)__ | Nth Highest Salary | Selected distinct salary from the table, sorted in descending order, and return nth by offsetting n-1. | Easy | Easy |
 | __[183](https://leetcode.com/problems/customers-who-never-order/)__ | Customers Who Never Order | Selected those customers from customers who doesn't have customerid in orders. | Easy | Easy |
@@ -85,8 +87,12 @@
 | __[207](https://leetcode.com/problems/course-schedule/)__ | Course Schedule | Used the graph and queue approach to get the courses required. | Medium | Medium |
 | __[208](https://leetcode.com/problems/implement-trie-prefix-tree/)__ | Implement Trie (Prefix Tree) | Created a node with Node[26] children and used recursion to initialize each character according to the string.  | Medium | Medium |
 | __[215](https://leetcode.com/problems/kth-largest-element-in-an-array/)__ | Kth Largest In Array | Used priority queue as max heap to store values and pop k times. | Medium | Easy |
+| __[219](https://leetcode.com/problems/contains-duplicate-ii/)__ | Contains Duplicate II | Used HashMap to store elements of array and then compare with traversing elements to find the duplicate.
+ | Easy | Easy |
 | __[221](https://leetcode.com/problems/maximal-square/)__ | Maximal Square | Used brute-force with optimization to increase runtime. | Medium | Medium |
 | __[224](https://leetcode.com/problems/basic-calculator/)__ | Basic Calculator | Used the stack approach to determine sign and compute result.  | Hard | Medium |
+| __[225](https://leetcode.com/problems/implement-stack-using-queues/)__ | Implement Stack using Queues | Used two queues to implement a LIFO stack. | Easy | Easy |
+| __[228]([Summary Ranges](https://leetcode.com/problems/summary-ranges/))__ | Summary Ranges | Traversed the entire array and created breakpoint where necessary. | Easy | Easy |
 | __[230](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)__ | Kth Smallest Element in a BST | <strong>Initial Approach:</strong> Performed in-order traversal and returned the kth element. <br /> <strong>Better Approach:</strong> Used the same approach, but stopped the traversal when kth smallest element is found. | Medium | Medium |
 | __[234](https://leetcode.com/problems/palindrome-linked-list/)__ | Palindrome Linked List | Converting the LinkedList to an array and using the pointer approach to check the pattern. | Easy | Medium |
 | __[236](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)__ | Lowest Common Ancestor of a Binary Tree | Performing a traversal and returning the common ancestor. | Medium | Medium |
@@ -123,6 +129,8 @@
 | __[560](https://leetcode.com/problems/subarray-sum-equals-k/)__ | Subarray Sum Equals K | Used a hashmap to store answers and recalculate sum. | Medium | Medium |
 | __[617](https://leetcode.com/problems/merge-two-binary-trees/)__ | Merge Two Binary Trees | Used recursion to update the first tree based on the data found in the second tree. | Easy | Easy |
 | __[621](https://leetcode.com/problems/task-scheduler/)__ | Task Scheduler | Used hashmap and queue to compute idle time. | Medium | Medium |
+| __[626](https://leetcode.com/problems/exchange-seats/)__ | Exchange Seats | Used ‘case’ to swap and ‘order by’ to group in ascending order.
+ | Hard | Hard |
 | __[647](https://leetcode.com/problems/palindromic-substrings/)__ | Palindromic Substrings | <strong>Initial Approach:</strong> Interated through the string and checked if it's a palindrome using pointer approach. <br /> <strong>Better Approach:</strong> Used recursion to build the isPalindrome function. Improves runtime. | Medium | Medium |
 | __[706](https://leetcode.com/problems/design-hashmap/)__ | Design HashMap | Formed a linkedList structure to back the hashmap. | Easy | Medium |
 | __[716](https://leetcode.com/problems/max-stack/solution/)__ | Max Stack | Used a reversed queue to build a stack. | Easy | Easy |
@@ -130,17 +138,22 @@
 | __[763](https://leetcode.com/problems/partition-labels/)__ | Partition Labels | Used hashmap to track the last index of each element and update start/end based on elements found in between. | Medium | Medium |
 | __[829](https://leetcode.com/problems/consecutive-numbers-sum/)__ | Consecutive Numbers Sum | Used a while loop and increased the count. | Hard | Hard |
 | __[938](https://leetcode.com/problems/range-sum-of-bst/)__ | Range Sum of BST | Followed a simple in-order traversal to get sum. | Easy | Easy |
+| __[969](https://leetcode.com/problems/pancake-sorting/)__ | Pancake Sorting | Flipped the array after finding the index of largest number element. | Medium | Medium |
 | __[980](https://leetcode.com/problems/unique-paths-iii/)__ | Unique Paths III | Used DFS along the root and cell to find the unique path. | Hard | Hard |
 | __[993](https://leetcode.com/problems/cousins-in-binary-tree/)__ | Cousins in BST | Used BFS to find if nodes have the same level. | Easy | Easy |
 | __[997](https://leetcode.com/problems/find-the-town-judge/)__ | Find the Town Judge | Outdegree should be 0 and indegree should be n - 1. | Easy | Easy |
 | __[1312](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)__ | Minimum Insertion Steps to Make a String Palindrome | Used iteration and storage to keep track of every letter. | Medium | Hard |
 | __[1344](https://leetcode.com/problems/angle-between-hands-of-a-clock/)__ | Angle Between Hands of a Clock | Used simple mathematics to compute the angle. | Medium | Easy |
+| __[1344](https://leetcode.com/problems/capital-gainloss/)__ | Capital Gain/Loss | Used ‘case’ and ‘when’ to group and calculate the sum. | Medium | Medium |
 | __[1448](https://leetcode.com/problems/count-good-nodes-in-binary-tree/)__ | Count Good Nodes in Binary Tree | Calculate maximum on each route and increase the count after comparing with the root value. | Hard | Medium |
 | __[1576](https://leetcode.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/)__ | Replace All ?'s to Avoid Consecutive Repeating Characters | Used simple iteration to find the '?' in the character array and replacing them. | Easy | Medium |
 | __[1578](https://leetcode.com/problems/minimum-deletion-cost-to-avoid-repeating-letters/)__ | Minimum Deletion Cost to Avoid Repeating Letters | Used iteration and evaluated the sum and the maximum each time. | Medium | Hard |
 | __[1647](https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique/)__ | Minimum Deletions to Make Character Frequencies Unique | Converted the string to character array and added to a hashset for unique values. Used row/coloum/diagonal/anti-diagonal approach. | Medium | Medium |
 | __[1751](https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended-ii/)__ | Maximum Number of Events That Can Be Attended II | Sorted based on start date and stored the result for optimization. | Hard | Hard |
 | __[1822](https://leetcode.com/problems/sign-of-the-product-of-an-array/)__ | Sign of the Product of an Array | Interated and changed the result if any negative is found.  | Easy | Easy |
+| __[2262](https://leetcode.com/problems/total-appeal-of-a-string/)__ | Total Appeal of A String | Score will be equal to the character itself is a substring added to previous step appeal aides to the number of substrings in previous step. And then subtract the number of substrings from previous step containing the new character added in current step. | Hard | Hard |
+| __[2246](https://leetcode.com/problems/longest-path-with-different-adjacent-characters/)__ | Longest Path With Different Adjacent Characters | Created a record from parent array to simulate a tree and then performed DFS on that tree to get the result. | Hard | Hard |
+
 
 
 
