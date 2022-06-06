@@ -74,8 +74,7 @@
 | __[158](https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/)__ | Read N Characters Given Read4 II | Used a buff pointer and counter and iterate. | Hard | Hard |
 | __[160](https://leetcode.com/problems/intersection-of-two-linked-lists/)__ | Intersection of Two Linked Lists | Utilized the efficiency of hashmap data structure to find an already visited node. | Easy | Easy |
 | __[169](https://leetcode.com/problems/majority-element/)__ | Majority Element | Utilized the efficiency of hashmap data structure to track the frequency of each distinct integer in the array and return when condition is fulfilled. | Easy | Easy |
-| __[174](https://leetcode.com/problems/dungeon-game/)__ | Dungeon Game | Use DP to check if the health is enough to get to the end point.
- | Hard | Hard |
+| __[174](https://leetcode.com/problems/dungeon-game/)__ | Dungeon Game | Use DP to check if the health is enough to get to the end point. | Hard | Hard |
 | __[176](https://leetcode.com/problems/second-highest-salary/)__ | Second Highest Salary | Selected distinct salary from the table, sorted in descending order, and return second by offsetting 1. | Easy | Easy |
 | __[177](https://leetcode.com/problems/nth-highest-salary/)__ | Nth Highest Salary | Selected distinct salary from the table, sorted in descending order, and return nth by offsetting n-1. | Easy | Easy |
 | __[183](https://leetcode.com/problems/customers-who-never-order/)__ | Customers Who Never Order | Selected those customers from customers who doesn't have customerid in orders. | Easy | Easy |
@@ -87,12 +86,11 @@
 | __[207](https://leetcode.com/problems/course-schedule/)__ | Course Schedule | Used the graph and queue approach to get the courses required. | Medium | Medium |
 | __[208](https://leetcode.com/problems/implement-trie-prefix-tree/)__ | Implement Trie (Prefix Tree) | Created a node with Node[26] children and used recursion to initialize each character according to the string.  | Medium | Medium |
 | __[215](https://leetcode.com/problems/kth-largest-element-in-an-array/)__ | Kth Largest In Array | Used priority queue as max heap to store values and pop k times. | Medium | Easy |
-| __[219](https://leetcode.com/problems/contains-duplicate-ii/)__ | Contains Duplicate II | Used HashMap to store elements of array and then compare with traversing elements to find the duplicate.
- | Easy | Easy |
+| __[219](https://leetcode.com/problems/contains-duplicate-ii/)__ | Contains Duplicate II | Used HashMap to store elements of array and then compare with traversing elements to find the duplicate. | Easy | Easy |
 | __[221](https://leetcode.com/problems/maximal-square/)__ | Maximal Square | Used brute-force with optimization to increase runtime. | Medium | Medium |
 | __[224](https://leetcode.com/problems/basic-calculator/)__ | Basic Calculator | Used the stack approach to determine sign and compute result.  | Hard | Medium |
 | __[225](https://leetcode.com/problems/implement-stack-using-queues/)__ | Implement Stack using Queues | Used two queues to implement a LIFO stack. | Easy | Easy |
-| __[228]([Summary Ranges](https://leetcode.com/problems/summary-ranges/))__ | Summary Ranges | Traversed the entire array and created breakpoint where necessary. | Easy | Easy |
+| __[228](https://leetcode.com/problems/summary-ranges/))__ | Summary Ranges | Traversed the entire array and created breakpoint where necessary. | Easy | Easy |
 | __[230](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)__ | Kth Smallest Element in a BST | <strong>Initial Approach:</strong> Performed in-order traversal and returned the kth element. <br /> <strong>Better Approach:</strong> Used the same approach, but stopped the traversal when kth smallest element is found. | Medium | Medium |
 | __[234](https://leetcode.com/problems/palindrome-linked-list/)__ | Palindrome Linked List | Converting the LinkedList to an array and using the pointer approach to check the pattern. | Easy | Medium |
 | __[236](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)__ | Lowest Common Ancestor of a Binary Tree | Performing a traversal and returning the common ancestor. | Medium | Medium |
@@ -129,8 +127,7 @@
 | __[560](https://leetcode.com/problems/subarray-sum-equals-k/)__ | Subarray Sum Equals K | Used a hashmap to store answers and recalculate sum. | Medium | Medium |
 | __[617](https://leetcode.com/problems/merge-two-binary-trees/)__ | Merge Two Binary Trees | Used recursion to update the first tree based on the data found in the second tree. | Easy | Easy |
 | __[621](https://leetcode.com/problems/task-scheduler/)__ | Task Scheduler | Used hashmap and queue to compute idle time. | Medium | Medium |
-| __[626](https://leetcode.com/problems/exchange-seats/)__ | Exchange Seats | Used ‘case’ to swap and ‘order by’ to group in ascending order.
- | Hard | Hard |
+| __[626](https://leetcode.com/problems/exchange-seats/)__ | Exchange Seats | Used ‘case’ to swap and ‘order by’ to group in ascending order. | Hard | Hard |
 | __[647](https://leetcode.com/problems/palindromic-substrings/)__ | Palindromic Substrings | <strong>Initial Approach:</strong> Interated through the string and checked if it's a palindrome using pointer approach. <br /> <strong>Better Approach:</strong> Used recursion to build the isPalindrome function. Improves runtime. | Medium | Medium |
 | __[706](https://leetcode.com/problems/design-hashmap/)__ | Design HashMap | Formed a linkedList structure to back the hashmap. | Easy | Medium |
 | __[716](https://leetcode.com/problems/max-stack/solution/)__ | Max Stack | Used a reversed queue to build a stack. | Easy | Easy |
