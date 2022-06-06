@@ -145,6 +145,8 @@
 | __[980](https://leetcode.com/problems/unique-paths-iii/)__ | Unique Paths III | Used DFS along the root and cell to find the unique path. | Hard | Hard |
 | __[993](https://leetcode.com/problems/cousins-in-binary-tree/)__ | Cousins in BST | Used BFS to find if nodes have the same level. | Easy | Easy |
 | __[997](https://leetcode.com/problems/find-the-town-judge/)__ | Find the Town Judge | Outdegree should be 0 and indegree should be n - 1. | Easy | Easy |
+| __[1002](https://leetcode.com/problems/find-common-characters/)__ | Find Common Characters | Made the list and returned it by putting all the character of a HashMap and the number of times its value is present in the list. | Easy | Easy |
+| __[1005](https://leetcode.com/problems/maximize-sum-of-array-after-k-negations/)__ | Maximize Sum Of Array After K Negations | If K is still greater than 0, then the lowest positive can be flipped, only if k is odd. Then just find the first positive (loop from 100 to 200). If k is odd, deduct its double value from sum. | Easy | Easy |
 | __[1312](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)__ | Minimum Insertion Steps to Make a String Palindrome | Used iteration and storage to keep track of every letter. | Medium | Hard |
 | __[1344](https://leetcode.com/problems/angle-between-hands-of-a-clock/)__ | Angle Between Hands of a Clock | Used simple mathematics to compute the angle. | Medium | Easy |
 | __[1344](https://leetcode.com/problems/capital-gainloss/)__ | Capital Gain/Loss | Used ‘case’ and ‘when’ to group and calculate the sum. | Medium | Medium |
