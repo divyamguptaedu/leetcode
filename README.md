@@ -136,7 +136,11 @@
 | __[716](https://leetcode.com/problems/max-stack/solution/)__ | Max Stack | Used a reversed queue to build a stack. | Easy | Easy |
 | __[739](https://leetcode.com/problems/daily-temperatures/)__ | Daily Temperatures | <strong>Initial Approach:</strong> Used for-loops to calculate difference from the next warm day. <br /> <strong>Better Approach:</strong> Used stack to track the last index and calculate the difference if greater found. | Medium | Medium |
 | __[763](https://leetcode.com/problems/partition-labels/)__ | Partition Labels | Used hashmap to track the last index of each element and update start/end based on elements found in between. | Medium | Medium |
+| __[780](https://leetcode.com/problems/reaching-points/)__ | Reaching Points | Solved this problem recursively from tx and ty. | Hard | Hard |
 | __[829](https://leetcode.com/problems/consecutive-numbers-sum/)__ | Consecutive Numbers Sum | Used a while loop and increased the count. | Hard | Hard |
+| __[862](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/)__ | Shortest Subarray with Sum at Least K | Made a prefix sum array, looped over it, while the current prefix sum can is a valid, update the result minimum and poll the head out as it is useless now. | Hard | Hard |
+| __[871](https://leetcode.com/problems/minimum-number-of-refueling-stops/)__ | Minimum Number of Refueling Stops | Used priority queue which stores the the fuel in descending order. The stations with more fuel will be ahead (reverse sorting) so that max fuel can be taken when needed. | Hard | Hard |
+| __[895](https://leetcode.com/problems/maximum-frequency-stack/)__ | Maximum Frequency Stack | Just used two hash maps to keep track of frequency and then create a stack like data structure. | Hard | Hard |
 | __[938](https://leetcode.com/problems/range-sum-of-bst/)__ | Range Sum of BST | Followed a simple in-order traversal to get sum. | Easy | Easy |
 | __[969](https://leetcode.com/problems/pancake-sorting/)__ | Pancake Sorting | Flipped the array after finding the index of largest number element. | Medium | Medium |
 | __[980](https://leetcode.com/problems/unique-paths-iii/)__ | Unique Paths III | Used DFS along the root and cell to find the unique path. | Hard | Hard |
