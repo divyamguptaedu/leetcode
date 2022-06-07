@@ -125,6 +125,9 @@
 | __[477](https://leetcode.com/problems/total-hamming-distance/)__ | Total Hamming Distance | Find binary 1 from Nth binary of num[] and calculate all possibility of the sum.	 | Medium | Medium |
 | __[489](https://leetcode.com/problems/robot-room-cleaner/)__ | Robot Room Cleaner | Used DFS approach to access each spot and clean. | Hard | Hard |
 | __[494](https://leetcode.com/problems/target-sum/submissions/)__ | Target Sum | <strong>Initial Approach:</strong> Recursed on all possible sums. Both increasing and decreasing. <br /> <strong>Better Approach:</strong> Stored answers to increase runtime. | Medium | Medium |
+| __[498](https://leetcode.com/problems/diagonal-traverse/)__ | Diagonal Traverse | Wrote down the matrix in terms of the indices, if the indices add to an even number, then go in the upward direction, else in the downward direction. | Medium | Medium |
+| __[503](https://leetcode.com/problems/next-greater-element-ii/)__ | Next Greater Element II | Used simillar approach to the basic next greater element question. Here, just traverse the element two times. | Medium | Medium |
+| __[513](https://leetcode.com/problems/find-bottom-left-tree-value/)__ | Find Bottom Left Tree Value | UUsed a simple BFS traversal technique to get the bottom left tree value. | Medium | Medium |
 | __[543](https://leetcode.com/problems/diameter-of-binary-tree/)__ | Diameter of Binary Tree | Used recursion to calculate maximum depth from each node and update the new maximum. | Easy | Medium |
 | __[560](https://leetcode.com/problems/subarray-sum-equals-k/)__ | Subarray Sum Equals K | Used a hashmap to store answers and recalculate sum. | Medium | Medium |
 | __[617](https://leetcode.com/problems/merge-two-binary-trees/)__ | Merge Two Binary Trees | Used recursion to update the first tree based on the data found in the second tree. | Easy | Easy |
@@ -150,6 +153,7 @@
 | __[1312](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)__ | Minimum Insertion Steps to Make a String Palindrome | Used iteration and storage to keep track of every letter. | Medium | Hard |
 | __[1344](https://leetcode.com/problems/angle-between-hands-of-a-clock/)__ | Angle Between Hands of a Clock | Used simple mathematics to compute the angle. | Medium | Easy |
 | __[1344](https://leetcode.com/problems/capital-gainloss/)__ | Capital Gain/Loss | Used ‘case’ and ‘when’ to group and calculate the sum. | Medium | Medium |
+| __[1406](https://leetcode.com/problems/stone-game-iii/)__ | Stone Game III | AliceScore = Stone Collected by Alice - Stone Collected by Bob | Hard | Medium |
 | __[1448](https://leetcode.com/problems/count-good-nodes-in-binary-tree/)__ | Count Good Nodes in Binary Tree | Calculate maximum on each route and increase the count after comparing with the root value. | Hard | Medium |
 | __[1576](https://leetcode.com/problems/replace-all-s-to-avoid-consecutive-repeating-characters/)__ | Replace All ?'s to Avoid Consecutive Repeating Characters | Used simple iteration to find the '?' in the character array and replacing them. | Easy | Medium |
 | __[1578](https://leetcode.com/problems/minimum-deletion-cost-to-avoid-repeating-letters/)__ | Minimum Deletion Cost to Avoid Repeating Letters | Used iteration and evaluated the sum and the maximum each time. | Medium | Hard |
