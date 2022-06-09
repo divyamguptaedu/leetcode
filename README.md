@@ -77,7 +77,9 @@
 | __[174](https://leetcode.com/problems/dungeon-game/)__ | Dungeon Game | Use DP to check if the health is enough to get to the end point. | Hard | Hard |
 | __[176](https://leetcode.com/problems/second-highest-salary/)__ | Second Highest Salary | Selected distinct salary from the table, sorted in descending order, and return second by offsetting 1. | Easy | Easy |
 | __[177](https://leetcode.com/problems/nth-highest-salary/)__ | Nth Highest Salary | Selected distinct salary from the table, sorted in descending order, and return nth by offsetting n-1. | Easy | Easy |
+| __[179](https://leetcode.com/problems/largest-number/)__ | Largest Number | Sorted with a comparator and if the strings are of different lengths, append them together. | Medium | Medium |
 | __[183](https://leetcode.com/problems/customers-who-never-order/)__ | Customers Who Never Order | Selected those customers from customers who doesn't have customerid in orders. | Easy | Easy |
+| __[187](https://leetcode.com/problems/repeated-dna-sequences/)__ | Repeated DNA Sequences | Used two hash sets simply to identify and report repeated DNA sequences. | Medium | Medium |
 | __[189](https://leetcode.com/problems/rotate-array/)__ | Rotate Array | Used reversing the array approach to do in-place rotation. | Medium | Easy |
 | __[191](https://leetcode.com/problems/number-of-1-bits/)__ | Number of 1 Bits | Divided the n by 2 repeatedly and increased the count whenever its odd. | Easy | Easy |
 | __[198](https://leetcode.com/problems/house-robber/)__ | House Robber | Used a simple two pointer approach to check the houses. | Medium | Medium |
@@ -88,9 +90,12 @@
 | __[215](https://leetcode.com/problems/kth-largest-element-in-an-array/)__ | Kth Largest In Array | Used priority queue as max heap to store values and pop k times. | Medium | Easy |
 | __[219](https://leetcode.com/problems/contains-duplicate-ii/)__ | Contains Duplicate II | Used HashMap to store elements of array and then compare with traversing elements to find the duplicate. | Easy | Easy |
 | __[221](https://leetcode.com/problems/maximal-square/)__ | Maximal Square | Used brute-force with optimization to increase runtime. | Medium | Medium |
+| __[222](https://leetcode.com/problems/count-complete-tree-nodes/)__ | Count Complete Tree Nodes | Used a simple recursion trick to count left and right nodes and then just add 1. | Medium | Medium |
+| __[223](https://leetcode.com/problems/rectangle-area/)__ | Rectangle Area | Area = firstRectangle + secondRectangle - commonAreaOne * commonAreaTwo;   . | Medium | Medium |
 | __[224](https://leetcode.com/problems/basic-calculator/)__ | Basic Calculator | Used the stack approach to determine sign and compute result.  | Hard | Medium |
 | __[225](https://leetcode.com/problems/implement-stack-using-queues/)__ | Implement Stack using Queues | Used two queues to implement a LIFO stack. | Easy | Easy |
 | __[228](https://leetcode.com/problems/summary-ranges/)__ | Summary Ranges | Traversed the entire array and created breakpoint where necessary. | Easy | Easy |
+| __[229](https://leetcode.com/problems/majority-element-ii/)__ | Majority Element II | Added everything into the hashMap and keep a count of their occurrences. Then just calculate n/3 and see what elements satisfy the requirement. | Medium | Medium |
 | __[230](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)__ | Kth Smallest Element in a BST | <strong>Initial Approach:</strong> Performed in-order traversal and returned the kth element. <br /> <strong>Better Approach:</strong> Used the same approach, but stopped the traversal when kth smallest element is found. | Medium | Medium |
 | __[234](https://leetcode.com/problems/palindrome-linked-list/)__ | Palindrome Linked List | Converting the LinkedList to an array and using the pointer approach to check the pattern. | Easy | Medium |
 | __[236](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)__ | Lowest Common Ancestor of a Binary Tree | Performing a traversal and returning the common ancestor. | Medium | Medium |
@@ -128,6 +133,9 @@
 | __[498](https://leetcode.com/problems/diagonal-traverse/)__ | Diagonal Traverse | Wrote down the matrix in terms of the indices, if the indices add to an even number, then go in the upward direction, else in the downward direction. | Medium | Medium |
 | __[503](https://leetcode.com/problems/next-greater-element-ii/)__ | Next Greater Element II | Used simillar approach to the basic next greater element question. Here, just traverse the element two times. | Medium | Medium |
 | __[513](https://leetcode.com/problems/find-bottom-left-tree-value/)__ | Find Bottom Left Tree Value | UUsed a simple BFS traversal technique to get the bottom left tree value. | Medium | Medium |
+| __[524](https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/)__ | Longest Word in Dictionary through Deleting | We compare the string and dictionary string one by one. If dictionary string is shorter than result string, skip it. Otherwise, compare string and selected dictionary string char by char using two pointer. If matched, save the dictionary string into result string. | Medium | Medium |
+| __[525](https://leetcode.com/problems/contiguous-array/)__ | Contiguous Array | This is a prefix sum kind of question, we know that if a sum occurs a second time in an array, that means the subarray between it had a sum of zero. | Medium | Medium |
+| __[526](https://leetcode.com/problems/beautiful-arrangement/)__ | Beautiful Arrangement | For each index between 1 and N, tried to find a number "i" that satisfies the given conditions. | Medium | Medium |
 | __[543](https://leetcode.com/problems/diameter-of-binary-tree/)__ | Diameter of Binary Tree | Used recursion to calculate maximum depth from each node and update the new maximum. | Easy | Medium |
 | __[560](https://leetcode.com/problems/subarray-sum-equals-k/)__ | Subarray Sum Equals K | Used a hashmap to store answers and recalculate sum. | Medium | Medium |
 | __[617](https://leetcode.com/problems/merge-two-binary-trees/)__ | Merge Two Binary Trees | Used recursion to update the first tree based on the data found in the second tree. | Easy | Easy |
@@ -150,6 +158,7 @@
 | __[997](https://leetcode.com/problems/find-the-town-judge/)__ | Find the Town Judge | Outdegree should be 0 and indegree should be n - 1. | Easy | Easy |
 | __[1002](https://leetcode.com/problems/find-common-characters/)__ | Find Common Characters | Made the list and returned it by putting all the character of a HashMap and the number of times its value is present in the list. | Easy | Easy |
 | __[1005](https://leetcode.com/problems/maximize-sum-of-array-after-k-negations/)__ | Maximize Sum Of Array After K Negations | If K is still greater than 0, then the lowest positive can be flipped, only if k is odd. Then just find the first positive (loop from 100 to 200). If k is odd, deduct its double value from sum. | Easy | Easy |
+| __[1172](https://leetcode.com/problems/dinner-plate-stacks/)__ | Dinner Plate Stacks | Used three stacks. Normal stack code + track of left-most stack + remove trailing empty stack when popping. | Hard | Hard |
 | __[1312](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)__ | Minimum Insertion Steps to Make a String Palindrome | Used iteration and storage to keep track of every letter. | Medium | Hard |
 | __[1344](https://leetcode.com/problems/angle-between-hands-of-a-clock/)__ | Angle Between Hands of a Clock | Used simple mathematics to compute the angle. | Medium | Easy |
 | __[1344](https://leetcode.com/problems/capital-gainloss/)__ | Capital Gain/Loss | Used ‘case’ and ‘when’ to group and calculate the sum. | Medium | Medium |
