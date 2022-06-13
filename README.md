@@ -113,12 +113,16 @@
 | __[239](https://leetcode.com/problems/sliding-window-maximum/)__ | Sliding Window Maximum | Formed a queue for the k indexes each time and got the maximum.  | Hard | Medium |
 | __[240](https://leetcode.com/problems/search-a-2d-matrix-ii/)__ | Search a 2D Matrix II | Started from the right corner and change row/colomn according to comparisons. | Medium | Medium |
 | __[273](https://leetcode.com/problems/integer-to-english-words/)__ | Integer to English Words | Used String arrays and mathematics to get the answer. | Hard | Medium |
+| __[274](https://leetcode.com/problems/h-index/)__ | H-Index | Sorted the elements and just used while loop to search. | Medium | Medium |
+| __[275](https://leetcode.com/problems/h-index-ii/)__ | H-Index II | Used simple binary search to get the index by using low, high, and mid pointers. | Medium | Medium |
 | __[279](https://leetcode.com/problems/perfect-squares/)__ | Perfect Squares | Used the square-root approach and then stored the minimum. | Medium | Medium |
 | __[283](https://leetcode.com/problems/move-zeroes/)__ | Move Zeroes | Used simple approach to interate over the array and move the every zero to the end without making any copy of the array. | Easy | Easy |
+| __[284](https://leetcode.com/problems/peeking-iterator/)__ | Peeking Iterator | Used a simple array list to keep the record and build peek, next, and hasNext method. | Medium | Medium |
 | __[287](https://leetcode.com/problems/find-the-duplicate-number/)__ | Find the Duplicate Number | Used a hashmap/set to add all nums in the array and return if already added. | Medium | Easy |
 | __[295](https://leetcode.com/problems/find-median-from-data-stream/)__ | Find Median from Data Stream | <strong>Initial Approach:</strong> Formed a minHeap and computed the median by removing and adding elements each time. <br /> <strong>Better Approach:</strong> Formed a minHeap and a maxHeap to store elements and get median in O(1) time. | Hard | Medium |
 | __[297](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)__ | Serialize and Deserialize Binary Tree | Found preorder traversal and converted into a string to serialize. Split the string and form the tree from the preorder traversal.  | Hard | Medium |
 | __[300](https://leetcode.com/problems/longest-increasing-subsequence/submissions/)__ | Longest Increasing Subsequence | Used binary search to find position. | Medium | Medium |
+| __[304](https://leetcode.com/problems/range-sum-query-2d-immutable/)__ | Range Sum Query 2D - Immutable | Did a prefix sum from left to right for all rows, added the previous value of the matrix to the current value in the matrix as to get the result. | Hard | Hard |
 | __[315](https://leetcode.com/problems/count-of-smaller-numbers-after-self/)__ | Count of Smaller Numbers After Self | Used a simple iteration approach. Also did the question using BST. | Hard | Hard |
 | __[322](https://leetcode.com/problems/coin-change/)__ | Coin Change | Used brute-force recursion with optimization to increase runtime. | Medium | Medium |
 | __[337](https://leetcode.com/problems/house-robber-iii/)__ | House Robber III | Got level order traversal and returned maximum of alternate levels' sum. | Medium | Medium |
@@ -126,6 +130,7 @@
 | __[342](https://leetcode.com/problems/power-of-four/)__ | Power of Four | Used recursion with n/4 everytime and returned false when it's not 0. | Easy | Easy |
 | __[347](https://leetcode.com/problems/top-k-frequent-elements/)__ | Top K Frequent Elements | <strong>Initial Approach:</strong> Created a hashmap of the frequencies and then removed the key with max freq. k times. <br /> <strong>Mediocre Approach:</strong> Used a maxHeap to sort the frequencies and then match with the key. <br /> <strong>Better Approach:</strong> Used priority queue to sort the keys based on frequencies and pop the queue k times. | Medium | Hard |
 | __[348](https://leetcode.com/problems/design-tic-tac-toe/)__ | Design Tic-Tac-Toe | Used row/coloum/diagonal/anti-diagonal approach. | Medium | Hard |
+| __[357](https://leetcode.com/problems/count-numbers-with-unique-digits/)__ | Count Numbers with Unique Digits | Started with 9 possibilities, got the number of possibilities to place a number, kept reducing a possibility because the number that was used in in current position should not be used again. | Medium | Medium |
 | __[375](https://leetcode.com/problems/guess-number-higher-or-lower-ii/)__ | Guess Number Higher or Lower II | Chose the starting point that has the minimum payoff. Then, for each starting point, chose the maximum amount of money paid. | Medium | Hard |
 | __[376](https://leetcode.com/problems/wiggle-subsequence/description/)__ | Wiggle Subsequence | Kept a count of positive and negatives and chose the maximum. | Medium | Hard |
 | __[394](https://leetcode.com/problems/decode-string/)__ | Decode String | Used condition statements to do the tasks. Followed stack approach to save the result.  | Medium | Medium |
@@ -138,6 +143,7 @@
 | __[475](https://leetcode.com/problems/heaters/)__ | Heaters | Used simple binary search algorithm to solve. | Medium | Medium |
 | __[477](https://leetcode.com/problems/total-hamming-distance/)__ | Total Hamming Distance | Find binary 1 from Nth binary of num[] and calculate all possibility of the sum.	 | Medium | Medium |
 | __[489](https://leetcode.com/problems/robot-room-cleaner/)__ | Robot Room Cleaner | Used DFS approach to access each spot and clean. | Hard | Hard |
+| __[493](https://leetcode.com/problems/reverse-pairs/)__ | Reverse Pairs | Used simple merge sort to reverse pairs. | Hard | Hard |
 | __[494](https://leetcode.com/problems/target-sum/submissions/)__ | Target Sum | <strong>Initial Approach:</strong> Recursed on all possible sums. Both increasing and decreasing. <br /> <strong>Better Approach:</strong> Stored answers to increase runtime. | Medium | Medium |
 | __[498](https://leetcode.com/problems/diagonal-traverse/)__ | Diagonal Traverse | Wrote down the matrix in terms of the indices, if the indices add to an even number, then go in the upward direction, else in the downward direction. | Medium | Medium |
 | __[503](https://leetcode.com/problems/next-greater-element-ii/)__ | Next Greater Element II | Used simillar approach to the basic next greater element question. Here, just traverse the element two times. | Medium | Medium |
@@ -146,6 +152,7 @@
 | __[525](https://leetcode.com/problems/contiguous-array/)__ | Contiguous Array | This is a prefix sum kind of question, we know that if a sum occurs a second time in an array, that means the subarray between it had a sum of zero. | Medium | Medium |
 | __[526](https://leetcode.com/problems/beautiful-arrangement/)__ | Beautiful Arrangement | For each index between 1 and N, tried to find a number "i" that satisfies the given conditions. | Medium | Medium |
 | __[543](https://leetcode.com/problems/diameter-of-binary-tree/)__ | Diameter of Binary Tree | Used recursion to calculate maximum depth from each node and update the new maximum. | Easy | Medium |
+| __[546](https://leetcode.com/problems/remove-boxes/)__ | Remove Boxes | Used a 3D matrix with dynamic programming approach to remove the boxes. | Hard | Hard |
 | __[560](https://leetcode.com/problems/subarray-sum-equals-k/)__ | Subarray Sum Equals K | Used a hashmap to store answers and recalculate sum. | Medium | Medium |
 | __[617](https://leetcode.com/problems/merge-two-binary-trees/)__ | Merge Two Binary Trees | Used recursion to update the first tree based on the data found in the second tree. | Easy | Easy |
 | __[621](https://leetcode.com/problems/task-scheduler/)__ | Task Scheduler | Used hashmap and queue to compute idle time. | Medium | Medium |
