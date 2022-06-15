@@ -138,7 +138,11 @@
 | __[375](https://leetcode.com/problems/guess-number-higher-or-lower-ii/)__ | Guess Number Higher or Lower II | Chose the starting point that has the minimum payoff. Then, for each starting point, chose the maximum amount of money paid. | Medium | Hard |
 | __[376](https://leetcode.com/problems/wiggle-subsequence/description/)__ | Wiggle Subsequence | Kept a count of positive and negatives and chose the maximum. | Medium | Hard |
 | __[377](https://leetcode.com/problems/combination-sum-iv/)__ | Combination Sum IV | Used a simple 1D array dynamic programming approach to find the combinational sum. | Medium | Medium |
+| __[384](https://leetcode.com/problems/shuffle-an-array/)__ | Shuffle an Array | Set the upper bound of random generator by swapping the selected number with the last number. | Medium | Medium |
+| __[386](https://leetcode.com/problems/lexicographical-numbers/)__ | Lexicographical Numbers | To produce lexicographical order of the numbers, printed all the numbers starting from 1 and then 2 and so on. First went for 1 then went inside 0 to 9 and again went inside 10 from 0 to 9 and so on and if exceeds limit return. | Medium | Medium |
 | __[394](https://leetcode.com/problems/decode-string/)__ | Decode String | Used condition statements to do the tasks. Followed stack approach to save the result.  | Medium | Medium |
+| __[395](https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/)__ | Longest Substring with At Least K Repeating Characters | Used a simple recursive approach by implementing a helper method and using character numbers.  | Medium | Medium |
+| __[396](https://leetcode.com/problems/rotate-function/)__ | Rotate Function | Way to transition from F(0) toF(1) and F(i) to F(i + 1): F(1) = F(0) - (n - 1) * last element + sum of array - last element.  | Medium | Medium |
 | __[416](https://leetcode.com/problems/partition-equal-subset-sum/)__ | Partition Equal Subset Sum | Iterated over the array and check each partition if it equal to subset sum. Stored the answer for faster runtime. | Medium | Medium |
 | __[428](https://leetcode.com/problems/serialize-and-deserialize-n-ary-tree/)__ | Serialize and Deserialize N-ary Tree | Used a stringBuilder to serialize and LinkedList to deserialize. | Hard | Hard |
 | __[437](https://leetcode.com/problems/path-sum-iii/)__ | Path Sum III | Incremented the counter with left and right root recursion and new target sum. | Medium | Medium |
@@ -162,6 +166,7 @@
 | __[617](https://leetcode.com/problems/merge-two-binary-trees/)__ | Merge Two Binary Trees | Used recursion to update the first tree based on the data found in the second tree. | Easy | Easy |
 | __[621](https://leetcode.com/problems/task-scheduler/)__ | Task Scheduler | Used hashmap and queue to compute idle time. | Medium | Medium |
 | __[626](https://leetcode.com/problems/exchange-seats/)__ | Exchange Seats | Used ‘case’ to swap and ‘order by’ to group in ascending order. | Hard | Hard |
+| __[629](https://leetcode.com/problems/k-inverse-pairs-array/)__ | K Inverse Pairs Array | Used a 2D matrix with dynamic programming approach. From 1 to n, if we keep n as nth last element, then n 1  inverse pair will include this nth last element. Left over k-(n-1) inverse pairs will be calculated from rest n - 1 elements. | Hard | Hard |
 | __[647](https://leetcode.com/problems/palindromic-substrings/)__ | Palindromic Substrings | <strong>Initial Approach:</strong> Interated through the string and checked if it's a palindrome using pointer approach. <br /> <strong>Better Approach:</strong> Used recursion to build the isPalindrome function. Improves runtime. | Medium | Medium |
 | __[706](https://leetcode.com/problems/design-hashmap/)__ | Design HashMap | Formed a linkedList structure to back the hashmap. | Easy | Medium |
 | __[716](https://leetcode.com/problems/max-stack/solution/)__ | Max Stack | Used a reversed queue to build a stack. | Easy | Easy |
