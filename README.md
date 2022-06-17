@@ -88,6 +88,7 @@
 | __[180](https://leetcode.com/problems/consecutive-numbers/)__ | Consecutive Numbers | Consecutive number increase by 1, so just generated row number here. | Medium | Medium |
 | __[183](https://leetcode.com/problems/customers-who-never-order/)__ | Customers Who Never Order | Selected those customers from customers who doesn't have customerid in orders. | Easy | Easy |
 | __[187](https://leetcode.com/problems/repeated-dna-sequences/)__ | Repeated DNA Sequences | Used two hash sets simply to identify and report repeated DNA sequences. | Medium | Medium |
+| __[188](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/)__ | Best Time to Buy and Sell Stock IV | Hard | Hard |
 | __[189](https://leetcode.com/problems/rotate-array/)__ | Rotate Array | Used reversing the array approach to do in-place rotation. | Medium | Easy |
 | __[191](https://leetcode.com/problems/number-of-1-bits/)__ | Number of 1 Bits | Divided the n by 2 repeatedly and increased the count whenever its odd. | Easy | Easy |
 | __[198](https://leetcode.com/problems/house-robber/)__ | House Robber | Used a simple two pointer approach to check the houses. | Medium | Medium |
@@ -123,11 +124,18 @@
 | __[297](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)__ | Serialize and Deserialize Binary Tree | Found preorder traversal and converted into a string to serialize. Split the string and form the tree from the preorder traversal.  | Hard | Medium |
 | __[300](https://leetcode.com/problems/longest-increasing-subsequence/submissions/)__ | Longest Increasing Subsequence | Used binary search to find position. | Medium | Medium |
 | __[304](https://leetcode.com/problems/range-sum-query-2d-immutable/)__ | Range Sum Query 2D - Immutable | Did a prefix sum from left to right for all rows, added the previous value of the matrix to the current value in the matrix as to get the result. | Hard | Hard |
+| __[306](https://leetcode.com/problems/additive-number/)__ | Additive Number | Started with the first number and the second number and then checked if the solution is valid. Used a helper function to check if the solution is valid. | Medium | Medium |
+| __[309](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)__ | Best Time to Buy and Sell Stock with Cooldown | Using dynamic programming with 2D array and analysing each possibility, either cool down, or buy. | Medium | Medium |
+| __[312](https://leetcode.com/problems/burst-balloons/)__ | Burst Balloons | Used the sliding window approach by using left and right pointers. | Hard | Hard |
 | __[315](https://leetcode.com/problems/count-of-smaller-numbers-after-self/)__ | Count of Smaller Numbers After Self | Used a simple iteration approach. Also did the question using BST. | Hard | Hard |
 | __[322](https://leetcode.com/problems/coin-change/)__ | Coin Change | Used brute-force recursion with optimization to increase runtime. | Medium | Medium |
+| __[328](https://leetcode.com/problems/odd-even-linked-list//)__ | Odd Even Linked List | Made odd and even pointers and moved them linearly and rearranged the nodes as per the requirement. | Medium | Medium |
+| __[324](https://leetcode.com/problems/wiggle-sort-ii/)__ | Wiggle Sort II | Travelled odd index and filled sorted array’s right half first. Then, travelled even index and filled sorted array’s left half. | Medium | Medium |
+| __[334](https://leetcode.com/problems/increasing-triplet-subsequence/)__ | Increasing Triplet Subsequence | Got the nums[index] > i and nums[index]> j. If that’s true, then we got increasing subsequence. | Medium | Medium |
 | __[337](https://leetcode.com/problems/house-robber-iii/)__ | House Robber III | Got level order traversal and returned maximum of alternate levels' sum. | Medium | Medium |
 | __[338](https://leetcode.com/problems/counting-bits/)__ | Counting Bits | Used iteration and power to compute the number of bits. | Easy | Easy |
 | __[342](https://leetcode.com/problems/power-of-four/)__ | Power of Four | Used recursion with n/4 everytime and returned false when it's not 0. | Easy | Easy |
+| __[343](https://leetcode.com/problems/integer-break/)__ | Integer Break | Used a helper function for integer break values other than the first number of integer break. Helper function tells that there are repetition so used memory to optimise the algorithm. | Medium | Medium |
 | __[347](https://leetcode.com/problems/top-k-frequent-elements/)__ | Top K Frequent Elements | <strong>Initial Approach:</strong> Created a hashmap of the frequencies and then removed the key with max freq. k times. <br /> <strong>Mediocre Approach:</strong> Used a maxHeap to sort the frequencies and then match with the key. <br /> <strong>Better Approach:</strong> Used priority queue to sort the keys based on frequencies and pop the queue k times. | Medium | Hard |
 | __[348](https://leetcode.com/problems/design-tic-tac-toe/)__ | Design Tic-Tac-Toe | Used row/coloum/diagonal/anti-diagonal approach. | Medium | Hard |
 | __[357](https://leetcode.com/problems/count-numbers-with-unique-digits/)__ | Count Numbers with Unique Digits | Started with 9 possibilities, got the number of possibilities to place a number, kept reducing a possibility because the number that was used in in current position should not be used again. | Medium | Medium |
