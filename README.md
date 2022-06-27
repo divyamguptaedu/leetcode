@@ -213,8 +213,13 @@
 | __[611](https://leetcode.com/problems/valid-triangle-number/)__ | Valid Triangle Number |  Sorted the array, checked if sum of two sides is greater than the third side. If sum of left and right is greater than last calculated, then it is suitable. If not, left++. | Medium | Medium |
 | __[617](https://leetcode.com/problems/merge-two-binary-trees/)__ | Merge Two Binary Trees | Used recursion to update the first tree based on the data found in the second tree. | Easy | Easy |
 | __[621](https://leetcode.com/problems/task-scheduler/)__ | Task Scheduler | Used hashmap and queue to compute idle time. | Medium | Medium |
+| __[622](https://leetcode.com/problems/design-circular-queue/)__ | Design Circular Queue | Used a simple front and rear pointers with an array to build the circular queue. | Medium | Medium |
+| __[623](https://leetcode.com/problems/add-one-row-to-tree/)__ | Add One Row to Tree | Traversed the tree by passing current and next depth. If equal, then replace current red/right children. If not, recessive call with left and right children. | Medium | Medium |
 | __[626](https://leetcode.com/problems/exchange-seats/)__ | Exchange Seats | Used ‘case’ to swap and ‘order by’ to group in ascending order. | Hard | Hard |
 | __[629](https://leetcode.com/problems/k-inverse-pairs-array/)__ | K Inverse Pairs Array | Used a 2D matrix with dynamic programming approach. From 1 to n, if we keep n as nth last element, then n 1  inverse pair will include this nth last element. Left over k-(n-1) inverse pairs will be calculated from rest n - 1 elements. | Hard | Hard |
+| __[633](https://leetcode.com/problems/sum-of-square-numbers/)__ | Sum of Square Numbers | Used simple binary search to find the sum of square numbers.  | Medium | Medium |
+| __[641](https://leetcode.com/problems/design-circular-deque/)__ | Design Circular Deque | Used simple front and rear pointers with array to build the circular duque.  | Medium | Medium |
+| __[646](https://leetcode.com/problems/maximum-length-of-pair-chain/)__ | Maximum Length of Pair Chain | Sorted the array and just iterated over to find the maximum length.  | Medium | Medium |
 | __[647](https://leetcode.com/problems/palindromic-substrings/)__ | Palindromic Substrings | <strong>Initial Approach:</strong> Interated through the string and checked if it's a palindrome using pointer approach. <br /> <strong>Better Approach:</strong> Used recursion to build the isPalindrome function. Improves runtime. | Medium | Medium |
 | __[706](https://leetcode.com/problems/design-hashmap/)__ | Design HashMap | Formed a linkedList structure to back the hashmap. | Easy | Medium |
 | __[716](https://leetcode.com/problems/max-stack/solution/)__ | Max Stack | Used a reversed queue to build a stack. | Easy | Easy |
