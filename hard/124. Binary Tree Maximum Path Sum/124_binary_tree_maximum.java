@@ -18,26 +18,42 @@ Memory Usage: 45.2 MB, less than 8.76% of Java online submissions for Binary Tre
  *     }
  * }
  */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-    int answer;
     public int maxPathSum(TreeNode root) {
-        answer = 0;
-        helper(root);
-        return answer;
+        int[] maxSum = {Integer.MIN_VALUE};
+        maxPathSum(root, maxSum);
+        return maxSum[0];
     }
-    
-    public int helper(TreeNode root){
-        if (root == null) {                      
+
+    public int maxPathSum(TreeNode root, int[] maxSum) {
+        if (root == null) {
             return 0;
         }
-        int left = helper(root.left);
-        int right = helper(root.right);
-        int temp = Math.max(root.val, Math.max(left, right) + root.val);  
-        int result = Math.max(temp, left + right + root.val);
-        answer = Math.max(answer, result);
-        return temp;
+
+        int leftSum = Math.max(0, maxPathSum(root.left, maxSum));
+        int rightSum = Math.max(0, maxPathSum(root.right, maxSum));
+
+        maxSum[0] = Math.max(maxSum[0], leftSum + rightSum + root.val);
+
+        return Math.max(leftSum, rightSum) + root.val;
     }
 }
+
 
 
 
