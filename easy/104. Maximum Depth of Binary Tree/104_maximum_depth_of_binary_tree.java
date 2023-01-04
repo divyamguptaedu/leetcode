@@ -1,9 +1,3 @@
-"""
-Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Maximum Depth of Binary Tree.
-Memory Usage: 38.7 MB, less than 78.77% of Java online submissions for Maximum Depth of Binary Tree.
-"""
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -19,12 +13,61 @@ Memory Usage: 38.7 MB, less than 78.77% of Java online submissions for Maximum D
  *     }
  * }
  */
+ //Recursion Approach
 class Solution {
     public int maxDepth(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        // choose the maximum of left and right depth
-        return Math.max(1 + maxDepth(root.left), 1 + maxDepth(root.right));
+        int leftDepth = maxDepth(root.left);
+        int rightDepth = maxDepth(root.right);
+        return Math.max(leftDepth, rightDepth) + 1;
+    }
+}
+
+//BFS Approach
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int height = 0;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()){
+            int size = q.size();
+            height++;
+            while (size-- > 0) {
+                TreeNode temp = q.poll();
+                if (temp.left != null) {
+                    q.add(temp.left);
+                }
+                if (temp.right != null) {
+                    q.add(temp.right);
+                }
+            }
+        }
+        return height;
+    }
+}
+
+//DFS Approach
+class Solution {
+    int maxHeight = 0;
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        dfs(root, 0);
+        return maxHeight;
+    }
+    public void dfs(TreeNode root, int currHeight) {
+        maxHeight = Math.max(maxHeight, currHeight);
+        if (root == null) {
+            return;
+        }
+        currHeight++;
+        dfs(root.left, currHeight);
+        dfs(root.right, currHeight);
     }
 }
