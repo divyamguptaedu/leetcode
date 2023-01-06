@@ -1,31 +1,34 @@
-"""
-Performance:
-Runtime: 3 ms, faster than 80.46% of Java online submissions for Valid Sudoku.
-Memory Usage: 45.5 MB, less than 69.01% of Java online submissions for Valid Sudoku.
-"""
-
 class Solution {
-    
     public boolean isValidSudoku(char[][] board) {
-        boolean[][] row = new boolean[9][10];
-        boolean[][] col = new boolean[9][10];
-        boolean[][] section = new boolean[9][10];
+
+        List<Set<Character>> rowValues = new ArrayList<>();
+        List<Set<Character>> colValues = new ArrayList<>();
+        List<Set<Character>> gridValues = new ArrayList<>();
+
         for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (board[i][j] == '.') {
+            rowValues.add(new HashSet<>());
+            colValues.add(new HashSet<>());
+            gridValues.add(new HashSet<>());
+        }
+
+        for (int r = 0; r < 9; r++) {
+            for (int c = 0; c < 9; c++) {
+                if (board[r][c] == '.') {
                     continue;
                 }
-                int k = board[i][j] - '0'; 
-                if (row[i][k] || col[j][k]) {
-                    return false;  
-                }
-                int g = 3 * (i / 3) + j / 3;
-                if (section[g][k]) {
+                
+                int gridIndex = (r/3) * 3 + (c/3);
+                char cellValue = board[r][c];
+
+                if (rowValues.get(r).contains(cellValue) || colValues.get(c).contains(cellValue) || gridValues.get(gridIndex).contains(cellValue)) {
                     return false;
                 }
-                row[i][k] = col[j][k] = section[g][k] = true;
+                rowValues.get(r).add(cellValue);
+                colValues.get(c).add(cellValue);
+                gridValues.get(gridIndex).add(cellValue);
             }
         }
+
         return true;
     }
 }
