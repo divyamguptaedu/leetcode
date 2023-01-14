@@ -1,26 +1,17 @@
-"
-Performance:
-Runtime: 4 ms, faster than 94.28% of Java online submissions for Keys and Rooms.
-Memory Usage: 44.5 MB, less than 91.02% of Java online submissions for Keys and Rooms.
-"
-
 class Solution {
     public boolean canVisitAllRooms(List<List<Integer>> rooms) {
-        int size = rooms.size();
-        int count = 1;
-        boolean[] flagged = new boolean[size];
-        flagged[0] = true;
-        Queue<Integer> queue = new ArrayDeque<>();
-        queue.addAll(rooms.get(0));
-        while (!queue.isEmpty()) {
-            int key = queue.poll();
-            if (flagged[key]) {
-                continue;
+        HashSet<Integer> set = new HashSet<>();
+        set.add(0);
+        helper(rooms, set, 0);
+        return set.size() == rooms.size();
+    }
+
+    public void helper(List<List<Integer>> rooms, HashSet<Integer> set , int curr) {
+        for (int next : rooms.get(curr)) {
+            if (!set.contains(next)) {
+                set.add(next);
+                helper(rooms, set, next);
             }
-            queue.addAll(rooms.get(key));       
-            count++;                 
-            flagged[key] = true;            
         }
-        return count == size;
     }
 }
