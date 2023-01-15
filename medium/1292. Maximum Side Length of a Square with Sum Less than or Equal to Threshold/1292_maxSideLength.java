@@ -1,31 +1,35 @@
 class Solution {
-	public int maxSideLength(int[][] mat, int threshold) {
-		int length = 0;
-		int x = mat.length;
-		int y = mat[0].length;
-		for (int i = 0; i < x - length; i++) {
-			for (int j =0 ;j < y - length; j++) { 
-				if (mat[i][j] <= threshold) {
-					length = Math.max(dp(mat, threshold, i, j, mat[i][j], 1), length);
-				}
-			}
-		}
-		return length;
-	}
-	public int dp(int[][] mat, int m, int x , int y , int sum , int length) {
-		if (x + length <= mat.length && y + length < mat[1].length) {
-			sum = sum - mat[x + length][y + length];
-			for (int i = x; i < x + length + 1; i++) {
-				sum = sum + mat[i][y + length];
-			}
-			for (int j = y; j < y + length + 1; j++) {
-				sum = sum + mat[x + length][j];
-			}
-		if (sum > m) {
-			return length;
-		}
-		return dp(mat,m,x,y,sum,length+1);
-		}
-		return length;
-	}
+    int m;
+    int n;
+    public int maxSideLength(int[][] mat, int threshold) {
+        m = mat.length;
+        n = mat[0].length;
+        int[][] sum = new int[m + 1][n + 1];
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                sum[i][j] = sum[i-1][j] + sum[i][j-1] - sum[i-1][j-1] + mat[i-1][j-1];
+            }
+        }
+        int lo = 0, hi = Math.min(m, n);
+        while (lo <= hi) {
+            int mid = (lo + hi) / 2;
+            if (isSquareExist(sum, threshold, mid)) {
+                lo = mid + 1;    
+            } else {
+                hi = mid - 1;
+            }
+        }
+        
+        return hi;
+    }
+    private boolean isSquareExist(int[][] sum, int threshold, int len) {
+        for (int i = len; i <= m; i++) {
+            for (int j = len; j <= n; j++) {
+                if (sum[i][j] - sum[i-len][j] - sum[i][j-len] + sum[i-len][j-len] <= threshold) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
