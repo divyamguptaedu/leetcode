@@ -1,45 +1,34 @@
 class Solution {
-    
-    ArrayList<ArrayList<Integer> > graph;
-    
     public int[] gardenNoAdj(int n, int[][] paths) {
-        
-         graph = new ArrayList(n);
-        
-        for(int i  = 0;i<n;i++)
-            graph.add(new ArrayList(3));
-        
-        for(int t[] : paths) {
-            graph.get(t[0]-1).add(t[1]-1);
-            graph.get(t[1]-1).add(t[0]-1);
+        Map<Integer,ArrayList<Integer>> map = new HashMap<>();
+        for (int i=0;i<n;i++){
+            map.put(i+1,new ArrayList<>());
         }
-        
-        int ans[] = new int[n];
-        
-        for(int i = 0;i<n;i++){
-            if( ans[i] == 0 )
-                assign(ans, i);
+        for (int[] arr:paths) {
+            map.get(arr[0]).add(arr[1]);
+            map.get(arr[1]).add(arr[0]);
         }
-        
-        return ans;
+        int[] colors = new int[n];
+        ArrayList<Integer> choice = new ArrayList<>(Arrays.asList(1,2,3,4));
+        map.forEach((k,v) -> {
+            if (colors[k - 1] == 0){
+                for (int i = 0; i < choice.size(); i++) {
+                    if (isSafe(k, choice.get(i), map, colors)) {
+                        colors[k - 1] = choice.get(i);
+                        break;
+                    }
+                }
+            }
+        });
+        return colors;
     }
-    
-    void assign(int ans[], int src) {
-        Queue<Integer> q = new LinkedList();
-        
-        q.add(src);
-        ans[src] = 1;
-        
-        while(!q.isEmpty()){
-            int u = q.poll();
-            int color = ans[u];
-            
-            for(int v : graph.get(u)){
-                if( ans[v] == 0 || ans[v] == color ) {
-                    ans[v] = color == 4 ? 1 : color +1;
-                    q.add(v);
-                }    
-            }            
-        }        
-    }   
+    private boolean isSafe(int k,int c,Map<Integer,ArrayList<Integer>> map,int[] col){
+        ArrayList<Integer> list = map.get(k);
+        for (int item : list) {
+            if (col[item - 1] == c) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
