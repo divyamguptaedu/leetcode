@@ -1,26 +1,15 @@
-"""
-Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Arithmetic Slices.
-Memory Usage: 42.6 MB, less than 12.06% of Java online submissions for Arithmetic Slices.
-"""
-
 class Solution {
-    public int numberOfArithmeticSlices(int[] arr) {
-        int size = arr.length;
-        int current = 0;
-        int previous = -1000000;
-        int result = 0;
-        for (int i = 1; i < size; i++) {
-            int diff = arr[i] - arr[i - 1];
-            if (diff == previous) {
-                current++;
-                result += current;
-            }
-            else {
-                previous = diff;
-                current = 0;
+    public int numberOfArithmeticSlices(int[] nums) {
+        int[] dp = new int[nums.length];
+        for (int i = 0; i <= nums.length - 3; i++) {
+            if ((nums[i + 1] - nums[i]) == (nums[i + 2] - nums[i + 1])) {
+                dp[i + 2] = dp[i + 2 - 1] + 1;
             }
         }
-        return result;
+        int sum = 0;
+        for (int i = 0; i < dp.length; i++) {
+            sum = sum + dp[i];
+        }
+        return sum;
     }
 }
