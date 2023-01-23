@@ -1,25 +1,19 @@
-"""
-Performance:
-Runtime: 5 ms, faster than 53.95% of Java online submissions for Rotate Function.
-Memory Usage: 92.4 MB, less than 10.87% of Java online submissions for Rotate Function.
-"""
-
 class Solution {
-    public int maxRotateFunction(int[] nums) {
-        int i;
-        int sum = 0;
-        int result = 0;
-        int maximum;
-        int n = nums.length - 1;
-        for (i = 0; i <= n; i++) {
-            sum += nums[i];
-            result += nums[i] * i;
+    public int maxRotateFunction (int[] A) {
+        if (A == null || A.length == 0)
+            return 0;
+        int sum = 0, F0 = 0, max = Integer.MIN_VALUE;
+        for (int i = 0; i < A.length; i++) {
+            sum += A [i];
+            F0 += i * A [i];
         }
-        maximum = result;
-        for (i = 0; i <= n; i++) {
-            result = result - sum + nums[i] + (nums[i] * n);
-            maximum = Math.max(result, maximum);
+        int dp[] = new int [A.length];
+        dp [0] = F0;
+        max = dp [0];
+        for (int i = 1; i < A.length; i++) {
+            dp [i] = dp [i-1] + sum - A.length * A [A.length - i];
+            max = Math.max (max, dp [i]);
         }
-        return maximum;
+        return max;
     }
 }
