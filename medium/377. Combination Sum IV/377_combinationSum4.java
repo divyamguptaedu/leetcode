@@ -1,20 +1,27 @@
-"
-Performance:
-Runtime: 2 ms, faster than 60.26% of Java online submissions for Combination Sum IV.
-Memory Usage: 41.5 MB, less than 48.76% of Java online submissions for Combination Sum IV.
-"
-
 class Solution {
     public int combinationSum4(int[] nums, int target) {
-        int[] result = new int[target + 1];
-        result[0] = 1;
-        for (int i = 1; i <= target ; i++) {
-            for (int x : nums) { 
-                if (i >= x) {
-                    result[i] += result[i - x];
-                }
-            }
+        Integer[] dp = new Integer[target + 1];
+        return helper(nums, target, dp);
+    }
+    
+    public int helper(int[] nums, int remain, Integer[] dp){
+        
+        if (remain < 0) {
+            return 0;
         }
-        return result[target];
+        if (dp[remain] != null) {
+            return dp[remain];
+        }
+        if (remain == 0) {
+            return 1;
+        }
+        
+        int ans = 0;
+        for (int i = 0; i < nums.length; i++){
+            ans += helper(nums, remain - nums[i], dp);
+        }
+        
+        dp[remain] = ans;
+        return dp[remain];
     }
 }
