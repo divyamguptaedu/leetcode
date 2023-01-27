@@ -1,36 +1,36 @@
-"
-Runtime: 358 ms, faster than 7.96% of Java online submissions for Beautiful Arrangement.
-Memory Usage: 65.9 MB, less than 5.08% of Java online submissions for Beautiful Arrangement.
-"
-
 class Solution {
     
-    int result = 0;
-    public int countArrangement(int n) {
-        if (n < 1) {
-            return 0;
-        }
-        List<Integer> list = new ArrayList<>();
-        list.add(-1);
-        helper(n, list, new HashSet<Integer>());
-        return result;
-    }
+    int noOfBeautifulArrangement= 0;//Stores the number of Beautiful Arrangement possible 
     
-    private void helper(int size, List<Integer> list, HashSet<Integer> hashSet){
-        if (list.size() == size + 1) {
-            result++;
+    public int countArrangement(int n) { //Branch And Bound Recursive Approach 
+        
+        boolean []visited= new boolean[n+1];//To ensure that we dont visit the same index in permutation again 
+        
+        permutationGenerator(n, visited, 1, "");
+        
+        return noOfBeautifulArrangement;
+    }
+    public void permutationGenerator(int n, boolean []visited, int c, String sequenceSoFar){
+        
+        if( c > n) {//Base Case // Beautiful Sequence found of n length 
+            
+            noOfBeautifulArrangement+= 1;
+            
+            System.out.println(sequenceSoFar.substring(1)+".\n\n");//Just to see the sequence // Not Mandetory 
+            
             return;
         }
-        for (int i = 1; i <= size; i++) {
-            if (hashSet.contains(i)) {
-                continue;
-            }
-            if (list.size() % i == 0 || i % list.size() == 0) {
-                list.add(i);
-                hashSet.add(i);
-                helper(size, list, hashSet);
-                hashSet.remove(i);
-                list.remove(list.size() - 1);
+        
+        for ( int i= 1; i <= n; i++){
+            
+            if ( !visited[i] && ( i % c == 0 || c % i == 0 )){//Condition for branching further i.e, explore next permutations 
+                
+                visited[i]= true;//Marking the current index as  visited 
+                
+                permutationGenerator( n, visited, c+1, sequenceSoFar+","+i);
+                
+                visited[i]= false;//Marking the current index as unvisited, in order to explore other permuutation sequences  
+                
             }
         }
     }
