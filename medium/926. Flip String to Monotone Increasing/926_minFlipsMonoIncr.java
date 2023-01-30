@@ -1,27 +1,25 @@
-"
-Performance:
-Runtime: 21 ms, faster than 84.77% of Java online submissions for Flip String to Monotone Increasing.
-Memory Usage: 54 MB, less than 95.92% of Java online submissions for Flip String to Monotone Increasing.
-"
-
 class Solution {
     public int minFlipsMonoIncr(String s) {
-        int size = s.length();
-        int[] array = new int[size];
-        int total = 0;
-        for (int i = 0; i < size; i++) {
-            if (s.charAt(i) == '1') {
-                total++; 
-            }
-            array[i] = total;
+        int n = s.length();
+        if (s == null || n == 0) {
+            return 0;
         }
-        int result = Integer.MAX_VALUE;
-        for (int i = 0; i <= size; i++) { 
-            int before = i == 0? 0 : array[i - 1];
-            int after = (size - i) - (total - before);   
-            int current = before + after;
-            result = Math.min(result, current);
+        int countOfOnes = 0;
+        int countOfZeros = 0;
+        char[] arr = s.toCharArray();
+
+        for (int i = 0; i < n; i++) {
+            char c = arr[i];
+            if (c == '0') {
+                if (countOfOnes == 0)
+                    continue;
+                else
+                    countOfZeros++;
+            } else
+                countOfOnes++;
+            if (countOfZeros > countOfOnes)
+                countOfZeros = countOfOnes;
         }
-        return result;
+        return countOfZeros;
     }
 }
