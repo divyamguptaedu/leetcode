@@ -1,62 +1,38 @@
-"
-Performance:
-Runtime: 71 ms, faster than 83.08% of Java online submissions for Word Search II.
-Memory Usage: 37.8 MB, less than 70.36% of Java online submissions for Word Search II.
-"
-
 class Solution {
-	public List<String> findWords(char[][] board, String[] words) {
-	    List<String> result = new ArrayList<>();
-	    TrieNode root = buildTrie(words);
-	    for (int i = 0; i < board.length; i++) {
-	        for (int j = 0; j < board[0].length; j++) {
-	            helper (board, i, j, root, result);
-	        }
-	    }
-	    return result;
-	}
+    HashMap<String, Integer> wordMap = new HashMap<>();
+    Set<String> resultList = new HashSet<>();
+    int maxLength = -1;
 
-	public void helper(char[][] board, int i, int j, TrieNode p, List<String> result) {
-	    char c = board[i][j];
-	    if (c == '#' || p.next[c - 'a'] == null) return;
-	    p = p.next[c - 'a'];
-	    if (p.word != null) {   // found one
-	        result.add(p.word);
-	        p.word = null;     // de-duplicate
-	    }
+    public List<String> findWords(char[][] board, String[] words) {
+        for (int i = 0; i < words.length; i++) {
+            wordMap.put(words[i], 1);
+            maxLength = Math.max(maxLength, words[i].length());
+        }
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                boolean[][] visited = new boolean[board.length][board[0].length];
+                checkWord(i, j, "", board, visited);
+            }
+        }
+        return new ArrayList<>(resultList);
+    }
 
-	    board[i][j] = '#';
-	    if (i > 0) {
-	    	helper(board, i - 1, j ,p, result); 
-	    }
-	    if (j > 0) {
-	    	helper(board, i, j - 1, p, result);
-	    }
-	    if (i < board.length - 1) {
-	    	helper(board, i + 1, j, p, result); 
-	    }
-	    if (j < board[0].length - 1) {
-	    	helper(board, i, j + 1, p, result); 
-	    }
-	    board[i][j] = c;
-	}
+    private void checkWord(int i, int j, String currentWord, char[][] board, boolean[][] visited) {
+        if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || visited[i][j] == true || currentWord.length() >= maxLength) {
+            return;
+        }
+        visited[i][j] = true;
+        currentWord += board[i][j];
+        if (wordMap.containsKey(currentWord)) {
+            resultList.add(currentWord);
+        }
 
-	public TrieNode buildTrie(String[] words) {
-	    TrieNode root = new TrieNode();
-	    for (String w : words) {
-	        TrieNode p = root;
-	        for (char c : w.toCharArray()) {
-	            int i = c - 'a';
-	            if (p.next[i] == null) p.next[i] = new TrieNode();
-	            p = p.next[i];
-	       }
-	       p.word = w;
-	    }
-	    return root;
-	}
+        checkWord(i - 1, j, currentWord, board, visited);
+        checkWord(i + 1, j, currentWord, board, visited);
+        checkWord(i, j - 1, currentWord, board, visited);
+        checkWord(i, j + 1, currentWord, board, visited);
 
-	class TrieNode {
-	    TrieNode[] next = new TrieNode[26];
-	    String word;
-	}
+        currentWord = currentWord.substring(0, currentWord.length() - 1);
+        visited[i][j] = false;
+    }
 }
