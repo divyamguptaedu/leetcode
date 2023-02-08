@@ -1,30 +1,31 @@
 class Solution {
+
+    List<List<Integer>> resultList = new ArrayList<>();
+
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> tempList = new ArrayList<>();
-        int index = 0;
-
-        // sort the candidates;
-        Arrays.sort(candidates);
-
-        // use helper function to find combinations;
-        helper(result, candidates, target, tempList, index);
-        return result;
+        getTargetCombination(candidates, 0, target, new ArrayList<Integer>());
+        return resultList;
     }
 
-    private void helper(List<List<Integer>> result, int[] candidates, int target, List<Integer> current, int index) {
-    	if (target > 0) {
-            // try each combination;
-    		for (int i = index; i < candidates.length && target >= candidates[i]; i++) {
-    			current.add(candidates[i]);
-    			helper(result, candidates, target - candidates[i], current, i);
-    			current.remove(current.size() - 1);
-    		}
-    	} else {
-            // base case - if found, add to the result;
-    		if (target == 0) {
-    			result.add(new ArrayList<Integer>(current));
-    		}
-    	}
+    private void getTargetCombination(int[] candidates, int position, int currentTarget, List<Integer> result) {
+        if (currentTarget == 0) {
+            resultList.add(new ArrayList<>(result));
+            return;
+        }
+        if (position == candidates.length) {
+            return;
+        }
+        if (candidates[position] <= currentTarget) {
+            result.add(candidates[position]);
+            getTargetCombination(candidates, position, currentTarget - candidates[position], result);
+            result.remove(result.size() - 1);
+        }
+        getTargetCombination(candidates, position + 1, currentTarget, result);
     }
 }
+
+
+
+
+
+
