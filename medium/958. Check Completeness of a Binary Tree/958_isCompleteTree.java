@@ -1,9 +1,3 @@
-"
-Performance:
-Runtime: 2 ms, faster than 95.12% of Java online submissions for Check Completeness of a Binary Tree.
-Memory Usage: 42.3 MB, less than 73.74% of Java online submissions for Check Completeness of a Binary Tree.
-"
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -22,28 +16,18 @@ Memory Usage: 42.3 MB, less than 73.74% of Java online submissions for Check Com
 class Solution {
     public boolean isCompleteTree(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
-        boolean check = false;
-        while (queue.size() > 0) {
-            int n = queue.size();
-            for (int i = 0; i < n; i++) {
-                TreeNode temp = queue.remove();
-                if (temp.left != null) {
-                    if (check) {
-                        return false;
-                    }
-                    queue.add(temp.left);
-                } else {
-                    check = true;
+        queue.offer(root);
+        boolean end = false;
+        while (!queue.isEmpty()) {
+            TreeNode current = queue.poll();
+            if (current == null) {
+                end = true;
+            } else {
+                if (end == true) {
+                    return false;
                 }
-                if (temp.right != null) {
-                    if (check) {
-                        return false;
-                    }
-                    queue.add(temp.right);
-                } else {
-                    check = true;
-                }
+                queue.offer(current.left);
+                queue.offer(current.right);
             }
         }
         return true;
