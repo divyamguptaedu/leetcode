@@ -1,34 +1,27 @@
-"""
-Performance:
-Runtime: 12 ms, faster than 27.63% of Java online submissions for Top K Frequent Elements.
-Memory Usage: 41.6 MB, less than 54.75% of Java online submissions for Top K Frequent Elements.
-"""
-
 class Solution {
-    public static int[] topKFrequent(int[] nums, int k) {
-        // add all the frequencies in a hashmap.
-        HashMap<Integer, Integer> valueMap = new HashMap<>();
-        for (int x : nums) {
-            if (valueMap.get(x) == null) {
-                valueMap.put(x, 1);
-            } else {
-                valueMap.put(x, valueMap.get(x) + 1);
-            }
+    public int[] topKFrequent(int[] nums, int k) {
+        if (nums.length == k) {
+            return nums;
         }
-        // formed a priority queue to sort the hashmap keys based on frequencies.
-        Queue<Integer> maxHeap = new PriorityQueue<>((a, b) -> valueMap.get(a) - valueMap.get(b));
-        for (int y : valueMap.keySet()) {
-            maxHeap.add(y);
-            // sticks the size of the maxHeap to k.
-            if (maxHeap.size() > k) {
-                maxHeap.poll();
-            }
+        HashMap<Integer, Integer> frequencyMap = new HashMap<>();
+
+        for (int i : nums) {
+           frequencyMap.put(i, frequencyMap.getOrDefault(i, 0) + 1); 
         }
 
-        // removing the maximum k times from the queue.
+        PriorityQueue<Integer> pq = new PriorityQueue<>(k, (a, b) -> frequencyMap.get(a)-frequencyMap.get(b));
+
+        for (int i : frequencyMap.keySet()) {
+            pq.add(i);
+            if (pq.size() > k) {
+                pq.poll();
+            }
+        }
         int[] result = new int[k];
-        for (int i = 0; i < k; i++) {
-            result[i] = maxHeap.poll();
+        int index = 0;
+        for (Integer i : pq) {
+            result[index] = i;
+            index++;
         }
         return result;
     }
