@@ -1,85 +1,117 @@
-"""
-Performance:
-Runtime: 7 ms, faster than 52.95% of Java online submissions for Design Circular Deque.
-Memory Usage: 48.4 MB, less than 61.48% of Java online submissions for Design Circular Deque.
-"""
+class Node {
+    int value;
+    Node next;
+    Node prev;
 
+    Node(int value) {
+        this.value = value;
+    }
+}
 class MyCircularDeque {
-    int[] array;
-    int count;
-    int head;
-    int tail;
+    Node head;
+    Node tail;
+    int size;
+    int maxSize;
 
     public MyCircularDeque(int k) {
-        array = new int[k];
-        head = -1;
-        tail = -1;
+        head = null;
+        tail = null;
+        size = 0;
+        maxSize = k; 
     }
-
+    
     public boolean insertFront(int value) {
-        if (isFull()) {
+        if (size == maxSize) {
             return false;
+        } else {
+            Node newNode = new Node(value);
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                newNode.next = head;
+                head.prev = newNode;
+                head = newNode;
+            }
+            size++;
+            return true;
         }
-        head = (head + array.length - 1) % array.length;
-        array[head] = value;
-        if (isEmpty()) {
-            tail = head;
-        }
-        count++;
-        return true;
     }
-
+    
     public boolean insertLast(int value) {
-        if (isFull()) {
+        if (size == maxSize) {
             return false;
+        } else {
+            Node newNode = new Node(value);
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                newNode.prev = tail;
+                tail = newNode;
+            }
+            size++;
+            return true;
         }
-        tail = (tail + 1) % array.length;
-        array[tail] = value;
-        if (isEmpty()) {
-            head = tail;
-        }
-        count++;
-        return true;
     }
-
+    
     public boolean deleteFront() {
-        if (isEmpty()) {
+        if (size == 0) {
             return false;
+        } else {
+            if (head == tail) {
+                head = null;
+                tail = null;
+            } else {
+                head = head.next;
+                head.prev = null;
+            }
+            size--;
+            return true;
         }
-        head = (head + 1) % array.length;
-        count--;
-        return true;
-    }
 
+    }
+    
     public boolean deleteLast() {
-        if (isEmpty()) {
+        if (size == 0) {
             return false;
+        } else {
+            if (head == tail) {
+                head = null;
+                tail = null;
+            } else {
+                tail = tail.prev;
+                tail.next = null;
+            }
+            size--;
+            return true;
         }
-        tail = (tail + array.length - 1) % array.length;
-        count--;
-        return true;
     }
-
+    
     public int getFront() {
-        if (isEmpty()) {
+        if (size == 0) {
             return -1;
+        } else {
+            return head.value;
         }
-        return array[head];
     }
-
+    
     public int getRear() {
-        if (isEmpty()) {
+        if (size == 0) {
             return -1;
+        } else {
+            return tail.value;
         }
-        return array[tail];
-    }
 
+    }
+    
     public boolean isEmpty() {
-        return count == 0;
+        return size == 0;
     }
-
+    
     public boolean isFull() {
-        return count == a.length;
+        return size == maxSize;
     }
 }
 
