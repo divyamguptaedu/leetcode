@@ -40,3 +40,29 @@ class Solution {
         return wordIndex + skipLength == word.length();
     }
 }
+
+//Another solution
+
+class Solution {
+    public boolean validWordAbbreviation(String word, String abbr) {
+        int total = 0;
+        int length = 0;
+        for (int i = 0; i < abbr.length(); i++) {
+            char ch = abbr.charAt(i);
+            if (Character.isDigit(ch)) {
+                if (total == 0 && ch - '0' == 0) {
+                    return false;
+                }
+                total = total*10 + ch - '0';
+            } else {
+                length += total;
+                total = 0;
+                if (length >= word.length() || word.charAt(length) != ch) {
+                    return false;
+                }
+                length++;
+            }
+        }
+        return word.length() == length + total;
+    }
+}
