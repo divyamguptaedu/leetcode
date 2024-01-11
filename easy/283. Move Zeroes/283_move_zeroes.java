@@ -31,3 +31,25 @@ class Solution {
         return nums;
     }
 }
+
+//another solution
+
+class Solution {
+    public void moveZeroes(int[] nums) {
+        if (nums.length == 1) {
+            return;
+        }
+        int digitIndex = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                nums[digitIndex] = nums[i];
+                digitIndex++;
+            }
+        }
+
+        while(digitIndex<nums.length){
+            nums[digitIndex] = 0;
+            digitIndex++;
+        }
+    }
+}
