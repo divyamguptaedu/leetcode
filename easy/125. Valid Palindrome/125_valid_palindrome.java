@@ -5,17 +5,22 @@ Memory Usage: 43.8 MB, less than 50.89% of Java online submissions for Valid Pal
 
 class Solution {
     public boolean isPalindrome(String s) {
+        if (s.isEmpty()) {
+            return true;
+        }
         int start = 0;
         int end = s.length() - 1;
-        s = s.toLowerCase();
-        while (start < end) {
-            if (!Character.isLetterOrDigit(s.charAt(start))) {
+        while (start <= end) {
+            char currStart = s.charAt(start);
+            char currEnd = s.charAt(end);
+            if (!Character.isLetterOrDigit(currStart )) {
                 start++;
-            } else if (!Character.isLetterOrDigit(s.charAt(end))) {
+            } else if(!Character.isLetterOrDigit(currEnd)) {
                 end--;
-            } else if (s.charAt(start) != s.charAt(end)) {
-                return false;
             } else {
+                if (Character.toLowerCase(currStart) != Character.toLowerCase(currEnd)) {
+                    return false;
+                }
                 start++;
                 end--;
             }
