@@ -1,9 +1,3 @@
-"""
-Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Diameter of Binary Tree.
-Memory Usage: 38.9 MB, less than 67.53% of Java online submissions for Diameter of Binary Tree.
-"""
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -20,35 +14,19 @@ Memory Usage: 38.9 MB, less than 67.53% of Java online submissions for Diameter 
  * }
  */
 class Solution {
-    int depth = 0;
     public int diameterOfBinaryTree(TreeNode root) {
-        diameterOfBinaryTreeHelper(root);
-        return depth;
+        int dm[] = new int[1];
+        helper(root, dm);
+        return dm[0];
     }
-    
-    private int diameterOfBinaryTreeHelper(TreeNode root) {
-        // base case
+
+    public int helper(TreeNode root, int dm[]){
         if (root == null) {
             return 0;
         }
-        
-        // go down on both the sides
-        int left = diameterOfBinaryTreeHelper(root.left);
-        int right = diameterOfBinaryTreeHelper(root.right);
-
-        // calculate the maximum depth from one node.
-        int tempDepth = Math.max(left, right) + 1;
-
-        // update the total maximum depth.
-        depth = Math.max(left + right, depth);
-        return tempDepth;
+        int left = helper(root.left, dm);
+        int right = helper(root.right, dm);
+        dm[0] = Math.max(dm[0], left + right);
+        return Math.max(left, right) + 1;
     }
 }
-
-
-
-
-
-
-
-
