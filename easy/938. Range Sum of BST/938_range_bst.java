@@ -1,9 +1,3 @@
-"
-Performance:
-Runtime: 1 ms, faster than 51.35% of Java online submissions for Range Sum of BST.
-Memory Usage: 46.9 MB, less than 93.11% of Java online submissions for Range Sum of BST.
-"
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -20,23 +14,16 @@ Memory Usage: 46.9 MB, less than 93.11% of Java online submissions for Range Sum
  * }
  */
 class Solution {
-    int result;
-    public int rangeSumBST(TreeNode root, int low, int high) {
-        result = 0;
-        helper(root, low, high);
-        return result;
-    }
-    
-    // inorder traversal
-    private void helper(TreeNode root, int low, int high) {
+    public int rangeSumBST(TreeNode root, int L, int R) {
         if (root == null) {
-            return;
+            return 0;
         }
-        helper(root.left, low, high);
-        // add to result only if conditions meet;
-        if (root.val >= low && root.val <= high) {
-            result += root.val;
+        if (root.val >= L && root.val <= R) {
+            return root.val + rangeSumBST(root.left, L, R) + rangeSumBST(root.right, L, R);
+        } else if (root.val < L) {
+            return rangeSumBST(root.right, L, R);
+        } else {
+            return rangeSumBST(root.left, L, R);
         }
-        helper(root.right, low, high);
     }
 }
