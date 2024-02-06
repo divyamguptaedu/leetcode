@@ -19,3 +19,29 @@ class Solution {
         return list;
     }
 }
+
+//another solution
+
+class Solution {
+    public List<List<Integer>> generate(int num) {
+        List<List<Integer>> result = new ArrayList<>();
+        for (int i = 0; i < num; i++) {
+            result.add(helper(i));
+        }
+        return result;
+    }
+
+    public List<Integer> helper(int num) {
+        ArrayList<Integer> result = new ArrayList<>();
+        
+        for (int i = 0; i <= num; i++) {
+            long x = 1L;
+            for (int j = 0; j < i; j++) {
+                x *= (num - j);
+                x /= (j + 1);
+            }
+            result.add((int) x);
+        }
+        return result;
+    }
+}
