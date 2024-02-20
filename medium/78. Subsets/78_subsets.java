@@ -34,3 +34,23 @@ class Solution {
         return result;
     }
 }
+
+//another solution 
+
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>());
+
+        for (int n : nums) {
+            List<List<Integer>> temp = new ArrayList<>();
+            for (List<Integer> i : result) {
+                List<Integer> subset = new ArrayList<>(i);
+                subset.add(n);
+                temp.add(subset);
+            }
+            result.addAll(temp);
+        }
+        return result;
+    }
+}
