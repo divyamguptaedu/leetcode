@@ -36,3 +36,26 @@ class Solution {
         return result;
     }
 }
+
+//another solution
+
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        helper(result, 0, 0, n, "");
+        return result;
+    }
+
+    public void helper(List<String> result, int close, int open, int n, String ans) {
+        if (close == n && open == n) {
+            result.add(ans);
+            return;
+        }
+        if (open < n) {
+            helper(result, close, open + 1, n, ans + "(");
+        }
+        if (close < open) {
+            helper(result, close + 1, open, n, ans + ")");
+        }
+    }
+}
