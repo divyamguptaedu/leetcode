@@ -38,3 +38,34 @@ class Node {
         this.frequency = frequency;
     }
 }
+
+//another solution
+
+class Solution {
+    public String frequencySort(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (Character c : s.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        
+        List<Character>[] buckets = new ArrayList[s.length() + 1];
+        for (Character c : map.keySet()) {
+            if (buckets[map.get(c)] == null) {
+                buckets[map.get(c)] = new ArrayList<>();       
+            }
+            buckets[map.get(c)].add(c);
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (int i = buckets.length - 1; i >= 0; i--) {
+            if (buckets[i] != null) {
+                for (Character c : buckets[i]) {
+                    for (int j = 0; j < i; j++) {
+                        result.append(c);
+                    }
+                }
+            }
+        } 
+        return result.toString();   
+    }
+}
