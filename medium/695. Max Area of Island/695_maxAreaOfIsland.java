@@ -34,3 +34,34 @@ class Solution {
     }
 
 }
+
+//another solution
+
+class Solution {
+    public int maxAreaOfIsland(int[][] grid) {
+        int max = 0;
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+                if (grid[row][col] == 1) {
+                    int area = calculate(grid, row, col, 0);
+                    if (area > max) {
+                        max = area;
+                    }
+                }
+            }
+        }
+
+        return max;
+    }
+
+    public int calculate(int[][] grid, int row, int col, int area) {
+        if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length || grid[row][col] == 0) {
+            return 0;
+        }
+        grid[row][col] = 0;
+        return  calculate(grid, row + 1, col, area) +
+                calculate(grid, row - 1, col, area) + 
+                calculate(grid, row, col + 1, area) +
+                calculate(grid, row, col - 1, area) + 1;
+    }
+}
