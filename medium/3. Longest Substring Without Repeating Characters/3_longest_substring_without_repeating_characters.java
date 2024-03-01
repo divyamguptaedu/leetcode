@@ -25,3 +25,28 @@ class Solution {
 	    return max;
 	}
 }
+
+//another solution
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length() < 2) {
+            return s.length();
+        }
+        int x = 0;
+        int length = 0;
+        int counter = 0;
+        for (int i = 1; i < s.length(); i++) {
+            for (int j = x; j < i; j++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    x = j + 1;
+                }
+            }
+            counter = i - x + 1;
+            if (counter > length) {
+                length = counter;
+            }
+        }
+        return length;
+    }
+}
