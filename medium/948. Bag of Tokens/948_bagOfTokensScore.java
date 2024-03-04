@@ -31,3 +31,44 @@ class Solution {
         return result;
     }
 }
+
+//Another solution
+
+import java.util.Arrays;
+
+class NewSolution {
+    public int calculateScore(int[] tokens, int power) {
+        if (tokens.length == 0) {
+            return 0;
+        }
+        if (tokens.length == 1 && power < tokens[0]) {
+            return 0;
+        }
+        if (tokens.length == 1 && power > tokens[0]) {
+            return 1;
+        }
+        Arrays.sort(tokens);
+        if (tokens[0] > power) {
+            return 0;
+        }
+        int score = 0;
+        int max = 0;
+        int leftPointer = 0;
+        int rightPointer = tokens.length - 1;
+        while (leftPointer <= rightPointer) {
+            if (power >= tokens[leftPointer]) {
+                score++;
+                power -= tokens[leftPointer];
+                leftPointer++;
+            } else {
+                if (leftPointer == rightPointer) break;
+                else if (power + tokens[rightPointer] >= tokens[leftPointer]) {
+                    power += tokens[rightPointer];
+                    score--;
+                    rightPointer--;
+                }
+            }
+        }
+        return score;
+    }
+}
