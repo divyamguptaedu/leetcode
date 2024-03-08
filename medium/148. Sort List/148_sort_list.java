@@ -67,3 +67,58 @@ class Solution {
         return mid;
     }
 }
+
+//another solution
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+public ListNode sortList(ListNode head) {
+    if (head == null || head.next == null) return head;
+    
+    ListNode mid = findMiddle(head);
+    ListNode midNext = mid.next;
+    mid.next = null;
+    
+    ListNode sortedLeft = sortList(head);
+    ListNode sortedRight = sortList(midNext);
+    
+    return merge(sortedLeft, sortedRight);
+}
+
+private ListNode findMiddle(ListNode head) {
+    ListNode slow = head;
+    ListNode fast = head;
+    while (fast.next != null && fast.next.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow;
+}
+
+private ListNode merge(ListNode a, ListNode b) {
+    ListNode dummy = new ListNode(0);
+    ListNode current = dummy;
+    
+    while (a != null && b != null) {
+        if (a.val < b.val) {
+            current.next = a;
+            a = a.next;
+        } else {
+            current.next = b;
+            b = b.next;
+        }
+        current = current.next;
+    }
+    
+    current.next = (a != null) ? a : b;
+    
+    return dummy.next;
+}
