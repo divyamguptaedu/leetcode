@@ -1,3 +1,6 @@
+// Time Complexity = O(n)
+// Space Complexity = O(n)
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -13,31 +16,35 @@
  *     }
  * }
  */
-class Solution {
-    public TreeNode balanceBST(TreeNode root) {
-        ArrayList<Integer> array = new ArrayList<>();
-        inorder(root, array);
-        return inorderToBST(0, array.size() - 1, array);
-    }
 
-    public void inorder(TreeNode root, ArrayList<Integer> array) {
-        if (root == null) {
+class Solution {
+    List<TreeNode> inorder = new ArrayList<>();
+    
+    public TreeNode balanceBST(TreeNode root) {
+        inOrder(root);
+        return createBalancedBST(0, inorder.size() - 1);
+    }
+    
+    public void inOrder(TreeNode node) {
+        if (node == null) {
             return;
         }
-        inorder(root.left, array);
-        array.add(root.val);
-        inorder(root.right, array);
+        inOrder(node.left);
+        inorder.add(node);
+        inOrder(node.right);
     }
-
-    public TreeNode inorderToBST(int start, int end, ArrayList<Integer> array) {
-        if (start > end) {
+    
+    public TreeNode createBalancedBST(int left, int right) {
+        if (left > right) {
             return null;
         }
-
-        int middle = (start + end) / 2;
-        TreeNode root = new TreeNode(array.get(middle));
-        root.left = inorderToBST(start, middle - 1, array);
-        root.right = inorderToBST(middle + 1, end ,array);
-        return root;
+        
+        int mid = (left + right) / 2;
+        TreeNode curr = inorder.get(mid);
+        
+        curr.left = createBalancedBST(left, mid - 1);
+        curr.right = createBalancedBST(mid + 1, right);
+        
+        return curr;
     }
 }
