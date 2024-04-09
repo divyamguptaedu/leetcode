@@ -1,50 +1,5 @@
-"
-Performance:
-Runtime: 15 ms, faster than 70.65% of Java online submissions for Binary Search Tree Iterator.
-Memory Usage: 42.4 MB, less than 81.98% of Java online submissions for Binary Search Tree Iterator.
-"
-
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- * int val;
- * TreeNode left;
- * TreeNode right;
- * TreeNode(int x) { val = x; }
- * }
- */
-
-class BSTIterator {
-    TreeNode currrent;
-    Stack<TreeNode> stack = new Stack<>();
-    
-    public BSTIterator(TreeNode root) {
-        stack = new Stack<>();
-        currrent = root;
-        
-        while(currrent != null){
-            stack.push(currrent);
-            currrent = currrent.left;
-        }
-    }
-    
-    public int next() {
-        TreeNode node = stack.pop();
-        TreeNode temp = node.right;
-        
-        while(temp != null){
-            stack.push(temp);
-            temp = temp.left;
-        }
-        return node.val;
-    }
-    
-    public boolean hasNext() {
-        return !stack.isEmpty();
-    }
-}
-
-//another solution
+// Time Complexity: O(n)
+// Space Complexity: O(n)
 
 /**
  * Definition for a binary tree node.
@@ -63,7 +18,7 @@ class BSTIterator {
  */
 class BSTIterator {
     List<Integer> list;
-    int next = 0;
+    int currPosition = 0;
 
     public BSTIterator(TreeNode root) {
         this.list = new ArrayList<>();
@@ -71,17 +26,15 @@ class BSTIterator {
     }
     
     public int next() {
-        return  list.get(next++);
+        return list.get(currPosition++);
     }
     
     public boolean hasNext() {
-        return list.size() > next;
+        return list.size() > currPosition;
     }
    
     private void helper(TreeNode root) {
-        if (root == null) {
-            return;
-        }
+        if (root == null) return;
         helper(root.left);
         list.add(root.val);
         helper(root.right);
