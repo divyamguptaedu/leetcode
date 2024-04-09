@@ -1,3 +1,6 @@
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -18,26 +21,26 @@ class Solution {
     int[] right = new int[1001];
 
     public TreeNode lcaDeepestLeaves(TreeNode root) {
-        helper(root);
-        return runLogic(root);
+        populateArrays(root);
+        return findLCA(root);
     }
 
-    TreeNode runLogic(TreeNode root){
+    TreeNode findLCA(TreeNode root){
         if (left[root.val] == right[root.val]) {
             return root;
         } else if (left[root.val] > right[root.val]) {
-            return runLogic(root.left);
+            return findLCA(root.left);
         } else {
-            return runLogic(root.right);
+            return findLCA(root.right);
         }
     }
 
-    int helper(TreeNode root){
+    int populateArrays(TreeNode root){
         if (root == null) {
             return 0;
         }
-        left[root.val] = helper(root.left);
-        right[root.val] = helper(root.right);
+        left[root.val] = populateArrays(root.left);
+        right[root.val] = populateArrays(root.right);
         return Math.max(left[root.val], right[root.val]) + 1;
     }
 }
