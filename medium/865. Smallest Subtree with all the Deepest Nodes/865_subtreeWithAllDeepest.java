@@ -1,9 +1,3 @@
-"
-Performance:
-Runtime: 1 ms, faster than 86.60% of Java online submissions for Smallest Subtree with all the Deepest Nodes.
-Memory Usage: 42.2 MB, less than 52.35% of Java online submissions for Smallest Subtree with all the Deepest Nodes.
-"
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -20,32 +14,29 @@ Memory Usage: 42.2 MB, less than 52.35% of Java online submissions for Smallest 
  * }
  */
 class Solution {
-    TreeNode node;
-    int maximum = Integer.MIN_VALUE;
+    int maxDepth = 0;
+    TreeNode smallestSubtree;
+
     public TreeNode subtreeWithAllDeepest(TreeNode root) {
-        node = new TreeNode();
-        helper(root, 0);
-        return node;
+        lca(root, 0); //find the lca
+        return smallestSubtree;
     }
-    
-    public int helper(TreeNode root, int depth) {
-        if (root == null) {
-            return depth;
-        }
-        int left = depth;
-        int right = depth;
-        if (root.left != null) {
-            left = helper(root.left, depth + 1);
-        }
-        if (root.right != null) {
-            right = helper(root.right, depth + 1);
-        }
-        int result = Math.max(left, right);
-        if (result >= maximum && left == right) {
-            node = root;
-            maximum = result;   
+
+    public int lca(TreeNode root, int level) {
+        if (root == null){
+            return level;
         }
         
-        return result;
+        int left = lca(root.left, level + 1);
+        int right = lca(root.right, level + 1);
+        
+        if (left == right) {
+            maxDepth = Math.max(maxDepth, left);
+            if (maxDepth == left) {
+                smallestSubtree = root;
+            }
+        }
+
+        return Math.max(left, right); 
     }
 }
