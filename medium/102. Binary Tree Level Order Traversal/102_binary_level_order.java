@@ -1,8 +1,5 @@
-"""
-Performance:
-Runtime: 1 ms, faster than 57.53% of Java online submissions for Binary Tree Level Order Traversal.
-Memory Usage: 39.4 MB, less than 38.12% of Java online submissions for Binary Tree Level Order Traversal.
-"""
+// Time Complexity: O(n)
+// Space Complexity: O(n)
 
 /**
  * Definition for a binary tree node.
@@ -21,39 +18,31 @@ Memory Usage: 39.4 MB, less than 38.12% of Java online submissions for Binary Tr
  */
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
 
-       	List<List<Integer>> result = new ArrayList<>();
-       	if (root == null) {
-       		return result;
-       	}
-       	List<Integer> level;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
 
-            // add first level to a queue;
-       	Queue<TreeNode> queue = new ArrayDeque<>();
-       	queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> level = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.peek();
+                queue.remove();
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+                level.add(node.val);
+            }
+            result.add(level);
+        }
 
-            // while queue is not empty, find the next level and add to result;
-       	while (!queue.isEmpty()) {
-       		int size = queue.size();
-       		level = new ArrayList<>();
-
-       		while (size != 0) {
-       			TreeNode temp = queue.peek();
-       			level.add(temp.val);
-       			if (temp.left != null) {
-       				queue.add(temp.left);
-       			}
-       			if (temp.right != null) {
-       				queue.add(temp.right);
-       			}
-       			queue.poll();
-       			size--;
-       		}
-                  
-                  // add the new level to the result;
-       		result.add(level);
-       	}
-       	return result;
-
+        return result;
     }
 }
