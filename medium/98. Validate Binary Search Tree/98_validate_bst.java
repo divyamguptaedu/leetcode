@@ -1,8 +1,5 @@
-"""
-Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Validate Binary Search Tree.
-Memory Usage: 38.5 MB, less than 66.89% of Java online submissions for Validate Binary Search Tree.
-"""
+//Time Complexity: O(n)
+//Space Compelxity: O(1)
 
 /**
  * Definition for a binary tree node.
@@ -20,33 +17,10 @@ Memory Usage: 38.5 MB, less than 66.89% of Java online submissions for Validate 
  * }
  */
 class Solution {
-
     public boolean isValidBST(TreeNode root) {
-        boolean result = helper(root, null, null);
-        return result;
+      return validate(root, null, null);  
     }
-
-    public boolean helper(TreeNode root, TreeNode minimum, TreeNode maximum) {
-        if (root == null) {
-            return true;
-        }
-        if (minimum != null && root.val <= minimum.val) {
-            return false;
-        }
-        if (maximum != null && root.val >= maximum.val) {
-            return false;
-        }
-        return helper(root.left, minimum, root) && helper(root.right, root, maximum);
-    }
-}
-
-//another solution
-
-class Solution {
-    public boolean isValidBST(TreeNode root) {
-      return solve(root, null, null);  
-    }
-    public boolean solve(TreeNode root, Integer min, Integer max) {
+    public boolean validate(TreeNode root, Integer min, Integer max) {
         if (root == null) {
             return true;
         }
@@ -55,6 +29,6 @@ class Solution {
             return false;
         }
 
-        return solve(root.left, min, root.val) && solve(root.right, root.val, max);
+        return validate(root.left, min, root.val) && validate(root.right, root.val, max);
     }
 }
