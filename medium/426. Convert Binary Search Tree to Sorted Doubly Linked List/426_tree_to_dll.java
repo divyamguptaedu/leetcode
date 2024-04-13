@@ -1,9 +1,3 @@
-"
-Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Convert Binary Search Tree to Sorted Doubly Linked List.
-Memory Usage: 39.7 MB, less than 6.92% of Java online submissions for Convert Binary Search Tree to Sorted Doubly Linked List.
-"
-
 /*
 // Definition for a Node.
 class Node {
@@ -25,29 +19,43 @@ class Node {
 };
 */
 
+//Time: O(n)
+//Space: O(n) for the recursion stack.
+
 class Solution {
-    Node previous;
+    Node first = null;
+    Node last = null;
+
     public Node treeToDoublyList(Node root) {
         if (root == null) {
             return null;
         }
-        previous = new Node();
-        Node temp = previous;
-        inOrderTraversal(root);
-        previous.right = temp.right;
-        temp.right.left = previous;
-        return temp.right;
+        dfs_inorder(root);
+
+        // link the last and first to make it circular.
+        last.right = first;
+        first.left = last;
+        return first;
     }
-    
-    private void inOrderTraversal(Node root){
-        if (root == null) {
-            return;
+
+    public void dfs_inorder(Node currentNode) {
+        if (currentNode != null) {
+            // left
+            dfs_inorder(currentNode.left);
+
+            // node 
+            if (last != null) {
+                //link the last and current together
+                last.right = currentNode;
+                currentNode.left = last;
+            }
+            else {
+                first = currentNode; //initialize the first because it will be the smallest.
+            }
+            last = currentNode; //to be used by the next node for connection
+
+            // right
+            dfs_inorder(currentNode.right);
         }
-        //inorder
-        inOrderTraversal(root.left);
-        previous.right = root;
-        root.left = previous;
-        previous = root;
-        inOrderTraversal(root.right);
     }
 }
