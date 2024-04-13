@@ -1,9 +1,3 @@
-"""
-Performance:
-Runtime: 1 ms, faster than 75.58% of Java online submissions for Binary Tree Right Side View.
-Memory Usage: 37.8 MB, less than 35.75% of Java online submissions for Binary Tree Right Side View.
-"""
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -19,35 +13,41 @@ Memory Usage: 37.8 MB, less than 35.75% of Java online submissions for Binary Tr
  *     }
  * }
  */
+ 
+//Time: O(n)
+//Space: O(n)
 
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
-    	List<Integer> result = new ArrayList<>();
-        Queue<TreeNode> queue = new ArrayDeque<>();
-
+        List<Integer> output = new ArrayList();
         if (root == null) {
-        	return result;
+            return output;
         }
+        
+        ArrayDeque<TreeNode> nextLevel = new ArrayDeque();
+        nextLevel.offer(root);
+        ArrayDeque<TreeNode> currentLevel = new ArrayDeque();        
+        
+        TreeNode currentNode = null;
 
-        queue.add(root);
+        while (!nextLevel.isEmpty()) {
+            // prepare for the next level
+            currentLevel = nextLevel;
+            nextLevel = new ArrayDeque<>();
 
-        // add the last element of the level order traversal.
-        while (!queue.isEmpty()) {
-        	int size = queue.size();
-        	for (int i = 1; i <= size; i++) {
-        		TreeNode node = queue.poll();
-        		if (node.left != null) {
-        			queue.add(node.left);
-        		}
-        		if (node.right != null) {
-        			queue.add(node.right);
-        		}
-        		if (i == size) {
-        			result.add(node.val);
-        		}
-        	}
+            while (! currentLevel.isEmpty()) {
+                currentNode = currentLevel.poll();
+                if (currentNode.left != null) {
+                    nextLevel.offer(currentNode.left); //add left child to the next level
+                }    
+                if (currentNode.right != null) { 
+                    nextLevel.offer(currentNode.right); //add right child to the next level
+                }
+            }
+            
+            if (currentLevel.isEmpty()) 
+                output.add(currentNode.val); //add last node of the current level to the result
         }
-        return result;
-
+        return output;
     }
 }
