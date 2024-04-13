@@ -13,20 +13,24 @@
  *     }
  * }
  */
+ //Time: O(n)
+ //Space: O(n) //recursion stack
 class Solution {
+    private int diameter = 0;
     public int diameterOfBinaryTree(TreeNode root) {
-        int dm[] = new int[1];
-        helper(root, dm);
-        return dm[0];
+        dfs(root);
+        return diameter;
     }
-
-    public int helper(TreeNode root, int dm[]){
-        if (root == null) {
+    private int dfs(TreeNode node){
+        if (node == null) {
             return 0;
         }
-        int left = helper(root.left, dm);
-        int right = helper(root.right, dm);
-        dm[0] = Math.max(dm[0], left + right);
-        return Math.max(left, right) + 1;
+        int leftPath = longestPath(node.left);
+        int rightPath = longestPath(node.right);
+
+        //update the diameter
+        diameter = Math.max(diameter, leftPath + rightPath); //if the right+left height is > than currDiameter, then update it.
+
+        return Math.max(leftPath, rightPath) + 1; //actual logic, for every node, get the height of the left node, then height of the right node, add one to find the height of the currNode.
     }
 }
