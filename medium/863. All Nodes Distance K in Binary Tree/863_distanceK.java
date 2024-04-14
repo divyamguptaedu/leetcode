@@ -1,9 +1,3 @@
-"
-Performance:
-Runtime: 15 ms, faster than 70.09% of Java online submissions for All Nodes Distance K in Binary Tree.
-Memory Usage: 43.1 MB, less than 56.70% of Java online submissions for All Nodes Distance K in Binary Tree.
-"
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -13,57 +7,60 @@ Memory Usage: 43.1 MB, less than 56.70% of Java online submissions for All Nodes
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+//Time: O(n)
+//Space: O(n)
 class Solution {
-    List<Integer> result;
-    private int estimate = -1;
-    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
-        result = new ArrayList<>();
-        if (k == 0) {
-            return Arrays.asList(target.val);
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
+        Map<TreeNode, List<TreeNode>> graph = new HashMap<>(); // get adjacency list
+        buildGraph(root, null, graph);
+
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        Set<TreeNode> visited = new HashSet<>();
+        List<Integer> result = new ArrayList<>();
+        
+        queue.add(new Pair<>(target, 0));
+        visited.add(target);
+        
+        while (!queue.isEmpty()) {
+            Pair<TreeNode, Integer> pair = queue.poll();
+            TreeNode node = pair.getKey();
+            int distance = pair.getValue();
+            
+            if (distance == K) {
+                result.add(node.val);
+            }
+            
+            if (distance > K) {
+                break;
+            }
+            
+            for (TreeNode neighbor : graph.get(node)) {
+                if (!visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    queue.add(new Pair<>(neighbor, distance + 1));
+                }
+            }
         }
-        helper(root, estimate, target.val, k);
+        
         return result;
     }
-
-    private int helper(TreeNode node, int distance, final int target, final int k) {
+    
+    private void buildGraph(TreeNode node, TreeNode parent, Map<TreeNode, List<TreeNode>> graph) {
         if (node == null) {
-            return estimate;
+            return;
         }
-        if (distance == estimate) {
-            if (node.val == target) {
-                helper(node.left, 1, target, k);
-                helper(node.right, 1, target, k);
-                return 0;
-            }
-            int leftDistance = helper(node.left, estimate, target, k);
-            if (leftDistance != estimate) {
-                distance = leftDistance + 1;
-                if (distance == k) {
-                    result.add(node.val);
-                } else if (distance < k) {
-                    helper(node.right, distance + 1, target, k);
-                }
-                return distance;
-            }
-            final int rightDistance = helper(node.right, estimate, target, k);
-            if (rightDistance != estimate) {
-                distance = rightDistance + 1;
-                if (distance == k) {
-                    result.add(node.val);
-                } else if (distance < k) {
-                    helper(node.left, distance + 1, target, k);
-                }
-                return distance;
-            }
-            return estimate;
-        } else {
-            if (distance == k) {
-                result.add(node.val);
-            } else {
-                helper(node.left, distance + 1, target, k);
-                helper(node.right, distance + 1, target, k);
-            }
-            return distance;            
+        
+        if (!graph.containsKey(node)) {
+            graph.put(node, new ArrayList<>());
         }
+        
+        if (parent != null) {
+            graph.get(node).add(parent);
+            graph.get(parent).add(node);
+        }
+        
+        buildGraph(node.left, node, graph);
+        buildGraph(node.right, node, graph);
     }
 }
