@@ -1,9 +1,3 @@
-"
-Performance:
-Runtime: 2 ms, faster than 99.70% of Java online submissions for Vertical Order Traversal of a Binary Tree.
-Memory Usage: 39.2 MB, less than 50.22% of Java online submissions for Vertical Order Traversal of a Binary Tree.
-"
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -18,69 +12,63 @@ Memory Usage: 39.2 MB, less than 50.22% of Java online submissions for Vertical 
  *         this.right = right;
  *     }
  * }
- */
+ */ 
+
+//Time: O(nlogn)
+//Space: O(n)
 class Solution {
-    int minimum = 0;
-    int maximum = 0;
-    
     public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<List<Integer>> output = new ArrayList();
         if (root == null) {
-            return new ArrayList<>();
+            return output;
         }
-        Map<TreeNode, Integer> columnMap = new HashMap<>();
-        dfs(root, 0, columnMap);
-        return helper(root, columnMap);
-    }
-    
-    private List<List<Integer>> helper(TreeNode root, Map<TreeNode, Integer> columnMap) {
-        int total = maximum - minimum + 1;
-        List<List<List<Integer>>> verticalList = new ArrayList<>(total);
-        for (int c = 0; c < total; c++) {
-            verticalList.add(new ArrayList<>());
-        }
-        Queue<TreeNode> queue = new ArrayDeque<>();
-        queue.add(root);
-        int level = 0;
+
+        Map<Integer, ArrayList<Pair<Integer, Integer>>> columnTable = new HashMap(); // key: column; value: <row, node_value>
+        int minColumn = 0;
+        int maxColumn = 0;
+
+        Queue<Pair<TreeNode, Pair<Integer, Integer>>> queue = new ArrayDeque(); // pair of <column, <row, value>>
+        int row = 0;
+        int column = 0;
+        queue.offer(new Pair(root, new Pair(row, column)));
+
         while (!queue.isEmpty()) {
-            int size = queue.size();
-            for (int k = 0; k < size; k++) {
-                TreeNode node = queue.poll();
-                int column = columnMap.get(node);
-                List<List<Integer>> columnList = verticalList.get(column - minimum);
-                while (columnList.size() <= level) {
-                    columnList.add(new ArrayList<>());
+            Pair<TreeNode, Pair<Integer, Integer>> p = queue.poll();
+            root = p.getKey();
+            row = p.getValue().getKey();
+            column = p.getValue().getValue();
+
+            if (root != null) {
+                if (!columnTable.containsKey(column)) {
+                    columnTable.put(column, new ArrayList<Pair<Integer, Integer>>());
                 }
-                List<Integer> nodeList = columnList.get(level);
-                nodeList.add(node.val);
-                if (node.left != null) {
-                    queue.add(node.left);
-                }
-                if (node.right != null) {
-                    queue.add(node.right);
-                }
+                columnTable.get(column).add(new Pair<>(row, root.val));
+                minColumn = Math.min(minColumn, column);
+                maxColumn = Math.max(maxColumn, column);
+
+                queue.offer(new Pair(root.left, new Pair(row + 1, column - 1))); //going left means row + 1, col - 1
+                queue.offer(new Pair(root.right, new Pair(row + 1, column + 1))); //going right means row + 1, col + 1
             }
-            level++;
         }
-        List<List<Integer>> res = new ArrayList<>(total);
-        for (List<List<Integer>> columnList : verticalList) {
-            List<Integer> vertical = new ArrayList<>();
-            for (List<Integer> nodeList : columnList) {
-                Collections.sort(nodeList);
-                vertical.addAll(nodeList);
+
+        for (int i = minColumn; i <= maxColumn; i++) {
+            Collections.sort(columnTable.get(i), new Comparator<Pair<Integer, Integer>>() { // order by both "row" and "value"
+                @Override
+                public int compare(Pair<Integer, Integer> p1, Pair<Integer, Integer> p2) {
+                    if (p1.getKey().equals(p2.getKey()))
+                        return p1.getValue() - p2.getValue();
+                    else
+                        return p1.getKey() - p2.getKey();
+                }
+            });
+
+            List<Integer> sortedColumn = new ArrayList();
+            for (Pair<Integer, Integer> p : columnTable.get(i)) {
+                sortedColumn.add(p.getValue());
             }
-            res.add(vertical);
+            output.add(sortedColumn);
         }
-        return res;
-    }
-    
-    private void dfs(TreeNode root, int column, Map<TreeNode, Integer> columnMap) {
-        if (root == null) {
-            return;
-        }
-        columnMap.put(root, column);
-        dfs(root.left, column - 1, columnMap);
-        dfs(root.right, column + 1, columnMap);
-        minimum = Math.min(minimum, column);
-        maximum = Math.max(maximum, column);
+
+        return output;
     }
 }
