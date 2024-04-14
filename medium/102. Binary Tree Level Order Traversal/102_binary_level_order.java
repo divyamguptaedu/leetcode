@@ -1,6 +1,3 @@
-// Time Complexity: O(n)
-// Space Complexity: O(n)
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -16,33 +13,36 @@
  *     }
  * }
  */
+
+// Time: O(n)
+// Space: O(n)
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
+        List<List<Integer>> levels = new ArrayList<List<Integer>>();
         if (root == null) {
-            return result;
+            return levels;
         }
 
-        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.add(root);
+        int level = 0;
 
         while (!queue.isEmpty()) {
-            int size = queue.size();
-            List<Integer> level = new ArrayList<>();
-            for (int i = 0; i < size; i++) {
-                TreeNode node = queue.peek();
-                queue.remove();
+            levels.add(new ArrayList<Integer>());
+            int level_length = queue.size();
+
+            for (int i = 0; i < level_length; i++) {
+                TreeNode node = queue.remove();
+                levels.get(level).add(node.val);
                 if (node.left != null) {
                     queue.add(node.left);
                 }
                 if (node.right != null) {
                     queue.add(node.right);
                 }
-                level.add(node.val);
             }
-            result.add(level);
+            level++;
         }
-
-        return result;
+        return levels;
     }
 }
