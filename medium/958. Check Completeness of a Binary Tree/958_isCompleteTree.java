@@ -13,21 +13,28 @@
  *     }
  * }
  */
+
+//Time: O(n)
+//Space: O(n)
 class Solution {
     public boolean isCompleteTree(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        boolean nullDetected = false;
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
-        boolean end = false;
+
         while (!queue.isEmpty()) {
-            TreeNode current = queue.poll();
-            if (current == null) {
-                end = true;
+            TreeNode node = queue.poll();
+            if (node == null) {
+                nullDetected = true;
             } else {
-                if (end == true) {
+                if (nullDetected) {
                     return false;
                 }
-                queue.offer(current.left);
-                queue.offer(current.right);
+                queue.offer(node.left);
+                queue.offer(node.right);
             }
         }
         return true;
