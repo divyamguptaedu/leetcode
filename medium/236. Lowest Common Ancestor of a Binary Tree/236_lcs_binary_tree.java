@@ -1,9 +1,3 @@
-"""
-Performance:
-Runtime: 4 ms, faster than 100.00% of Java online submissions for Lowest Common Ancestor of a Binary Tree.
-Memory Usage: 41.5 MB, less than 21.40% of Java online submissions for Lowest Common Ancestor of a Binary Tree.
-"""
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -13,23 +7,36 @@ Memory Usage: 41.5 MB, less than 21.40% of Java online submissions for Lowest Co
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+//Time: O(n)
+//Space: O(n)
 class Solution {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {        
-        if (root == null || root == p || root == q) {
-            return root;
+    TreeNode lca;
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        recurseTree(root, p, q);
+        return lca;
+    }
+    public int recurseTree(TreeNode currentNode, TreeNode p, TreeNode q) {
+        if (currentNode == null) {
+            return 0;
         }
-    
-        TreeNode left = lowestCommonAncestor(root.left, p, q);
-        TreeNode right = lowestCommonAncestor(root.right, p, q);
-        
-        if (left != null && right != null) {
-            return root;
-        } else if (left != null) {
-            return left;
-        } else if (right != null) {
-            return right;
+        int left = this.recurseTree(currentNode.left, p, q);
+        int right = this.recurseTree(currentNode.right, p, q);
+        int mid;
+        if (currentNode == p || currentNode == q) {
+            mid = 1;
         } else {
-            return null;
+            mid = 0;
+        }
+
+        if (mid + left + right >= 2) { //If we have two 1s in the three variables, then we found the lca.
+            lca = currentNode;
+        }
+
+        if (mid + left + right > 0) { // Return 1 if any one of the three values is 1. 
+            return 1;
+        } else {
+            return 0;
         }
     }
-} 
+}
