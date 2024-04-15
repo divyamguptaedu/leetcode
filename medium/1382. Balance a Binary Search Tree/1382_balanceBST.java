@@ -1,6 +1,3 @@
-// Time Complexity = O(n)
-// Space Complexity = O(n)
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -16,6 +13,9 @@
  *     }
  * }
  */
+
+// Time Complexity = O(n)
+// Space Complexity = O(n)
 
 class Solution {
     List<TreeNode> inorder = new ArrayList<>();
@@ -38,13 +38,10 @@ class Solution {
         if (left > right) {
             return null;
         }
-        
-        int mid = (left + right) / 2;
-        TreeNode curr = inorder.get(mid);
-        
-        curr.left = createBalancedBST(left, mid - 1);
-        curr.right = createBalancedBST(mid + 1, right);
-        
-        return curr;
+        int middleValueToBreakLeftRight = (left + right) / 2;
+        TreeNode currentNode = inorder.get(middleValueToBreakLeftRight);
+        currentNode.left = createBalancedBST(left, middleValueToBreakLeftRight - 1);
+        currentNode.right = createBalancedBST(middleValueToBreakLeftRight + 1, right);
+        return currentNode;
     }
 }
