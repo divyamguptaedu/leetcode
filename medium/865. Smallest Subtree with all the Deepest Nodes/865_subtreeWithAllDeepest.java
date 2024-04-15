@@ -13,6 +13,9 @@
  *     }
  * }
  */
+
+// Time: O(n)
+// Space: O(n)
 class Solution {
     int maxDepth = 0;
     TreeNode smallestSubtree;
@@ -22,19 +25,17 @@ class Solution {
         return smallestSubtree;
     }
 
-    public int lca(TreeNode root, int level) {
-        if (root == null){
+    public int lca (TreeNode node, int level) {
+        if (node == null) {
             return level;
         }
         
-        int left = lca(root.left, level + 1);
-        int right = lca(root.right, level + 1);
+        int left = lca(node.left, level + 1);
+        int right = lca(node.right, level + 1);
         
-        if (left == right) {
-            maxDepth = Math.max(maxDepth, left);
-            if (maxDepth == left) {
-                smallestSubtree = root;
-            }
+        if (left == right && left >= maxDepth) {
+            maxDepth = left;
+            smallestSubtree = node;
         }
 
         return Math.max(left, right); 
