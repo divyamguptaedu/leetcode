@@ -1,6 +1,3 @@
-// Time Complexity: O(n)
-// Space Complexity: O(n)
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -16,31 +13,30 @@
  *     }
  * }
  */
+//Time: O(n)
+//Space: O(n)
 class Solution {
-    int[] left = new int[1001];
-    int[] right = new int[1001];
+    int maxDepth = 0;
+    TreeNode smallestSubtree;
 
     public TreeNode lcaDeepestLeaves(TreeNode root) {
-        populateArrays(root);
-        return findLCA(root);
+        lca(root, 0); //find the lca
+        return smallestSubtree;
     }
 
-    TreeNode findLCA(TreeNode root){
-        if (left[root.val] == right[root.val]) {
-            return root;
-        } else if (left[root.val] > right[root.val]) {
-            return findLCA(root.left);
-        } else {
-            return findLCA(root.right);
+    public int lca (TreeNode node, int level) {
+        if (node == null) {
+            return level;
         }
-    }
+        
+        int left = lca(node.left, level + 1);
+        int right = lca(node.right, level + 1);
+        
+        if (left == right && left >= maxDepth) {
+            maxDepth = left;
+            smallestSubtree = node;
+        }
 
-    int populateArrays(TreeNode root){
-        if (root == null) {
-            return 0;
-        }
-        left[root.val] = populateArrays(root.left);
-        right[root.val] = populateArrays(root.right);
-        return Math.max(left[root.val], right[root.val]) + 1;
+        return Math.max(left, right); 
     }
 }
