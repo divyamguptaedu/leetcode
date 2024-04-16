@@ -13,25 +13,27 @@
  *     }
  * }
  */
+//Time: O(n)
+//Space: O(n)
 class Solution {
-    int prev = Integer.MAX_VALUE;
+    int previousNodeValue = Integer.MAX_VALUE;
     int result = Integer.MAX_VALUE;
 
     public int getMinimumDifference(TreeNode root) {
-        helper_inorder(root);
+        inorder(root);
         return result;
     }
 
-    public void helper_inorder(TreeNode root) {
+    public void inorder(TreeNode root) {
         if (root.left != null) {
-            helper_inorder(root.left);
+            inorder(root.left);
         }
 
-        result = Math.min(result, Math.abs(root.val - prev));
-        prev = root.val;
+        result = Math.min(result, Math.abs(root.val - previousNodeValue));
+        previousNodeValue = root.val;
 
         if (root.right != null) {
-            helper_inorder(root.right);
+            inorder(root.right);
         }
     }
 }
