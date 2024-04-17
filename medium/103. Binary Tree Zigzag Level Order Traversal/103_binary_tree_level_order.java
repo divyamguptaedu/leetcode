@@ -1,9 +1,3 @@
-"""
-Performance: 
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Binary Tree Zigzag Level Order Traversal.
-Memory Usage: 39.2 MB, less than 35.74% of Java online submissions for Binary Tree Zigzag Level Order Traversal.
-"""
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -19,30 +13,46 @@ Memory Usage: 39.2 MB, less than 35.74% of Java online submissions for Binary Tr
  *     }
  * }
  */
+ //Time: O(n)
+ //Space: O(n)
 class Solution {
-	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-	    List<List<Integer>> result = new ArrayList();
-	    helper(result, 0, root);
-	    return result;
-	}
-	// level order traversal;
-	private void helper(List<List<Integer>> result, int level, TreeNode cur) {
-	    if (cur == null) {
-	    	return;
-	    }
-	    // base case;
-	    if (result.size() <= level) {
-	        result.add(new ArrayList<Integer>());
-	    }
-	    // even condition/
-	    if (level % 2 == 0) {
-	        result.get(level).add(cur.val);
-	        // odd condition;
-	    }   else {
-	        result.get(level).add(0, cur.val);
-	    }
-	    // recurse;
-	    helper(result, level + 1, cur.left);
-	    helper(result, level + 1, cur.right);
-	}
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+
+        List<List<Integer>> zigzag = new ArrayList<>();
+        if (root == null) {
+            return zigzag;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        boolean flag = false;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> level = new ArrayList<>();
+            Stack<Integer> reverseStack = new Stack<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (flag) {
+                    reverseStack.add(node.val);
+                } else {
+                    level.add(node.val);
+                }
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+            flag = !flag;
+
+            while (!reverseStack.isEmpty()) {
+                level.add(reverseStack.pop());
+            }
+            zigzag.add(level);
+        }
+
+        return zigzag;
+    }
 }
