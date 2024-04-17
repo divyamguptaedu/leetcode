@@ -1,6 +1,3 @@
-//Time Complexity: O(n)
-//Space Compelxity: O(1)
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -16,19 +13,21 @@
  *     }
  * }
  */
+//Time : O(n)
+//Space : O(n)
 class Solution {
     public boolean isValidBST(TreeNode root) {
-      return validate(root, null, null);  
+        return validate(root, null, null);  
     }
-    public boolean validate(TreeNode root, Integer min, Integer max) {
+
+    public boolean validate(TreeNode root, Integer minimumValue, Integer maximumValue) {
         if (root == null) {
             return true;
         }
-
-        if ((min != null && root.val <= min) || (max != null && root.val >= max)) {
+        if ((minimumValue != null && root.val <= minimumValue) || (maximumValue != null && root.val >= maximumValue)) {
             return false;
         }
 
-        return validate(root.left, min, root.val) && validate(root.right, root.val, max);
+        return validate(root.left, minimumValue, root.val) && validate(root.right, root.val, maximumValue);
     }
 }
