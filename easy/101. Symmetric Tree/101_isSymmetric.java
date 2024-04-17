@@ -1,6 +1,3 @@
-//Time Complexity: O(n)
-//Space Complexity: O(n)
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -16,18 +13,20 @@
  *     }
  * }
  */
+//Time : O(n)
+//Space : O(n)
 class Solution {
     public boolean isSymmetric(TreeNode root) {
         return helper(root, root);
     }
 
-    public boolean helper(TreeNode left, TreeNode right) {
-        if (left == null && right == null) {
+    public boolean helper(TreeNode leftTree, TreeNode rightTree) {
+        if (leftTree == null && rightTree == null) {
             return true;
         }
-        if (left == null || right == null) {
+        if (leftTree == null || rightTree == null) {
             return false;
         }
-        return (left.val == right.val) && helper(left.right, right.left) && helper(left.left, right.right);
+        return (leftTree.val == rightTree.val) && helper(leftTree.right, rightTree.left) && helper(leftTree.left, rightTree.right);
     }
 }
