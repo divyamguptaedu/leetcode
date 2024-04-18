@@ -1,9 +1,3 @@
-"""
-Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Delete Node in a BST.
-Memory Usage: 50.3 MB, less than 8.26% of Java online submissions for Delete Node in a BST.
-"""
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -19,33 +13,45 @@ Memory Usage: 50.3 MB, less than 8.26% of Java online submissions for Delete Nod
  *     }
  * }
  */
+ //Time: O(logn)
+ //Space: O(x) x is the height of the tree.
 class Solution {
     public TreeNode deleteNode(TreeNode root, int key) {
         if (root == null) {
-            return root;
+            return null;
         }
-        if (root.val > key) {
+
+        if (key > root.val) {
+            root.right = deleteNode(root.right, key);
+        } else if (key < root.val) {
             root.left = deleteNode(root.left, key);
-        } else if (root.val < key) {
-            root.right= deleteNode(root.right, key);
         } else {
-            if (root.left == null) {
-                return root.right;
+            if (root.left == null && root.right == null) {
+                root = null;
+            } else if (root.right != null) {
+                root.val = successor(root);
+                root.right = deleteNode(root.right, root.val);
+            } else {
+                root.val = predecessor(root);
+                root.left = deleteNode(root.left, root.val);
             }
-            if (root.right == null) {
-                return root.left;
-            }
-            
-            root.val = helper(root.right);
-            root.right = deleteNode(root.right , root.val);
         }
         return root;
     }
-    
-    int helper(TreeNode current){
-        while (current.left != null) {
-            current = current.left;
+
+    public int successor(TreeNode root) {
+        root = root.right;
+        while (root.left != null) {
+            root = root.left;
         }
-        return current.val;
+        return root.val;
+    }
+
+    public int predecessor(TreeNode root) {
+        root = root.left;
+        while (root.right != null) {
+            root = root.right;
+        }
+        return root.val;
     }
 }
