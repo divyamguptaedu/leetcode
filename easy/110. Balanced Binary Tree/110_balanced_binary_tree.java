@@ -16,17 +16,27 @@
  *     }
  * }
  */
+ //Time: O(n)
+ //Space: O(n)
 class Solution {
     public boolean isBalanced(TreeNode root) {
-        if (root == null) {
-            return true;
-        }
-        return Math.abs(height(root.left) - height(root.right)) < 2 && isBalanced(root.left) && isBalanced(root.right);
+        return heightOfNode(root) != -1;
     }
-    private int height(TreeNode root) {
+    private int heightOfNode(TreeNode root) {
         if (root == null) {
-            return -1; //empty tree
+            return 0; //empty tree
         }
-        return 1 + Math.max(height(root.left), height(root.right));
+        int leftHeight = heightOfNode(root.left);
+        if (leftHeight == -1) {
+            return -1;
+        }
+        int rightHeight = heightOfNode(root.right);
+        if (rightHeight == -1) {
+            return -1;
+        }
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return -1;
+        }
+        return Math.max(heightOfNode(root.left), heightOfNode(root.right)) + 1;
     }
 }
