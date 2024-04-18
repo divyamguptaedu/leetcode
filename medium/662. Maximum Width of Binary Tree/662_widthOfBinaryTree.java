@@ -1,8 +1,3 @@
-"
-Performance:
-Runtime: 3 ms, faster than 53.10% of Java online submissions for Maximum Width of Binary Tree.
-Memory Usage: 44.4 MB, less than 12.71% of Java online submissions for Maximum Width of Binary Tree.
-"
 
 /**
  * Definition for a binary tree node.
@@ -19,23 +14,48 @@ Memory Usage: 44.4 MB, less than 12.71% of Java online submissions for Maximum W
  *     }
  * }
  */
-class Solution {
-    HashMap<Integer, Integer> hashMap = new HashMap<>();
-    int maxWidth = Integer.MIN_VALUE;
-    public int widthOfBinaryTree(TreeNode root) {
-        helper(root, 0, 0);
-        return maxWidth;
+//Time: O(n)
+//Space: O(n)
+class Pair {
+    TreeNode node;
+    int num;
+    Pair (TreeNode node, int num) {
+        this.node = node;
+        this.num = num;
     }
-    
-    public void helper (TreeNode root, int depth, int position) {
+} 
+class Solution {
+    public int widthOfBinaryTree(TreeNode root) {
         if (root == null) {
-            return;
+            return 0;
         }
-        if (!hashMap.containsKey(depth)) {
-            hashMap.put(depth, position);
-        }       
-        maxWidth = Math.max(maxWidth, position - hashMap.get(depth) + 1);
-        helper(root.left, depth + 1, 2 * position);
-        helper(root.right,depth + 1, 2 * position + 1);
+        int answer = 0;
+        Queue<Pair> queue = new LinkedList<>();
+        queue.offer(new Pair(root, 0));
+        while (!queue.isEmpty()) {
+            int size = queue.size(); //to account of the level size
+            int temp = queue.peek().num;
+            int first = 0;
+            int last = 0;
+            for (int i = 0; i < size; i++) {
+                int currentId = queue.peek().num - temp;
+                TreeNode node = queue.peek().node;
+                queue.poll();
+                if (i == 0) {
+                    first = currentId;
+                }
+                if (i == size - 1) {
+                    last = currentId;
+                }
+                if (node.left != null) {
+                    queue.offer(new Pair(node.left, currentId * 2 + 1));
+                }
+                if (node.right != null) {
+                    queue.offer(new Pair(node.right, currentId * 2 + 2));
+                }
+            }
+            answer = Math.max(answer, last - first + 1);
+        }
+        return answer;
     }
 }
