@@ -15,21 +15,24 @@
  */
 class Solution {
     public TreeNode bstFromPreorder(int[] preorder) {
-        int[] index = {0};
-        return helper(preorder , index , 1001);
+        return helper(preorder, 0, preorder.length - 1);
     }
     
-    private TreeNode helper(int[] preorder , int[] index , int bound) {
-        if (index[0] >= preorder.length || preorder[index[0]] >= bound) {
+    private TreeNode helper(int[] preorder, int start, int end){
+        if (start > end) {
             return null;
         }
-      
-        TreeNode root = new TreeNode(preorder[index[0]]);
-        index[0]++;
         
-        root.left = helper(preorder , index , root.val);
-        root.right = helper(preorder , index , bound);
+        TreeNode root = new TreeNode(preorder[start], null, null);
+
+        int nextPosition = start + 1;
+        while (nextPosition <= end && preorder[nextPosition] < preorder[start]) {
+            nextPosition++;
+        }
+        
+        root.left = helper(preorder, start + 1, nextPosition - 1);
+        root.right = helper(preorder, nextPosition, end);   
         
         return root;
-  }
+    }
 }
