@@ -13,38 +13,31 @@
  *     }
  * }
  */
+//Time: O(n)
+//Space: O(n)
 class Solution {
-    class Pair {
-        int sum;
-        int count;
-        public Pair(int sum, int count) {
-            this.sum = sum;
-            this.count = count;
-        }
-    }
-    int result;
-
+    int count = 0;
+        
     public int averageOfSubtree(TreeNode root) {
-        result = 0;
-        helper(root);
-        return result;
+        helper(root); //dfs
+        return count;
     }
 
-    public Pair helper(TreeNode root) {
+    public Pair<Integer, Integer> helper(TreeNode root) {
         if (root == null) {
             return new Pair(0, 0);
         }
+        
+        Pair<Integer, Integer> left = helper(root.left);
+        Pair<Integer, Integer> right = helper(root.right);
+        
+        int nodeSum = left.getKey() + right.getKey() + root.val;
+        int nodeCount = left.getValue() + right.getValue() + 1;
 
-        Pair left = helper(root.left);
-        Pair right = helper(root.right);
-
-        int sum = left.sum + right.sum + root.val;
-        int count = left.count + right.count + 1;
-
-        if (sum / count == root.val) {
-            result++;
+        if (root.val == nodeSum / (nodeCount)) {
+            count++;
         }
-
-        return new Pair(sum, count);
+        
+        return new Pair(nodeSum, nodeCount);
     }
 }
