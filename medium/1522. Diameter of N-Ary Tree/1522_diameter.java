@@ -20,36 +20,36 @@ class Node {
     }
 };
 */
-
+//Time: O(n)
+//Space: O(n)
 class Solution {
-
     int diameter = 0;
 
     public int diameter(Node root) {
-        helper(root);
+        this.diameter = 0;
+        height(root);
         return diameter;
     }
-    
-    private int helper(Node root) {
-        if (root == null) {
+
+    public int height(Node node) {
+        if (node.children.size() == 0) {
             return 0;
         }
 
-        int tempOne = 0;
-        int tempTwo = 0;  
-           
-        for (Node c : root.children) {
-            int n = helper(c);
-            if (n > tempOne) {
-                tempTwo = tempOne;
-                tempOne = n;   
-            } else if (n > tempTwo) {
-                tempTwo = n;
+        int maximumHeight = 0;
+        int nextMaximumHeight = 0;
+        for (Node child : node.children) {
+            int newHeight = height(child) + 1;
+            if (newHeight > maximumHeight) {
+                nextMaximumHeight = maximumHeight;
+                maximumHeight = newHeight;
+            } else if (newHeight > nextMaximumHeight) {
+                nextMaximumHeight = newHeight;
             }
+            int distance = maximumHeight + nextMaximumHeight;
+            this.diameter = Math.max(this.diameter, distance);
         }
-        
-        diameter = Math.max(diameter, tempOne + tempTwo);
-        
-        return 1 + tempOne;
+
+        return maximumHeight;
     }
 }
