@@ -1,9 +1,3 @@
-"
-Performance:
-Runtime: 3 ms, faster than 8.10% of Java online submissions for Boundary of Binary Tree.
-Memory Usage: 38.8 MB, less than 99.33% of Java online submissions for Boundary of Binary Tree.
-"
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -19,61 +13,64 @@ Memory Usage: 38.8 MB, less than 99.33% of Java online submissions for Boundary 
  *     }
  * }
  */
-class Solution {
+ //TIme: O(n)
+ //Space: O(n)
+public class Solution {
 
-    Map<TreeNode, Boolean> leftMap = new HashMap<>();
-    Map<TreeNode, Boolean> rightMap = new HashMap<>();
-    Map<TreeNode, Boolean> rootMap = new HashMap<>();
-    
     public List<Integer> boundaryOfBinaryTree(TreeNode root) {
-        List<Integer> boundary = new ArrayList<>();
-        Deque<Integer> rightBoundaryStack = new ArrayDeque<>();
-        boundary.add(root.val);
-        
-        isRoot.put(root, true);
-        if (root.left != null) {
-            leftMap.put(root.left, true);
+        ArrayList<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
         }
-        if (root.right != null) {
-            rightMap.put(root.right, true);
+        //add root
+        if (root.left != null || root.right != null) {
+            result.add(root.val);
         }
-        
-        Deque<TreeNode> stack = new ArrayDeque<>();
-        stack.addFirst(root);
-        while (!stack.isEmpty()) {
-            TreeNode curr = stack.removeFirst();
-            
-            // add to results and do accounting for children
-            boolean isLeaf = curr.right == null && curr.left == null;
-            boolean isLeft = leftMap.getOrDefault(curr, false);
-            boolean isRight = rightMap.getOrDefault(curr, false);
-            if (isLeaf && !rootMap.getOrDefault(curr, false)) {
-                boundary.add(curr.val);
-            } else if (isLeft) {
-                boundary.add(curr.val);
-                if (curr.left != null) {
-                    leftMap.put(curr.left, true);
-                } else if (curr.right != null) {
-                    leftMap.put(curr.right, true);
-                }
-            } else if (isRight) {
-                rightBoundaryStack.addFirst(curr.val);
-                if (curr.right != null) {
-                    rightMap.put(curr.right, true);
-                } else if (curr.left != null) {
-                    rightMap.put(curr.left, true);
-                }
+        //add left boundary
+        TreeNode leftBoundaryNode = root.left;
+        while (leftBoundaryNode != null) {
+            if (leftBoundaryNode.left != null || leftBoundaryNode.right != null) {
+                result.add(leftBoundaryNode.val);
             }
-            
-            if (curr.right != null) {
-                stack.addFirst(curr.right);
+            if (leftBoundaryNode.left != null) {
+                leftBoundaryNode = leftBoundaryNode.left;
+            } else {
+                leftBoundaryNode = leftBoundaryNode.right;
             }
-            if (curr.left != null) {
-                stack.addFirst(curr.left);
+
+        }
+        //add leaves
+        addLeaves(result, root);
+
+        //add right boundary
+        Stack<Integer> stack = new Stack<>(); //for reverse order
+        TreeNode rightBoundaryNode = root.right;
+        while (rightBoundaryNode != null) {
+            if (rightBoundaryNode.left != null || rightBoundaryNode.right != null) {
+                stack.push(rightBoundaryNode.val);
+            }
+            if (rightBoundaryNode.right != null) {
+                rightBoundaryNode = rightBoundaryNode.right;
+            } else {
+                rightBoundaryNode = rightBoundaryNode.left;
             }
         }
-        
-        boundary.addAll(rightBoundaryStack);
-        return boundary;
+        while (!stack.empty()) {
+            result.add(stack.pop());
+        }
+        return result;
+    }
+
+    public void addLeaves(List<Integer> result, TreeNode node) {
+        if (node.left == null && node.right == null) {
+            result.add(node.val);
+        } else {
+            if (node.left != null) {
+                addLeaves(result, node.left);
+            }
+            if (node.right != null) {
+                addLeaves(result, node.right);
+            }
+        }
     }
 }
