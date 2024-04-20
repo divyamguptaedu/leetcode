@@ -13,41 +13,44 @@
  *     }
  * }
  */
+ //Time: CBTInserter - O(n), insert() - O(1), get_root() - O(1)
+ //Space: O(n)
 class CBTInserter {
-    TreeNode root;
+    List<TreeNode> mainList;
+
     public CBTInserter(TreeNode root) {
-        root = root;
+        mainList = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode currentNode = queue.poll();
+                mainList.add(currentNode);
+                if (currentNode.left != null)
+                    queue.add(currentNode.left);
+                if (currentNode.right != null)
+                    queue.add(currentNode.right);          
+            } 
+        }
     }
     
     public int insert(int val) {
-        Queue<TreeNode> queue = new LinkedList<TreeNode>();
-        queue.add(root);
-        while (!queue.isEmpty()) {
-            List<TreeNode> current = new ArrayList<TreeNode>();
-            while (!queue.isEmpty()) {
-                current.add(queue.poll());
-            }
-            for (TreeNode node : current) {
-                if (node.left == null) {
-                    node.left = new TreeNode(val);
-                    return node.val;
-                }
-                queue.add(node.left);
-                if (node.right == null) {
-                    node.right = new TreeNode(val);
-                    return node.val;
-                }
-                queue.add(node.right);
-            }
+        mainList.add(new TreeNode(val)); 
+        int index = mainList.size() - 1;
+        int parentIndex = (index - 1) / 2; 
+        if (mainList.get(parentIndex).left == null) {
+            mainList.get(parentIndex).left = mainList.get(index);
+        } else if (mainList.get(parentIndex).right == null) {
+            mainList.get(parentIndex).right = mainList.get(index);
         }
-        return Integer.MIN_VALUE;
+        return mainList.get(parentIndex).val;      
     }
     
     public TreeNode get_root() {
-        return root;
+        return mainList.get(0);
     }
 }
-
 
 /**
  * Your CBTInserter object will be instantiated and called as such:
