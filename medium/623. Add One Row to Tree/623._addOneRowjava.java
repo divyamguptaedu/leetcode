@@ -1,9 +1,3 @@
-"""
-Performance:
-Runtime: 1 ms, faster than 82.40% of Java online submissions for Add One Row to Tree.
-Memory Usage: 45.5 MB, less than 43.69% of Java online submissions for Add One Row to Tree.
-"""
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -19,27 +13,45 @@ Memory Usage: 45.5 MB, less than 43.69% of Java online submissions for Add One R
  *     }
  * }
  */
+ //Time: O(n)
+ //Space: O(x) : x is the max number of nodes in a level
 class Solution {
     public TreeNode addOneRow(TreeNode root, int val, int depth) {
-        if (depth == 1) {
-            TreeNode newNode = new TreeNode(val);
-            newNode.left = root;
-            return newNode;
+        if (depth == 1) { //if the depth at which the row is to be added is the top
+            TreeNode node = new TreeNode(val);
+            node.left = root;
+            return node;
         }
-        helper(root, 1, val, depth);
+        Queue <TreeNode> queue = new LinkedList <>();
+        queue.add(root);
+        int currentDepth = 1;
+        while (currentDepth < depth - 1) {
+            Queue <TreeNode> internalQueue = new LinkedList <>(); //to consider the current level
+            while (!queue.isEmpty()) {
+                TreeNode node = queue.remove();
+                if (node.left != null) {
+                    internalQueue.add(node.left);
+                }
+                if (node.right != null) {
+                    internalQueue.add(node.right);
+                }
+            }
+            queue = internalQueue;
+            currentDepth++;
+        }
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.remove();
+
+            //fix the left
+            TreeNode temp = node.left; //save the left
+            node.left = new TreeNode(val); //set the new left
+            node.left.left = temp; //set the old left to the left of the new node
+
+            //fix the right
+            temp = node.right;
+            node.right = new TreeNode(val);
+            node.right.right = temp;
+        }
         return root;
-    }
-    
-    public void helper(TreeNode node, int depth, int value, int target) {
-        if (node == null) {
-            return;
-        }
-        if (depth + 1 == target) {
-                node.left = new TreeNode(value, node.left, null);
-                node.right = new TreeNode(value, null, node.right);
-        } else {
-            helper(node.left, depth + 1, value, target);
-            helper(node.right, depth + 1, value, target);
-        }
     }
 }
