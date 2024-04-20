@@ -1,9 +1,3 @@
-"""
-Performance:
-Runtime: 20 ms, faster than 38.14% of Java online submissions for Path Sum III.
-Memory Usage: 38.8 MB, less than 57.18% of Java online submissions for Path Sum III.
-"""
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -19,36 +13,35 @@ Memory Usage: 38.8 MB, less than 57.18% of Java online submissions for Path Sum 
  *     }
  * }
  */
-
+ //Time: O(n)
+ //Space: O(n)
 class Solution {
-
+    int count = 0;
+    int k;
+    HashMap<Long, Integer> map = new HashMap();
+    
     public int pathSum(TreeNode root, int targetSum) {
+        k = targetSum;
+        helper(root, 0L);
+        return count;
+    }
 
-        if (root == null) {
-        	return 0;
+    public void helper(TreeNode node, long currSum) {
+        if (node == null) {
+            return;
         }
-        int count = helper(root, targetSum);
+        
+        currSum += node.val;
 
-        // increment count with root's left and right path sum;
-        return count + pathSum(root.left, targetSum) + pathSum(root.right, targetSum);
+        if (currSum == k) {
+            count++; //represents root to node sum which is equal to the target
+        }
+            
+        count += map.getOrDefault(currSum - k, 0); //represents a middle path
 
+        map.put(currSum, map.getOrDefault(currSum, 0) + 1);
+        helper(node.left, currSum);
+        helper(node.right, currSum);
+        map.put(currSum, map.get(currSum) - 1);
     }
-
-    private int helper(TreeNode root, int targetSum) {
-
-    	if (root == null) {
-    		return 0;
-    	}
-    	int count = 0;
-
-        // if targetSum is achieved, increment count;
-    	if (root.val == targetSum) {
-    		count++;
-    	}
-
-        // increment count with left and right root with new target sum;
-    	return count + helper(root.left, targetSum - root.val) + helper(root.right, targetSum - root.val);
-
-    }
-
 }
