@@ -1,42 +1,47 @@
 class Solution {
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+
         if (n == 1) {
-            return Arrays.asList(0);
+            ArrayList<Integer> result = new ArrayList<>();
+            result.add(0);
+            return result;
         }
-        HashMap<Integer, ArrayList<Integer>> adj = new HashMap<>();
-        int[] degrees = new int[n];
-        for(int i = 0; i < edges.length; i++) {
-            adj.putIfAbsent(edges[i][0], new ArrayList<Integer>());
-            adj.putIfAbsent(edges[i][1], new ArrayList<Integer>());
-            adj.get(edges[i][0]).add(edges[i][1]);
-            adj.get(edges[i][1]).add(edges[i][0]);
-            degrees[edges[i][0]]++;
-            degrees[edges[i][1]]++;
-        }
-        Queue<Integer> queue = new LinkedList<>();
+
+        //prepare adjacency list
+        ArrayList<Set<Integer>> adjList = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            if (degrees[i] == 1) {
-                queue.add(i);
+            adjList.add(new HashSet<Integer>());
+        }
+        for (int[] edge : edges) {
+            Integer start = edge[0];
+            Integer end = edge[1];
+            adjList.get(start).add(end);
+            adjList.get(end).add(start);
+        }
+
+        //get leaf nodes
+        ArrayList<Integer> leaves = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            if (adjList.get(i).size() == 1) {
+                leaves.add(i);
             }
         }
-        while (n > 2) {
-            int size = queue.size();
-            n -= size;
-            for (int i = 0; i < size; i++) {
-                int temp = queue.remove(); 
-                List<Integer> neighborNodes = adj.get(temp);
-                for (int node : neighborNodes) {
-                    if (--degrees[node] == 1) {
-                        queue.add(node);  
-                    }
-                adj.remove(temp);
+
+        //remove the leaf nodes
+        int remainingNodes = n;
+        while (remainingNodes > 2) {
+            remainingNodes -= leaves.size();
+            ArrayList<Integer> newLeaves = new ArrayList<>();
+            for (Integer leaf : leaves) {
+                Integer neighbor = adjList.get(leaf).iterator().next();
+                adjList.get(neighbor).remove(leaf);
+                if (adjList.get(neighbor).size() == 1) {
+                    newLeaves.add(neighbor);
+                }
             }
-            }
-            List<Integer> result = new ArrayList<>();
-            for (Integer node : queue) {
-                result.add(node);
-            }
+            leaves = newLeaves;
         }
-        return result;
+
+        return leaves;
     }
 }
