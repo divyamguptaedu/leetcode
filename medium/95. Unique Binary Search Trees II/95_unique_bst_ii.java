@@ -1,9 +1,3 @@
-"""
-Performance:
-Runtime: 2 ms, faster than 35.97% of Java online submissions for Unique Binary Search Trees II.
-Memory Usage: 43.6 MB, less than 5.90% of Java online submissions for Unique Binary Search Trees II.
-"""
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -21,28 +15,24 @@ Memory Usage: 43.6 MB, less than 5.90% of Java online submissions for Unique Bin
  */
 class Solution {
     public List<TreeNode> generateTrees(int n) {
-       return helper(1, n);
+        return solve(1, n) ;
     }
     
-    
-    private List<TreeNode> helper(int left, int right) {
-        List<TreeNode> node = new ArrayList();
+    public List<TreeNode> solve(int left, int right) {
+        List<TreeNode> result = new ArrayList<>();
         if (left > right) {
-            node.add(null);
-            return node;
+            result.add(null) ;
+            return result;
         }
-        for (int value = left; value <= right; value++) {
-            List<TreeNode> leftBST = helper(left, value - 1);
-            List<TreeNode> rightBST = helper(value + 1, right);
-            for (TreeNode rightNode : rightBST) {
-                for (TreeNode leftNode : leftBST) {
-                    TreeNode root = new TreeNode(value);
-                    root.left = leftNode;
-                    root.right = rightNode;
-                    node.add(root);
+        for (int i = left; i <= right ; i++) {
+            List<TreeNode> leftSubtree = solve(left, i - 1) ;
+            List<TreeNode> rightSubtree = solve(i + 1, right) ;
+            for (TreeNode leftNode : leftSubtree) {
+                for (TreeNode rightNode : rightSubtree) {
+                    result.add(new TreeNode(i, leftNode, rightNode)) ;
                 }
             }
         }
-        return node;
+        return result;
     }
 }
