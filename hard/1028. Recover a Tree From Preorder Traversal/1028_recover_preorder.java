@@ -1,9 +1,3 @@
-"
-Performance:
-Runtime: 5 ms, faster than 44.16% of Java online submissions for Recover a Tree From Preorder Traversal.
-Memory Usage: 43.7 MB, less than 8.83% of Java online submissions for Recover a Tree From Preorder Traversal.
-"
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -19,46 +13,53 @@ Memory Usage: 43.7 MB, less than 8.83% of Java online submissions for Recover a 
  *     }
  * }
  */
-
+ //Time: O(n)
+ //Space: O(n)
 class Solution {
-    
-	int index = 0;
-    
-	public TreeNode recoverFromPreorder(String traversal) {
-        if (traversal.isEmpty()) {
-            return null;
-        }
-		return preorder(traversal, 0);
-	}
+    int i = 0; //index
+    String traversal;
 
-	public TreeNode preorder(String traversal, int depth){
-		if (index == traversal.length() || !helper(traversal, depth)) 
-            return null;
-        
-        TreeNode node = new TreeNode(getNodeValue(traversal, depth));
-		node.left = preorder(traversal, depth + 1);
-		node.right = preorder(traversal, depth + 1);
-		return node;
-	}
-    
-        
-	private boolean helper(String traversal, int depth){
-		int level = 0;
-        int i = index; 
-        while (i < traversal.length() && traversal.charAt(i++) == '-') {
+    public TreeNode recoverFromPreorder(String traversal) {
+        this.traversal = traversal;
+        int[] next = getNext();
+        TreeNode root = new TreeNode(next[0]);
+
+        Stack<Pair<TreeNode, Integer>> stack = new Stack<>();
+        stack.push(new Pair<>(root, 1));
+
+        while (i < traversal.length()) {
+            int[] n = getNext();
+            TreeNode temp = new TreeNode(n[0]);
+            while (stack.peek().getValue() != n[1]) { //get the node which can be temp's child
+                stack.pop();
+            }
+
+            if (stack.peek().getKey().left == null) { //if the left is null, then put there
+                stack.peek().getKey().left = temp;
+            } else {
+                stack.peek().getKey().right = temp; //if left is not empty, then put on the right
+            }
+
+            stack.push(new Pair(temp, n[1] + 1)); //add this new node and it's child's expected level to the stack
+        }
+
+        return root;
+    }
+
+    public int[] getNext() {
+        int level = 0;
+        StringBuffer sb = new StringBuffer();
+
+        while (i < traversal.length() && traversal.charAt(i) == '-') {
+            i++;
             level++;
         }
-		return level == depth;    
-	}
 
-	private int getNodeValue(String traversal, int depth) {
-		int i = index + depth;
-        while (i < traversal.length() && traversal.charAt(i) != '-') {
-            i++; 
-        }        
-        int value = Integer.valueOf(traversal.substring(index + depth , i));
-        index = i;
-        return value;
-	}
+        while (i < traversal.length() && Character.isDigit(traversal.charAt(i))) {
+            sb.append(traversal.charAt(i));
+            i++;
+        }
 
+        return new int[] {Integer.parseInt(sb.toString()), level};
+    }
 }
