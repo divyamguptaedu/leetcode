@@ -1,55 +1,50 @@
-"
-Performance:
-Runtime: 4 ms, faster than 78.02% of Java online submissions for Course Schedule II.
-Memory Usage: 40.8 MB, less than 22.27% of Java online submissions for Course Schedule II.
-"
+//Time: O(v+e)
+//Space: O(v+e)
 
 class Solution {
-    
     public int[] findOrder(int numCourses, int[][] prerequisites) {
 
-        List<List<Integer>> courses = new ArrayList<>();
-        List<Integer> list = new ArrayList<>();
-        
-        for(int i = 0; i < numCourses; i++){
-            courses.add(new ArrayList<>());
-        }
-        
-        for(int i = 0; i < prerequisites.length; i++){
-            courses.get(prerequisites[i][0]).add(prerequisites[i][1]);
-        }
-        
-        int track []= new int[numCourses]; 
-        for (int i = 0; i < numCourses; i++){
-            if (dfs(courses, i, list, track) == false) {
-                return new int[0];
-            }
-        }
-            
-        int[] ans = list.stream().mapToInt(i->i).toArray();
-        
-        return ans;
-    }
-    
-    public boolean dfs(List<List<Integer>> courses, int start, List<Integer> list, int track[]){
-        
-        if (track[start] == 2) {
-        	return true;
+        boolean isPossible = true;
+        List<List<Integer>> adj = new ArrayList<>(numCourses);
+        int[] numEdgesComingIn = new int[numCourses];
+        int[] topologicalOrder = new int[numCourses];
+
+        for (int i = 0; i < numCourses; i++) {
+            adj.add(new ArrayList<>());
         }
 
-        if (track[start] == 1) {
-        	return false;
+        for (int[] prerequisite : prerequisites) {
+            adj.get(prerequisite[1]).add(prerequisite[0]); //[1, 0] means, to take course 1, you need to take 0 first. So, we add an edge from 0 to 1.
+            numEdgesComingIn[prerequisite[0]]++;
         }
-        
-        track[start] = 1;
-        
-        for (int j = 0; j < courses.get(start).size(); j++) {
-            if (dfs(courses, courses.get(start).get(j),list, track) == false) {\
-            	return false;
+
+
+        //prepare topological sort, add the leaf nodes.
+        Queue<Integer> queue = new LinkedList<Integer>();
+        for (int i = 0; i < numCourses; i++) {
+            if (numEdgesComingIn[i] == 0) {
+                queue.add(i);
             }
         }
-        track[start] = 2;
-        list.add(start);
-        return true;
+
+        //topological sort
+        int nodesVisited = 0;
+        while (!queue.isEmpty()) {
+            int node = queue.remove();
+            topologicalOrder[nodesVisited] = node;
+            nodesVisited++;
+            for (Integer neighbor : adj.get(node)) {
+                numEdgesComingIn[neighbor]--;
+                if (numEdgesComingIn[neighbor] == 0) {
+                    queue.add(neighbor);
+                }
+            }
+        }
+
+        if (nodesVisited == numCourses) {
+            return topologicalOrder;
+        }
+
+        return new int[0];
     }
 }
