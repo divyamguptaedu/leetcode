@@ -1,49 +1,54 @@
-"""
-Performance:
-Runtime: 39 ms, faster than 50.24% of Java online submissions for Accounts Merge.
-Memory Usage: 51.3 MB, less than 13.47% of Java online submissions for Accounts Merge.
-"""
-
+//Time: O(NK log NK): N is the number of account, K is the max length of an account
+//Space: O(NK)
 class Solution {
+    Set<String> visited = new HashSet<>();
+    HashMap<String,List<String>> adjList = new HashMap<>();
+
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
-        Map<String, String> nameMap = new HashMap<>();
-        Map<String, Set<String>> graph = new HashMap<>();
-        Set<String> emails = new HashSet<>();
-        Set<String> visited = new HashSet<>();
+        // create the graph the from accounts
         for (List<String> account : accounts){
-            String name = account.get(0);
-            for (int i = 1; i < account.size(); ++i){
-                String email = account.get(i);
-                nameMap.put(email, name);
-                emails.add(email);
-                graph.putIfAbsent(email, new HashSet<>());
-                if (i == 1)
-                    continue;
-                graph.get(email).add(account.get(i-1));
-                graph.get(account.get(i-1)).add(email);
+            String firstEmail = account.get(1);
+            int accountSize = account.size();
+            for (int index = 2;index < accountSize;index++){
+                String email = account.get(index);
+                if (!adjList.containsKey(firstEmail)){
+                    adjList.put(firstEmail,new ArrayList<String>());
+                }
+                adjList.get(firstEmail).add(email);
+                if (!adjList.containsKey(email)){
+                    adjList.put(email, new ArrayList<String>());
+                }
+                adjList.get(email).add(firstEmail);
             }
         }
-        List<List<String>> result = new ArrayList<>();
-        for (String email : emails){
-            if (visited.contains(email))
-                continue;
-            List<String> temp = new ArrayList<>();
-            helper(email, graph, visited, temp);
-            Collections.sort(temp);
-            temp.add(0, nameMap.get(email));
-            result.add(temp);   
+        List<List<String>> res = new ArrayList<>();
+        for (List<String> account : accounts){
+            String name = account.get(0);
+            String firstEmail = account.get(1);
+            if (!visited.contains(firstEmail)) {
+                ArrayList<String> mergeAccount = new ArrayList<>();
+                mergeAccount.add(name);
+                DFS(mergeAccount,firstEmail);
+                Collections.sort(mergeAccount.subList(1,mergeAccount.size()));
+                res.add(mergeAccount);
+            }
+            
         }
-        return result;
+        return res;
     }
-    
-    private void helper(String cur, Map<String, Set<String>> graph, Set<String> visited, List<String> temp){
-        if (visited.contains(cur)) {
+
+    public void DFS(List<String>mergeAccount, String email) {
+        visited.add(email);
+        mergeAccount.add(email);
+        
+        if (!adjList.containsKey(email)) {
             return;
         }
-        visited.add(cur);
-        temp.add(cur);
-        for (String email : graph.get(cur)) {
-            helper(email, graph, visited, temp);
+        
+        for (String neighbour: adjList.get(email)) {
+            if (!visited.contains(neighbour)) {
+                DFS(mergeAccount,neighbour);
+            }
         }
     }
 }
