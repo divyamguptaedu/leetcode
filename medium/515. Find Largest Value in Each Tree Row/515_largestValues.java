@@ -1,3 +1,4 @@
+//Used a simple interative BFS approach, using the length of the queue at each level and a maxInThisRow pointer.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

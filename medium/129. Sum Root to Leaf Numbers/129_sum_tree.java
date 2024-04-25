@@ -1,4 +1,11 @@
 /**
+Used DFS because we need to go to the leaf node directly. 
+Because we want the left node after the root, pre-order works the best. 
+Ensured that I am keeping track of the number by multiplying the number by 10 
+and then adding the value of the current node. 
+Made sure to add the number to the result if there are no child nodes of a particular node.
+*/
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;

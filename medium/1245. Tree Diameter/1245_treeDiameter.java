@@ -1,3 +1,6 @@
+//Very similar approach to 1522. First converted the edges list to adjancency list and visited list. 
+//Used DFS on the N-Ary tree,  calculated the height of the nodes, and kept the maximumHeight and nextMaximumHeight updated. 
+//Added them together to keep track of the maxDiameter.
 class Solution {
     private List<List<Integer>> graph;
     private Integer diameter = 0;

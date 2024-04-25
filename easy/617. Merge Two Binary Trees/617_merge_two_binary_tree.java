@@ -1,3 +1,4 @@
+//Used a simple recursive approach by adding the node at the same position in each tree.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

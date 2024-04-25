@@ -1,3 +1,5 @@
+//Used a simple recursive approach by keeping track of the minimum and 
+//maximum possible value for each node and then checking if it lies in between them, inclusive.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

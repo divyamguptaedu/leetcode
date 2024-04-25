@@ -1,3 +1,9 @@
+//Defined an arrayList as the data structure. 
+//Ran BFS to populate the mainList. 
+//For the inserter, just added the newNode to the end of the mainList, 
+//calculated the index using the size of the list, 
+//calculated the index of it's parent by doing (index-1)/2, and 
+//then connected the left if null or right of the parent node to the new node.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

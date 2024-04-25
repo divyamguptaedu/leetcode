@@ -1,4 +1,4 @@
-
+//Used level order traversal while assigning nodes a number at each level starting at 0.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

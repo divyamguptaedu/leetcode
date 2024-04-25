@@ -1,4 +1,11 @@
 /**
+Because we need to traverse level by level, I used BFS. 
+Made one queue for the current level, another for the next level. 
+Added the last node of the current level to the output list. 
+Made sure to also add the child of the nodes in the current level to the next level.
+*/
+
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;

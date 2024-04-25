@@ -1,3 +1,6 @@
+//Used a simliar approach as 515. 
+//Used interative BFS tracking the level, calculating the sum of each level 
+//and comparing with the maxSumTillNow
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

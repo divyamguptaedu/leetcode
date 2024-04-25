@@ -1,4 +1,9 @@
 /**
+Used a binary search approach to iterate the tree conditionally. 
+Made sure include the logic to determine the node with the closest value. 
+Also made sure to return the smallest node if there are multiple answers.
+*/
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;

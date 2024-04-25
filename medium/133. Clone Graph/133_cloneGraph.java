@@ -1,3 +1,4 @@
+//Used DFS and created a deep copy of every node using recursion.
 /*
 // Definition for a Node.
 class Node {

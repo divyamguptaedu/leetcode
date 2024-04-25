@@ -1,3 +1,5 @@
+//Used a BFS strategy level by level to have a queue of the required depth nodes, 
+//then just fixed the left and the right by adding a new row in between and fixing the connections.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

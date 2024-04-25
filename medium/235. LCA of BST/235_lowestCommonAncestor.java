@@ -1,3 +1,8 @@
+//Used an iterative approach in which I took advantage of the BST properties. 
+//If the value of p and q both is less than the node's value, then set the node to its left, 
+//if greater than node, then set it to right, is neither, 
+//then return that node because that would mean that the p and q are on the different sides, 
+//so we can just return the root.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

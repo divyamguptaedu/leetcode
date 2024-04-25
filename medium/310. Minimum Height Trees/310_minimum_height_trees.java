@@ -1,3 +1,5 @@
+//Prepared the adjacency list, saved the list of leaf nodes, 
+//removed the leaf nodes from the adjList along with the edges and then returned the remaining nodes.
 class Solution {
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
 

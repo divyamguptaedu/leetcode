@@ -1,4 +1,13 @@
 /**
+Very similar question to 314. 
+Binary Tree Vertical Order Traversal; however, now each column needs to be sorted top to bottom, 
+and smallest to biggest if multiple nodes at same row and col. 
+So, used the same approach as 314. Binary Tree Vertical Order Traversal, add the row variable, 
+kept account for that in the columnMap. After columnMap is created, sorted each column by row, 
+and if row is same, then value.
+*/
+
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;

@@ -1,3 +1,5 @@
+//Used simple recursive solution DFS in which the current node's value is compared with the parent, 
+//and it it is equal then the max of left and right + 1 is returned.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

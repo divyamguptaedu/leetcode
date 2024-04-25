@@ -1,3 +1,6 @@
+//Used a simple recursive approach by checking if the two nodes at mirroring positions have equal value. 
+//The two nodes considered are derived by taking the 
+//leftTree.left with rightTree.right and leftTree.right with rightTree.left.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

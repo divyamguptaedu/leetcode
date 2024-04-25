@@ -1,3 +1,6 @@
+//Used a simple BFS traversal approach in which if the x and y are siblings, 
+//then false is returned. Otherwise, their height is saved. 
+//In the end, the height is checked if it is the same.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

@@ -1,4 +1,9 @@
 /**
+Checked the node value to see if it is in the range, then used recursion on the left and right node. 
+If the node value if smaller than the minimum, then just do recursion on the right node. 
+Same vis-a-vis.
+*/
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;

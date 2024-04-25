@@ -1,3 +1,5 @@
+//Used a simple BFS traversal approach in which I added the values of the grandchildren 
+//to the sum variable if the parent's value is even. 
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

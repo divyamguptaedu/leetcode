@@ -1,3 +1,5 @@
+//Used a recursive approach with simply keeping track of maxSum till now. 
+//maxSum is calculated by adding the leftSum, rightSum, and the value of the node.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

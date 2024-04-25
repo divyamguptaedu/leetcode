@@ -1,3 +1,4 @@
+//Did an inorder traversal to get the nodes in sorted order. Then just created a BST using the middle value as the root.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

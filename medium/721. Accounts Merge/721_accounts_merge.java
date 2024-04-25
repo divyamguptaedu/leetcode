@@ -1,3 +1,6 @@
+//Created the adj list, traversed over the accounts to check if the first email was already visited, 
+//if not, performed DFS. During DFS, stored the emails in an array, marked as visited. 
+//In the end, sorted the emails, added account name at start, returned the answer list.
 //Time: O(NK log NK): N is the number of account, K is the max length of an account
 //Space: O(NK)
 class Solution {

@@ -1,3 +1,5 @@
+//Used an iterative level order traversal approach with the only difference that for alternate levels, 
+//I added the nodes to a stack instead and popped them later to add to the result list.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

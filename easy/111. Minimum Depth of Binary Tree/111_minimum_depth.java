@@ -1,3 +1,6 @@
+//Used a simple recursive approach by return left+right+1 if either left or right depth is 0, 
+//or returning the minimum of left and right depth + 1 if either of the depth is not zero. 
+//Bottoms up approach.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

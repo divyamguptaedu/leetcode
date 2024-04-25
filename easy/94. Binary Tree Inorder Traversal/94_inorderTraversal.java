@@ -1,3 +1,7 @@
+/**
+Just simple recursion inOrder traversal approach. 
+*/
+
 //Time Complexity: O(n)
 //Space Complexity: O(n)
 

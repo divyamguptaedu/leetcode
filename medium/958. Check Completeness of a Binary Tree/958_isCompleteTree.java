@@ -1,4 +1,9 @@
 /**
+Did a simple BFS with a nullDetected pointer. 
+The pointer gets activated when it sees a node as null for the first time. 
+If the null is detected once, and the BFS sees any other node, it returns false.
+*/
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;

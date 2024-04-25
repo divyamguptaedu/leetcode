@@ -1,4 +1,7 @@
 /**
+Just did the inorder traversal during initialization and then returned the next and hasNext results in O(1) time.
+*/
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  * int val;

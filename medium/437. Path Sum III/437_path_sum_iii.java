@@ -1,3 +1,6 @@
+//Used the prefix sum strategy to get the path sums. 
+//Used a hashmap, and a counter to record the paths and how many times they occur. 
+//CurrentSum - target helps to identiy the new path that starts from the middle, not from the root.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

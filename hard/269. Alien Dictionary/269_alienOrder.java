@@ -1,3 +1,9 @@
+//Created an adj list and a list tracking the number of edges coming in each node. 
+//Built the graph and increment the elements in the numEdgesComingIn by comparing two words 
+//and finding the char that makes the word less than other. 
+//Then pushed all indices of numEdgesComingIn == 0 to a queue and started BFS. 
+//In BFS, poll and save to current, append the char to order by passing its correct ascii value. 
+//Updated the current's neighbors by decreasing numEdges by 1 and pushed to queue if new is 0.
 //Time: O(n)
 //Space: O(n)
 class Solution {

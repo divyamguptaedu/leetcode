@@ -1,3 +1,7 @@
+//Approached the problem as four tasks. 
+//Made a result list, added the root, then added the left boundary while defining the rules. 
+//Then added the leaves, computed using DFS, 
+//and finally the right boundary nodes using a stack to get the reverse order.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

@@ -1,3 +1,7 @@
+//Simply found the nodes with maxDepth and same LCA. 
+//Used recursion DFS, increased level at every left and right call. 
+//Kept track of the maxDepth. 
+//Changed the assignment of the smallestSubtree whenever left == right and greater than currentMaxDepth.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

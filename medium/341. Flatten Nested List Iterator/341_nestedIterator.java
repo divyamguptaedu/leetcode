@@ -1,3 +1,4 @@
+//Used a simple approach to first compute the flattened list using recursion, then just used a position pointer to have other two functions in O(1)
 /**
  * // This is the interface that allows for creating nested lists.
  * // You should not implement it, or speculate about its implementation

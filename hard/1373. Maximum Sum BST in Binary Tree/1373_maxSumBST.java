@@ -1,3 +1,5 @@
+//Used DFS. Tracked four variables for each node - the leftMax, rightMin, isBST, 
+//and sum to determine the maximumSum BST in the tree.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

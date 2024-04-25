@@ -1,4 +1,10 @@
 /**
+Used DFS because that we can calculate the height bottom to up. 
+After recursing on left and right, when it comes to the actual node, 
+we add the height of the left and right and add one to it to get the max diameter till there. 
+We update the diameter when we find that the left+right is higher than the currDiameter.
+*/
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;

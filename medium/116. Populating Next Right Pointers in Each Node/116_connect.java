@@ -1,3 +1,4 @@
+//For each leftmost node, used the next pointers to connect them all level by level. No extra space used.
 /*
 // Definition for a Node.
 class Node {

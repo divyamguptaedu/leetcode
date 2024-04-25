@@ -1,3 +1,5 @@
+//Used simple recursive solution DFS in which the node value and node count is calculated using the left node, 
+//right node, and current node. Based on the average, the overall count is modified.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

@@ -1,3 +1,4 @@
+//Used recursive approach by using a start and end pointers and calculating what should the next index be.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

@@ -1,3 +1,5 @@
+//Used 0, 1, 2 as labels to mark if a node needs a camera, already is a camera, or is under surveillance. 
+//Used recursive DFS to iterate and increased counter at 0 and in cases when both the left and right return 2.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

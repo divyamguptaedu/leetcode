@@ -1,3 +1,9 @@
+//Added the nodes to be deleted in a hashSet to make 'contains' an O(1) operation. 
+//Did a DFS traversal of the tree which just checks if the currentNode is in the hashset, 
+//if yes, then I check if there are left and right child nodes present, 
+//if yes, they are added to the root list and the main node is changed to null to make it as deleted. 
+//Finally in the end, the root is checked if it is null, 
+//if not, it is added to the root list as well and returned.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

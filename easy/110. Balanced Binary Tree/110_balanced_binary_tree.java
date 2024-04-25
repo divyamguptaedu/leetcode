@@ -1,3 +1,6 @@
+//O(n^2) solution was easy to think, but doing the problem in O(n) required some thinking. 
+//I modified the heightOfNode helper method to return -1 if an imbalance is detected at any time 
+//during the traversal. 
 // Time Complexity: O(nlogn)
 // Space Complexity: O(n)
 

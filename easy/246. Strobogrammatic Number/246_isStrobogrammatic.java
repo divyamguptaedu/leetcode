@@ -1,22 +1,32 @@
+//Just created a map with 0, 1, 6, 8, 9 and set the start and end variable. 
+//Now, while the start <= end, got the char at start and end,
+//fetched the corresponding value of the start from the map, and then checked
+//if value == null or end char is not equal to the value, then returned false, else true.
+
 //Time: O(n)
-//Space: O(n)
+//Space: O(1)
 class Solution {
     public boolean isStrobogrammatic(String num) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = num.length() - 1; i >= 0; i--) {
-            char c = num.charAt(i);
-            if (c == '0' || c == '1' || c == '8') {
-                sb.append(c);
-            } else if (c == '6') {
-                sb.append('9');
-            } else if (c == '9') {
-                sb.append('6');
-            } else {
+        Map<Character, Character> m = new HashMap<>();
+        m.put('0', '0');
+        m.put('1', '1');
+        m.put('6', '9');
+        m.put('8', '8');
+        m.put('9', '6');
+
+        int start = 0;
+        int end = num.length() - 1;
+
+        while (start <= end) {
+            char ch1 = num.charAt(start++);
+            char ch2 = num.charAt(end--);
+
+            Character other = m.get(ch1);
+            if (other == null || ch2 != other) {
                 return false;
             }
         }
-        
-        String result = sb.toString();
-        return num.equals(result);
+
+        return true;
     }
 }

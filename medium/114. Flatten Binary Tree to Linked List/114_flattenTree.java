@@ -1,3 +1,6 @@
+//Used a recursive approach with recursing on left and right subtrees. 
+//Main logic works by connecting the right of the leftSubtree to the node's right, 
+//then making the node.right = node.left, and node.left == null.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

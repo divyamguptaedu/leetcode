@@ -1,3 +1,7 @@
+//First created an adj list, 
+//then did a topological sort BFS while keeping a track of the nodes in the sort, 
+//and checked in the end if that count == numCourses, 
+//then returned the topological sort if earlier condition true.
 //Time: O(v+e)
 //Space: O(v+e)
 

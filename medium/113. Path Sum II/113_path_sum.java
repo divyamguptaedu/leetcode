@@ -1,3 +1,6 @@
+//Used a recursive approach. 
+//Make a main result list and a temporary list to keep track of nodes in the current path. 
+//Copied over the list if the leaf nodes makes the remaining sum to be zero, removed the last node if not.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

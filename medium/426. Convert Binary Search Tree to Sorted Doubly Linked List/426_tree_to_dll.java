@@ -1,3 +1,8 @@
+/**
+Did an inorder DFS traversal, in which when it comes to the node, 
+we re-link the last visited node and the current node.
+*/
+
 /*
 // Definition for a Node.
 class Node {

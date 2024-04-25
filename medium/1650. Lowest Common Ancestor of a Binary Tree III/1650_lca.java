@@ -1,3 +1,8 @@
+/**
+Used a simple approach in which the nodes are queried for their parents until null is returned. 
+On seeing null, the pointer is set to the other original node. 
+This helps reach the LCA without having to save the visited nodes in any data structure. 
+*/
 /*
 // Definition for a Node.
 class Node {

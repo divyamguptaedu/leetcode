@@ -1,3 +1,7 @@
+//Created an adjacency list and then did DFS while filling up the visited set. 
+//In the end checked if the size of the visited set is equal to the number of nodes we started with. 
+//This confirms if the tree is connected. 
+//Also checked if the number of edges is equal to number of nodes - 1 to confirm if there is a loop.
 class Solution {
     public boolean validTree(int n, int[][] edges) {
         //create the adjacency list

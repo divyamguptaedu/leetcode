@@ -1,3 +1,7 @@
+//Considered each subtree as an individual tree. 
+//Defined rules. Recursed on the list whenever '(' is found. 
+//Left for the first time, right for the second time. 
+//Also defined a getNum function to convert the set of characters to a number.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

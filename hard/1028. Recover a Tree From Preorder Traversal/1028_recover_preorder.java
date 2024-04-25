@@ -1,3 +1,10 @@
+//First part is the be able to fetch the next node and its level from the traversal given. 
+//I did that by just having two while loops one after another, 
+//one to get the level from the dashes, another to get the node value. 
+//Second part is the use the level information to find the parent of this node, 
+//which I did by creating a stack of the older nodes with increased level by one which helps me 
+//figure out which node can be this new node's parent. Once found, checked if it's left is null, 
+//if yes the new node is put there, if not, then the new node is put to the right.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

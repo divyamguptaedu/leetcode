@@ -1,3 +1,6 @@
+//Traversed the tree using the BST properties to find the key node 
+//and then replaced it with the immidiate successor if there is no right node, 
+//or predecessor if there is no left node.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

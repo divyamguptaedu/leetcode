@@ -1,3 +1,5 @@
+//Used a simple recursive approach by keeping track of the previous node value 
+//and finding the difference from the current node value.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

@@ -1,3 +1,7 @@
+//Make adj list, visited set, and a queue to store the nodes to be visited. 
+//Added a starting node 0 to the queue and marked as visited. 
+//Ran BFS, returned true of current node is the destination. 
+//Added all unvisited nodes to the queue, marked them as visited.
 //Time: O(n+m)
 //Space: O(n+m)
 class Solution {

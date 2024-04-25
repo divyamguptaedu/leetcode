@@ -1,3 +1,6 @@
+//Used DFS on the N-Ary tree,  calculated the height of the nodes, 
+//and kept the maximumHeight and nextMaximumHeight updated. 
+//Added them together to keep track of the maxDiameter.
 /*
 // Definition for a Node.
 class Node {

@@ -1,3 +1,9 @@
+//More of a graph question than a tree question. 
+//But, first I created the adjacency list and then did DFS. 
+//Everytime an apple is found, the time it takes from the parent to child node to fetch the apple is set at +2, 
+//not +1, as I need to account for both going to the node and coming back from it. 
+//After DFS, the total time is returned.
+
 //Time: O(n)
 //Space: O(n)
 class Solution {

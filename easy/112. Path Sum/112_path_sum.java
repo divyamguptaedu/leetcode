@@ -1,3 +1,5 @@
+//Used a simple recursive approach by subtracting the value of the sum by the value of the node and 
+//checking if sum==0 when the recursion hits a leaf node.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

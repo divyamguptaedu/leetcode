@@ -1,4 +1,9 @@
 /**
+Created an adjacency list and then just ran BFS on it till that K is reached. 
+Populated the result list when the depth is equal to K.
+*/
+
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;

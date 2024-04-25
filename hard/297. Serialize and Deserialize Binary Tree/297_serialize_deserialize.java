@@ -1,3 +1,5 @@
+//Used simple pre-order traversal to convert traversal into string including null values, 
+//and then just decoded it back to the BST for deserialization.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

@@ -1,3 +1,5 @@
+//Used a top-down recursive approach. Accounted for every possibility. 
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

@@ -1,4 +1,9 @@
 /**
+Used recursion. Made three pointers, left, right, and mid. 
+They are assigned 1 or 0, 1 means that p or q is found, 0 means not found. 
+When a node gets two of three pointers as 1, then lca is found.
+*/
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;

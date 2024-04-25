@@ -1,4 +1,9 @@
 /**
+Used a map to have nodes by column. 
+Used BFS for the traversal, increasing and decreasing column number as we go left and right. 
+Kept track of minColumn and maxColumn to avoid having to sort the columns in the hashmap.
+*/
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;

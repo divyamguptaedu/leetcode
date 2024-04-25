@@ -1,3 +1,4 @@
+//Did a simple BFS while keeping track of the level and making seperate lists of each level in the result 2d list.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

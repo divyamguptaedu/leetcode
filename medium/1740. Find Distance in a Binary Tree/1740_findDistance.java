@@ -1,3 +1,5 @@
+//First found the LCA of p and q, and then used DFS to find the length from the LCA to p and LCA to q, 
+//and then added them.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

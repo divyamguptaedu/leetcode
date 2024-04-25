@@ -1,3 +1,5 @@
+//Used DFS traversal (post order traversal) and
+//saved the isBST value, minimumSeen, maximumSeen, and largestBSTSizeSeen value for every recursion.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

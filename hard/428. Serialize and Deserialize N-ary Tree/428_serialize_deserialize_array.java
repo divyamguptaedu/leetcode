@@ -1,3 +1,6 @@
+//Used stringbuilder and recursive DFS to have all nodes and their children seperated by the 
+//size of the list of children. 
+//All nodes seperated by a comma to be able to split add nodes and decode.
 /*
 // Definition for a Node.
 class Node {
