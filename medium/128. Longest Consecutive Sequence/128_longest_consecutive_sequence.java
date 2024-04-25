@@ -1,23 +1,31 @@
+//We add all the nums from the input list to a set, and then iterate over it. While iterating, we check if the currentNum is the start of a seqeunce.
+//If yes, then we check the length of this sequence and save the max length seen till now.
+//If no, we move to next number.
+//Time: O(n)
+//Space: O(n)
 class Solution {
     public int longestConsecutive(int[] nums) {
-        if (nums.length == 0){
-            return 0;
+        Set<Integer> set = new HashSet<Integer>();
+        for (int num : nums) {
+            set.add(num);
         }
-        Arrays.sort(nums);
 
-        int longest = 1;
-        int current = 1;
-        for (int i = 1; i<nums.length;i++) {
-            if (nums[i] != nums[i - 1]) {
-                if (nums[i] == nums[i - 1] + 1) {
-                    current += 1;
+        int result = 0;
+
+        for (int num : set) {
+            if (!set.contains(num-1)) {
+                int currentNum = num;
+                int currentLength = 1;
+
+                while (set.contains(currentNum+1)) {
+                    currentNum += 1;
+                    currentLength += 1;
                 }
-                else{
-                longest = Math.max(longest,current);
-                current = 1;
-                }
+
+                result = Math.max(result, currentLength);
             }
         }
-        return Math.max(longest, current);
+
+        return result;
     }
 }
