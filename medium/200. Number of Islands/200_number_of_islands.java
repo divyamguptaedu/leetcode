@@ -1,29 +1,48 @@
+//First get the numRows and numCols, then set a double for-loop, check if that current cell is a 1 or 0, if 1, then save to visited, and check its neighbors. If not, move to next.
+//Time: O(mn)
+//Space: O(min(m,n))
 class Solution {
-    boolean[][] visited;
     public int numIslands(char[][] grid) {
-        int count = 0;
-        int m = grid.length;
-        int n = grid[0].length;
-        visited = new boolean[m][n];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == '1' && markVisited(i, j, grid)) {
-                    count++;
+        if (grid == null || grid.length == 0) {
+            return 0;
+        }
+
+        int rows = grid.length;
+        int cols = grid[0].length;
+        int num_islands = 0;
+
+        for (int r = 0; r < rows; ++r) {
+            for (int c = 0; c < cols; ++c) {
+                if (grid[r][c] == '1') {
+                    num_islands++;
+                    grid[r][c] = '0'; // mark as visited
+                    Queue<Integer> neighbors = new LinkedList<>();
+                    neighbors.add(r * cols + c);
+                    while (!neighbors.isEmpty()) {
+                        int id = neighbors.remove();
+                        int row = id / cols;
+                        int col = id % cols;
+                        if (row - 1 >= 0 && grid[row-1][col] == '1') {
+                            neighbors.add((row-1) * cols + col);
+                            grid[row-1][col] = '0';
+                        }
+                        if (row + 1 < rows && grid[row+1][col] == '1') {
+                            neighbors.add((row+1) * cols + col);
+                            grid[row+1][col] = '0';
+                        }
+                        if (col - 1 >= 0 && grid[row][col-1] == '1') {
+                            neighbors.add(row * cols + col-1);
+                            grid[row][col-1] = '0';
+                        }
+                        if (col + 1 < cols && grid[row][col+1] == '1') {
+                            neighbors.add(row * cols + col+1);
+                            grid[row][col+1] = '0';
+                        }
+                    }
                 }
             }
         }
-        return count;
-    }
 
-    public boolean markVisited(int i, int j, char[][] grid) {
-        if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == '0' || visited[i][j]) {
-            return false;
-        }
-        visited[i][j] = true;
-        markVisited(i+1, j, grid);
-        markVisited(i, j+1, grid);
-        markVisited(i-1, j, grid);
-        markVisited(i, j-1, grid);
-        return true;
+        return num_islands;
     }
 }
