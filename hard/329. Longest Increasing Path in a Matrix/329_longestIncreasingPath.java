@@ -1,7 +1,11 @@
+//For this question, we will do a dfs to check for the longest increasing path, but will also use a cache or memory to avoid doing repeated work. 
+//So, first we initialize a directions 2d array, the dimensions of the grid, and the cache. 
+//Then we iterate over the grid, do dfs, find the length, save the max. 
+//While doing the dfs, we also save the length in the cache to avoid repeated work in the future. 
+//So, this will help us to get to our answer in O(mn)
+
 //Time: O(mn)
 //Space: O(mn)
-// DFS + Memoization Solution
-// Accepted and Recommended
 public class Solution {
     private static final int[][] dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
     private int m, n;

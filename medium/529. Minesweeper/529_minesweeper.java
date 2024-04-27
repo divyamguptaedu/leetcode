@@ -1,3 +1,10 @@
+//Created a directions array to make it easy to get the adjacent cells. 
+//Then checked if we clicked on a mine, if yes, then changed it to X and returned board. 
+//If not, then fired a helper function which reveals the board. 
+//In the helper function, first checked if the cell is valid and is not already explored. 
+//Then get the total mine count in the adjacent cells, change that cell to represent the mine count, 
+//and recurse helper function on its adjacent cells.
+
 //Time Complexity: O(8 * M * N) = O(M * N)
 //Space Complexity: O(M * N)
 

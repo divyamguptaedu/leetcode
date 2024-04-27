@@ -1,3 +1,12 @@
+//We can solve it the naive way which means doing DFS everytime we see a 0 and checking how large of an island will be formed. 
+//However, it will involve a lot of repeated work. 
+//So, we will instead save that work using some ids to represent a precalculated island. 
+//So, we first do a interation over the grid and check if the current cell is a 1, 
+//if it is a 1, then we do dfs on it and find its area, change these island cells to an island id and save the area. 
+//Then we quickly find the max area till now. Then we iterate over the grid again, and this time, check if there is a 0, 
+//when we find a 0, we check its neighbors. If any of the neighbor has an island id, we add it to the scene set. 
+//In the end, we just add all the area of ids in the seen set and add 1 to it to account for the changed cell, and return the max area.
+
 //Time: O(n^2)
 //Space: O(n^2)
 class Solution {
@@ -18,18 +27,20 @@ class Solution {
                     area[index] = dfs(r, c, index++);
 
         int ans = 0;
-        for (int x: area) ans = Math.max(ans, x);
+        for (int x : area) {
+            ans = Math.max(ans, x);
+        }
         for (int r = 0; r < N; ++r)
             for (int c = 0; c < N; ++c)
                 if (grid[r][c] == 0) {
-                    Set<Integer> seen = new HashSet();
+                    Set<Integer> foundIsland = new HashSet();
                     for (Integer move: neighbors(r, c))
                         if (grid[move / N][move % N] > 1)
-                            seen.add(grid[move / N][move % N]);
+                            foundIsland.add(grid[move / N][move % N]);
 
-                    int bns = 1;
-                    for (int i: seen) bns += area[i];
-                    ans = Math.max(ans, bns);
+                    int currentArea = 1;
+                    for (int i: foundIsland) currentArea += area[i];
+                    ans = Math.max(ans, currentArea);
                 }
 
         return ans;

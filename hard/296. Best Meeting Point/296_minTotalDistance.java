@@ -1,3 +1,9 @@
+//Doing a bfs and calculating the total distance from each 0 is going to be a O(m^2n^2) approach. 
+//A better way to do this is to find the median points. 
+//Median because it allows us to have 50% points on the left, 50% on the right, while mean can be skewed towards one side. 
+//So, we collect the row numbers and the col numbers for the homes, find the meeting point by taking a median, 
+//and then just sum the distance between the meeting point and the homes. This then becomes a O(mn) approach.
+
 //Time: O(mn)
 //Space: O(mn)
 class Solution {
