@@ -1,8 +1,12 @@
-"""
-Performance:
-Runtime: 3 ms, faster than 98.58% of Java online submissions for Robot Room Cleaner.
-Memory Usage: 38.7 MB, less than 87.07% of Java online submissions for Robot Room Cleaner.
-"""
+//Followed a right-hand rule backtracking approach. Go forward, clean, mark as visited.
+//At obstacle, turn right, go forward. Already visited cells are obstacles as well.
+//So, in the backtracking method, we mark the cell as visited, clean it, explore the four directions.
+//4 directions are explored in order, up, right, down, left.
+//Check the next cell in the chosen direction, if not visited and no obstacle, then move forward, recurse, and backtrack.
+//If visited, then just turn right.
+
+//Time: O(N-M)
+//Space: O(N-M)
 
 /**
  * // This is the robot's control interface.
@@ -23,33 +27,39 @@ Memory Usage: 38.7 MB, less than 87.07% of Java online submissions for Robot Roo
  */
 
 class Solution {
-    int[][] directions;
-    Set<Pair<Integer, Integer>> visited;
+    // going clockwise : 0: 'up', 1: 'right', 2: 'down', 3: 'left'
+    int[][] directions = { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
+    Set<Pair<Integer, Integer>> visited = new HashSet();
+    Robot robot;
 
     public void cleanRoom(Robot robot) {
-        directions = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; // up, right, down, left-clockwise
-        visited = new HashSet<>(); // DFS visited DS
-        dfs(robot, 0, 0, 0); // Start from row 0 col 0 direction 0
+        this.robot = robot;
+        backtrack(0, 0, 0);
     }
 
-    private void dfs(Robot robot, int row, int col, int dir) {
-        robot.clean(); // Clean the current cell
-        visited.add(new Pair<>(row, col)); // Mark the current cell visited
-        for (int i = 0; i < 4; i++) { // Explore 4 different directions
-            int newDir = (dir + i) % 4; // Next direction 0,1,2,3
-            int newI = row + directions[newDir][0]; // New cell row
-            int newJ = col + directions[newDir][1]; // New cell column
-            if (!visited.contains(new Pair<>(newI, newJ)) && robot.move()) { // If cell not visited and not blocked
-                dfs(robot, newI, newJ, newDir); // Explore the new cell
-                // Go back
-                robot.turnRight();
-                robot.turnRight();
-                robot.move();
-                // Turn the head to the original direction
-                robot.turnRight();
-                robot.turnRight();
+    public void backtrack(int row, int col, int d) {
+        visited.add(new Pair(row, col));
+        robot.clean();
+        // going clockwise : 0: 'up', 1: 'right', 2: 'down', 3: 'left'
+        for (int i = 0; i < 4; ++i) {
+            int newD = (d + i) % 4;
+            int newRow = row + directions[newD][0];
+            int newCol = col + directions[newD][1];
+
+            if (!visited.contains(new Pair(newRow, newCol)) && robot.move()) {
+                backtrack(newRow, newCol, newD);
+                goBack();
             }
-            robot.turnRight(); // Explore the next direction-total 4 directions
+            // turn the robot following chosen direction : clockwise
+            robot.turnRight();
         }
+    }
+
+    public void goBack() {
+        robot.turnRight();
+        robot.turnRight();
+        robot.move();
+        robot.turnRight();
+        robot.turnRight();
     }
 }
