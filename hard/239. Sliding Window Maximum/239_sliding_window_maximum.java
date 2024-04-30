@@ -1,36 +1,28 @@
-"""
-Performance: 
-Runtime: 3 ms, faster than 99.45% of Java online submissions for Edit Distance.
-Memory Usage: 39.3 MB, less than 34.57% of Java online submissions for Edit Distance.
-"""
 class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
+        Deque<Integer> dq = new ArrayDeque<>();
+        List<Integer> res = new ArrayList<>();
 
-        int n = nums.length;
-        if (n == 0 || k == 0) {
-            return new int[0];
+        for (int i = 0; i < k; i++) {
+            while (!dq.isEmpty() && nums[i] >= nums[dq.peekLast()]) {
+                dq.pollLast();
+            }
+            dq.offerLast(i);
         }
-        
-        // form a queue for the k indexes each time;
-        int[] result = new int[n - k + 1];
-        Deque<Integer> queue = new ArrayDeque<>();
-        
-        for (int i = 0 ; i < n ; i++) {
-            while (queue.size() > 0 && queue.peekFirst() <= i - k) {
-                queue.pollFirst();
-            }
-            while (queue.size() > 0 && nums[queue.peekLast()] < nums[i]) {
-                queue.pollLast();
-            }
-            // get the maximum;
-            queue.offerLast(i);
-            if (i >= k - 1) {
+        res.add(nums[dq.peekFirst()]);
 
-                // add to result;
-                result[i - k + 1] = nums[queue.peekFirst()];
+        for (int i = k; i < nums.length; i++) {
+            if (dq.peekFirst() == i - k) {
+                dq.pollFirst();
             }
+            while (!dq.isEmpty() && nums[i] >= nums[dq.peekLast()]) {
+                dq.pollLast();
+            }
+
+            dq.offerLast(i);
+            res.add(nums[dq.peekFirst()]);
         }
-        return result;
-
+        // Return the result as an array.
+        return res.stream().mapToInt(i->i).toArray();
     }
 }
