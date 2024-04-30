@@ -1,49 +1,40 @@
-"
-Performance:
-Runtime: 6 ms, faster than 87.89% of Java online submissions for Longest Repeating Character Replacement.
-Memory Usage: 43.5 MB, less than 45.39% of Java online submissions for Longest Repeating Character Replacement.
-"
-
-class Solution {
-    public int characterReplacement(String s, int k) {       
-        if (s.length() == 1) {
-            return 0;
-        }
-        int[] array = new int[26];        
-        int count = 0;
-        int start = 0;
-        int size = 0;
-        for (int end = 0; end < s.length(); end++){            
-            int index = s.charAt(end) - 'A';            
-            array[index]++;
-            count = Math.max(count, array[index]);
-            while(end-start + 1 - count > k){
-                array[s.charAt(start) - 'A']--;
-                start++;
-            }
-            size = Math.max(size, end - start + 1);
-        }
-        return size;        
-    }
-}
-
-"another way"
-
 class Solution {
     public int characterReplacement(String s, int k) {
-        Map<Character, Integer> map = new HashMap<>();
-        int mostReq = 0;
-        int left = 0;
-        int max = 0;
-        for (int right = 0; right < s.length(); right++) {
-            map.put(s.charAt(right), map.getOrDefault(s.charAt(right), 0) + 1);
-            mostReq = Math.max(mostReq, map.get(s.charAt(right)));
-            if ((right - left + 1) - mostReq > k) {
-                map.put(s.charAt(left), map.get(s.charAt(left)) - 1);
-                left++;
+        int start = 0;
+        int[] frequencyMap = new int[26];
+        int maxFrequency = 0;
+        int longestSubstringLength = 0;
+
+        for (int end = 0; end < s.length(); end += 1) {
+            // if 'A' is 0, then what is the relative order
+            // or offset of the current character entering the window
+            // 0 is 'A', 1 is 'B' and so on
+            int currentChar = s.charAt(end) - 'A';
+
+            frequencyMap[currentChar] += 1;
+
+            // the maximum frequency we have seen in any window yet
+            maxFrequency = Math.max(maxFrequency, frequencyMap[currentChar]);
+
+            // move the start pointer towards right if the current
+            // window is invalid
+            Boolean isValid = (end + 1 - start - maxFrequency <= k);
+            if (!isValid) {
+                // offset of the character moving out of the window
+                int outgoingChar = s.charAt(start) - 'A';
+
+                // decrease its frequency
+                frequencyMap[outgoingChar] -= 1;
+
+                // move the start pointer forward
+                start += 1;
             }
-            max = Math.max(max, right - left + 1);
+
+            // the window is valid at this point, note down the length
+            // size of the window never decreases
+            longestSubstringLength = end + 1 - start;
         }
-        return max;
+
+        return longestSubstringLength;
     }
 }
