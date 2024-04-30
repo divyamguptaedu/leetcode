@@ -4,6 +4,9 @@
 //if yes, they are added to the root list and the main node is changed to null to make it as deleted. 
 //Finally in the end, the root is checked if it is null, 
 //if not, it is added to the root list as well and returned.
+//Time: O(n)
+//Space: O(n)
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

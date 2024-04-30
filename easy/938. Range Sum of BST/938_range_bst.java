@@ -3,6 +3,8 @@ Checked the node value to see if it is in the range, then used recursion on the 
 If the node value if smaller than the minimum, then just do recursion on the right node. 
 Same vis-a-vis.
 */
+//Time: O(n)
+//Space: O(n)
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

@@ -15,8 +15,8 @@
  *     }
  * }
  */
- //Time: O(n)
- //Space: O(n)
+ //Time: O(mn) where m is the number of nodes in tree A and n is #nodes in tree B
+ //Space: O(m+n)
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
         if (subRoot == null) {
