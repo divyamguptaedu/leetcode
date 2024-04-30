@@ -1,6 +1,7 @@
 //We can solve it the naive way which means doing DFS everytime we see a 0 and checking how large of an island will be formed. 
 //However, it will involve a lot of repeated work. 
 //So, we will instead save that work using some ids to represent a precalculated island. 
+//Those ids can be starting from 2 as the grid has just 0 and 1s.
 //So, we first do a interation over the grid and check if the current cell is a 1, 
 //if it is a 1, then we do dfs on it and find its area, change these island cells to an island id and save the area. 
 //Then we quickly find the max area till now. Then we iterate over the grid again, and this time, check if there is a 0, 
