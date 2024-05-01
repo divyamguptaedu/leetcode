@@ -1,31 +1,28 @@
-"
-Performance:
-Runtime: 85 ms, faster than 45.36% of Java online submissions for Fruit Into Baskets.
-Memory Usage: 105.8 MB, less than 48.15% of Java online submissions for Fruit Into Baskets.
-"
-
 class Solution {
-    public static int totalFruit(int[] fruits) {
-        Map<Integer,Integer> hashMap = new HashMap<>();
-        int result = 1;
-        int index = 0;
-        int current = 0;
-        for (int unit : fruits) {
-            current++;
-            hashMap.put(unit, hashMap.getOrDefault(unit, 0) + 1);
-            while (hashMap.size() > 2) {
-                current--;
-                int value = hashMap.getOrDefault(fruits[index], 0) - 1;
-                if (value <= 0) {
-                    hashMap.remove(fruits[index]);
-                }
-                if (value > 0) { 
-                    hashMap.put(fruits[index], value);
-                }
-                index++;
-            }  
-            result = Math.max(current, result);
+    public int totalFruit(int[] fruits) {
+        // We use a hash map 'basket' to store the number of each type of fruit.
+        Map<Integer, Integer> basket = new HashMap<>();
+        int left = 0, maxPicked = 0;
+        
+        // Add fruit from the right index (right) of the window.
+        for (int right = 0; right < fruits.length; ++right) {
+            basket.put(fruits[right], basket.getOrDefault(fruits[right], 0) + 1);
+
+            // If the current window has more than 2 types of fruit,
+            // we remove fruit from the left index (left) of the window,
+            // until the window has only 2 types of fruit.
+            while (basket.size() > 2) {
+                basket.put(fruits[left], basket.get(fruits[left]) - 1);
+                if (basket.get(fruits[left]) == 0)
+                    basket.remove(fruits[left]);
+                left++;
+            }
+            
+            // Update maxPicked.
+            maxPicked = Math.max(maxPicked, right - left + 1);
         }
-        return result;
+        
+        // Return maxPicked as the maximum number of fruits we can collect.
+        return maxPicked;
     }
 }
