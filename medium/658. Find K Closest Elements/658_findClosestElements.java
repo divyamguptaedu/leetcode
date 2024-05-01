@@ -1,26 +1,25 @@
-"
-Performance:
-Runtime: 8 ms, faster than 53.13% of Java online submissions for Find K Closest Elements.
-Memory Usage: 62.2 MB, less than 63.88% of Java online submissions for Find K Closest Elements.
-"
-
 class Solution {
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
-        List<Integer> list = new ArrayList<Integer>();  
-        int low = 0;                                    
-        int high = arr.length - 1;                      
-        while(high - low >= k) {                         
-            int distanceLow = Math.abs(arr[low] - x);
-            int distanceHigh = Math.abs(arr[high] - x);
-            if (distanceLow <= distanceHigh) {               
-                high--;
-            } else {                                     
-                low++;     
+        // Initialize binary search bounds
+        int left = 0;
+        int right = arr.length - k;
+        
+        // Binary search against the criteria described
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (x - arr[mid] > arr[mid + k] - x) {
+                left = mid + 1;
+            } else {
+                right = mid;
             }
         }
-        while (low <= high) {                            
-            list.add(arr[low++]);  
+        
+        // Create output in correct format
+        List<Integer> result = new ArrayList<Integer>();
+        for (int i = left; i < left + k; i++) {
+            result.add(arr[i]);
         }
-        return list;
+        
+        return result;
     }
 }
