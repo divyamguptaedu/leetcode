@@ -1,22 +1,11 @@
-"""
-Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Find Peak Element.
-Memory Usage: 38.9 MB, less than 42.13% of Java online submissions for Find Peak Element.
-"""
-
-class Solution {
-    public int findPeakElement(int[] arr) {
-        int start = 0;
-        int end = arr.length-1;
-        while (start < end) {
-            int middle = start + (end - start) / 2;
-            if (arr[middle] > arr[middle + 1]) {
-                end = middle;
-            }
-            else {
-                start = middle + 1; 
-            }
+public class Solution {
+    public int findPeakElement(int[] nums) {
+        int l = 0, r = nums.length - 1;
+        while (l < r) {
+            int mid = (l + r) / 2;
+            if (nums[mid] > nums[mid + 1]) r = mid;
+            else l = mid + 1;
         }
-        return start;
-  }
-}    
+        return l;
+    }
+}
