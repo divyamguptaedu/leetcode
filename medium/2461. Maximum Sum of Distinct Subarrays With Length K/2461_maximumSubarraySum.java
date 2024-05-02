@@ -1,34 +1,32 @@
-//Time Complexity: O(n)
-//Space Complexity: O(n)
 class Solution {
     public long maximumSubarraySum(int[] nums, int k) {
-        long sum = 0L;
-        HashMap<Integer, Integer> map = new HashMap<>();
-
-        for (int i = 0; i < k; i++) {
-            sum += nums[i];
-            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        int n = nums.length;
+        int j = 0;
+        long max = 0;
+        long[] pre = new long[n];
+        pre[0] = nums[0];
+        for (int i = 1; i < n; i++) {
+            pre[i] = pre[i - 1] + (long)nums[i];
         }
-
-        long result = 0L;
-        if (map.size() == k) {
-            result = sum;
-        }
-
-        for (int i = k; i < nums.length; i++) {
-            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
-            sum += nums[i];
-            sum -= nums[i - k];
-            map.put(nums[i - k], map.get(nums[i - k]) - 1);
-
-            if (map.get(nums[i - k]) == 0) {
-                map.remove(nums[i - k]);
+        long sum = 0;
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            if (hm.containsKey(nums[i]) && hm.get(nums[i]) >= j) {
+                sum = pre[i] - pre[hm.get(nums[i])];
+                j = hm.get(nums[i]);
+                j++;
+            } else {
+                sum += (long)nums[i];
             }
-            if (map.size() == k) {
-                result = Math.max(result, sum);
+            hm.put(nums[i], i);
+            if (i - j + 1 == k) {
+                max = Math.max(max, sum);
+                sum -= nums[j];
+                j++;
             }
+            // System.out.println(sum);
         }
-        
-        return result;
+        return (long)max;
+
     }
 }
