@@ -1,3 +1,14 @@
+//This problem is easy than it seems, it can be boiled down to a sliding window problem.
+//We just have an array of integers and we just need to find the continuous subarray that has only two types of elements
+//and return the maxSum of such a subarray
+//So, we can use a hashmap to keep track of the number of each type of fruit.
+//We can use the sliding window and keep track of the maxPicked as well.
+//We slide the right pointer, update the map, then check if the current window has more than 2 types.
+//If yes, we remove fruit from the left until the window is valid.
+//And we keep the max value of the total sum.
+
+//Time: O(n)
+//Space: O(n)
 class Solution {
     public int totalFruit(int[] fruits) {
         // We use a hash map 'basket' to store the number of each type of fruit.
