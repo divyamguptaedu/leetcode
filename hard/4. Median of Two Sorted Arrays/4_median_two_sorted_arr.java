@@ -3,27 +3,31 @@ class Solution {
         if (nums1.length > nums2.length) {
             return findMedianSortedArrays(nums2, nums1);
         }
-        int beg = 0;
-        int end = nums1.length;
-        while (beg <= end) {
-            int part1 = (beg + end) / 2;
-            int part2 = (nums1.length + nums2.length + 1) / 2 - part1;
-            int maxL1 = part1 == 0 ? Integer.MIN_VALUE : nums1[part1 - 1];
-            int minR1 = part1 == nums1.length ? Integer.MAX_VALUE : nums1[part1];
-            int maxL2 = part2 == 0 ? Integer.MIN_VALUE : nums2[part2 - 1];
-            int minR2 = part2 == nums2.length ? Integer.MAX_VALUE : nums2[part2];
-            if (maxL1 <= minR2 && maxL2 <= minR1) {
-                if ((nums1.length + nums2.length) % 2 == 0) {
-                    return (Math.max(maxL1, maxL2) + Math.min(minR1, minR2)) / 2.0;
+
+        int m = nums1.length, n = nums2.length;
+        int left = 0, right = m;
+
+        while (left <= right) {
+            int partitionA = (left + right) / 2;
+            int partitionB = (m + n + 1) / 2 - partitionA;
+
+            int maxLeftA = (partitionA == 0) ? Integer.MIN_VALUE : nums1[partitionA - 1];
+            int minRightA = (partitionA == m) ? Integer.MAX_VALUE : nums1[partitionA];
+            int maxLeftB = (partitionB == 0) ? Integer.MIN_VALUE : nums2[partitionB - 1];
+            int minRightB = (partitionB == n) ? Integer.MAX_VALUE : nums2[partitionB];
+
+            if (maxLeftA <= minRightB && maxLeftB <= minRightA) {
+                if ((m + n) % 2 == 0) {
+                    return ((Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB)) / 2.0);
                 } else {
-                    return Math.max(maxL1, maxL2);
+                    return Math.max(maxLeftA, maxLeftB);
                 }
-            } else if (maxL1 > minR2) {
-                end = part1 - 1;
+            } else if (maxLeftA > minRightB) {
+                right = partitionA - 1;
             } else {
-                beg = part1 + 1;
+                left = partitionA + 1;
             }
         }
-        return 1;
+        return 0.0;
     }
 }
