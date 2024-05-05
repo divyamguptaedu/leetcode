@@ -1,25 +1,25 @@
 class Solution {
     public int[] intersection(int[] nums1, int[] nums2) {
-        int[] temp = new int[1001];
-        for (int i : nums1) {
-            temp[i] = 1;
+
+        // Initialize seen map and result list
+        Map<Integer, Integer> seen = new HashMap<>();
+        List<Integer> result = new ArrayList<>();
+
+        // Mark values occurring in nums1
+        for (int x : nums1) {
+            seen.put(x, 1);
         }
-        int count = 0;
-        for (int i : nums2) {
-            if (temp[i] == 1) {
-                count++;
-                temp[i] = 2;
+
+        // Check if n is in dictionary and not in the result
+        for (int x : nums2) {
+            if (seen.containsKey(x) && seen.get(x) == 1) {
+                result.add(x);
+                seen.put(x, 0);
             }
         }
-        int result[] = new int[count];
-        int j = 0;
-        for (int i : nums2) {
-            if (temp[i] == 2) {
-                temp[i] = 1;
-                result[j] = i;
-                j++;
-            }
-        }
-        return result;
+
+        // Convert to int array and result the result
+        return result.stream().mapToInt(i -> i).toArray();
+
     }
 }
