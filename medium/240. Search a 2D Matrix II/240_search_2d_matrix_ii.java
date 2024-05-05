@@ -1,33 +1,19 @@
-"""
-Performance:
-Runtime: 4 ms, faster than 100.00% of Java online submissions for Search a 2D Matrix II.
-Memory Usage: 44.6 MB, less than 67.33% of Java online submissions for Search a 2D Matrix II.
-"""
-
 class Solution {
-
     public boolean searchMatrix(int[][] matrix, int target) {
+        // start our "pointer" in the bottom-left
+        int row = matrix.length - 1;
+        int col = 0;
 
-        if (matrix.length == 0) {
-            return false;
-        }
-       
-        int rowIndex = 0;
-        int colIndex = matrix[0].length - 1;
-        
-        // start from the right corner and change row/colomn according to comparisons;
-        while (rowIndex < matrix.length && colIndex >= 0) {
-            if (matrix[rowIndex][colIndex] == target) {
+        while (row >= 0 && col < matrix[0].length) {
+            if (matrix[row][col] > target) {
+                row--;
+            } else if (matrix[row][col] < target) {
+                col++;
+            } else { // found it
                 return true;
-            }     
-            if(matrix[rowIndex][colIndex] < target) {
-                rowIndex++;
             }
-            else
-                colIndex--;
         }
-        
+
         return false;
-    }    
-    
+    }
 }
