@@ -1,3 +1,12 @@
+//We first check if the length of nums is 1, if yes, we return the only element. If not, we initialize left and right traditionally.
+//We then check if the nums[right] > nums[left], if yes, means there is no rotation, return the first element.
+//If not, we do the binary search, find the middle value, and check if the mid element is greater than its next element, if yes, then mid+1 element is the smallest
+// if the mid element is lesser than its previous element then mid element is the smallest.
+// if the mid elements value is greater than the 0th element this means the least value is still somewhere to the right as we are still dealing with elements greater than nums[0].
+// if nums[0] is greater than the mid value then this means the smallest value is somewhere to the left
+
+//Time: O(logn)
+//space: O(1)
 class Solution {
     public int findMin(int[] nums) {
         // If the list has just one element then return that element.
@@ -6,7 +15,8 @@ class Solution {
         }
 
         // initializing left and right pointers.
-        int left = 0, right = nums.length - 1;
+        int left = 0;
+        int right = nums.length - 1;
 
         // if the last element is greater than the first element then there is no
         // rotation.
@@ -19,7 +29,7 @@ class Solution {
         // Binary search way
         while (right >= left) {
             // Find the mid element
-            int mid = left + (right - left) / 2;
+            int mid = (left + right) / 2;
 
             // if the mid element is greater than its next element then mid+1 element is the
             // smallest
@@ -47,6 +57,6 @@ class Solution {
                 right = mid - 1;
             }
         }
-        return Integer.MAX_VALUE;
+        return Integer.MAX_VALUE; //can return anything
     }
 }

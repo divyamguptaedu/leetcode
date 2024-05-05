@@ -1,3 +1,12 @@
+//To solve this question, we can use binary search approach. We will first do binary search to get the first occurence
+//then do binary search again to get the last occurence.
+//So, we will start with traditional approach, with only modification in a case where the mid == target.
+//If the middle == target, then we check if we are looking for the first or last occurance.
+//Based on that, if looking for first, we check if mid == low || nums[mid - 1] != target, if yes, we found it, if not, we redo binary search on the left half.
+//If looking for last occurence, we check if mid == high || nums[mid + 1] != target, if yes, we found it, if not, we redo binary search on the right half.
+
+//Time: O(logn)
+//Space: O(1)
 class Solution {
     public int[] searchRange(int[] nums, int target) {
         int firstOccurrence = this.findBound(nums, target, true);
@@ -13,33 +22,34 @@ class Solution {
 
     private int findBound(int[] nums, int target, boolean isFirst) {
         int N = nums.length;
-        int begin = 0, end = N - 1;
+        int low = 0;
+        int high = N - 1;
 
-        while (begin <= end) {
-            int mid = (begin + end) / 2;
+        while (low <= high) {
+            int mid = (low + high) / 2;
 
             if (nums[mid] == target) {
                 if (isFirst) {
                     // This means we found our lower bound.
-                    if (mid == begin || nums[mid - 1] != target) {
+                    if (mid == low || nums[mid - 1] != target) {
                         return mid;
                     }
 
                     // Search on the left side for the bound.
-                    end = mid - 1;
+                    high = mid - 1;
                 } else {
                     // This means we found our upper bound.
-                    if (mid == end || nums[mid + 1] != target) {
+                    if (mid == high || nums[mid + 1] != target) {
                         return mid;
                     }
 
                     // Search on the right side for the bound.
-                    begin = mid + 1;
+                    low = mid + 1;
                 }
             } else if (nums[mid] > target) {
-                end = mid - 1;
+                high = mid - 1;
             } else {
-                begin = mid + 1;
+                low = mid + 1;
             }
         }
 
