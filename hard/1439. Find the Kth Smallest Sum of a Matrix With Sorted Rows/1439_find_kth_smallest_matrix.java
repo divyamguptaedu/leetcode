@@ -1,33 +1,33 @@
-"""
-Performance:
-Runtime: 321 ms, faster than 21.19% of Java online submissions for Find the Kth Smallest Sum of a Matrix With Sorted Rows.
-Memory Usage: 89.2 MB, less than 5.39% of Java online submissions for Find the Kth Smallest Sum of a Matrix With Sorted Rows.
-"""
-
 class Solution {
-    public int kthSmallest(int[][] mat, int k) {
-        List<Integer> list = new ArrayList<>();
-        if (mat == null || mat.length == 0 || mat[0].length == 0) {
+    public int less_than(int[][] mat, int sum, int idx, int k) {
+        if (sum < 0)
             return 0;
+        if (idx == mat.length)
+            return 1;
+        int ans = 0;
+        for (int j = 0; j < mat[0].length; j++) {
+            int cnt = less_than(mat, sum - mat[idx][j], idx + 1, k - ans);
+            if (cnt == 0)
+                break;
+            ans += cnt;
+            if (ans > k)
+                break;
         }
-        int length = mat[0].length;
-        for (int i = 0; i < length; i++) {
-            list.add(mat[0][i]);
+        return ans;
+    }
+
+    public int kthSmallest(int[][] mat, int k) {
+        int m = mat.length, n = mat[0].length;
+        int left = m, right = 5000 * m, sum = 0;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            int cnt = less_than(mat, mid, 0, k);
+            if (cnt >= k) {
+                right = mid - 1;
+                sum = mid;
+            } else
+                left = mid + 1;
         }
-        for (int i = 1; i < mat.length; i++) {
-            int[] array = mat[i];
-            List<Integer> temp = new ArrayList<>();
-            for (int number : list) {
-                for(int x : array) {
-                    temp.add(number + x);
-                }
-            }
-            Collections.sort(temp);
-            list.clear();
-            for (int j = 0; j < Math.min(k, temp.size()); j++) {
-                list.add(temp.get(j));
-            }
-        }
-        return list.get(list.size() - 1);
+        return sum;
     }
 }

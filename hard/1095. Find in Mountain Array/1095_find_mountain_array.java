@@ -1,64 +1,65 @@
-"""
-Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Find in Mountain Array.
-Memory Usage: 38.7 MB, less than 84.53% of Java online submissions for Find in Mountain Array.
-"""
-
-/**
- * // This is MountainArray's API interface.
- * // You should not implement it, or speculate about its implementation
- * interface MountainArray {
- *     public int get(int index) {}
- *     public int length() {}
- * }
- */
- 
 class Solution {
-    
     public int findInMountainArray(int target, MountainArray mountainArr) {
-        int top = binarySearch(mountainArr);
-        int initial = helper(mountainArr, target, 0, top);
-        if (initial != -1){
-           return initial;
-        }
-        return helper(mountainArr, target, top + 1, mountainArr.length() - 1); 
-    }
-    
-    public int binarySearch(MountainArray mountainArr) {
-        int start = 0;
-        int end = mountainArr.length() - 1;
-        while (start < end){
-           int mid = start + (end - start) / 2;
-           if (mountainArr.get(mid) > mountainArr.get(mid + 1)) {
-               end = mid;
-           } else {
-               start = mid + 1;
-           }
-        }
-        return start;
-    }
-    
-    public int helper(MountainArray mountainArr, int target, int start, int end) {
-        boolean increasing = mountainArr.get(start) < mountainArr.get(end);
-        while (start <= end) {
-            int mid = start + (end - start) / 2;
-            if (mountainArr.get(mid) == target) {
-                return mid;
-            }
-            if (increasing) {
-                if (target < mountainArr.get(mid)) {
-                    end = mid - 1;
-                } else {
-                    start = mid + 1;
+        // Save the length of the mountain array
+        int length = mountainArr.length();
+
+        // 1. Find the index of the peak element
+        int low = 1;
+        int high = length - 2;
+        while (low != high) {
+            int testIndex = (low + high) >> 1;
+            int curr = mountainArr.get(testIndex);
+            int next = mountainArr.get(testIndex + 1);
+            
+            if (curr < next) {
+                if (curr == target) {
+                    return testIndex;
                 }
+                if (next == target) {
+                    return testIndex + 1;
+                }
+                low = testIndex + 1;
             } else {
-                if (target < mountainArr.get(mid)) {
-                    start = mid + 1;
-                } else {
-                    end = mid - 1;
-                } 
+                high = testIndex;
             }
         }
+        int peakIndex = low;
+
+        // 2. Search in the strictly increasing part of the array
+        // If found, will be returned in the loop itself.
+        low = 0;
+        high = peakIndex;
+        while (low <= high) {
+            int testIndex = (low + high) >> 1;
+            int curr = mountainArr.get(testIndex);
+                
+            if (curr == target) {
+                return testIndex;
+            } else if (curr < target) {
+                low = testIndex + 1;
+            } else {
+                high = testIndex - 1;
+            }
+        }
+
+        // 3. Search in the strictly decreasing part of the array
+        // If found, will be returned in the loop itself.
+        low = peakIndex + 1;
+        high = length - 1;
+        while (low <= high) {
+            int testIndex = (low + high) >> 1;
+            int curr = mountainArr.get(testIndex);
+                
+            if (curr == target) {
+                return testIndex;
+            } else if (curr > target) {
+                low = testIndex + 1;
+            } else {
+                high = testIndex - 1;
+            }
+        }
+
+        // Target is not present in the mountain array
         return -1;
     }
 }
