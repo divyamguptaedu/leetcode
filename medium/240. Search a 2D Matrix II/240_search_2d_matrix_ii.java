@@ -1,3 +1,11 @@
+//Because the rows and columns of the matrix are sorted (from left-to-right and top-to-bottom), we can take advantage
+//of this and reduce our search space.
+//We can start from the bottom left of the matrix and while the row and col values are within range,
+//If the value > target, we go to the row above.
+//If value < target, we go to the next col.
+//If found, return true.
+//Time: O(n+m)
+//Space: O(1)
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         // start our "pointer" in the bottom-left
