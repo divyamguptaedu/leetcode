@@ -1,3 +1,10 @@
+//We can use binary search for this question. First task is the find the index of the peak element, so we do binary search to get that.
+//We just get the mid value, get the value at that mid and the next value. Then based on their comparison, we chose left or right.
+//Next task is to search in the strictly increasing part. 
+//Last is to search in the strictly decreasing part. 
+
+//Time: O(logn)
+//Space: O(logn) cache will have logn element as we cache elements for which we call mountainArr.get(k)
 class Solution {
     public int findInMountainArray(int target, MountainArray mountainArr) {
         // Save the length of the mountain array
@@ -7,7 +14,7 @@ class Solution {
         int low = 1;
         int high = length - 2;
         while (low != high) {
-            int testIndex = (low + high) >> 1;
+            int testIndex = (low + high) / 2;
             int curr = mountainArr.get(testIndex);
             int next = mountainArr.get(testIndex + 1);
             
