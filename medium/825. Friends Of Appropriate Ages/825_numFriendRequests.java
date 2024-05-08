@@ -1,3 +1,11 @@
+//To solve this question, we first sort the array to be able to use binary search. For every age in the array, we first find the 
+//minimum age the person will become friends with i.e. age[i]/2 + 7. Then if the min age < age[i], we find the index of the first element
+//greater or eq than the minAge using binary Search. Then we find the index of the last element equal to age[i] because there can be multiple 
+//people of the same age. Once we have the left and right index, the user i can send a friend request to every user in this range except itself.
+//So, we can update the request count.
+
+//Time: O(nlogn)
+//Space: O(logn) quicksort takes logn space.
 class Solution {
     public int numFriendRequests(int[] ages) {
         int requestCount = 0;
@@ -26,7 +34,7 @@ class Solution {
     // provided target in O(log n) time
     private int binarySearch(int[] ages, int l, int r, int target) {
         while (l < r) {
-            int mid = l + (r - l) / 2;
+            int mid = (l + r) / 2;
             if (ages[mid] > target) {
                 r = mid;
             } else {

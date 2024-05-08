@@ -1,3 +1,11 @@
+//We can solve this question using the binary search approach. We know that the minimum value of k can be 1 and max can be the max bananas in a single pile.
+//So, first we find the max bananas in a single pile and then start the binary search.
+//We calculate the middle value, and for every middle value, we find the hours that will be spent to finish the piles.
+//If that hour value is <= h, then we chose the left half, otherwise, righthalf.
+//In the end, we return the right value, which will represent the minimum workable eating speed.
+
+//Time: O(nlogm) Where n is the number of piles, and m is the maximum bananas in a single pile.
+//Space: O(1)
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
         // Initalize the left and right boundaries
