@@ -1,3 +1,9 @@
+//We can use binary search to solve this question. We can get the mid value and search for the number of +ve integers which are missing before arr[mid].
+//If that value is less than k, we go right, otherwise go left. 
+//After the binary search, the kth missing value will be inbetween the left and right value, so we return k + left as the answer.
+
+//Time: O(logn)
+//Space: O(1)
 class Solution {
     public int findKthPositive(int[] arr, int k) {
         int left = 0;
@@ -9,7 +15,7 @@ class Solution {
             // is less than k -->
             // continue to search on the right.
             if (arr[pivot] - pivot - 1 < k) {
-                left = pivot + 1;
+                left = pivot + 1; //go right
             // Otherwise, go left.
             } else {
                 right = pivot - 1;
