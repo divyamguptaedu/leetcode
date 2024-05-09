@@ -1,37 +1,32 @@
-"
-Performance:
-Runtime: 7 ms, faster than 42.19% of Java online submissions for Meeting Rooms II.
-Memory Usage: 38.6 MB, less than 91.03% of Java online submissions for Meeting Rooms II.
-"
+//To solve this question, we can use a pq for returning the minimum value for the ending time, 
+//and we can sort the given intervals array by the starting time.
+//We just iterate over the itervals list, and see if a meeting is ending before a new meeting starts, if yes
+//we remove the ending time from the pq, and add the new meeting's ending time instead.
+//At the same time, we also update the #room by looking at the size of the meetings pq.
 
+//Time: O(NlogN)
+//Space: O(N)
 class Solution {
     public int minMeetingRooms(int[][] intervals) {
-        int n = intervals.length;
-        if (n <= 1) {
-        	return n;
+        Queue<Integer> meeting = new PriorityQueue<Integer>();
+
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            @Override
+            public int compare(int input1[], int input2[]) {
+                return input1[0] - input2[0];
+            }
+        });
+
+        int room = 0;
+        for (int i = 0; i < intervals.length; i++) {
+            while (!meeting.isEmpty() && meeting.peek() <= intervals[i][0]) { //a meeting is ending before a new one starts
+                meeting.remove(); //remove an ending time
+            }
+            meeting.add(intervals[i][1]); //add the new ending time
+            if (meeting.size() > room) { //update the size
+                room = meeting.size();
+            }
         }
-        
-        // heap size will denote rooms occupied
-        // value in each node will be meeting's end time of a room
-        PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
-        
-        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
-        
-        // add first interval's end time in heap
-        queue.add(intervals[0][1]);
-        
-        for (int i = 1; i < n; i++) {
-            // compare min end time with new interval's start time
-            if (queue.peek() <= intervals[i][0]) {
-                // remove min end time from heap i.e. free this room for intervals[i]
-                queue.poll();
-				queue.add(intervals[i][1]);
-            } else {
-				// occupy a new room for intervals[i]
-				queue.add(intervals[i][1]);
-			}
-        }
-        
-        return queue.size();
+        return room;
     }
 }
