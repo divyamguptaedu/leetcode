@@ -1,37 +1,59 @@
-"
-Performance:
-Runtime: 36 ms, faster than 94.03% of Java online submissions for Implement Magic Dictionary.
-Memory Usage: 54.6 MB, less than 57.46% of Java online submissions for Implement Magic Dictionary.
-"
-
 class MagicDictionary {
-    String[] magicDictionary;
-    
-    public MagicDictionary() {}
-    
+
+    Trie trie = new Trie();
+
+    static class Trie {
+        Map<Character, Trie> trieMap = new HashMap<Character, Trie>();
+        boolean eow = false;
+
+        public String toString() {
+            return trieMap.toString();
+        }
+    }
+
+    public MagicDictionary() {
+
+    }
+
     public void buildDict(String[] dictionary) {
-        magicDictionary = dictionary;
-    }
-    
-    public boolean canMatch(String searchWord , String dictWord) {
-        if (dictWord.length() == searchWord.length() && !searchWord.equals(dictWord)) {
-            for (int i = 0 ; i < dictWord.length() ; i++) {
-                if (searchWord.charAt(i) != dictWord.charAt(i)) {
-                    return searchWord.substring(i + 1).equals(dictWord.substring(i + 1));
-                }
+        for (String word : dictionary) {
+            Trie tmpTrie = trie;
+
+            for (char c : word.toCharArray()) {
+                tmpTrie.trieMap.putIfAbsent(c, new Trie());
+                tmpTrie = tmpTrie.trieMap.get(c);
             }
+            tmpTrie.eow = true;
         }
-        return false;
+
     }
-    
-    public boolean search(String searchWord) {
-        for (String word : magicDictionary){
-            if (canMatch(searchWord , word)) {
+
+    public boolean hasOneCharacDiff(String searchWord, int index, int runDiff, Trie trie) {
+        if (runDiff > 1)
+            return false;
+
+        if (index >= searchWord.length()) {
+            if (runDiff == 1 && trie.eow)
                 return true;
-            }
+            return false;
         }
+
+        char c = searchWord.charAt(index);
+        for (char k : trie.trieMap.keySet()) {
+            int addition = k == c ? 0 : 1;
+            if (hasOneCharacDiff(searchWord, index + 1, runDiff + addition, trie.trieMap.get(k)))
+                return true;
+        }
+
         return false;
     }
+
+    public boolean search(String searchWord) {
+        if (hasOneCharacDiff(searchWord, 0, 0, trie))
+            return true;
+        return false;
+    }
+
 }
 
 /**
