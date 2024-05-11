@@ -1,28 +1,35 @@
-"""
-Performance: 
-Runtime: 2 ms, faster than 70.28% of Java online submissions for Longest Valid Parentheses.
-Memory Usage: 38.8 MB, less than 90.73% of Java online submissions for Longest Valid Parentheses.
-"""
-
+//Time: 0(n)
+//Space: O(1)
 public class Solution {
     public int longestValidParentheses(String s) {
-
-    	// stack for getting the last element;
-        int maximum = 0;
-        Stack<Integer> stack = new Stack<>();
-        stack.push(-1);
+        int left = 0;
+        int right = 0;
+        int maxlength = 0;
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {
-                stack.push(i);
+                left++;
             } else {
-                stack.pop();
-                if (stack.empty()) {
-                    stack.push(i);
-                } else {
-                    maximum = Math.max(maximum, i - stack.peek());
-                }
+                right++;
+            }
+            if (left == right) {
+                maxlength = Math.max(maxlength, 2 * right);
+            } else if (right > left) {
+                left = right = 0;
             }
         }
-        return maximum;
+        left = right = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) == '(') {
+                left++;
+            } else {
+                right++;
+            }
+            if (left == right) {
+                maxlength = Math.max(maxlength, 2 * left);
+            } else if (left > right) {
+                left = right = 0;
+            }
+        }
+        return maxlength;
     }
 }
