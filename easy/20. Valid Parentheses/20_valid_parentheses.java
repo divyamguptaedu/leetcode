@@ -1,54 +1,32 @@
+//
+//Time: O(n)
+//Space: O(n)
 class Solution {
     public boolean isValid(String s) {
-        Stack<Character> stack = new Stack<>();
-        for (char ch : s.toCharArray()) {
-            switch (ch) {
-                case '(':
-                case '{':
-                case '[':
-                    stack.push(ch);
-                    break;
-                case ')':
-                    if (stack.isEmpty() || stack.pop() != '(') {
-                        return false;
-                    }
-                    break;
-                case '}':
-                    if (stack.isEmpty() || stack.pop() != '{') {
-                        return false;
-                    }
-                    break;
-                case ']':
-                    if (stack.isEmpty() || stack.pop() != '[') {
-                        return false;
-                    }
-                    break;
+        // Create hashmap to store the pairs...
+        HashMap<Character, Character> Hmap = new HashMap<Character, Character>();
+        Hmap.put(')','(');
+        Hmap.put('}','{');
+        Hmap.put(']','[');
+        // Create stack data structure...
+        Stack<Character> stack = new Stack<Character>();
+        // Traverse each charater in input string...
+        for (int idx = 0; idx < s.length(); idx++){
+            // If open parentheses are present, push it to stack...
+            if (s.charAt(idx) == '(' || s.charAt(idx) == '{' || s.charAt(idx) == '[') {
+                stack.push(s.charAt(idx));
+                continue;
             }
-        }
-        if (stack.isEmpty())
-            return true;
-        else
-            return false;
-        
-    }
-}
-
-//another solution
-
-class Solution {
-    public boolean isValid(String s) {
-        Stack<Character> stack = new Stack();
-        Map<Character, Character> map = new HashMap<>();
-        map.put('(', ')');
-        map.put('[', ']');
-        map.put('{', '}');
-        for (char c : s.toCharArray()) {
-            if (map.containsKey(c)) {
-                stack.push(map.get(c));
-            } else if (stack.empty() || stack.pop() != c) {
+            // If the character is closing parentheses, check that the same type opening parentheses is being pushed to the stack or not...
+            // If not, we need to return false...
+            if (stack.size() == 0 || Hmap.get(s.charAt(idx)) != stack.pop()) {
                 return false;
             }
         }
-        return stack.empty();    
+        // If the stack is empty, return true...
+        if (stack.size() == 0) {
+            return true;
+        }
+        return false;
     }
 }
