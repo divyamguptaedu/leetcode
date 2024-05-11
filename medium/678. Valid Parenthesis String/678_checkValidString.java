@@ -1,32 +1,35 @@
-"
-Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Valid Parenthesis String.
-Memory Usage: 39.9 MB, less than 94.71% of Java online submissions for Valid Parenthesis String.
-"
-
+//Time: O(n)
+//Space: O(1)
 class Solution {
     public boolean checkValidString(String s) {
-        int left = 0;
-        int right = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
-                left++;
-                right++;
-            } else if (s.charAt(i) == ')') {
-                if (left > 0) {
-                    left--;
-                }
-                right--;
+        int openCount = 0;
+        int closeCount = 0;
+        int length = s.length() - 1;
+
+        // Traverse the string from both ends simultaneously
+        for (int i = 0; i <= length; i++) {
+            // Count open parentheses or asterisks
+            if (s.charAt(i) == '(' || s.charAt(i) == '*') {
+                openCount++;
             } else {
-                if (left > 0) {
-                    left--;
-                }
-                right++;
+                openCount--;
             }
-            if (right < 0) {
+
+            // Count close parentheses or asterisks
+            if (s.charAt(length - i) == ')' || s.charAt(length - i) == '*') {
+                closeCount++;
+            } else {
+                closeCount--;
+            }
+
+            // If at any point open count or close count goes negative, the string is
+            // invalid
+            if (openCount < 0 || closeCount < 0) {
                 return false;
             }
         }
-        return left == 0;       
+
+        // If open count and close count are both non-negative, the string is valid
+        return true;
     }
 }
