@@ -1,47 +1,31 @@
-/*
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Pascal's Triangle.
-Memory Usage: 36.8 MB, less than 74.50% of Java online submissions for Pascal's Triangle.
-*/
-
 class Solution {
     public List<List<Integer>> generate(int numRows) {
-        List<List<Integer>> list = new ArrayList<>();
-        list.add(new ArrayList<Integer>());
-        list.get(0).add(1);
-        for (int i = 1; i < numRows; i++) {
-            list.add(new ArrayList<Integer>());
-            list.get(i).add(1);
-            for (int index = 0; index < i - 1; index++) {
-                list.get(i).add(list.get(i - 1).get(index) + list.get(i - 1).get(index + 1));
+        List<List<Integer>> triangle = new ArrayList<List<Integer>>();
+
+        // Base case; first row is always [1].
+        triangle.add(new ArrayList<>());
+        triangle.get(0).add(1);
+
+        for (int rowNum = 1; rowNum < numRows; rowNum++) {
+            List<Integer> row = new ArrayList<>();
+            List<Integer> prevRow = triangle.get(rowNum - 1);
+
+            // The first row element is always 1.
+            row.add(1);
+
+            // Each triangle element (other than the first and last of each row)
+            // is equal to the sum of the elements above-and-to-the-left and
+            // above-and-to-the-right.
+            for (int j = 1; j < rowNum; j++) {
+                row.add(prevRow.get(j - 1) + prevRow.get(j));
             }
-            list.get(i).add(1);
-        }
-        return list;
-    }
-}
 
-//another solution
+            // The last row element is always 1.
+            row.add(1);
 
-class Solution {
-    public List<List<Integer>> generate(int num) {
-        List<List<Integer>> result = new ArrayList<>();
-        for (int i = 0; i < num; i++) {
-            result.add(helper(i));
+            triangle.add(row);
         }
-        return result;
-    }
 
-    public List<Integer> helper(int num) {
-        ArrayList<Integer> result = new ArrayList<>();
-        
-        for (int i = 0; i <= num; i++) {
-            long x = 1L;
-            for (int j = 0; j < i; j++) {
-                x *= (num - j);
-                x /= (j + 1);
-            }
-            result.add((int) x);
-        }
-        return result;
+        return triangle;
     }
 }
