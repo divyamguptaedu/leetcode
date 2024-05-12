@@ -1,21 +1,15 @@
-"
-Performance:
-Runtime: 3 ms, faster than 93.06% of Java online submissions for Coin Change 2.
-Memory Usage: 42.1 MB, less than 63.76% of Java online submissions for Coin Change 2.
-"
-
 class Solution {
-    public int change(int amt, int[] coins) {
-        int[] result = new int[amt + 1];
-        result[0] = 1;
+    public int change(int amount, int[] coins) {
+        int n = coins.length;
+        int[] dp = new int[amount + 1];
+        dp[0] = 1;
 
-        for (int i = 0; i < coins.length; i++) {
-            int value = coins[i];
-            for (int j = value; j < result.length; j++) {
-                result[j] += result[j - value];
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = coins[i]; j <= amount; j++) {
+                dp[j] += dp[j - coins[i]];
             }
         }
 
-        return result[amt];
+        return dp[amount];
     }
 }
