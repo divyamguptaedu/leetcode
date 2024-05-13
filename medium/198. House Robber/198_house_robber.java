@@ -1,21 +1,18 @@
-"""
-Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for House Robber.
-Memory Usage: 36.6 MB, less than 18.35% of Java online submissions for House Robber.
-"""
-
 class Solution {
+
     public int rob(int[] nums) {
-        // two pointers;
-        int rob = 0;
-        int notRob = 0;
-        // check both and alternate;
-        for (int i = 0; i < nums.length; i++) {
-        	int current = notRob + nums[i];
-        	notRob = Math.max(notRob, rob);
-        	rob = current;
+        if (nums.length == 1)
+            return nums[0];
+
+        var previousMax = nums[0];
+        var max = Math.max(previousMax, nums[1]);
+
+        for (var houseNum = 2; houseNum < nums.length; houseNum++) {
+            var curr = Math.max(max, previousMax + nums[houseNum]);
+            previousMax = max;
+            max = curr;
         }
-        // return max;
-        return Math.max(notRob, rob);
+
+        return max;
     }
 }
