@@ -1,34 +1,28 @@
-"""
-Performance:
-Runtime: 41 ms, faster than 46.08% of Java online submissions for Partition Equal Subset Sum.
-Memory Usage: 38.8 MB, less than 78.50% of Java online submissions for Partition Equal Subset Sum.
-"""
-
 class Solution {
     public boolean canPartition(int[] nums) {
-
         int sum = 0;
-        for(int num : nums){
-            sum += num;
+        for (int ele : nums) {
+            sum += ele;
         }
-        if((sum & 1) == 1)
+        if (sum % 2 != 0)
             return false;
-        sum = sum >> 1;
+        sum = sum / 2;
 
-        // optimization for speed;
-        boolean[] store = new boolean[sum+1];
+        boolean dp[] = new boolean[sum + 1];
+        // dp[i] = means is it possible to make sum i using array element
+        dp[0] = true;// if no element of array include then sum will be zero
 
-        store[0] = true;
-
-        // checked each index;
-        for(int i = 1; i <= nums.length; i++){
-            for(int j = sum; j >= 1; j--){
-                
-                if(j - nums[i - 1] >= 0)
-                    store[j] = store[j] || store[j - nums[i-1]];
+        for (int num : nums) {
+            for (int i = sum; i > 0; i--) {
+                if (i >= num) { // means required sum greater than num in nums
+                    // dp[i] - means if num not inlcude ,
+                    // dp[i-num] - means if num included , ans will now depend on value of i-num in
+                    // dp
+                    dp[i] = dp[i] || dp[i - num];
+                }
             }
         }
-        
-        return store[sum];        
+        return dp[sum];
+
     }
 }
