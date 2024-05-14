@@ -1,29 +1,22 @@
-"""
-Performance:
-Runtime: 2 ms, faster than 92.55% of Java online submissions for Word Break.
-Memory Usage: 39.1 MB, less than 68.43% of Java online submissions for Word Break.
-"""
-
 class Solution {
-	HashMap<String, Boolean> storage = new HashMap<>();
     public boolean wordBreak(String s, List<String> wordDict) {
-    	if (s.length() == 0) {
-    		return true;
-    	}
-    	if (storage.containsKey(s) && !storage.get(s)) {
-    		return false;
-    	}
-        // find index and substring;
-    	for (String string : wordDict) {
-    		int length = string.length();
-    		if (s.indexOf(string) == 0) {
-    			if (wordBreak(s.substring(length), wordDict)) {
-    				return true;
-    			}
-    		}
-    	}
-        // add to storage for optimization;
-    	storage.put(s, false);
-    	return false;
+        int[] dp = new int[s.length()];
+        return dfs(s, 0, wordDict, dp);
+    }
+
+    private boolean dfs(String s, int i, List<String> wordDict, int[] dp) {
+        if (i == s.length())
+            return true;
+        if (dp[i] != 0)
+            return dp[i] == 1;
+        boolean found = false;
+        for (String word : wordDict) {
+            if (s.startsWith(word, i) && dfs(s, i + word.length(), wordDict, dp)) {
+                found = true;
+                break;
+            }
+        }
+        dp[i] = found ? 1 : -1;
+        return dp[i] == 1;
     }
 }
