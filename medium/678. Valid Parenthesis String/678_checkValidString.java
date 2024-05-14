@@ -1,3 +1,9 @@
+//Used a two pointer approach
+//Iterated through the string from both ends simultaneously, tracking the count of open and close parentheses, along with asterisks. 
+//It adjusts counts based on encountered characters, ensuring left parentheses are followed by corresponding right parentheses. 
+//If counts turn negative at any point, the string becomes invalid. 
+//However, if both open and close counts remain non-negative throughout the traversal, the string is valid. 
+
 //Time: O(n)
 //Space: O(1)
 class Solution {

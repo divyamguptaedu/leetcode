@@ -1,3 +1,11 @@
+//Constructed Pascal's triangle up to numRows using a nested loop. 
+//It initializes the triangle with the base case of [1]. 
+//Then, for each subsequent row, it calculates the values based on the previous row, summing adjacent elements. 
+//The algorithm efficiently builds the triangle row by row, adding each row to the result list. 
+//Finally, it returns the generated Pascal's triangle. 
+
+//Time: O(numRows^2)
+//Space: O(1)
 class Solution {
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> triangle = new ArrayList<List<Integer>>();

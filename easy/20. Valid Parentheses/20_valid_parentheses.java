@@ -1,4 +1,9 @@
-//
+//Utilized a hashmap to store mappings of open and close parentheses.
+//It employs a stack to validate the string. For each character in the input string, it checks if it's an open parenthesis; 
+//if so, it pushes it onto the stack. If it's a closing parenthesis, it verifies whether the corresponding open parenthesis 
+//matches the one at the top of the stack. If not, or if the stack is empty, it returns false. 
+//If the stack is empty after processing the entire string, it returns true; otherwise, false is returned. 
+
 //Time: O(n)
 //Space: O(n)
 class Solution {

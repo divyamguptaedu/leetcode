@@ -1,3 +1,11 @@
+//I iterate through each character in the string. 
+//For each character, I consider it as the center of a palindrome and expand outwards to find palindromic substrings. 
+//I handle both odd-length and even-length palindromes by considering single and consecutive characters as centers. 
+//For odd-length palindrome, the center is just one element, however for even, its two elements.
+//I count the number of palindromes around each center and accumulate the total count. 
+
+//Time: O(n^2)
+//Space: O(1)
 class Solution {
     public int countSubstrings(String s) {
         int ans = 0;
@@ -23,7 +31,6 @@ class Solution {
             // expand around the center
             lo--;
             hi++;
-
             ans++;
         }
 
