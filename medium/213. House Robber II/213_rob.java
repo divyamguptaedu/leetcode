@@ -1,3 +1,15 @@
+//We tackled this problem by breaking it down into two separate scenarios: 
+//one where the thief robs from the first house to the second-to-last house, 
+//and another where the thief starts robbing from the second house to the last house. 
+//These scenarios ensure that no adjacent houses are robbed together.
+//I created a helper function to calculate the maximum amount the thief could rob within a given range of houses.
+//This function employs a similar dynamic programming strategy to the House Robber problem, 
+//updating two variables (t1 and t2) to keep track of the maximum values obtained.
+//In the main function, I computed the maximum amount the thief could rob for each scenario and 
+//returned the maximum of the two values obtained. 
+
+//Time: O(N)
+//Space: O(1)
 class Solution {
     public int rob(int[] nums) {
         if (nums.length == 0)

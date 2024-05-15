@@ -1,3 +1,13 @@
+//I approached the problem of determining whether an integer array can be partitioned into two subsets with equal sums. 
+//Initially, I calculated the total sum of the array elements. If the sum is odd, partitioning isn't possible, so I returned false. 
+//Otherwise, I halved the sum to determine the target sum for each subset. 
+//Then, I utilized dynamic programming, initializing an array to track if a particular sum can be achieved using elements from the array.
+//By iterating through the array and updating the dynamic programming array, I determined if the target sum could be achieved. 
+//Finally, I returned the result based on the dynamic programming array.
+
+//Time: O(mn) where m is the subsetSum and n is the #elements in nums
+//Space: O(m)
+
 class Solution {
     public boolean canPartition(int[] nums) {
         int sum = 0;

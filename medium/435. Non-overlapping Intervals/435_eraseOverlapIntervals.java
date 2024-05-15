@@ -1,3 +1,13 @@
+//I sorted the intervals based on their start times. Then, I iterated through the intervals, 
+//comparing the end time of the current interval with the start time of the next one. 
+//If there's an overlap, I checked which interval ends later and removed the one with the later end time. 
+//Incrementing the count of non-overlapping intervals, I moved to the next interval. 
+//This process continues until the end of the array. 
+//The logic is to minimize overlaps by selecting intervals with the earliest end times, 
+//ensuring the maximum number of non-overlapping intervals.
+
+//Time: O(nlogn) n is the length of the intervals
+//Space: O(logn) space that sorting in java takes
 class Solution {
     public int eraseOverlapIntervals(int[][] intervals) {
         int n = intervals.length;

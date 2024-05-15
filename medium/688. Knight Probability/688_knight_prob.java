@@ -1,56 +1,47 @@
-class Solution {
-    int[] dir1 = { -2, -1, 1, 2, 2, 1, -1, -2 };
-    int[] dir2 = { 1, 2, 2, 1, -1, -2, -2, -1 };
+//I defined eight possible moves for the knight on an n x n chessboard. 
+//Using dynamic programming, I created a table to store the probability of the knight being on each cell after each move. 
+//For each move, I iterated over the cells and possible directions, 
+//updating the probabilities based on the previous cell's probability. 
+//Finally, I calculated the total probability by summing probabilities for all cells after k moves.
 
-    public double knightProbability(int n, int k, int row, int col) {
-        if (k == 0) {
-            return 1.0;
-        }
-        double[][][] dp = new double[30][30][101];
+//Time: O(kn^2)
+//Space: O(kn^2)
+public class Solution {
+    public double knightProbability(int n, int k, int row, int column) {
+        // Define possible directions for the knight's moves
+        int[][] directions = {{1, 2}, {1, -2}, {-1, 2}, {-1, -2},
+                              {2, 1}, {2, -1}, {-2, 1}, {-2, -1}};
 
-        for (int i = 0; i < 30; i++) {
-            for (int j = 0; j < 30; j++) {
-                for (int l = 0; l < 101; l++) {
-                    dp[i][j][l] = 0.0;
+        // Initialize the dynamic programming table
+        double[][][] dp = new double[k + 1][n][n];
+        dp[0][row][column] = 1.0;
+
+        // Iterate over the number of moves
+        for (int moves = 1; moves <= k; moves++) {
+            // Iterate over the cells on the chessboard
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    // Iterate over possible directions
+                    for (int[] direction : directions) {
+                        int prevI = i - direction[0];
+                        int prevJ = j - direction[1];
+                        // Check if the previous cell is within the chessboard
+                        if (prevI >= 0 && prevI < n && prevJ >= 0 && prevJ < n) {
+                            // Add the previous probability divided by 8
+                            dp[moves][i][j] += dp[moves - 1][prevI][prevJ] / 8.0;
+                        }
+                    }
                 }
             }
         }
 
-        return solve(n, k, row, col, dp);
-    }
-
-    public boolean isValid(int i, int j, int n) {
-        if (i < 0 || j < 0 || i >= n || j >= n) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public double solve(int n, int k, int i, int j, double[][][] dp) {
-        if (k <= 0) {
-            return 1;
-        }
-
-        if (i < 0 || j < 0 || i >= n || j >= n) {
-            return 0.0;
-        }
-
-        if (dp[i][j][k] != 0.0) {
-            return dp[i][j][k];
-        }
-
-        double res = 0.0;
-        double num = 1.0;
-        double denom = 8.0;
-        for (int l = 0; l < 8; l++) {
-            int x = i + dir1[l];
-            int y = j + dir2[l];
-            if (isValid(x, y, n)) {
-                res += solve(n, k - 1, x, y, dp) * (num / denom);
+        // Calculate total probability by summing probabilities for all cells
+        double totalProbability = 0.0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                totalProbability += dp[k][i][j];
             }
         }
-
-        return dp[i][j][k] = res;
+        return totalProbability;
     }
 }

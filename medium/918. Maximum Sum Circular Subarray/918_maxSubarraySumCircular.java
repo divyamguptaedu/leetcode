@@ -1,3 +1,12 @@
+//Initially, I calculated the maximum subarray sum using Kadane's algorithm and stored it. 
+//Then, I adapted Kadane's algorithm to find the minimum subarray sum. 
+//After obtaining the total sum of all array elements, I handled the edge case where the minimum subarray sum equals the total sum, 
+//implying an empty subarray, which is invalid. 
+//Finally, I returned the maximum of either the maximum subarray sum 
+//or the difference between the total sum and the minimum subarray sum.
+
+//Time: O(n)
+//Space: O(1)
 class Solution {
     public int maxSubarraySumCircular(int[] nums) {
         int curMax = 0;
