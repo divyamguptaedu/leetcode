@@ -1,23 +1,23 @@
 class Solution {
     public int jump(int[] nums) {
-        if (nums.length == 1) {
-            return 0;
-        }
+        // The starting range of the first jump is [0, 0]
+        int answer = 0;
         int n = nums.length;
-        int maxJump = 0;
-        int positionAfterMaxJump = 0;
-        int jumps = 0;
+        int curEnd = 0;
+        int curFar = 0;
 
-        for (int i = 0; i < n - 1; i++) {
-            maxJump = Math.max(maxJump, i + nums[i]);
-            if (positionAfterMaxJump == i) {
-                jumps++;
-                positionAfterMaxJump = maxJump;
-            }
-            if (positionAfterMaxJump >= n -1) {
-                return jumps;
+        for (int i = 0; i < n - 1; ++i) {
+            // Update the farthest reachable index of this jump.
+            curFar = Math.max(curFar, i + nums[i]);
+
+            // If we finish the starting range of this jump,
+            // Move on to the starting range of the next jump.
+            if (i == curEnd) {
+                answer++;
+                curEnd = curFar;
             }
         }
-        return jumps;
+
+        return answer;
     }
 }
