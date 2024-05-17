@@ -1,3 +1,15 @@
+//I used a dynamic programming approach to solve this problem. 
+//I initialized a 2D array `dp` to store intermediate results and 
+//converted the string `s` into a character array. 
+//I defined a helper function that took the character array, starting index, ending index, and the `dp` array. 
+//The function checked if the characters at the start and end were the same, 
+//incrementing pointers inward if they matched. 
+//If not, it calculated the minimum insertions by 
+//recursively trying both possibilities—inserting at the start or at the end. 
+//The result was stored in the `dp` array to avoid redundant calculations.
+
+//Time: O(n^2)
+//Space: O(n^2)
 class Solution {
     public int minInsertions(String s) {
         int n = s.length();

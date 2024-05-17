@@ -1,3 +1,13 @@
+//I utilized dynamic programming to find the longest palindromic substring. 
+//First, I initialized a boolean array to mark palindromes within the string. 
+//Then, I iterated through the string, checking each possible substring for palindromic properties. 
+//By considering the characters at both ends and checking if the inner substring is a 
+//palindrome or has a length of two or less, I updated the dynamic programming table accordingly. 
+//Throughout this process, I tracked the maximum palindrome length and its starting and 
+//ending indices. Finally, I returned the substring corresponding to the longest palindrome found. 
+
+//Time: O(n^2)
+//Space: O(n^2)
 public class Solution {
     public String longestPalindrome(String s) {
         if (s.length() <= 1) {

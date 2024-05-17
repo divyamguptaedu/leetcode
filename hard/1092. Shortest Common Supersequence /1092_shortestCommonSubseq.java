@@ -1,3 +1,15 @@
+//I used dynamic programming to solve this problem. 
+//I converted the input strings into character arrays and initialized a 2D `dp` array 
+//to store the lengths of the longest common subsequences (LCS). 
+//I filled this `dp` table by comparing characters from both strings. 
+//After building the `dp` table, I traced back from the bottom-right corner to construct 
+//the shortest common supersequence. I appended matching characters from both strings, 
+//and for non-matching characters, I chose the direction with the larger value in the `dp` table. 
+//Finally, I added any remaining characters from both strings and 
+//reversed the result to get the final string.
+
+//Time: O(nm) where n and m is the length of strings.
+//Space: O(nm)
 class Solution {
 
     public String shortestCommonSupersequence(String str1, String str2) {
@@ -19,7 +31,6 @@ class Solution {
             for (int j = 1; j <= m; j++) {
                 if (s[i - 1] == t[j - 1])
                     dp[i][j] = 1 + dp[i - 1][j - 1];
-
                 else
                     dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
             }

@@ -1,3 +1,16 @@
+//I approached this problem by breaking it down into two phases: 
+//calculating the maximum sum of non-empty subarrays from the beginning to the end (forward)
+//d from the end to the beginning (backward). 
+//During both phases, I kept track of the maximum sum achievable with or without deletion. 
+//In the first phase, I iterated through the array, updating the current maximum sum and 
+//storing it in the forward array. 
+//In the second phase, I iterated through the array backward, 
+//performing similar operations as in the first phase and storing the results in the
+// backward array. Finally, I compared the maximum sums obtained with different deletion s
+// cenarios and returned the maximum value.
+
+// //Time: O(n)
+//Space: O(n)
 class Solution {
     public int maximumSum(int[] arr) {
         if (arr.length == 1) {

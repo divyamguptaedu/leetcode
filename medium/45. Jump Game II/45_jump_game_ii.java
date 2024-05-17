@@ -1,3 +1,13 @@
+//I approached this problem by simulating jumps, aiming to minimize the number of jumps 
+//needed to reach the last index. Initially positioned at the first index, I iterated 
+//through the array, updating the farthest reachable index for each jump. When reaching 
+//the end of the current jump range, I incremented the jump count and updated the end of 
+//the next jump range to the farthest reachable index encountered so far. 
+//By efficiently adjusting the jump ranges, I ensured that each jump covers as much 
+//distance as possible, minimizing the total number of jumps needed to reach the last index.
+
+//Time: O(n)
+//Space: O(1)
 class Solution {
     public int jump(int[] nums) {
         // The starting range of the first jump is [0, 0]
