@@ -1,34 +1,45 @@
+//
+//Time: O(n)
+//Space: O(n)
 class Solution {
     public int[] maxSumOfThreeSubarrays(int[] nums, int k) {
-        int n = nums.length;
-        int dp[][][] = new int[n + 1][4][2];
-        int prefix[] = new int[n + 1];
-        prefix[0] = 0;
-        for (int i = 1; i <= n; i++) {
-            prefix[i] += prefix[i - 1] + nums[i - 1];
-        }
-
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j < 4; j++) {
-                if (i < j * k) {
-                    continue;
-                } else {
-                    if (dp[i - k][j - 1][0] + prefix[i] - prefix[i - k] > dp[i - 1][j][0]) {
-                        dp[i][j][0] = dp[i - k][j - 1][0] + prefix[i] - prefix[i - k];
-                        dp[i][j][1] = i - k;
-                    } else {
-                        dp[i][j][0] = dp[i - 1][j][0];
-                        dp[i][j][1] = dp[i - 1][j][1];
-                    }
-                }
+        // W is an array of sums of windows
+        int[] W = new int[nums.length - k + 1];
+        int currSum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            currSum += nums[i];
+            if (i >= k) {
+                currSum -= nums[i - k];
+            }
+            if (i >= k - 1) {
+                W[i - k + 1] = currSum;
             }
         }
 
-        int ans[] = new int[3];
-        int last = n;
-        for (int i = 2; i >= 0; i--) {
-            ans[i] = dp[last][i + 1][1];
-            last = ans[i];
+        int[] left = new int[W.length];
+        int best = 0;
+        for (int i = 0; i < W.length; i++) {
+            if (W[i] > W[best]) best = i;
+            left[i] = best;
+        }
+
+        int[] right = new int[W.length];
+        best = W.length - 1;
+        for (int i = W.length - 1; i >= 0; i--) {
+            if (W[i] >= W[best]) {
+                best = i;
+            }
+            right[i] = best;
+        }
+        
+        int[] ans = new int[]{-1, -1, -1};
+        for (int j = k; j < W.length - k; j++) {
+            int i = left[j - k], l = right[j + k];
+            if (ans[0] == -1 || W[i] + W[j] + W[l] > W[ans[0]] + W[ans[1]] + W[ans[2]]) {
+                ans[0] = i;
+                ans[1] = j;
+                ans[2] = l;
+            }
         }
         return ans;
     }
