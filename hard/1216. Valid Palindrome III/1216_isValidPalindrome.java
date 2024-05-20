@@ -1,3 +1,12 @@
+//To determine if a string s is a k-palindrome, I used dynamic programming. 
+//I initialized a memoization array to keep track of the minimum deletions required to make substrings palindromic. 
+//Starting from the end of the string, I iterated over each character pair (i, j). 
+//If the characters at i and j matched, I set the current memo value to the previously computed value for the substring s[i+1:j-1]. 
+//If they didn't match, I calculated the minimum deletions needed by either removing the character at i or j. 
+//Finally, I checked if the value for the entire string was less than or equal to k.
+
+//Time: O(n^2) n is the length of the string s
+//SPace: O(n)
 class Solution {
     public boolean isValidPalindrome(String s, int k) {
         int memo[] = new int[s.length()];
@@ -35,7 +44,8 @@ class Solution {
             }
         }
 
-        // Return true if the minimum cost to create a palindrome by only deleting the letters
+        // Return true if the minimum cost to create a palindrome by only deleting the
+        // letters
         // is less than or equal to `k`.
         return memo[s.length() - 1] <= k;
     }

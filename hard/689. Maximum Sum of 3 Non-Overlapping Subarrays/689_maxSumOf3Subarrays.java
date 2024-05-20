@@ -1,4 +1,10 @@
-//
+//I first calculated the sum of all possible subarrays of length k and stored these sums in an array W. 
+//Then, I used dynamic programming to find the leftmost and rightmost maximum subarray sums for any given subarray in W. 
+//Specifically, for each possible middle subarray, 
+//I identified the best subarray to its left and right using the precomputed arrays of maximum sums. 
+//Finally, I iterated through possible middle subarrays to find the combination that maximized the total sum, 
+//returning their starting indices.
+
 //Time: O(n)
 //Space: O(n)
 class Solution {
