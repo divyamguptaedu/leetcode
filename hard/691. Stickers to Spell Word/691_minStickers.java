@@ -1,51 +1,27 @@
 class Solution {
     public int minStickers(String[] stickers, String target) {
-        List<Map<Character, Integer>> stickersCount = new ArrayList<>();
-        for (String sticker: stickers) {
-            Map<Character, Integer> stickerCount = new HashMap<>();
-            for (int i = 0; i < sticker.length(); i++) {
-                char c = sticker.charAt(i);
-                stickerCount.put(c, stickerCount.getOrDefault(c, 0) + 1);
-            }
-            stickersCount.add(stickerCount);
-        }
-        Map<String, Integer> cache = new HashMap<>();
-        Map<Character, Integer> charsCount = new HashMap<>();
-        int result = minStickers(target, stickersCount, charsCount, cache);
-        return result != Integer.MAX_VALUE ? result : -1;
-    }
+        int N = target.length();
+        int[] dp = new int[1 << N];
+        for (int i = 1; i < 1 << N; i++) dp[i] = -1;
 
-    private int minStickers(String target,
-                            List<Map<Character, Integer>> stickersCount,
-                            Map<Character, Integer> currStickerCount,
-                            Map<String, Integer> cache) {
-        if (cache.containsKey(target)) {
-            return cache.get(target);
-        }
-
-        int result = currStickerCount.isEmpty() ? 0 : 1;
-        StringBuilder remainingChars = new StringBuilder();
-
-        for (int i = 0; i < target.length(); i++) {
-            char c = target.charAt(i);
-            Integer charCount = currStickerCount.get(c);
-            if(charCount != null && charCount > 0){
-                currStickerCount.put(c, charCount - 1);
-            } else remainingChars.append(c);
-        }
-
-        if (!remainingChars.isEmpty()) {
-            int used = Integer.MAX_VALUE;
-            for (Map<Character, Integer> stickerCount: stickersCount) {
-                if (!stickerCount.containsKey(remainingChars.charAt(0))) {
-                    continue;
+        for (int state = 0; state < 1 << N; state++) {
+            if (dp[state] == -1) continue;
+            for (String sticker: stickers) {
+                int now = state;
+                for (char letter: sticker.toCharArray()) {
+                    for (int i = 0; i < N; i++) {
+                        if (((now >> i) & 1) == 1) continue;
+                        if (target.charAt(i) == letter) {
+                            now |= 1 << i;
+                            break;
+                        }
+                    }
                 }
-                used = Math.min(used, minStickers(remainingChars.toString(), stickersCount, new HashMap<>(stickerCount), cache));
+                if (dp[now] == -1 || dp[now] > dp[state] + 1) {
+                    dp[now] = dp[state] + 1;
+                }
             }
-            cache.put(remainingChars.toString(), used);
-            result = used == Integer.MAX_VALUE ? used : result + used;
-
         }
-        return result;
+        return dp[(1 << N) - 1];
     }
 }
