@@ -1,25 +1,28 @@
 class Solution {
     public String addBinary(String a, String b) {
-        StringBuilder sum = new StringBuilder("");
-        int indexA = a.length() - 1;
-        int indexB = b.length() - 1;
-        int carry = 0;
-        int digitSum = 0;
-        while (indexA >= 0 || indexB >= 0 || carry > 0 ) {
-            digitSum = carry;
-            if (indexA >= 0) {
-                digitSum += a.charAt(indexA--) - '0';
-            }
-            if (indexB >= 0) {
-                digitSum += b.charAt(indexB--) - '0';
-            }
-            if (digitSum >1) {
-                carry = 1;
-            } else {
-                carry = 0;
-            }
-            sum.insert(0, digitSum % 2);
+        int n = a.length(), m = b.length();
+        if (n < m)
+            return addBinary(b, a);
+
+        StringBuilder sb = new StringBuilder();
+        int carry = 0, j = m - 1;
+        for (int i = n - 1; i > -1; --i) {
+            if (a.charAt(i) == '1')
+                ++carry;
+            if (j > -1 && b.charAt(j--) == '1')
+                ++carry;
+
+            if (carry % 2 == 1)
+                sb.append('1');
+            else
+                sb.append('0');
+
+            carry /= 2;
         }
-        return sum.toString();
+        if (carry == 1)
+            sb.append('1');
+        sb.reverse();
+
+        return sb.toString();
     }
 }
