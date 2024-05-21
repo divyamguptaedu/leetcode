@@ -1,12 +1,9 @@
-class Solution {
+public class Solution {
     public boolean canPermutePalindrome(String s) {
         Set<Character> set = new HashSet<>();
-        for (char c : s.toCharArray()) {
-            if (set.contains(c)){
-                set.remove(c);
-            } else {
-                set.add(c);
-            }
+        for (int i = 0; i < s.length(); i++) {
+            if (!set.add(s.charAt(i)))
+                set.remove(s.charAt(i));
         }
         return set.size() <= 1;
     }
