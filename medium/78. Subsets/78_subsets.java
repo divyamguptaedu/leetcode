@@ -1,56 +1,39 @@
-"""
-Performance:
-Runtime: 1 ms, faster than 54.31% of Java online submissions for Subsets.
-Memory Usage: 39.1 MB, less than 81.59% of Java online submissions for Subsets.
-"""
+//I generated all possible subsets of the given array nums using backtracking. 
+//I initialized an empty list output to store the subsets and defined n as the length of nums. 
+//Then, I iterated over all possible subset sizes k from 0 to n. 
+//For each subset size, I performed backtracking, starting from index first, 
+//adding elements to the current subset curr, and recursively exploring the next elements. 
+//When the subset reached size k, I added it to the output list. 
+//Finally, I returned the output list containing all possible subsets of nums.
 
+//Time: O(N * 2^N)
+//Space: O(N)
 class Solution {
-    public List<List<Integer>> subsets(int[] nums) {
-        
-        List<List<Integer>> result = new ArrayList<>();
-        List<Integer> answer = new ArrayList<>();
-        result.add(answer);
-        
-        for (int newElement : nums) {
-            List<List<Integer>> newAnswers = new ArrayList<>();
-            
-            List<Integer> tempArray;
-            // add the newElement in all lists of the result list.
-            for (List<Integer> ans : result) {
-                tempArray = new ArrayList<>();
-                for (Integer x : ans) {
-                    tempArray.add(x);
-                }
-                tempArray.add(newElement);
-                
-                newAnswers.add(tempArray);
-            }
-            
-            // add the new answers to the result.
-            for (List<Integer> newAddition : newAnswers) {
-                result.add(newAddition);
-            }
+    List<List<Integer>> output = new ArrayList();
+    int n;
+    int k;
+
+    public void backtrack(int first, ArrayList<Integer> curr, int[] nums) {
+        // If the combination is done
+        if (curr.size() == k) {
+            output.add(new ArrayList(curr));
+            return;
         }
-        return result;
+        for (int i = first; i < n; ++i) {
+            // Add i into the current combination
+            curr.add(nums[i]);
+            // Use the next integers to complete the combination
+            backtrack(i + 1, curr, nums);
+            // Backtrack
+            curr.remove(curr.size() - 1);
+        }
     }
-}
 
-//another solution 
-
-class Solution {
     public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
-        result.add(new ArrayList<>());
-
-        for (int n : nums) {
-            List<List<Integer>> temp = new ArrayList<>();
-            for (List<Integer> i : result) {
-                List<Integer> subset = new ArrayList<>(i);
-                subset.add(n);
-                temp.add(subset);
-            }
-            result.addAll(temp);
+        n = nums.length;
+        for (k = 0; k < n + 1; ++k) {
+            backtrack(0, new ArrayList<Integer>(), nums);
         }
-        return result;
+        return output;
     }
 }
