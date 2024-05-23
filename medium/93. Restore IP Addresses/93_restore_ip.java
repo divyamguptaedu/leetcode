@@ -1,35 +1,36 @@
-"
-Performance:
-Runtime: 7 ms, faster than 32.59% of Java online submissions for Restore IP Addresses.
-Memory Usage: 38.9 MB, less than 83.37% of Java online submissions for Restore IP Addresses.
-"
-
 class Solution {
-	public List<String> restoreIpAddresses(String string) {
-	    List<String> result = new LinkedList<>();
-	    int[] path = new int[4];
-	    helper(result, string, 0,  path, 0);
-	    return result;
-	}
+    List<String> ansList = new ArrayList<>();
 
-	private void helper(List<String> account, String string, int index, int[] path,  int segment){
-	    if (segment == 4 && index == string.length()) {
-	        account.add(path[0] + "." + path[1] + "."+ path[2] + "." + path[3]);
-	        return;
-	    } else if (segment == 4 || index == string.length()) {
-	        return ;
-	    }
-	    
-	    for (int length = 1; length <= 3 && index + length <= string.length() ; length++) {
-	        int val = Integer.parseInt(string.substring(index, index + length));
-	        // range check, no leading 0.
-	        if (val > 255 || length >= 2  && string.charAt(index) == '0') {
-	            break; 
-	        }
-	            
-	        path[segment] = val;
-	        helper(account, string, index + length, path, segment + 1);
-	        path[segment] = -1; // for debug. 
-	    }
-	}
+    public List<String> restoreIpAddresses(String s) {
+        solve(0, s, new StringBuilder(""));
+        return ansList;
+    }
+    
+    boolean isValid(String s) {
+        if (s.length() > 3 || (s.length() > 1 && s.charAt(0) == '0'))
+            return false;
+        int val = Integer.valueOf(s);
+        return val >= 0 && val <= 255;
+    }
+
+    void solve(int depth, String s, StringBuilder sb) {
+        if (depth == 3) {
+            if (isValid(s)) {
+                sb.append(s);
+                ansList.add(sb.toString());
+                sb.setLength(sb.length() - s.length());
+            }
+            return;
+        }
+        for (int i = 1; i <= 3; i++) {
+            if (i >= s.length())
+                break;
+            String temp = s.substring(0, i);
+            if (isValid(temp)) {
+                sb.append(temp).append(".");
+                solve(depth + 1, s.substring(i), sb);
+                sb.setLength(sb.length() - (temp.length() + 1));
+            }
+        }
+    }
 }
