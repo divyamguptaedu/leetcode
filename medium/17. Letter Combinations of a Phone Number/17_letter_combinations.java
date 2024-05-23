@@ -1,49 +1,36 @@
 class Solution {
-	Map<Character, Character[]> digitToCharacter = new HashMap<>();
-	{
-	    digitToCharacter.put('2', new Character[]{'a', 'b', 'c'});
-	    digitToCharacter.put('3', new Character[]{'d', 'e', 'f'});
-	    digitToCharacter.put('4', new Character[]{'g', 'h', 'i'});
-	    digitToCharacter.put('5', new Character[]{'j', 'k', 'l'});
-	    digitToCharacter.put('6', new Character[]{'m', 'n', 'o'});
-	    digitToCharacter.put('7', new Character[]{'p', 'q', 'r', 's'});
-	    digitToCharacter.put('8', new Character[]{'t', 'u', 'v'});
-	    digitToCharacter.put('9', new Character[]{'w', 'x', 'y', 'z'});
-	}
+    private List<String> combinations = new ArrayList<>();
+    private Map<Character, String> letters = Map.of('2', "abc", '3', "def", '4', "ghi", '5', "jkl", '6', "mno", '7', "pqrs", '8', "tuv", '9', "wxyz");
+    private String phoneDigits;
 
-	public List<String> letterCombinations(String digits) {
-	    List<String> ans = new ArrayList<>();
-	    if (digits.isEmpty()) {
-	        return ans;
-	    } 
-	    int n = digits.length();
-	    int numberOfCombinations = calculateNumberOfCombinations(digits);
-	    for (int conbinationIndex = 0; conbinationIndex < numberOfCombinations; conbinationIndex++) {
-	        String combination = "";
-	        int temp = conbinationIndex;
-	        for (int digitIndex = n - 1; digitIndex >= 0; digitIndex--) {
-	            if (digits.charAt(digitIndex) == '7' || digits.charAt(digitIndex) == '9') {
-	                combination = digitToCharacter.get(digits.charAt(digitIndex))[temp % 4] + combination;
-	                temp /= 4;
-	            } else {
-	                combination = digitToCharacter.get(digits.charAt(digitIndex))[temp % 3] + combination;
-	                temp /= 3;
-	            }
-	        }
-	        ans.add(combination);
-	    }
-	    return ans;
-	}
+    public List<String> letterCombinations(String digits) {
+        // If the input is empty, immediately return an empty answer array
+        if (digits.length() == 0) {
+            return combinations;
+        }
 
-	public int calculateNumberOfCombinations(String digits) {
-	    int ans = 1;
-	    for (int i = 0; i < digits.length(); i++) {
-	        if (digits.charAt(i) == '7' || digits.charAt(i) == '9') {
-	            ans *= 4;
-	        } else {
-	            ans *= 3;
-	        }
-	    }
-	    return ans;
-	}
+        // Initiate backtracking with an empty path and starting index of 0
+        phoneDigits = digits;
+        backtrack(0, new StringBuilder());
+        return combinations;
+    }
+
+    private void backtrack(int index, StringBuilder path) {
+        // If the path is the same length as digits, we have a complete combination
+        if (path.length() == phoneDigits.length()) {
+            combinations.add(path.toString());
+            return; // Backtrack
+        }
+
+        // Get the letters that the current digit maps to, and loop through them
+        String possibleLetters = letters.get(phoneDigits.charAt(index));
+        for (char letter : possibleLetters.toCharArray()) {
+            // Add the letter to our current path
+            path.append(letter);
+            // Move on to the next digit
+            backtrack(index + 1, path);
+            // Backtrack by removing the letter before moving onto the next
+            path.deleteCharAt(path.length() - 1);
+        }
+    }
 }
