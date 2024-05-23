@@ -1,26 +1,34 @@
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> list = new LinkedList<List<Integer>>();
+        List<List<Integer>> results = new ArrayList<>();
+        LinkedList<Integer> comb = new LinkedList<>();
+
         Arrays.sort(candidates);
-        backtrack(list, new ArrayList<Integer>(), candidates, target, 0);
-        return list;
+
+        backtrack(candidates, comb, target, 0, results);
+        return results;
     }
 
-    private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] candidates, int remain, int start) {
-    
-        if (remain < 0) {
+    private void backtrack(int[] candidates, LinkedList<Integer> comb, Integer remain, Integer curr, List<List<Integer>> results) {
+        if (remain == 0) {
+            // copy the current combination to the final list.
+            results.add(new ArrayList<Integer>(comb));
             return;
-        } else if (remain == 0) {
-            list.add(new ArrayList<>(tempList));
-        } else {
-            for (int i = start; i < candidates.length; i++) {
-                if (i > start && candidates[i] == candidates[i-1]) {
-                    continue;
-                }
-                tempList.add(candidates[i]);
-                backtrack(list, tempList, candidates, remain - candidates[i], i+1);
-                tempList.remove(tempList.size() - 1);
-            }
+        }
+
+        for (int nextCurr = curr; nextCurr < candidates.length; ++nextCurr) {
+            if (nextCurr > curr &&
+                    candidates[nextCurr] == candidates[nextCurr - 1])
+                continue;
+
+            Integer pick = candidates[nextCurr];
+            // optimization: early stopping
+            if (remain - pick < 0)
+                break;
+
+            comb.addLast(pick);
+            backtrack(candidates, comb, remain - pick, nextCurr + 1, results);
+            comb.removeLast();
         }
     }
 }
