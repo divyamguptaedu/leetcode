@@ -1,41 +1,24 @@
-"""
-Performance:
-Runtime: 2 ms, faster than 92.47% of Java online submissions for Permutations II.
-Memory Usage: 42.7 MB, less than 98.37% of Java online submissions for Permutations II.
-"""
-
 class Solution {
-    
-    List<List<Integer>> result = new ArrayList<>();
-    
-    public void swap(int i, int j, int[] nums) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
-    
-    public void fun(int temp, int[]nums) {
-        if (temp == nums.length){
-            List<Integer> answer = new ArrayList<>();
-        for (int n : nums) {
-            answer.add(n);
-        }
-        result.add(answer);
-        return;
-        }
-        HashSet<Integer> hashSet = new HashSet<>();
-        for (int i = temp; i < nums.length; i++) {
-            if (hashSet.contains(nums[i])) {
-                continue;
-            }
-            hashSet.add(nums[i]);
-            swap(i, temp, nums);
-            fun(temp + 1, nums);
-            swap(i, temp, nums);
-        }
-    }
     public List<List<Integer>> permuteUnique(int[] nums) {
-        fun(0, nums);
-        return result;
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        backtrack(list, new ArrayList<>(), nums, new boolean[nums.length]);
+        return list;
+    }
+
+    private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] nums, boolean[] used) {
+        if (tempList.size() == nums.length) {
+            list.add(new ArrayList<>(tempList));
+        } else {
+            for (int i = 0; i < nums.length; i++) {
+                if (used[i] || i > 0 && nums[i] == nums[i - 1] && !used[i - 1])
+                    continue;
+                used[i] = true;
+                tempList.add(nums[i]);
+                backtrack(list, tempList, nums, used);
+                used[i] = false;
+                tempList.remove(tempList.size() - 1);
+            }
+        }
     }
 }
