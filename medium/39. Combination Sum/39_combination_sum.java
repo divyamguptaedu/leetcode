@@ -1,55 +1,27 @@
 class Solution {
-
-    List<List<Integer>> resultList = new ArrayList<>();
-
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        getTargetCombination(candidates, 0, target, new ArrayList<Integer>());
-        return resultList;
-    }
+        List<List<Integer>> results = new ArrayList<List<Integer>>();
+        LinkedList<Integer> comb = new LinkedList<Integer>();
 
-    private void getTargetCombination(int[] candidates, int position, int currentTarget, List<Integer> result) {
-        if (currentTarget == 0) {
-            resultList.add(new ArrayList<>(result));
-            return;
-        }
-        if (position == candidates.length) {
-            return;
-        }
-        if (candidates[position] <= currentTarget) {
-            result.add(candidates[position]);
-            getTargetCombination(candidates, position, currentTarget - candidates[position], result);
-            result.remove(result.size() - 1);
-        }
-        getTargetCombination(candidates, position + 1, currentTarget, result);
+        this.backtrack(target, comb, 0, candidates, results);
+        return results;
     }
-}
-
-//another solution
-
-class Solution {
-	public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> list = new ArrayList<>();
-        helper(0, candidates, new ArrayList<>(), list, target);
-        return list;
-    }
-    
-    private void helper(int x, int nums[], List<Integer> temp, List<List<Integer>> list, int target) {
-        if (target < 0 ) {
+    protected void backtrack(int remain, LinkedList<Integer> comb, int start, int[] candidates, List<List<Integer>> results) {
+        if (remain == 0) {
+            // make a deep copy of the current combination
+            results.add(new ArrayList<Integer>(comb));
+            return;
+        } else if (remain < 0) {
+            // exceed the scope, stop exploration.
             return;
         }
-        if (target == 0) {
-            list.add(new ArrayList<>(temp));
-            return;
-        }
-        for (int i = x; i < nums.length; i++) {
-            temp.add(nums[i]);
-            helper(i, nums, temp, list, target - nums[i]);
-            temp.remove(temp.size() - 1);          
+
+        for (int i = start; i < candidates.length; ++i) {
+            // add the number into the combination
+            comb.add(candidates[i]);
+            this.backtrack(remain - candidates[i], comb, i, candidates, results);
+            // backtrack, remove the number from the combination
+            comb.removeLast();
         }
     }
 }
-
-
-
-
-
