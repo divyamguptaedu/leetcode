@@ -1,27 +1,65 @@
 class Solution {
     public int minStickers(String[] stickers, String target) {
-        int N = target.length();
-        int[] dp = new int[1 << N];
-        for (int i = 1; i < 1 << N; i++) dp[i] = -1;
+        String sortedTarget = sortString(target);
+        String[] sortedStickers = new String[stickers.length];
 
-        for (int state = 0; state < 1 << N; state++) {
-            if (dp[state] == -1) continue;
-            for (String sticker: stickers) {
-                int now = state;
-                for (char letter: sticker.toCharArray()) {
-                    for (int i = 0; i < N; i++) {
-                        if (((now >> i) & 1) == 1) continue;
-                        if (target.charAt(i) == letter) {
-                            now |= 1 << i;
-                            break;
-                        }
+        // O(N) * MLogM where M is the Max length of stickers
+        for (int i = 0; i < sortedStickers.length; i++) {
+            sortedStickers[i] = sortString(stickers[i]);
+        }
+
+        Queue<String> queue = new LinkedList<>();
+        int steps = 1;
+        Set<String> visited = new HashSet<>();
+
+        queue.offer(sortedTarget);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                String currentStr = queue.poll();
+                // Match with each sticker and filter the target
+                for (int j = 0; j < sortedStickers.length; j++) {
+                    String remStr = filterByMatching(sortedStickers[j], currentStr);
+                    if (remStr.isEmpty()) {
+                        return steps;
+                    }
+                    if (!visited.contains(remStr)) {
+                        visited.add(remStr);
+                        queue.offer(remStr);
                     }
                 }
-                if (dp[now] == -1 || dp[now] > dp[state] + 1) {
-                    dp[now] = dp[state] + 1;
+            }
+            steps++;
+        }
+        return -1;
+    }
+
+    //O(inputString * sticker)
+    private String filterByMatching(String sticker, String inputString) {
+        StringBuilder filterString = new StringBuilder();
+        int index = 0;
+
+        // O(inputString * sticker)
+        for (char inputCh : inputString.toCharArray()) {
+            boolean found = false;
+            while (index < sticker.length() && sticker.charAt(index) <= inputCh) {
+                if (sticker.charAt(index++) == inputCh) {
+                    found = true;
+                    break;
                 }
             }
+            if (!found)
+                filterString.append(inputCh);
         }
-        return dp[(1 << N) - 1];
+        return filterString.toString();
+    }
+
+
+    //O(nlogn)
+    private String sortString(String input) {
+        char[] inputArr = input.toCharArray();
+        Arrays.sort(inputArr);
+        return new String(inputArr);
     }
 }
