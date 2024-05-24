@@ -1,69 +1,91 @@
+//I solved the N-Queens problem by recursively placing queens on the chessboard, ensuring no two queens attack each other. 
+//I implemented a backtracking algorithm where I place a queen in each column and recursively explore valid placements 
+//in subsequent columns. I checked the validity of each placement by verifying no other queen 
+//is present on the same row, column, or diagonal. 
+//Once a valid configuration is found, I add it to the result list. 
+//I represented the chessboard as a 2D char array and constructed the solution format accordingly.
+
+//Time: O(n!) where n is the size of the chessboard. 
+//This is because the algorithm explores all possible configurations of queen placements, considering all permutations.
+//Space: O(n^2)
 class Solution {
+    // Main function to solve N-Queens problem
     public List<List<String>> solveNQueens(int n) {
-        boolean[][] board = new boolean[n][n];
-        List<String> ll = new ArrayList<>();
         List<List<String>> ans = new ArrayList<>();
-
-        queens(board, n, 0, ll, ans);
+        char[][] board = new char[n][n];
+        
+        // Initialize the board with empty cells
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                board[i][j] = '.';
+            }
+        }
+        
+        // Start placing queens from the first column
+        placeQueens(0, ans, board, n);
         return ans;
-
     }
 
-    public static void queens(boolean[][] board, int Q, int row, List<String> ll, List<List<String>> ans) {
-        if (Q == 0) {
-            for (int i = 0; i < board.length; i++) {
-                String s = "";
-                for (int j = 0; j < board.length; j++) {
-                    if (board[i][j])
-                        s = s + 'Q';
-                    else
-                        s += '.';
-                }
-                ll.add(s);
-            }
-            ans.add(new ArrayList<>(ll));
-            ll.clear();
+    // Recursive function to place queens on the board
+    public void placeQueens(int col, List<List<String>> ans, char[][] board, int n) {
+        if (col == n) {
+            ans.add(construct(board));
             return;
-
         }
 
-        for (int col = 0; col < board.length; col++) {
-            if (possible(board, row, col)) {
-                board[row][col] = true;
-                queens(board, Q - 1, row + 1, ll, ans);
-                board[row][col] = false;
+        // Check for all rows of the current column
+        for (int i = 0; i < n; i++) {
+            if (isValid(board, i, col)) {
+                board[i][col] = 'Q'; // Place queen
+                placeQueens(col + 1, ans, board, n); // Recur for next column
+                board[i][col] = '.'; // Backtrack
             }
         }
     }
 
-    public static boolean possible(boolean[][] board, int row, int col) {
-        int r = row;
-        while (r >= 0) {
-            if (board[r][col])
-                return false;
-            r--;
+    // Function to construct the solution format
+    public List<String> construct(char[][] board) {
+        List<String> res = new ArrayList<>();
+        for (int i = 0; i < board.length; i++) {
+            String s = new String(board[i]);
+            res.add(s);
         }
-        r = row;
-        int c = col;
+        return res;
+    }
 
-        while (r >= 0 && c >= 0) {
-            if (board[r][c])
+    // Function to check if placing a queen at position (row, col) is valid
+    public boolean isValid(char[][] board, int row, int col) {
+        int duprow = row;
+        int dupcol = col;
+        int n = board.length;
+        
+        // Check upper diagonal
+        while (duprow >= 0 && dupcol >= 0) {
+            if (board[duprow][dupcol] == 'Q')
                 return false;
-            r--;
-            c--;
+            duprow--;
+            dupcol--;
         }
 
-        r = row;
-        c = col;
-
-        while (r >= 0 && c < board.length) {
-            if (board[r][c])
+        // Check left row
+        duprow = row;
+        dupcol = col;
+        while (dupcol >= 0) {
+            if (board[duprow][dupcol] == 'Q')
                 return false;
-            r--;
-            c++;
-
+            dupcol--;
         }
+
+        // Check lower diagonal
+        duprow = row;
+        dupcol = col;
+        while (duprow < n && dupcol >= 0) {
+            if (board[duprow][dupcol] == 'Q')
+                return false;
+            duprow++;
+            dupcol--;
+        }
+
         return true;
     }
-
 }

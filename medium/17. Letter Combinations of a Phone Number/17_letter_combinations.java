@@ -1,3 +1,13 @@
+//Backtracking solution
+//I mapped each digit to its corresponding letters using a hash map. 
+//I wrote a recursive function to generate combinations, starting with an empty path and the first digit. 
+//For each digit, I looped through its possible letters, adding each letter to the path and calling the function recursively 
+//for the next digit. If the current path length matched the input length, I added the path to the result. 
+//After exploring each letter, I removed it from the path to backtrack and try the next letter.
+
+//Time: O(N * 4^N) where N is the length of digits. 4 refers to the max value length in hashmap, not the length of input. 
+//In worst case the input just has 7s and 9s, we have to explore 4 additional paths for every extra digit.
+//Space: O(N)
 class Solution {
     private List<String> combinations = new ArrayList<>();
     private Map<Character, String> letters = Map.of('2', "abc", '3', "def", '4', "ghi", '5', "jkl", '6', "mno", '7', "pqrs", '8', "tuv", '9', "wxyz");
