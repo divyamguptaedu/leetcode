@@ -1,24 +1,34 @@
 class Solution {
     public String addStrings(String num1, String num2) {
-        int carry = 0;
-        StringBuilder result = new StringBuilder();
+
         int i = num1.length() - 1;
         int j = num2.length() - 1;
+
+        int sum = 0, carry = 0;
+        StringBuilder sb = new StringBuilder();
+
         while (i >= 0 || j >= 0) {
-            int first = (i < 0) ? 0 : num1.charAt(i) - '0';
-            int second = (j < 0) ? 0 : num2.charAt(j) - '0';
-
-            int totalSum = first + second + carry;
-            result.append(totalSum % 10);
-            carry = totalSum / 10;
-
-            i--;
-            j--;
+            sum = 0 + carry;
+            if (i >= 0) {
+                sum += (int) num1.charAt(i) - 48;
+                i--;
+            }
+            if (j >= 0) {
+                sum += (int) num2.charAt(j) - 48;
+                j--;
+            }
+            carry = sum / 10;
+            sum = sum % 10;
+            sb.append(sum);
         }
 
         if (carry == 1) {
-            result.append(carry);
+            carry = 0;
+            sb.append(1);
         }
-        return result.reverse().toString();
+
+        sb = sb.reverse();
+        return sb.toString();
+
     }
 }
