@@ -1,38 +1,33 @@
-"
-Performance:
-Runtime: 107 ms, faster than 71.57% of Java online submissions for Shuffle an Array.
-Memory Usage: 68.1 MB, less than 14.35% of Java online submissions for Shuffle an Array.
-"
+//I initialized the array in the constructor, saved the original configuration, and 
+//created methods to reset the array to its original state and shuffle it randomly. 
+//In the shuffle method, I iterated over the array and swapped each element with a 
+//randomly chosen element from the remaining ones. This way, I ensured that all 
+//permutations of the array are equally likely. Resetting simply returns the saved original array. 
+//The shuffling algorithm randomly selects elements to swap, ensuring uniform distribution.
+
+//Time: Constructor takes O(n), reset - O(1), shuffle - O(n)
+//Space: O(n)
 
 class Solution {
-    int[] array;
-    Random random;
-    public Solution (int[] nums) {
-        array = nums;
-        random = new Random();
+    public int[] nums; // Original array
+    public int[] saved; // Saved original array
+
+    public Solution(int[] nums) {
+        this.nums = nums; // Initialize original array
+        saved = Arrays.copyOf(nums, nums.length); // Save a copy of the original array
     }
 
     public int[] reset() {
-        return array;
+        return saved; // Return the saved original array
     }
 
     public int[] shuffle() {
-        int[] temp = array.clone();
-        int size = temp.length;
-        while (size > 0) {
-            int index = random.nextInt(size);
-            int tempTwo = temp[index];
-            temp[index] = temp[size - 1];
-            temp[size - 1] = tempTwo;
-            size--;
+        for (int i = nums.length - 1; i > 1; --i) { // Iterate over the array from the end
+            int j = (int) (Math.random() * (i + 1)); // Generate a random index within the array
+            int temp = nums[i]; // Swap current element with a randomly chosen element
+            nums[i] = nums[j];
+            nums[j] = temp;
         }
-        return temp;
+        return nums; // Return the shuffled array
     }
 }
-
-/**
- * Your Solution object will be instantiated and called as such:
- * Solution obj = new Solution(nums);
- * int[] param_1 = obj.reset();
- * int[] param_2 = obj.shuffle();
- */
