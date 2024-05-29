@@ -1,34 +1,31 @@
-"""
-Performance:
-4ms
-Beats 99.96% of users with Java
-"""
-
 class Solution {
-    public boolean validPalindrome(String s) {
-        int i = 0;
-        int j = s.length() - 1;
-        
-        while (i <= j) {
-            if (s.charAt(i) == s.charAt(j)) {
-                i++;
-                j--;
-            } else {
-                return isPalindrome(s, i + 1, j) || isPalindrome(s, i, j - 1);
+    private boolean checkPalindrome(String s, int i, int j) {
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
             }
+
+            i++;
+            j--;
         }
+
         return true;
     }
 
-    public boolean isPalindrome(String s, int i, int j) {
-        while (i <= j) {
-            if (s.charAt(i) == s.charAt(j)) {
-                i++;
-                j--;
-            } else {
-                return false;
+    public boolean validPalindrome(String s) {
+        int i = 0;
+        int j = s.length() - 1;
+
+        while (i < j) {
+            // Found a mismatched pair - try both deletions
+            if (s.charAt(i) != s.charAt(j)) {
+                return (checkPalindrome(s, i, j - 1) || checkPalindrome(s, i + 1, j));
             }
+
+            i++;
+            j--;
         }
+
         return true;
     }
 }
