@@ -1,36 +1,38 @@
-"
-Performance:
-Runtime: 1 ms, faster than 84.54% of Java online submissions for Custom Sort String.
-Memory Usage: 42 MB, less than 62.18% of Java online submissions for Custom Sort String.
-"
-
 class Solution {
     public String customSortString(String order, String s) {
-        int[] frequencyList = new int[26];
-        for (int i = 0; i < s.length(); i++) {
+        // Create a frequency table
+        Map<Character, Integer> freq = new HashMap<>();
+
+        // Initialize frequencies of letters
+        // freq[c] = frequency of char c in s
+        int N = s.length();
+        for (int i = 0; i < N; i++) {
             char letter = s.charAt(i);
-            frequencyList[letter - 'a']++;
+            freq.put(letter, freq.getOrDefault(letter, 0) + 1);
         }
-        
+
+        // Iterate order string to append to result
+        int K = order.length();
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < order.length(); i++) {            
+        for (int i = 0; i < K; i++) {
             char letter = order.charAt(i);
-            int frequencyCount = frequencyList[letter - 'a'];
-            while (frequencyCount > 0) {
+            while (freq.getOrDefault(letter, 0) > 0) {
                 result.append(letter);
-                frequencyCount--;
-            }
-            frequencyList[letter - 'a'] = 0;
-        }
-        
-        for (int i = 0; i < 26; i++) {
-            int frequencyCount = frequencyList[i];
-            while (frequencyCount > 0) {
-                result.append((char) (i + 'a'));
-                frequencyCount--;
+                freq.put(letter, freq.get(letter) - 1);
             }
         }
-        
+
+        // Iterate through freq and append remaining letters
+        // This is necessary because some letters may not appear in `order`
+        for (char letter : freq.keySet()) {
+            int count = freq.get(letter);
+            while (count > 0) {
+                result.append(letter);
+                count--;
+            }
+        }
+
+        // Return the result
         return result.toString();
     }
 }
