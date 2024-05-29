@@ -1,31 +1,35 @@
-"""
-Performance:
-Runtime: 4 ms, faster than 90.85% of Java online submissions for Simplify Path.
-Memory Usage: 42.6 MB, less than 79.73% of Java online submissions for Simplify Path.
-"""
-
 class Solution {
     public String simplifyPath(String path) {
-        String[] pathSplit = path.split("/");
-        List<String> temp = new ArrayList<>();
-        for (String pathSplitUnit : pathSplit) {
-            if (pathSplitUnit.equals(".")) {
-                pathSplitUnit = "";
-            } else if (pathSplitUnit.equals("..")) {
-                if (temp.size() > 0) {
-                    temp.remove(temp.size() - 1);
+        // Initialize a stack
+        Stack<String> stack = new Stack<String>();
+        String[] components = path.split("/");
+
+        // Split the input string on "/" as the delimiter
+        // and process each portion one by one
+        for (String directory : components) {
+            // A no-op for a "." or an empty string
+            if (directory.equals(".") || directory.isEmpty()) {
+                continue;
+            } else if (directory.equals("..")) {
+                // If the current component is a "..", then
+                // we pop an entry from the stack if it's non-empty
+                if (!stack.isEmpty()) {
+                    stack.pop();
                 }
-                pathSplitUnit = "";
-            }
-            if (!pathSplitUnit.equals("")) {
-                temp.add(pathSplitUnit);
+            } else {
+                // Finally, a legitimate directory name, so we add it
+                // to our stack
+                stack.add(directory);
             }
         }
-        
+
+        // Stich together all the directory names together
         StringBuilder result = new StringBuilder();
-        result.append("/");
-        result.append(String.join("/", temp));
-        
-        return result.toString();
+        for (String dir : stack) {
+            result.append("/");
+            result.append(dir);
+        }
+
+        return result.length() > 0 ? result.toString() : "/";
     }
 }
