@@ -1,112 +1,76 @@
-"""
-Performance:
-Runtime: 19 ms, faster than 54.38% of Java online submissions for Design HashMap.
-Memory Usage: 46.2 MB, less than 54.35% of Java online submissions for Design HashMap.
-"""
+//I used an array of LinkedLists to implement the MyHashMap. 
+//I created a fixed number of buckets, each a LinkedList of Entry objects. 
+//Each Entry stored a key-value pair. The key's hash code determined the bucket index. 
+//To insert a key-value pair, I calculated the index, then searched the LinkedList in that bucket for the key. 
+//If found, I updated the value; otherwise, I added a new Entry. 
+//For retrieval and deletion, I similarly located the bucket and searched for the key.
 
-class Pair<U, V> {
-  public U first;
-  public V second;
-
-  public Pair(U first, V second) {
-    this.first = first;
-    this.second = second;
-  }
-}
-
-
-class Bucket {
-  private List<Pair<Integer, Integer>> bucket;
-
-  public Bucket() {
-    this.bucket = new LinkedList<Pair<Integer, Integer>>();
-  }
-
-  public Integer get(Integer key) {
-    for (Pair<Integer, Integer> pair : this.bucket) {
-      if (pair.first.equals(key))
-        return pair.second;
-    }
-    return -1;
-  }
-
-  public void update(Integer key, Integer value) {
-    boolean found = false;
-    for (Pair<Integer, Integer> pair : this.bucket) {
-      if (pair.first.equals(key)) {
-        pair.second = value;
-        found = true;
-      }
-    }
-    if (!found)
-      this.bucket.add(new Pair<Integer, Integer>(key, value));
-  }
-
-  public void remove(Integer key) {
-    for (Pair<Integer, Integer> pair : this.bucket) {
-      if (pair.first.equals(key)) {
-        this.bucket.remove(pair);
-        break;
-      }
-    }
-  }
-}
-
+//Time: O(n/k) for put, get, and remove. n is the number of entries, and k is the number of buckets. All time complexities are amortized O(1)
+//Amortized means that on average it's o(1), but worst case it can be n/k.
+//Space: O(n + k)
 class MyHashMap {
-  private int key_space;
-  private List<Bucket> hash_table;
+    private static final int numBuckets = 1000; // Number of buckets
+    private LinkedList<Entry>[] buckets; // Array of LinkedLists to store entries
 
-  /** Initialize your data structure here. */
-  public MyHashMap() {
-    this.key_space = 2069;
-    this.hash_table = new ArrayList<Bucket>();
-    for (int i = 0; i < this.key_space; ++i) {
-      this.hash_table.add(new Bucket());
+    private static class Entry {
+        int key; // Key of the entry
+        int value; // Value of the entry
+        Entry next; // Pointer to the next entry
+
+        Entry(int key, int value) {
+            this.key = key; // Initialize key
+            this.value = value; // Initialize value
+        }
     }
-  }
-
-  /** value will always be non-negative. */
-  public void put(int key, int value) {
-    int hash_key = key % this.key_space;
-    this.hash_table.get(hash_key).update(key, value);
-  }
-
-  /**
-   * Returns the value to which the specified key is mapped, or -1 if this map contains no mapping
-   * for the key
-   */
-  public int get(int key) {
-    int hash_key = key % this.key_space;
-    return this.hash_table.get(hash_key).get(key);
-  }
-
-  /** Removes the mapping of the specified value key if this map contains a mapping for the key */
-  public void remove(int key) {
-    int hash_key = key % this.key_space;
-    this.hash_table.get(hash_key).remove(key);
-  }
-}
-
-//another solution
-
-class MyHashMap {
-
-    int[] data;
 
     public MyHashMap() {
-        data = new int[1000001];
-        Arrays.fill(data, -1);
+        buckets = new LinkedList[numBuckets]; // Initialize the buckets array
+        for (int i = 0; i < numBuckets; i++) {
+            buckets[i] = new LinkedList<>(); // Initialize each bucket as a LinkedList
+        }
     }
 
-    public void put(int key, int val) {
-        data[key] = val;
+    public void put(int key, int value) {
+        int index = key % numBuckets; // Compute bucket index
+        LinkedList<Entry> bucket = buckets[index]; // Get the bucket
+
+        for (Entry entry : bucket) {
+            if (entry.key == key) {
+                entry.value = value; // Update the value if key is found
+                return;
+            }
+        }
+
+        bucket.add(new Entry(key, value)); // Add new entry if key is not found
     }
 
     public int get(int key) {
-        return data[key];
+        int index = key % numBuckets; // Compute bucket index
+        LinkedList<Entry> bucket = buckets[index]; // Get the bucket
+
+        for (Entry entry : bucket) {
+            if (entry.key == key) {
+                return entry.value; // Return the value if key is found
+            }
+        }
+
+        return -1; // Return -1 if key is not found
     }
-    
+
     public void remove(int key) {
-        data[key] = -1;
+        int index = key % numBuckets; // Compute bucket index
+        LinkedList<Entry> bucket = buckets[index]; // Get the bucket
+
+        Entry toRemove = null;
+        for (Entry entry : bucket) {
+            if (entry.key == key) {
+                toRemove = entry; // Find the entry to remove
+                break;
+            }
+        }
+
+        if (toRemove != null) {
+            bucket.remove(toRemove); // Remove the entry if found
+        }
     }
 }

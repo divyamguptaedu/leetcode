@@ -1,3 +1,11 @@
+//I defined a Deterministic Finite Automaton (DFA) to validate numbers based on the given rules. 
+//The DFA transitions between states based on the current character's type (digit, sign, exponent, or dot). 
+//If the DFA encounters an invalid character or reaches a state with no transition for the next character, 
+//it returns false. After processing all characters, if the DFA is in a valid final state, 
+//the number is considered valid.
+
+//Time: O(n) where n is the length of string s
+//Space: O(1)
 class Solution {
     // This is the DFA we have designed above
     private static final List<Map<String, Integer>> dfa = List.of(

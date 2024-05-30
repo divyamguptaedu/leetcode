@@ -1,25 +1,36 @@
-"
-Runtime: 31 ms, faster than 71.91% of Java online submissions for Next Greater Element II.
-Memory Usage: 54.5 MB, less than 66.31% of Java online submissions for Next Greater Element II.
-"
+//I used a stack to solve the problem of finding the next greater element in a circular array. 
+//I iterated over the array twice to simulate the circular behavior. 
+//Starting from the end of the array, I compared each element with the top of the stack. 
+//If the stack's top was less than or equal to the current element, 
+//I popped elements until finding a greater one or the stack became empty. 
+//I then assigned the next greater element to the current position. 
+//If no greater element was found, I assigned -1.
 
+//Time: O(n)
+//Space: O(n)
 class Solution {
     public int[] nextGreaterElements(int[] nums) {
-        Stack < Integer> stack = new Stack<>();
-        int size = nums.length;
-        int[] result = new int[nums.length];
-        Arrays.fill(result, -1);
-        stack.push(0);
-        for (int i = 1; i < 2*nums.length; i++) {
-            int temp = nums[i % size];
-            while(!stack.empty() && temp > nums[stack.peek()]) {
-                result[stack.peek()] = temp;
+        int[] ans = new int[nums.length]; // Result array to store next greater elements
+        Stack<Integer> stack = new Stack<Integer>(); // Stack to store elements
+        int len = nums.length; // Length of the input array
+
+        // Iterate over the array twice for circular behavior
+        for (int i = (2 * len) - 1; i >= 0; i--) {
+            // Ensure the top of the stack is greater than the current element
+            while (stack.size() != 0 && stack.peek() <= nums[i % len]) {
                 stack.pop();
             }
-            if (i < size) {
-                stack.push(i);
+            // Assign the next greater element if within the first iteration
+            if (i < len) {
+                if (stack.size() != 0) {
+                    ans[i % len] = stack.peek();
+                } else {
+                    ans[i % len] = -1;
+                }
             }
+            // Push the current element to the stack
+            stack.push(nums[i % len]);
         }
-        return result; 
+        return ans;
     }
 }

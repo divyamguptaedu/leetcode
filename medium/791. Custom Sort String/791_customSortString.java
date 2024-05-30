@@ -1,3 +1,11 @@
+//I created a frequency table for the characters in string 's'. 
+//Then, I iterated through the 'order' string and appended characters according to their frequency in 's', 
+//ensuring the custom order. After processing 'order', 
+//I appended any remaining characters from 's' that were not in 'order'. 
+//Finally, I returned the constructed string.
+
+//Time: O(n+k) where n is len of string s and k is the len of order.
+//Space: O(n)
 class Solution {
     public String customSortString(String order, String s) {
         // Create a frequency table

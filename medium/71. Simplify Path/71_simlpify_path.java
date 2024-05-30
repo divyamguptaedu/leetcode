@@ -1,3 +1,13 @@
+//I parsed the input path by splitting it with "/" as the delimiter. 
+//Then, I iterated through each component, handling ".", "..", and valid directory names accordingly. 
+//For ".", I continued; for "..", I popped from the stack if it's non-empty; for valid directory names, 
+//I added them to the stack. After processing, I reconstructed the simplified canonical path from the stack elements, 
+//ensuring proper separation with a single "/". 
+//If the resulting path is empty, I returned "/" indicating the root directory. 
+//Otherwise, I returned the constructed path.
+
+//Time: O(n)
+//Space: O(n)
 class Solution {
     public String simplifyPath(String path) {
         // Initialize a stack

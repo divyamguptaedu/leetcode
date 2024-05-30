@@ -1,68 +1,34 @@
-"""
-Performance:
-Runtime: 1 ms, faster than 97.91% of Java online submissions for Valid Word Abbreviation.
-Memory Usage: 37.3 MB, less than 78.30% of Java online submissions for Valid Word Abbreviation.
-"""
+//I implemented a method to check if a given word matches its abbreviation. 
+//I iterated through the abbreviation, 
+//maintaining a count of numeric values to skip the corresponding characters in the word. 
+//If a character was a digit, I updated the count, ensuring it wasn't zero. 
+//When encountering a non-digit, I checked if the character matched the corresponding 
+//character in the word after accounting for the skipped characters. 
+//Finally, I ensured the entire word was traversed correctly, including any remaining skipped characters.
+
+//Time: O(n+m) where n is the length of the word, m is the length of the abbreviation.
+//Space: O(1)
 
 class Solution {
     public boolean validWordAbbreviation(String word, String abbr) {
-
-        if (abbr.length() > word.length()) {
-            return false;
-        }
-        int skipLength = 0;
-        int wordIndex = 0;
-        
-        for (int i = 0; i < abbr.length(); i++) {
-            
-            char letter = abbr.charAt(i);
-            
-            if (Character.isLetter(letter)) {
-                
-                if (skipLength != 0) {
-                    wordIndex += skipLength;
-                    skipLength = 0;
-                }
-                if (wordIndex >= word.length() || word.charAt(wordIndex) != letter)
-                    return false;
-                wordIndex++;
-                
-            } else {
-                
-                int no = abbr.charAt(i) - '0';
-                if (no == 0 && skipLength == 0)
-                    return false;
-
-                skipLength = skipLength * 10 + no;
-
-            }
-        }
-        return wordIndex + skipLength == word.length();
-    }
-}
-
-//Another solution
-
-class Solution {
-    public boolean validWordAbbreviation(String word, String abbr) {
-        int total = 0;
-        int length = 0;
+        int total = 0; // Tracks the current numeric value in the abbreviation
+        int length = 0; // Tracks the current position in the word
         for (int i = 0; i < abbr.length(); i++) {
             char ch = abbr.charAt(i);
             if (Character.isDigit(ch)) {
-                if (total == 0 && ch - '0' == 0) {
+                if (total == 0 && ch - '0' == 0) { // Leading zeros are not allowed
                     return false;
                 }
-                total = total*10 + ch - '0';
+                total = total * 10 + ch - '0'; // Update the numeric value
             } else {
-                length += total;
-                total = 0;
-                if (length >= word.length() || word.charAt(length) != ch) {
+                length += total; // Move the length pointer by the numeric value
+                total = 0; // Reset the numeric value
+                if (length >= word.length() || word.charAt(length) != ch) { // Check if characters match
                     return false;
                 }
-                length++;
+                length++; // Move to the next character
             }
         }
-        return word.length() == length + total;
+        return word.length() == length + total; // Check if the entire word was traversed correctly
     }
 }
