@@ -1,27 +1,19 @@
-"""
-Performance:
-Runtime: 5 ms, faster than 94.97% of Java online submissions for Merge Intervals.
-Memory Usage: 42 MB, less than 25.01% of Java online submissions for Merge Intervals.
-"""
-
 class Solution {
     public int[][] merge(int[][] intervals) {
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
-        List<int[]> result = new ArrayList<int[]>();
-        int x = intervals[0][0];
-        int y = intervals[0][1];
-        // check the next's [0] and compare;
-        for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i][0] <= y) {
-                y = Math.max(y, intervals[i][1]);
-            } else {
-                result.add(new int[]{x, y});
-                x = intervals[i][0];
-                y = intervals[i][1];
+        LinkedList<int[]> merged = new LinkedList<>();
+        for (int[] interval : intervals) {
+            // if the list of merged intervals is empty or if the current
+            // interval does not overlap with the previous, simply append it.
+            if (merged.isEmpty() || merged.getLast()[1] < interval[0]) {
+                merged.add(interval);
+            }
+            // otherwise, there is overlap, so we merge the current and previous
+            // intervals.
+            else {
+                merged.getLast()[1] = Math.max(merged.getLast()[1], interval[1]);
             }
         }
-        // add to result as a new array;
-        result.add(new int[]{x, y});
-        return result.toArray(new int[result.size()][]);
+        return merged.toArray(new int[merged.size()][]);
     }
 }
