@@ -1,51 +1,51 @@
-"""
-Performance:
-Runtime: 18 ms, faster than 86.65% of Java online submissions for 3Sum.
-Memory Usage: 43.5 MB, less than 29.40% of Java online submissions for 3Sum.
-"""
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        for (int i = 0; i < nums.length && nums[i] <= 0; ++i) if (
+            i == 0 || nums[i - 1] != nums[i]
+        ) {
+            twoSumII(nums, i, res);
+        }
+        return res;
+    }
+
+    void twoSumII(int[] nums, int i, List<List<Integer>> res) {
+        int lo = i + 1, hi = nums.length - 1;
+        while (lo < hi) {
+            int sum = nums[i] + nums[lo] + nums[hi];
+            if (sum < 0) {
+                ++lo;
+            } else if (sum > 0) {
+                --hi;
+            } else {
+                res.add(Arrays.asList(nums[i], nums[lo++], nums[hi--]));
+                while (lo < hi && nums[lo] == nums[lo - 1]) ++lo;
+            }
+        }
+    }
+}
 
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-
-        List<List<Integer>> result = new ArrayList<>();
-        Arrays.sort(nums);
-
-        for (int i = 0; i < nums.length - 2; i++) {
-            if (i > 0 && nums[i] == nums[i - 1]) {
-                continue;
-            }
-            int j = i + 1;
-            int k = nums.length - 1;
-            List<Integer> answer;
-            while (j < k) {
-            	int sum = nums[i] + nums[j] + nums[k];
-                if (sum == 0) {
-                	
-                	answer = new ArrayList<>();
-                	answer.add(nums[i]);
-                	answer.add(nums[j]);
-                	answer.add(nums[k]);
-                	result.add(answer);
-
-                    // avoid duplicates;
-                    while (j < k && nums[j] == nums[j + 1]) {
-                        j++;
-                    }
-                    while (j < k && nums[k] == nums[k - 1]) {
-                        k--;
-                    }
-                    j++;
-                    k--;
-                // if sum < 0, then let's try next bigger element;
-                } else if (sum < 0) {
-                    j++;
-                    // if sum > 0, then let's try next smaller element;
-                } else {
-                    k--;
+        Set<List<Integer>> res = new HashSet<>();
+        Set<Integer> dups = new HashSet<>();
+        Map<Integer, Integer> seen = new HashMap<>();
+        for (int i = 0; i < nums.length; ++i) if (dups.add(nums[i])) {
+            for (int j = i + 1; j < nums.length; ++j) {
+                int complement = -nums[i] - nums[j];
+                if (seen.containsKey(complement) && seen.get(complement) == i) {
+                    List<Integer> triplet = Arrays.asList(
+                        nums[i],
+                        nums[j],
+                        complement
+                    );
+                    Collections.sort(triplet);
+                    res.add(triplet);
                 }
+                seen.put(nums[j], i);
             }
         }
-
-        return result;
+        return new ArrayList(res);
     }
 }
