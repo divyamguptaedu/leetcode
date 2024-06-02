@@ -1,51 +1,49 @@
-//I defined a Deterministic Finite Automaton (DFA) to validate numbers based on the given rules. 
-//The DFA transitions between states based on the current character's type (digit, sign, exponent, or dot). 
-//If the DFA encounters an invalid character or reaches a state with no transition for the next character, 
-//it returns false. After processing all characters, if the DFA is in a valid final state, 
-//the number is considered valid.
+//I parsed the string character by character, setting flags to track if I've seen a digit, exponent, or dot. 
+//If a digit is found, I mark it. If a sign appears and it's not right after 'e' or 'E', it's invalid. 
+//For exponent ('e' or 'E'), I check if it's seen before and if a digit was seen before it. 
+//If it's a dot, I check if it's not seen before or after an exponent. 
+//Anything else invalidates the number. 
+//Finally, if no digit was seen, it's invalid.
 
-//Time: O(n) where n is the length of string s
+//Time: O(n)
 //Space: O(1)
 class Solution {
-    // This is the DFA we have designed above
-    private static final List<Map<String, Integer>> dfa = List.of(
-            Map.of("digit", 1, "sign", 2, "dot", 3),
-            Map.of("digit", 1, "dot", 4, "exponent", 5),
-            Map.of("digit", 1, "dot", 3),
-            Map.of("digit", 4),
-            Map.of("digit", 4, "exponent", 5),
-            Map.of("sign", 6, "digit", 7),
-            Map.of("digit", 7),
-            Map.of("digit", 7));
-
-    // These are all of the valid finishing states for our DFA.
-    private static final Set<Integer> validFinalStates = Set.of(1, 4, 7);
-
     public boolean isNumber(String s) {
-        int currentState = 0;
-        String group = "";
-
+        // Flags to track if digits, exponent, or dot have been seen
+        boolean seenDigit = false;
+        boolean seenExponent = false;
+        boolean seenDot = false;
+        
+        // Parsing the string character by character
         for (int i = 0; i < s.length(); i++) {
             char curr = s.charAt(i);
             if (Character.isDigit(curr)) {
-                group = "digit";
+                // Mark if a digit is found
+                seenDigit = true;
             } else if (curr == '+' || curr == '-') {
-                group = "sign";
+                // Check if a sign is valid
+                if (i > 0 && s.charAt(i - 1) != 'e' && s.charAt(i - 1) != 'E') {
+                    return false; // Invalid sign position
+                }
             } else if (curr == 'e' || curr == 'E') {
-                group = "exponent";
+                // Check if an exponent is valid
+                if (seenExponent || !seenDigit) {
+                    return false; // Invalid exponent position or no digit before it
+                }
+                seenExponent = true; // Mark exponent as seen
+                seenDigit = false; // Reset seenDigit for the exponent part
             } else if (curr == '.') {
-                group = "dot";
+                // Check if a dot is valid
+                if (seenDot || seenExponent) {
+                    return false; // Invalid dot position or after an exponent
+                }
+                seenDot = true; // Mark dot as seen
             } else {
-                return false;
+                return false; // Invalid character
             }
-
-            if (!dfa.get(currentState).containsKey(group)) {
-                return false;
-            }
-
-            currentState = dfa.get(currentState).get(group);
         }
-
-        return validFinalStates.contains(currentState);
+        
+        // Return true if at least one digit is seen
+        return seenDigit;
     }
 }
