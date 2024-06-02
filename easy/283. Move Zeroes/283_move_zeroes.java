@@ -1,55 +1,48 @@
-"""
-Performance:
-Runtime: 6 ms, faster than 7.49% of Java online submissions for Move Zeroes.
-Memory Usage: 39 MB, less than 80.84% of Java online submissions for Move Zeroes.
-"""
+//I iterated through the array with two pointers, i and j. 
+//Pointer i traversed the array, and j kept track of the position to place the next 
+//non-zero element. When I encountered a zero, I marked its position with j. 
+//When a non-zero element was found, I swapped it with the element at j and incremented j. 
+//This ensured that all zeros were moved to the end while maintaining the order of non-zero elements.
 
+//Time: O(n)
+//Space: O(1)
 class Solution {
-
     public void moveZeroes(int[] nums) {
-        // int j will not be changed if there's a zero to move.
-        int j = 0;
-        // loop runs num.length - 1 times.
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[j] == 0) {
-                nums = takeZeroToEnd(j, nums);
-            } else {
+        int n = nums.length;
+        int j = -1; // Pointer to track the position to place the next non-zero element
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == 0 && j == -1) {
+                // Mark the first occurrence of zero
+                j = i;
+            } else if (nums[i] != 0 && j != -1) {
+                // Swap the non-zero element with the element at position j
+                nums[j] = nums[i];
+                nums[i] = 0;
                 j++;
             }
         }
     }
-    
-    // helper function to move zero at index to end and return updated array.
-    private int[] takeZeroToEnd(int index, int[] nums) {
-        int temp;
-        while (index < nums.length - 1) {
-            temp = nums[index + 1];
-            nums[index] = temp;
-            index++;
-        }
-        nums[index] = 0;
-        return nums;
-    }
 }
 
-//another solution
+//Reduce number of operations
+//I iterated through the array with two pointers: lastNonZeroFoundAt to track the position 
+//for the next non-zero element, and cur to traverse the array. 
+//When I encountered a non-zero element, I swapped it with the element at lastNonZeroFoundAt 
+//and incremented lastNonZeroFoundAt. This ensured all non-zero elements maintained their order, 
+//and all zeroes were moved to the end.
 
-class Solution {
+public class Solution {
     public void moveZeroes(int[] nums) {
-        if (nums.length == 1) {
-            return;
-        }
-        int digitIndex = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != 0) {
-                nums[digitIndex] = nums[i];
-                digitIndex++;
+        int lastNonZeroFoundAt = 0;
+        for (int cur = 0; cur < nums.length; cur++) {
+            if (nums[cur] != 0) {
+                // Swap the current element with the element at lastNonZeroFoundAt
+                int temp = nums[lastNonZeroFoundAt];
+                nums[lastNonZeroFoundAt] = nums[cur];
+                nums[cur] = temp;
+                lastNonZeroFoundAt++;
             }
-        }
-
-        while(digitIndex<nums.length){
-            nums[digitIndex] = 0;
-            digitIndex++;
         }
     }
 }

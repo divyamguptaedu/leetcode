@@ -1,39 +1,44 @@
+//I iterated through the string while keeping track of unmatched opening parentheses using 
+//countBraces. For every closing parenthesis encountered, I checked if it was followed by 
+//another closing parenthesis. If it was, I tried to balance it with an unmatched opening 
+//parenthesis. If there was no unmatched opening parenthesis, I increased the count of needed 
+//insertions. If a single closing parenthesis was found, I also handled the necessary insertions. 
+//At the end, I balanced any remaining unmatched opening parentheses by adding two closing 
+//parentheses for each.
+
+//Time: O(n)
+//Space: O(1)
 class Solution {
     public int minInsertions(String s) {
-        int countBraces = 0;
-        int ans = 0;
+        int countBraces = 0;  // Tracks unmatched opening parentheses
+        int ans = 0;  // Tracks the number of insertions needed
+        
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {
-                countBraces += 1;
+                countBraces += 1;  // Increment for each opening parenthesis
             } else {
-                // Case 1-> Whenever a closing bracket is encountered, one case can be it is
-                // followed by another closing bracket and preceeded/not preceeded by an opening
-                // bracket(handled in this following if block)
+                // Check if next character is also a closing parenthesis
                 if (i + 1 < s.length() && s.charAt(i + 1) == ')') {
                     if (countBraces > 0) {
-                        countBraces--; // It's balanced only.. Just decrement the opening bracket
+                        countBraces--;  // Balance with an opening parenthesis
                     } else {
-                        // This is the case for --> "))" It means we need to add 1 opening bracket -->
-                        // "("
-                        ans += 1;
+                        ans += 1;  // Insert an opening parenthesis to balance
                     }
-                    i++;
+                    i++;  // Skip the next closing parenthesis
                 } else {
-                    // Case 2 -> Whenever a closing bracket is encountered, another case can be it
-                    // is not followed by another closing bracket and preceeded/not preceeded by an
-                    // opening bracket(handled in this following if block)
+                    // Single closing parenthesis found
                     if (countBraces > 0) {
-                        countBraces--;
-                        ans += 1;// Add the last closing bracket to balance
+                        countBraces--;  // Balance with an opening parenthesis
+                        ans += 1;  // Insert one more closing parenthesis
                     } else {
-
-                        ans += 2;// Add the last closing bracket and first opening bracket(eg.test case-> ")")
+                        ans += 2;  // Insert an opening and a closing parenthesis
                     }
                 }
                 // Finally we should return the 2times the number of countBraces(opening
                 // brackets remaining in excess)
             }
         }
+        // Add two closing parentheses for each unmatched opening parenthesis
         return ans + countBraces * 2;
     }
 }
