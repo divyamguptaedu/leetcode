@@ -1,28 +1,37 @@
+//I iterate through the array, creating a copy and sorting it to determine the ranks.
+//I use a HashMap to store each unique element and its corresponding rank. 
+//Then, I iterate through the original array, assigning ranks based on the HashMap values.
+//Finally, I return the rank array. 
+
+//Time: O(nlogn)
+//Space: O(n)
 class Solution {
     public int[] arrayRankTransform(int[] arr) {
-        int[] result = arr.clone();
-        Map<Integer, Integer> map = new HashMap<>();
-        Arrays.sort(arr);
-        int rank = 1;
+        int n = arr.length;
+        int[] sortedArr = new int[n];
+        int[] ranks = new int[n];
+        HashMap<Integer, Integer> rankMap = new HashMap<>();
 
-        if (arr.length == 0) {
-            return arr;
+        // Create a copy of the original array and sort it
+        for (int i = 0; i < n; i++) {
+            sortedArr[i] = arr[i];
         }
-        
-        int prev = arr[0];
-        
-        for (int num : arr) {
-            if (prev != num) {
-                rank++;
+        Arrays.sort(sortedArr);
+
+        int currentRank = 1; // Initialize the rank
+        if (n >= 1)
+            rankMap.put(sortedArr[0], currentRank); // Assign rank to the smallest element
+        for (int i = 1; i < n; i++) {
+            if (sortedArr[i] > sortedArr[i - 1]) { // Increment rank for each unique element
+                currentRank++;
+                rankMap.put(sortedArr[i], currentRank);
             }
-            map.putIfAbsent(num, rank);
-            prev = num;
         }
-        
-        for (int i = 0; i < result.length; i++) {
-            result[i] = map.get(result[i]);
+
+        // Assign ranks to original elements based on rankMap
+        for (int i = 0; i < n; i++) {
+            ranks[i] = rankMap.get(arr[i]);
         }
-        
-        return result;
+        return ranks;
     }
 }
