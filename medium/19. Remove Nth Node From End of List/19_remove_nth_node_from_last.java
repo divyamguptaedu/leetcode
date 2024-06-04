@@ -1,9 +1,12 @@
-"""
-Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Remove Nth Node From End of List.
-Memory Usage: 39.5 MB, less than 5.42% of Java online submissions for Remove Nth Node From End of List.
-"""
+//I used a two-pointer technique to remove the nth node from the end of a linked list. 
+//I created a dummy node to handle edge cases where the head needs to be removed. 
+//I positioned the first pointer n+1 nodes ahead of the second pointer, 
+//then moved both pointers until the first reached the end of the list. 
+//This positioned the second pointer just before the node to be removed. 
+//Finally, I adjusted the pointers to skip the target node.
 
+//Time: O(n)
+//Space: O(1)
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -16,29 +19,29 @@ Memory Usage: 39.5 MB, less than 5.42% of Java online submissions for Remove Nth
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-         if (head == null) {
-         	return null;
-         }
-         // add a temp node in the front;
-         ListNode temp = new ListNode(101);
-         temp.next = head;
-
-         // have two pointers at this temp node;
-         ListNode pointerA = temp;
-         ListNode pointerB = temp;
-
-         // move the second pointer n steps ahead;
-         for (int i = 0; i < n; i++) {
-         	pointerB = pointerB.next;
-         }
-
-         // move both pointers until the second one reaches the end;
-         while (pointerB.next != null) {
-         	pointerA = pointerA.next;
-         	pointerB = pointerB.next;
-         }
-         // now the first pointer is just behind the one to be removed;
-         pointerA.next = pointerA.next.next;
-         return temp.next;
+        // Create a dummy node that points to the head
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        
+        // Initialize two pointers, first and second, at the dummy node
+        ListNode first = dummy;
+        ListNode second = dummy;
+        
+        // Move the first pointer so there is a gap of n nodes between first and second
+        for (int i = 1; i <= n + 1; i++) {
+            first = first.next;
+        }
+        
+        // Move both pointers until first reaches the end of the list
+        while (first != null) {
+            first = first.next;
+            second = second.next;
+        }
+        
+        // Skip the nth node from the end
+        second.next = second.next.next;
+        
+        // Return the head of the modified list
+        return dummy.next;
     }
 }
