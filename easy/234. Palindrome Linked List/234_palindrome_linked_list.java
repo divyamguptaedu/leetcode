@@ -1,88 +1,73 @@
-"""
-Performance:
-Runtime: 6 ms, faster than 64.70% of Java online submissions for Palindrome Linked List.
-Memory Usage: 51.3 MB, less than 52.00% of Java online submissions for Palindrome Linked List.
-"""
+//My approach starts by finding the end of the first half of the linked list and
+//then reverses the second half. 
+//After that, I iterate through both halves, comparing the values of corresponding nodes.
+//If any values don't match, I set the result to false. 
+
+//Ask the interviewer if we need to restore the list back?
+
+//Time: n
+//Space: constant
 
 /**
  * Definition for singly-linked list.
  * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
-class Solution {
-    public boolean isPalindrome(ListNode head) {
-        // convert to array
-        ArrayList<Integer> array = new ArrayList<>();
-        while (head != null) {
-            array.add(head.val);
-            head = head.next;
-        }
-
-        // use pointers to check the pattern
-        int size = array.size();
-        int i = 0;
-        int j = size - 1;
-        while (i <= j) {
-            if (array.get(i) != array.get(j)) {
-                return false;
-            } else {
-                i++;
-                j--;
-            }
-        }
-        return true;
-    }
-}
-
-//another solution
-
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * int val;
+ * ListNode next;
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
 
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        ListNode middle = head;
-        ListNode end = head;
-        while (end != null && end.next != null) {
-            middle = middle.next;
-            end = end.next.next;
-        } 
-        ListNode temp = reverseList(middle);
-        while (temp != null && head != null) {
-            if (temp.val != head.val) {
-                return false;
-            }
-            temp = temp.next;
-            head = head.next;
+        if (head == null) {
+            return true;
         }
-        return true;
+        
+        // Find the end of the first half and reverse the second half.
+        ListNode firstHalfEnd = findEndOfFirstHalf(head);
+        ListNode secondHalfStart = reverseList(firstHalfEnd.next);
+
+        // Check for palindrome.
+        ListNode p1 = head;
+        ListNode p2 = secondHalfStart;
+        boolean result = true;
+        while (result && p2 != null) {
+            if (p1.val != p2.val) {
+                result = false;
+            }
+            p1 = p1.next;
+            p2 = p2.next;
+        }        
+
+        //in case we need to restore the list
+        //firstHalfEnd.next = reverseList(secondHalfStart);
+
+        return result;
     }
 
-    public ListNode reverseList(ListNode head) {        
+    // Function to reverse a linked list.
+    private ListNode reverseList(ListNode head) {
         ListNode prev = null;
         ListNode current = head;
-        ListNode next = null;
         while (current != null) {
-            next = current.next;
+            ListNode nextTemp = current.next;
             current.next = prev;
             prev = current;
-            current = next;
+            current = nextTemp;
         }
-        head = prev;
-        return head;
+        return prev;
+    }
+
+    // Function to find the end of the first half of the linked list.
+    private ListNode findEndOfFirstHalf(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast.next != null && fast.next.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
     }
 }
-
