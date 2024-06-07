@@ -1,92 +1,79 @@
-//I used a combination of a HashMap and a doubly linked list to implement the LRUCache. 
-//The HashMap stored key-node pairs for O(1) access, while the doubly linked list maintained the order of usage, 
-//with the head being the most recently used and the tail the least. 
-//For the get method, I moved the accessed node to the head. 
-//For put, I added new nodes to the head and removed the tail if the cache exceeded capacity.
+//I implemented an LRU cache using a hashmap to store key-node mappings and
+//a doubly linked list to maintain the order of recently used nodes. 
+//Each node in the linked list contains a key-value pair. 
+//When accessing a key, I move its corresponding node to the end of the list
+//to indicate it's the most recently used. 
+//When adding a new key-value pair, I add it to the end of the list and remove
+//the least recently used node if the capacity is exceeded.
+//This approach ensures constant time complexity for both get and put operations.
 
-//Time: O(1) for all methods.
-//Space: O(capacity)
-class Node {
-    public int key; // Key of the node
-    public int val; // Value of the node
-    public Node next; // Pointer to the next node
-    public Node prev; // Pointer to the previous node
+//Time: constant for all operations
+//Space: n where n is the capacity
+class ListNode {
+    int key;
+    int val;
+    ListNode next;
+    ListNode prev;
 
-    public Node(int key, int val) {
-        this.key = key; // Initialize key
-        this.val = val; // Initialize value
-        next = null;
-        prev = null;
+    public ListNode(int key, int val) {
+        this.key = key;
+        this.val = val;
     }
 }
 
 class LRUCache {
-    private Map<Integer, Node> m; // HashMap for key-node pairs
-    private Node head; // Most recently used node
-    private Node tail; // Least recently used node
-    private int size; // Capacity of the cache
+    int capacity;
+    Map<Integer, ListNode> keyToNode; // Map to store key-node mappings
+    ListNode head; // Dummy head node of the linked list
+    ListNode tail; // Dummy tail node of the linked list
 
     public LRUCache(int capacity) {
-        size = capacity; // Initialize capacity
-        m = new HashMap<>(); // Initialize HashMap
-        head = new Node(-1, -1); // Dummy head node
-        tail = new Node(-1, -1); // Dummy tail node
-        head.next = tail; // Link head and tail
-        tail.prev = head;
-    }
-
-    private void deleteNode(Node p) {
-        Node pre = p.prev; // Node before the target node
-        Node nex = p.next; // Node after the target node
-        pre.next = nex; // Bypass the target node
-        nex.prev = pre;
-    }
-
-    private void addNode(Node newnode) {
-        Node temp = head.next; // Node after the head
-        head.next = newnode; // Insert new node after head
-        newnode.prev = head;
-        newnode.next = temp;
-        temp.prev = newnode;
+        this.capacity = capacity;
+        keyToNode = new HashMap<>();
+        head = new ListNode(-1, -1); // Initialize dummy head node
+        tail = new ListNode(-1, -1); // Initialize dummy tail node
+        head.next = tail; // Connect head to tail
+        tail.prev = head; // Connect tail to head
     }
 
     public int get(int key) {
-        if (!m.containsKey(key)) {
-            return -1; // Return -1 if key is not present
+        if (!keyToNode.containsKey(key)) {
+            return -1; // Key not found in the cache
         }
 
-        Node p = m.get(key); // Retrieve the node
-        deleteNode(p); // Move the node to the head
-        addNode(p);
-        m.put(key, head.next); // Update the HashMap
-        return head.next.val; // Return the value
+        ListNode node = keyToNode.get(key); // Retrieve node from hashmap
+        remove(node); // Remove node from its current position
+        add(node); // Add node to the end of the list to mark it as the most recently used
+        return node.val; // Return the value associated with the key
     }
 
     public void put(int key, int value) {
-        if (m.containsKey(key)) {
-            Node c = m.get(key); // Retrieve the node
-            deleteNode(c); // Move the node to the head
-            c.val = value; // Update the value
-            addNode(c);
-            m.put(key, head.next); // Update the HashMap
-        } else {
-            if (m.size() == size) {
-                Node prev = tail.prev; // Least recently used node
-                deleteNode(prev); // Remove it from the linked list
-                Node l = new Node(key, value); // Create a new node
-                addNode(l); // Add the new node to the head
-                m.remove(prev.key); // Remove it from the HashMap
-                m.put(key, head.next); // Add the new node to the HashMap
-            } else {
-                Node l = new Node(key, value); // Create a new node
-                addNode(l); // Add the new node to the head
-                m.put(key, head.next); // Add the new node to the HashMap
-            }
+        if (keyToNode.containsKey(key)) {
+            ListNode oldNode = keyToNode.get(key); // Retrieve the existing node
+            remove(oldNode); // Remove the node from its current position
+        }
+
+        ListNode node = new ListNode(key, value); // Create a new node
+        keyToNode.put(key, node); // Update the key-node mapping
+        add(node); // Add the node to the end of the list
+
+        if (keyToNode.size() > capacity) {
+            ListNode nodeToDelete = head.next; // Get the least recently used node
+            remove(nodeToDelete); // Remove the node from the list
+            keyToNode.remove(nodeToDelete.key); // Remove the key from the hashmap
         }
     }
-}
 
-// Example usage:
-// LRUCache cache = new LRUCache(capacity);
-// int value = cache.get(key);
-// cache.put(key, value);
+    public void add(ListNode node) {
+        ListNode previousEnd = tail.prev; // Get the node before the tail
+        previousEnd.next = node; // Connect the previous end to the new node
+        node.prev = previousEnd; // Set the previous node of the new node
+        node.next = tail; // Connect the new node to the tail
+        tail.prev = node; // Set the previous node of the tail to the new node
+    }
+
+    public void remove(ListNode node) {
+        node.prev.next = node.next; // Connect the previous node to the next node
+        node.next.prev = node.prev; // Connect the next node to the previous node
+    }
+}
