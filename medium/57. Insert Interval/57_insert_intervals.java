@@ -1,26 +1,43 @@
-"""
-Performance:
-Runtime: 1 ms, faster than 99.35% of Java online submissions for Insert Interval.
-Memory Usage: 41.3 MB, less than 70.32% of Java online submissions for Insert Interval.
+//I approached the problem by iterating through the list of intervals
+//and categorizing them into three steps: intervals that come before the new interval,
+//intervals that overlap with the new interval,
+//and intervals that come after the new interval. 
+//I first added all non-overlapping intervals that end before the new interval begins, 
+//then merged all overlapping intervals, and 
+//finally added the remaining non-overlapping intervals. 
+//This ensured that the merged intervals remained sorted and non-overlapping.
 
-"""
-
+//Time: n
+//Space: constant
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        ArrayList<int[]> result = new ArrayList<>();
-        for (int[] in : intervals) {         
-            if (in[1] < newInterval[0]) {     
-                result.add(in);
-            } else if (newInterval[1] < in[0]) {
-                result.add(newInterval);
-                newInterval = in;
-            } else {    
-                newInterval[0] = Math.min(in[0], newInterval[0]);
-                newInterval[1] = Math.max(in[1], newInterval[1]);
-            } 
+        int n = intervals.length; // Number of existing intervals
+        int i = 0; // Index to iterate through intervals
+        List<int[]> mergedIntervals = new ArrayList<>(); // Result list to store merged intervals
 
-        } 
-        result.add(newInterval);
-        return result.toArray(new int[result.size()][2]);
+        // Step 1: Add all intervals that end before the new interval starts
+        while (i < n && intervals[i][1] < newInterval[0]) {
+            mergedIntervals.add(intervals[i]);
+            i++;
+        }
+
+        // Step 2: Merge overlapping intervals with the new interval
+        while (i < n && intervals[i][0] <= newInterval[1]) {
+            // Update the start and end of the new interval to include the current interval
+            newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
+            newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
+            i++;
+        }
+        // Add the merged interval
+        mergedIntervals.add(newInterval);
+
+        // Step 3: Add all intervals that start after the new interval ends
+        while (i < n) {
+            mergedIntervals.add(intervals[i]);
+            i++;
+        }
+
+        // Convert the result list to a 2D array and return it
+        return mergedIntervals.toArray(new int[mergedIntervals.size()][]);
     }
 }
