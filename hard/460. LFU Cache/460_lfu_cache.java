@@ -1,136 +1,79 @@
-"
-Performance
-Runtime: 48 ms, faster than 91.80% of Java online submissions for LFU Cache.
-Memory Usage: 115.2 MB, less than 97.45% of Java online submissions for LFU Cache.
-"
+//I maintain two data structures: a HashMap to store key-value pairs and
+//their corresponding frequencies, and another HashMap to store frequencies mapped
+//to sets of keys with the same frequency. Upon a 'get' operation, 
+//I update the frequency and reorder the keys accordingly.
+//For a 'put' operation, I insert a new key-value pair while ensuring the cache's
+//capacity and maintaining the least frequently used key's frequency.
+//If the cache reaches its capacity, I remove the least frequently used key.
 
+//Time: constant for all methods
+//Space: capacity
 class LFUCache {
-    class LFUNode {
-        LFUNode prev;
-        LFUNode next;
-        int freq;
-        int key;
-        int val;
-        
-        public LFUNode(int key, int val) {
-            this.prev = null;
-            this.next = null;
-            this.freq = 1;
-            this.val = val;
-            this.key = key;
-        }
-        
-        public void increaseFreq() {
-            this.freq++;
-        }
-        
-        public void updateValue(int val) {
-            this.val = val;
-        }
-    }
-
-    HashMap<Integer, LFUNode> keyValues;
-    HashMap<Integer, LFUNode> freqValues;
-    int lowestFrequency;
+    // Key: original key, Value: frequency and original value
+    Map<Integer, Pair<Integer, Integer>> cache;
+    // Key: frequency, Value: Keys with the same frequency
+    Map<Integer, LinkedHashSet<Integer>> frequencies;
+    // Minimum frequency in the cache
+    int minFrequency;
+    // Capacity of the cache
     int capacity;
-    int size;
 
+    // Method to insert a new key-value pair with its frequency
+    private void insert(int key, int frequency, int value) {
+        cache.put(key, new Pair<>(frequency, value));
+        frequencies.putIfAbsent(frequency, new LinkedHashSet<>());
+        frequencies.get(frequency).add(key);
+    }
+
+    // Constructor to initialize the cache with the given capacity
     public LFUCache(int capacity) {
+        cache = new HashMap<>();
+        frequencies = new HashMap<>();
+        minFrequency = 0;
         this.capacity = capacity;
-        size = 0;
-        lowestFrequency = -1;
-        keyValues = new HashMap<Integer, LFUNode>();
-        freqValues = new HashMap<Integer, LFUNode>();
     }
-    
+
+    // Method to get the value of the given key from the cache
     public int get(int key) {
-        if (!keyValues.containsKey(key))
+        Pair<Integer, Integer> frequencyAndValue = cache.get(key);
+        if (frequencyAndValue == null) {
             return -1;
-        
-        LFUNode node = keyValues.get(key);
-		// we need to increase the frequency of the key and hence move it from old frequency doubly linked list to new higher frequency doubly linked list.
-        removeNode(node);
-        node.increaseFreq();
-        addNode(node);
-        
-        return node.val;
-    }
-    
-    public void put(int key, int value) {
-        if (capacity == 0)
-            return;
-
-        LFUNode node;
-        
-        if (keyValues.containsKey(key)) {
-            node = keyValues.get(key);
-            removeNode(node);
-            node.increaseFreq();
-            node.updateValue(value);
-        } else {
-            if (size == capacity)
-                removeLeastFrequentElement();
-            else
-                size++;
-            
-            node = new LFUNode(key, value);
-            // Whenever a new node is added, it's frequency will be 1 and it will be the new lowest frequency.
-            lowestFrequency = 1;
         }
-        
-        addNode(node);
-    }
-    
-    private void removeNode(LFUNode node) {
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-        node.next = null;
-        node.prev = null;
-    }
-    
-    private void addNode(LFUNode node) {
-        keyValues.put(node.key, node);
-        
-        LFUNode start;
-        
-        if (!freqValues.containsKey(node.freq)) {
-            start = new LFUNode(-10, -10);
-            LFUNode end = new LFUNode(-10, -10);
-            start.next = end;
-            end.prev = start;
-            
-            // any new node will go and sit next to start. When we need to remove the oldest node at any given frequency, we will need to traverse the full list.
-            // To avoid this traverse, we can point start.prev to end which will allow us to directly jump at the end of the list in O(1) time and
-			// get the node we need to remove as end.prev
-            start.prev = end;
-
-            freqValues.put(node.freq, start);
-        } else  {
-            start = freqValues.get(node.freq);
-        }
-        
-        node.next = start.next;
-        start.next = node;
-        node.prev = start;
-        node.next.prev = node;
-        
-        // If the previous frequency of this node was the lowestFrequency, it might be possible that we removed the last node of that frequency.
-        // In this case, we need to update the lowestFrequency with current frequency of node
-        int prevFreq = node.freq - 1;
-        if (size == capacity && prevFreq == lowestFrequency) {
-            start = freqValues.get(prevFreq);
-
-            // only for the last node in the list, the "next" will be set to null. We can use it to check if there are any value at this frequency
-            if (start.next.next == null) {
-                lowestFrequency = node.freq;
+        int frequency = frequencyAndValue.getKey();
+        Set<Integer> keys = frequencies.get(frequency);
+        keys.remove(key);
+        if (keys.isEmpty()) {
+            frequencies.remove(frequency);
+            if (minFrequency == frequency) {
+                minFrequency++;
             }
         }
+        int value = frequencyAndValue.getValue();
+        insert(key, frequency + 1, value);
+        return value;
     }
-    
-    private void removeLeastFrequentElement() {
-        LFUNode start = freqValues.get(lowestFrequency);
-        LFUNode nodeToRemove = start.prev.prev;
-        removeNode(nodeToRemove);
-        keyValues.remove(nodeToRemove.key);
+
+    // Method to update or insert a key-value pair into the cache
+    public void put(int key, int value) {
+        if (capacity <= 0) {
+            return;
+        }
+        Pair<Integer, Integer> frequencyAndValue = cache.get(key);
+        if (frequencyAndValue != null) {
+            cache.put(key, new Pair<>(frequencyAndValue.getKey(), value));
+            get(key);
+            return;
+        }
+        if (capacity == cache.size()) {
+            Set<Integer> keys = frequencies.get(minFrequency);
+            int keyToDelete = keys.iterator().next();
+            cache.remove(keyToDelete);
+            keys.remove(keyToDelete);
+            if (keys.isEmpty()) {
+                frequencies.remove(minFrequency);
+            }
+        }
+        minFrequency = 1;
+        insert(key, 1, value);
     }
 }

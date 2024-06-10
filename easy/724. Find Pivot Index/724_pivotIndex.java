@@ -1,46 +1,29 @@
-"
-Performance:
-Runtime: 15 ms, faster than 83.90% of Java online submissions for Max Stack.
-Memory Usage: 39.9 MB, less than 93.69% of Java online submissions for Max Stack.
-"
+// I first calculate the total sum of all elements in the array.
+//Then, I iterate through the array, keeping track of the left sum. 
+//At each index, I check if the left sum equals the total sum minus the left sum minus
+//the current element. If so, I return the index. If no such index is found, I return -1.
 
-class MaxStack {
-
-    private List<Integer> stack; 
-    private Queue<Integer> queue; 
-
-    /** initialize your data structure here. */
-    public MaxStack() {
-        stack = new ArrayList<>();
-        queue = new PriorityQueue<>(Collections.reverseOrder());
-    }
-    
-    public void push(int x) {
-        stack.add(x);
-        queue.add(x);
-    }
-    
-    public int pop() {
-        int value = stack.remove(stack.size() - 1);
-        queue.remove(value);
-        return value;
-    }
-    
-    public int top() {
-        return stack.get(stack.size()-1);
-    }
-    
-    public int peekMax() {
-        return queue.peek();
-    }
-    
-    public int popMax() {
-        int value = queue.poll();
-        for (int i = stack.size()-1 ; i > 0; i--) {
-            if(value == stack.get(i)) {
-                return stack.remove(i);
-            }
+//Time: n
+//Space: 1
+class Solution {
+    public int pivotIndex(int[] nums) {
+        int totalSum = 0;
+        int leftSum = 0;
+        
+        // Calculate total sum of all elements in the array
+        for (int num : nums) {
+            totalSum += num;
         }
-        return value;
+        
+        // Iterate through the array to find pivot index
+        for (int i = 0; i < nums.length; ++i) {
+            // Check if left sum equals the sum of elements to the right
+            if (leftSum == totalSum - leftSum - nums[i]) {
+                return i; // Return the pivot index
+            }
+            leftSum += nums[i]; // Update left sum
+        }
+        
+        return -1; // Return -1 if no pivot index is found
     }
 }

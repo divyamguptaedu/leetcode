@@ -1,17 +1,23 @@
-"""
-Performance:
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Remove Element.
-Memory Usage: 42.2 MB, less than 63.84% of Java online submissions for Remove Element.
-"""
+//I iterate through the sorted array, skipping duplicates. 
+//If the current element is different from the previous one, 
+//I store it at the next available index in the array, 
+//effectively removing duplicates in-place. 
+//I maintain an insert index to track the position of the next unique element. 
+//Finally, I return the count of unique elements, which is equivalent to the insert index.
+
+//Time: n
+//Space: constant
 class Solution {
-    public int removeElement(int[] nums, int val) {
-        int result = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != val) {
-                nums[result] = nums[i];
-                result++;
+    public int removeDuplicates(int[] nums) {
+        int insertIndex = 1; // Index to store the next unique element
+        for (int i = 1; i < nums.length; i++) {
+            // Skip duplicates
+            if (nums[i - 1] != nums[i]) {
+                // Store the unique element at insertIndex and increment it
+                nums[insertIndex] = nums[i];
+                insertIndex++;
             }
         }
-        return result;
+        return insertIndex; // Return count of unique elements
     }
 }
