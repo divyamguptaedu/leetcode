@@ -1,27 +1,36 @@
-"""
-Performance:
-Runtime: 15 ms, faster than 25.30% of Java online submissions for 3Sum Closest.
-Memory Usage: 43.1 MB, less than 47.72% of Java online submissions for 3Sum Closest.
-"""
+//I sorted the input array and iterated through it. 
+//Within each iteration, I used two pointers to find the closest sum to the target
+//by adjusting the pointers based on the comparison of the current sum with the target. 
+//I maintained the minimum difference between the current sum and the target. 
+//By continually updating this difference, I found the closest sum. 
+//Finally, I returned the sum closest to the target.
 
+//Time: n^2
+//Space: logn for sorting.
 class Solution {
     public int threeSumClosest(int[] nums, int target) {
-        int initialSum = nums[0] + nums[1] + nums[2];
+        int closestDifference = Integer.MAX_VALUE;
+        int size = nums.length;
         Arrays.sort(nums);
-        for (int i = 0; i < nums.length; i++) {
-            int left = i + 1;
-            int right = nums.length - 1;
-            while (left < right) {
-                int finalSum = nums[i] + nums[left] + nums[right];
-                if (finalSum > target)
-                    right--;
-                else
-                    left++;
-                if (Math.abs(finalSum - target) < Math.abs(initialSum - target)) {
-                    initialSum = finalSum;
+        
+        for (int i = 0; i < size && closestDifference != 0; ++i) {
+            int leftPointer = i + 1;
+            int rightPointer = size - 1;
+            
+            while (leftPointer < rightPointer) {
+                int sum = nums[i] + nums[leftPointer] + nums[rightPointer];
+                
+                if (Math.abs(target - sum) < Math.abs(closestDifference)) {
+                    closestDifference = target - sum;
+                }
+                
+                if (sum < target) {
+                    ++leftPointer;
+                } else {
+                    --rightPointer;
                 }
             }
         }
-        return initialSum;
+        return target - closestDifference;
     }
 }
