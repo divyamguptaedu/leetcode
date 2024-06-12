@@ -1,33 +1,34 @@
-"""
-Performance:
-Runtime: 5 ms, faster than 45.22% of Java online submissions for Partition Labels.
-Memory Usage: 39.1 MB, less than 31.93% of Java online submissions for Partition Labels.
-"""
+//I calculated the last occurrence of each character in the string and
+//stored it in an array. Then, I used two pointers to track the current
+//partition's start and end. As I iterated through the string, 
+// updated the end pointer to the farthest last occurrence of the current character. 
+//When I reached the end pointer, I added the length of the current partition to the 
+//result list and moved the start pointer to the next character.
 
+//Time: n
+//Space: constant
 class Solution {
     public List<Integer> partitionLabels(String s) {
-        ArrayList<Integer> array = new ArrayList<>();
-
-        // create a hashmap with stores the last index of each element/
-        HashMap<Character, Integer> valueMap = new HashMap<>();
-        for (int i = 0; i < s.length(); i++) {
-            valueMap.put(s.charAt(i), i);
-        }
-        int start = 0;
-        int end = 0;
-        int lastIndex;
-
-        // finds the lastIndex of the start and updated end based on elements found in between. 
-        for (int i = 0; i < s.length(); i++) {
-            lastIndex = valueMap.get(s.charAt(i));
-            if (lastIndex > end) {
-                end = lastIndex;
-            }
-            if (i == end) {
-                array.add(end - start + 1);
-                start = i + 1;
+        // Array to store the last occurrence of each character
+        int[] lastOccurrence = new int[26];
+        // Populate the array with the last occurrence index of each character in the string
+        for (int i = 0; i < s.length(); ++i)
+            lastOccurrence[s.charAt(i) - 'a'] = i;
+        
+        int maxLastIndex = 0, partitionStartIndex = 0;
+        List<Integer> partitionSizes = new ArrayList<>();
+        
+        for (int i = 0; i < s.length(); ++i) {
+            // Update the maximum last occurrence index seen so far
+            maxLastIndex = Math.max(maxLastIndex, lastOccurrence[s.charAt(i) - 'a']);
+            // When the current index matches the maximum last index, a partition ends
+            if (i == maxLastIndex) {
+                // Add the size of the current partition to the result list
+                partitionSizes.add(i - partitionStartIndex + 1);
+                // Update the start index for the next partition
+                partitionStartIndex = i + 1;
             }
         }
-        return array;
+        return partitionSizes;
     }
 }
