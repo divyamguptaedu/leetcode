@@ -1,8 +1,15 @@
-"""
-Performance:
-Runtime: 7 ms, faster than 26.08% of Java online submissions for Intersection of Two Linked Lists.
-Memory Usage: 42.6 MB, less than 28.98% of Java online submissions for Intersection of Two Linked Lists.
-"""
+//To find the intersection of two linked lists, I used a two-pointer approach. 
+//I initialized two pointers at the heads of the two lists and traversed through them. 
+//When each pointer reached the end of a list, 
+//I redirected it to the head of the other list. 
+//If the lists intersect, the pointers eventually met at the intersection node. 
+//If they didn’t intersect, both pointers reached the end (null) simultaneously. 
+//This approach ensured that both pointers traveled the same total distance, 
+//thus meeting at the intersection or end at the same time.
+
+//Time: n+m
+//Space: constant
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -14,27 +21,25 @@ Memory Usage: 42.6 MB, less than 28.98% of Java online submissions for Intersect
  *     }
  * }
  */
-public class Solution {
+class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        // Initialize two pointers to traverse the lists
+        ListNode pointerA = headA;
+        ListNode pointerB = headB;
 
-        // add all nodes of first list to a hashmap
-        HashMap<ListNode, Integer> valueMap = new HashMap<>();
-        int value;
-        while (headA != null) {
-            valueMap.put(headA, 1);
-            headA = headA.next;
+        // Traverse the lists until the pointers meet
+        while (pointerA != pointerB) {
+            // Move pointerA to the head of listB if it reaches the end of listA, otherwise move to the next node
+            pointerA = (pointerA == null) ? headB : pointerA.next;
+            // Move pointerB to the head of listA if it reaches the end of listB, otherwise move to the next node
+            pointerB = (pointerB == null) ? headA : pointerB.next;
         }
 
-        // check if any node of the second list is present in the hashmap
-        while (headB != null) {
-            if (valueMap.get(headB) != null) {
-                value = valueMap.get(headB);
-                if (value == 1) {
-                    return headB;
-                }
-            }
-            headB = headB.next;
-        }
-        return null;
+        // Return the intersection node or null if there is no intersection
+        return pointerA;
+        // Note: In the case lists do not intersect, the pointers for A and B
+        // will still line up in the 2nd iteration, just that here won't be
+        // a common node down the list and both will reach their respective ends
+        // at the same time. So pA will be NULL in that case.
     }
 }
