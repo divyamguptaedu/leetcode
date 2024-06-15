@@ -25,13 +25,13 @@ class Solution {
                     continue;
                 }
                 int val = board[r][c] - '0';
-                int pos = 1 << (val - 1);
+                int pos = 1 << (val - 1); //Calculate the bit position pos for this digit using bitwise shift: 1 << (val - 1).
 
                 // Check the row
-                if ((rows[r] & pos) > 0) {
+                if ((rows[r] & pos) > 0) { //Use a bitwise AND operation to check if pos is already set in the current row (rows[r]).
                     return false;
                 }
-                rows[r] |= pos;
+                rows[r] |= pos; //If not, set the bit in rows[r] using a bitwise OR operation.
 
                 // Check the column
                 if ((cols[c] & pos) > 0) {
