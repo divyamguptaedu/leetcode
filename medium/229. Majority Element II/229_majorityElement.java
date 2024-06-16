@@ -1,26 +1,59 @@
-"""
-Performance:
-Runtime: 22 ms, faster than 66.66% of Java online submissions for Majority Element II.
-Memory Usage: 48.2 MB, less than 71.98% of Java online submissions for Majority Element II.
-"""
+//To find all elements in an array that appear more than ⌊ n/3 ⌋ times, 
+//I utilized a modified version of the Boyer-Moore Voting Algorithm. 
+//In the first pass, I tracked two potential candidates and their counts. 
+//If a number matches either candidate, I incremented its count; otherwise, 
+//I decremented both counts. If a count drops to zero, I reassigned that candidate.
+//In the second pass, I verified the counts of the candidates found in the first pass 
+//to confirm their frequency meets the requirement. If so, I added them to the result list.
 
+//Time: n
+//Space: constant
 class Solution {
     public List<Integer> majorityElement(int[] nums) {
-        Map<Integer,Integer> hashMap = new HashMap<>();
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < nums.length; i++) {
-            if (hashMap.containsKey(nums[i])) {
-                hashMap.replace(nums[i], hashMap.get(nums[i]) + 1);
+
+        // 1st pass
+        int count1 = 0;
+        int count2 = 0;
+
+        Integer candidate1 = null;
+        Integer candidate2 = null;
+
+        for (int n : nums) {
+            if (candidate1 != null && candidate1 == n) {
+                count1++;
+            } else if (candidate2 != null && candidate2 == n) {
+                count2++;
+            } else if (count1 == 0) {
+                candidate1 = n;
+                count1++;
+            } else if (count2 == 0) {
+                candidate2 = n;
+                count2++;
             } else {
-                hashMap.put(nums[i], 1);
+                count1--;
+                count2--;
             }
         }
-        int temp = nums.length/3;
-        for (Integer majorElements : hashMap.keySet()) {
-            if (hashMap.get(majorElements) > temp) {
-                list.add(majorElements);
-            }
+
+        // 2nd pass
+        List result = new ArrayList<>();
+
+        count1 = 0;
+        count2 = 0;
+
+        for (int n : nums) {
+            if (candidate1 != null && n == candidate1)
+                count1++;
+            if (candidate2 != null && n == candidate2)
+                count2++;
         }
-        return list;
+
+        int n = nums.length;
+        if (count1 > n / 3)
+            result.add(candidate1);
+        if (count2 > n / 3)
+            result.add(candidate2);
+
+        return result;
     }
 }
