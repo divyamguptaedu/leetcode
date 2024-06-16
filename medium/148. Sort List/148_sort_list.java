@@ -1,8 +1,11 @@
-"""
-Performance:
-Runtime: 13 ms, faster than 10.52% of Java online submissions for Sort List.
-Memory Usage: 53.5 MB, less than 5.64% of Java online submissions for Sort List.
-"""
+//I used a recursive merge sort approach. I first checked if the list is empty or has one element, 
+//returning it as is. I divided the list into two parts using a pivot and rearranged nodes, 
+//separating smaller values to the left and larger to the right. If the list was already sorted, 
+//I returned it; otherwise, I recursively sorted the left and right parts and merged them. 
+//The process ensured each sublist was sorted before combining them.
+
+//Time: n log n
+//Space: log n for the recursive stack.
 
 /**
  * Definition for singly-linked list.
@@ -14,111 +17,38 @@ Memory Usage: 53.5 MB, less than 5.64% of Java online submissions for Sort List.
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-
 class Solution {
     public ListNode sortList(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
-        }
-        // use merge sort;
-        ListNode middle = getMiddle(head);
-        ListNode left = sortList(head);
-        ListNode right = sortList(middle);
-        return merge(left, right);
+        return sortList(head, null);
     }
 
+    private ListNode sortList(ListNode start, ListNode end) {
+        if (start == null || start.next == null || start == end) return start;
 
-    // merge two nodes after comparison;
-    ListNode merge(ListNode one, ListNode two) {
-        ListNode tempHead = new ListNode();
-        ListNode tail = tempHead;
-        while (one != null && two != null) {
-            if (one.val < two.val) {
-                tail.next = one;
-                one = one.next;
-                tail = tail.next;
+        ListNode left = start, right = start, current = start.next;
+        boolean isSorted = true;
+
+        while (current != null && current != end) {
+            ListNode temp = current.next;
+            if (current.val < start.val) {
+                // Insert current node at the beginning of left partition
+                current.next = left;
+                left = current;
+                right.next = temp;
+                isSorted = false;
             } else {
-                tail.next = two;
-                two = two.next;
-                tail = tail.next;
+                if (current.val < right.val) isSorted = false;
+                right = current;
             }
+            current = temp;
         }
-        if (one != null) {
-       		tail.next = one;
-        } else {
-        	tail.next = two;
-        }
-        return tempHead.next;
+
+        if (isSorted) return left;
+
+        // Recursively sort the left and right partitions
+        left = sortList(left, start);
+        start.next = sortList(start.next, end);
+
+        return left;
     }
-
-    // helper method to find middle for merge sort;
-    ListNode getMiddle(ListNode head) {
-        ListNode previous = null;
-        while (head != null && head.next != null) {
-        	if (previous == null) {
-        		previous = head;
-        	} else {
-        		previous = previous.next;
-        	}
-            head = head.next.next;
-        }
-        ListNode mid = previous.next;
-        previous.next = null;
-        return mid;
-    }
-}
-
-//another solution
-
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
-public ListNode sortList(ListNode head) {
-    if (head == null || head.next == null) return head;
-    
-    ListNode mid = findMiddle(head);
-    ListNode midNext = mid.next;
-    mid.next = null;
-    
-    ListNode sortedLeft = sortList(head);
-    ListNode sortedRight = sortList(midNext);
-    
-    return merge(sortedLeft, sortedRight);
-}
-
-private ListNode findMiddle(ListNode head) {
-    ListNode slow = head;
-    ListNode fast = head;
-    while (fast.next != null && fast.next.next != null) {
-        slow = slow.next;
-        fast = fast.next.next;
-    }
-    return slow;
-}
-
-private ListNode merge(ListNode a, ListNode b) {
-    ListNode dummy = new ListNode(0);
-    ListNode current = dummy;
-    
-    while (a != null && b != null) {
-        if (a.val < b.val) {
-            current.next = a;
-            a = a.next;
-        } else {
-            current.next = b;
-            b = b.next;
-        }
-        current = current.next;
-    }
-    
-    current.next = (a != null) ? a : b;
-    
-    return dummy.next;
 }
