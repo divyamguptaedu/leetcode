@@ -1,56 +1,46 @@
-"
-Performance:
-Runtime: 3 ms, faster than 90.51% of Java online submissions for Reverse Words in a String.
-Memory Usage: 39.1 MB, less than 63.50% of Java online submissions for Reverse Words in a String.
-"
+//In solving the problem of reversing words in a string, 
+//I first eliminated leading and trailing spaces from the input string s. 
+//This was done using two while loops, adjusting indices left and right until no more 
+//leading or trailing spaces were encountered.
+//Next, I utilized a Deque (double-ended queue) to store each word extracted from 
+//the trimmed string. As I traversed the string from left to right, 
+//I built each word character by character into a StringBuilder. 
+//Upon encountering a space or reaching the end of a word, 
+//I pushed the completed word onto the front of the Deque.
+//Finally, I joined all words from the Deque into a single string separated by a single space 
+//and returned the result.
 
-public class Solution {
-  
-  public String reverseWords(String s) {
-    if (s == null) return null;
-    
-    char[] a = s.toCharArray();
-    int n = a.length;
-    
-    // step 1. reverse the whole string
-    reverse(a, 0, n - 1);
-    // step 2. reverse each word
-    reverseWords(a, n);
-    // step 3. clean up spaces
-    return cleanSpaces(a, n);
-  }
-  
-  void reverseWords(char[] a, int n) {
-    int i = 0, j = 0;
-      
-    while (i < n) {
-      while (i < j || i < n && a[i] == ' ') i++; // skip spaces
-      while (j < i || j < n && a[j] != ' ') j++; // skip non spaces
-      reverse(a, i, j - 1);                      // reverse the word
+//Time: n
+//Space: n
+class Solution {
+    public String reverseWords(String s) {
+        int left = 0, right = s.length() - 1;
+        // remove leading spaces
+        while (left <= right && s.charAt(left) == ' ') {
+            ++left;
+        }
+
+        // remove trailing spaces
+        while (left <= right && s.charAt(right) == ' ') {
+            --right;
+        }
+
+        Deque<String> d = new ArrayDeque();
+        StringBuilder word = new StringBuilder();
+        // push word by word in front of deque
+        while (left <= right) {
+            char c = s.charAt(left);
+
+            if ((word.length() != 0) && (c == ' ')) {
+                d.offerFirst(word.toString());
+                word.setLength(0);
+            } else if (c != ' ') {
+                word.append(c);
+            }
+            ++left;
+        }
+        d.offerFirst(word.toString());
+
+        return String.join(" ", d);
     }
-  }
-  
-  // trim leading, trailing and multiple spaces
-  String cleanSpaces(char[] a, int n) {
-    int i = 0, j = 0;
-      
-    while (j < n) {
-      while (j < n && a[j] == ' ') j++;             // skip spaces
-      while (j < n && a[j] != ' ') a[i++] = a[j++]; // keep non spaces
-      while (j < n && a[j] == ' ') j++;             // skip spaces
-      if (j < n) a[i++] = ' ';                      // keep only one space
-    }
-  
-    return new String(a).substring(0, i);
-  }
-  
-  // reverse a[] from a[i] to a[j]
-  private void reverse(char[] a, int i, int j) {
-    while (i < j) {
-      char t = a[i];
-      a[i++] = a[j];
-      a[j--] = t;
-    }
-  }
-  
 }

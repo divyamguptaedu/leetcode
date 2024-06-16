@@ -1,3 +1,15 @@
+//In solving the problem of finding the maximum depth of a binary tree, 
+//I opted for a recursive approach. Starting with the base case, if the root is null, 
+//I returned 0 since there are no nodes. For non-null nodes, 
+//I recursively calculated the maximum depth of the left and right subtrees using 
+//maxDepth(root.left) and maxDepth(root.right), respectively.
+//The depth of the current node is then determined as 1 plus the maximum depth between its left and 
+//right subtrees (1 + Math.max(...)), ensuring each recursive call contributes to calculating 
+//the overall depth from the root to the deepest leaf.
+
+//Time: n
+//Space: h where h is the height of the binary tree.
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -13,61 +25,11 @@
  *     }
  * }
  */
- //Recursion Approach
 class Solution {
     public int maxDepth(TreeNode root) {
         if (root == null) {
-            return 0;
+           return  0;
         }
-        int leftDepth = maxDepth(root.left);
-        int rightDepth = maxDepth(root.right);
-        return Math.max(leftDepth, rightDepth) + 1;
-    }
-}
-
-//BFS Approach
-class Solution {
-    public int maxDepth(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-        int height = 0;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        while (!q.isEmpty()){
-            int size = q.size();
-            height++;
-            while (size-- > 0) {
-                TreeNode temp = q.poll();
-                if (temp.left != null) {
-                    q.add(temp.left);
-                }
-                if (temp.right != null) {
-                    q.add(temp.right);
-                }
-            }
-        }
-        return height;
-    }
-}
-
-//DFS Approach
-class Solution {
-    int maxHeight = 0;
-    public int maxDepth(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-        dfs(root, 0);
-        return maxHeight;
-    }
-    public void dfs(TreeNode root, int currHeight) {
-        maxHeight = Math.max(maxHeight, currHeight);
-        if (root == null) {
-            return;
-        }
-        currHeight++;
-        dfs(root.left, currHeight);
-        dfs(root.right, currHeight);
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
     }
 }
