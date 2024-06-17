@@ -1,41 +1,52 @@
-class Solution {
-    public void solve(char[][] board) {
-        int m = board.length;
-        int n = board[0].length;
+//Recursive DFS approach
+//I identified all 'O's on the borders of the matrix and marked them as non-surrounded by replacing 
+//them with 'Y'. I then checked all adjacent cells recursively to ensure all connected 'O's are also 
+//marked. Finally, I traversed the entire board to convert the remaining 'O's to 'X's (since they are 
+//surrounded) and reverted the 'Y's back to 'O's.
 
-        for (int i = 0; i < m; i++) {
-            dfs(board, i, 0);
-            dfs(board, i, n - 1);
-        }
-        for (int j = 0; j < n; j++) {
-            dfs(board, 0, j);
-            dfs(board, m - 1, j);
-        }
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (board[i][j] == 'O'){
-                    board[i][j] = 'X';
+//Time: n
+//Space: n
+class Solution {
+    int rows, cols;
+
+    public void solve(char[][] board) {
+        rows = board.length;
+        cols = board[0].length;
+
+        // Mark all 'O's on the borders and connected to borders with 'Y'
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                if (board[i][j] == 'O' && (i == 0 || j == 0 || i == rows - 1 || j == cols - 1)) {
+                    markBorderConnected(board, i, j);
                 }
-                if (board[i][j] == '*'){
+            }
+        }
+
+        // Convert remaining 'O's to 'X' and 'Y's back to 'O'
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                if (board[i][j] == 'Y') {
                     board[i][j] = 'O';
+                } else if (board[i][j] == 'O') {
+                    board[i][j] = 'X';
                 }
             }
         }
     }
 
-    public void dfs(char[][] board, int i, int j){
-        if (i < 0 || j < 0 || i >= board.length || j >= board[i].length) {
-            return;
+    private void markBorderConnected(char[][] board, int x, int y) {
+        board[x][y] = 'Y';
+        if (x < rows - 1 && board[x + 1][y] == 'O') {
+            markBorderConnected(board, x + 1, y);
         }
-
-        if (board[i][j] == 'X' || board[i][j] == '*') {
-            return;
+        if (y < cols - 1 && board[x][y + 1] == 'O') {
+            markBorderConnected(board, x, y + 1);
         }
-
-        board[i][j] = '*';
-        dfs(board, i + 1, j);
-        dfs(board, i - 1, j);
-        dfs(board, i, j + 1);
-        dfs(board, i, j - 1);
+        if (x > 0 && board[x - 1][y] == 'O') {
+            markBorderConnected(board, x - 1, y);
+        }
+        if (y > 0 && board[x][y - 1] == 'O') {
+            markBorderConnected(board, x, y - 1);
+        }
     }
 }

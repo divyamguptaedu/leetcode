@@ -35,7 +35,7 @@ class Solution {
             }
         }
 
-        // 2nd pass
+        // 2nd pass to check if the candidates have count > n/3 and also form the result.
         List result = new ArrayList<>();
 
         count1 = 0;

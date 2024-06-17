@@ -1,9 +1,14 @@
+//Boyer-Moore Voting Algorithm
 //I initialized a count to zero and a candidate variable to zero as well. 
 //As I iterated through the array, I checked if the count was zero to assign the current number 
 //as the candidate. If the current number matched the candidate, 
 //I increased the count; otherwise, I decreased it. 
 //The candidate remaining after the loop was the majority element, 
 //as it appeared more than half the time.
+
+//For input 3, 2, 3, the count and candidate variables with progress like this:
+//count =     0 > 1 > 0 > 1
+//candidate = 0 > 3 > 3 > 3. Answer is 3.
 
 //Time: n
 //Space: constant

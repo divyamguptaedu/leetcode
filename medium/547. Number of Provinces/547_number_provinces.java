@@ -1,23 +1,31 @@
+//I used Depth-First Search (DFS). I treated the isConnected matrix as an adjacency matrix of a graph. 
+//I initialized a visited array to keep track of visited cities. For each city, if it wasn't visited, 
+//I incremented the province count and performed DFS to mark all directly and 
+//indirectly connected cities as visited. This way, each DFS traversal marked one complete province.
+//Time: n^2
+//Space: n
 class Solution {
-    public int findCircleNum(int[][] grid) {
-        boolean[] visited = new boolean[grid.length];
-        int c = 0;
-        for (int i = 0; i < grid.length; i++) {
-            if (!visited[i]) {
-                dfs(i,grid,visited);
-                c++;
+    public int findCircleNum(int[][] isConnected) {
+        int n = isConnected.length;
+        int numberOfComponents = 0;
+        boolean[] visit = new boolean[n];
+
+        for (int i = 0; i < n; i++) {
+            if (!visit[i]) {
+                numberOfComponents++;
+                dfs(i, isConnected, visit);
             }
         }
-        return c;
+
+        return numberOfComponents;
     }
 
-    private void dfs(int j,int[][] grid,boolean[] visited) {
-        visited[j] = true;
-        for (int i = 0; i < grid[j].length; i++) {
-            if (!visited[i] && grid[j][i] == 1) {
-                dfs(i, grid, visited);
+    private void dfs(int node, int[][] isConnected, boolean[] visit) {
+        visit[node] = true;
+        for (int i = 0; i < isConnected.length; i++) {
+            if (isConnected[node][i] == 1 && !visit[i]) {
+                dfs(i, isConnected, visit);
             }
         }
     }
-    
 }

@@ -9,8 +9,7 @@
 //Time: n
 //Space: constant
 class Solution {
-    public int 
-    (int n) {
+    public int tribonacci(int n) {
         if (n < 3) {
             if (n > 0) {
                 return 1;
@@ -18,7 +17,6 @@ class Solution {
                 return 0;
             }
         }
-        
         int a = 0;
         int b = 1;
         int c = 1;

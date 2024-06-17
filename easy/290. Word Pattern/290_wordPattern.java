@@ -1,6 +1,6 @@
 //To solve the problem of determining if a pattern and a string follow the same bijection, 
-//I used a HashMap to map each character in the pattern to its corresponding word in the string 
-//and vice versa. I split the string s into words and checked if each character in pattern mapped 
+//I used a HashMap to map each character in the pattern to its index and the corresponding word to its
+//index as well. I split the string s into words and checked if each character in pattern mapped 
 //consistently to the same index as its corresponding word in words. If any inconsistency was found 
 //during mapping, the function returned false.
 
@@ -14,7 +14,7 @@ class Solution {
         if (words.length != pattern.length())
             return false;
 
-        for (Integer i = 0; i < words.length; i++) {
+        for (int i = 0; i < words.length; i++) {
             char c = pattern.charAt(i);
             String w = words[i];
 

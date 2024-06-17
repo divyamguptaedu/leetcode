@@ -7,7 +7,7 @@
 //wasn't empty.
 
 //Time: n
-//Space: constant
+//Space: constant, because the capacity of the set can be at max 52 (lower and upper)
 class Solution {
     public int longestPalindrome(String s) {
         Set<Character> characterSet = new HashSet<>();
