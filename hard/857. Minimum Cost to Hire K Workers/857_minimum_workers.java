@@ -1,30 +1,53 @@
-"
-Performance:
-Runtime: 26 ms, faster than 47.58% of Java online submissions for Minimum Cost to Hire K Workers.
-Memory Usage: 40.5 MB, less than 54.76% of Java online submissions for Minimum Cost to Hire K Workers.
-"
+//I calculated the wage-to-quality ratio for each worker and sorted them based on this ratio. 
+//Using a priority queue, I tracked the k workers with the lowest total quality. 
+//For each worker, I added their quality to the priority queue and maintained the sum of qualities. 
+//If the number of workers exceeded k, I removed the worker with the highest quality to minimize costs. 
+//For exactly k workers, I computed the cost by multiplying the current total quality by the 
+//current worker's ratio and updated the minimum cost accordingly.
 
+//Time: nlogn + nlogk where n is the num of workers, k is size of pq.
+//Space: n+k
 class Solution {
-    public double mincostToHireWorkers(int[] quality, int[] wage, int K) {
-        double workers[][] = new double[quality.length][2];
-        for (int i = 0; i < quality.length; i++) {
-            workers[i][0] = (double) wage[i] / quality[i];
-            workers[i][1] = (double) quality[i];
+    public double mincostToHireWorkers(int[] quality, int[] wage, int k) {
+        int n = quality.length;
+        double totalCost = Double.MAX_VALUE;
+        double currentTotalQuality = 0;
+        List<Pair<Double, Integer>> wageToQualityRatio = new ArrayList<>();
+
+        // Calculate wage-to-quality ratio for each worker
+        for (int i = 0; i < n; i++) {
+            wageToQualityRatio.add(new Pair<>((double) wage[i] / quality[i], quality[i]));
         }
-        Arrays.sort(workers, (a, b) -> Double.compare (a[0], b[0]));
-        Double sum = 0.0;
-        Double minimum = Double.MAX_VALUE;
-        PriorityQueue<Double> queue = new PriorityQueue<>();
-        for (double[] worker: workers){
-            sum += worker[1];
-            queue.add(-worker[1]);
-            if (queue.size() > K){
-                sum += queue.poll();
+
+        // Sort workers based on their wage-to-quality ratio
+        Collections.sort(wageToQualityRatio, new Comparator<Pair<Double, Integer>>() {
+            @Override
+            public int compare(Pair<Double, Integer> p1, Pair<Double, Integer> p2) {
+                return Double.compare(p1.getKey(), p2.getKey());
             }
-            if (queue.size() == K){
-                minimum = Math.min(minimum, sum * worker[0]);
+        });
+
+
+        // Use a priority queue to keep track of the highest quality workers
+        PriorityQueue<Integer> workers = new PriorityQueue<>(Collections.reverseOrder());
+
+        // Iterate through workers
+        for (int i = 0; i < n; i++) {
+            workers.add(wageToQualityRatio.get(i).getValue());
+            currentTotalQuality += wageToQualityRatio.get(i).getValue();
+
+            // If we have more than k workers,
+            // remove the one with the highest quality
+            if (workers.size() > k) {
+                currentTotalQuality -= workers.poll();
+            }
+
+            // If we have exactly k workers,
+            // calculate the total cost and update if it's the minimum
+            if (workers.size() == k) {
+                totalCost = Math.min(totalCost, currentTotalQuality * wageToQualityRatio.get(i).getKey());
             }
         }
-        return minimum;
+        return totalCost;
     }
 }
