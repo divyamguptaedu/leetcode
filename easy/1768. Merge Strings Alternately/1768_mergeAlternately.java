@@ -1,13 +1,24 @@
-"
-Performance:
-Runtime: 489 ms, faster than 50.08% of MySQL online submissions for Find Total Time Spent by Each Employee.
-Memory Usage: 0B, less than 100.00% of MySQL online submissions for Find Total Time Spent by Each Employee.
-"
+//I first determined the lengths of both strings. Using a loop, I iterated up to the maximum length of the two strings. 
+//In each iteration, I appended the current character from word1 (if available) followed by the current character from word2 (if available) to a StringBuilder object. 
+//This ensured characters were added alternately. After the loop, I returned the merged string created from the StringBuilder.
 
-# Write your MySQL query statement below
-SELECT
-    event_day AS day,
-    emp_id,
-    SUM(out_time-in_time) AS total_time
-FROM Employees
-GROUP BY emp_id, event_day
+//Time: m+n
+//Space: constant
+class Solution {
+    public String mergeAlternately(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < Math.max(m, n); i++) {
+            if (i < m) {
+                result.append(word1.charAt(i));
+            }
+            if (i < n) {
+                result.append(word2.charAt(i));
+            }
+        }
+
+        return result.toString();
+    }
+}
