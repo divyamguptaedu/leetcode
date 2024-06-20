@@ -1,53 +1,48 @@
-"""
-Performance:
-Runtime: 1 ms, faster than 98.78% of Java online submissions for Construct Binary Tree from Preorder and Inorder Traversal.
-Memory Usage: 39.3 MB, less than 30.75% of Java online submissions for Construct Binary Tree from Preorder and Inorder Traversal.
-"""
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
  * }
  */
-class Solution {
+//I approached the problem of constructing a binary tree from its preorder and inorder 
+//traversals using a recursive approach. Initially, I used indices i and p to track positions 
+//in the inorder and preorder arrays, respectively. Starting with the entire range of values, 
+//I recursively built nodes: for each node, I created it from preorder[p], moved p forward, 
+//and recursively built its left and right subtrees using boundaries defined by stop values. 
+//If inorder[i] matches stop, it means the subtree is fully constructed. 
+//This method efficiently constructs the binary tree by leveraging the properties of preorder 
+//and inorder traversals.
 
-	int index;
-	HashMap<Integer, Integer> indexMap;
+//Time: n
+//Space: n
+
+class Solution {
+    int i = 0;
+    int p = 0;
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        index = 0;
-        indexMap = new HashMap<>();
+        return build(preorder, inorder, Integer.MIN_VALUE);
+    }
 
-        // add all inorder indexes in the map;
-        for (int i = 0; i < inorder.length; i++) {
-        	indexMap.put(inorder[i], i);
+    public TreeNode build(int[] preorder, int[] inorder, int stop) {
+        if (p >= preorder.length)
+            return null;
+        if (inorder[i] == stop) {
+            i++;
+            return null;
         }
-
-	    int left = 0;
-	    int right = preorder.length - 1;
-
-	    return helper(preorder, left, right);
-	}
-
-	private TreeNode helper(int[] preorder, int left, int right) {
-		if (left > right) {
-			return null;
-		}
-		// form a root and set lefts and right according to the preorder;
-		int tempVal = preorder[index++];
-		TreeNode root = new TreeNode(tempVal);
-		root.left = helper(preorder, left, indexMap.get(tempVal) - 1);
-		root.right = helper(preorder, indexMap.get(tempVal) + 1, right);
-		return root;
-	}
+        TreeNode node = new TreeNode(preorder[p++]);
+        node.left = build(preorder, inorder, node.val);
+        node.right = build(preorder, inorder, stop);
+        return node;
+    }
 }
