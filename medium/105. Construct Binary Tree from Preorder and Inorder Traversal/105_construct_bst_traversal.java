@@ -22,6 +22,48 @@
 //This method efficiently constructs the binary tree by leveraging the properties of preorder 
 //and inorder traversals.
 
+/*
+First Call:
+build(preorder, inorder, Integer.MIN_VALUE)
+preorder[0] = 3, create TreeNode(3), p = 1
+Build left subtree with build(preorder, inorder, 3)
+
+Second Call:
+build(preorder, inorder, 3)
+preorder[1] = 9, create TreeNode(9), p = 2
+Build left subtree with build(preorder, inorder, 9)
+inorder[0] = 9 matches stop, i = 1, return null
+Build right subtree with build(preorder, inorder, 3)
+inorder[1] = 3 matches stop, i = 2, return null
+
+Back to First Call:
+Set left child of TreeNode(3) to TreeNode(9)
+Build right subtree with build(preorder, inorder, Integer.MIN_VALUE)
+
+Third Call:
+build(preorder, inorder, Integer.MIN_VALUE)
+preorder[2] = 20, create TreeNode(20), p = 3
+Build left subtree with build(preorder, inorder, 20)
+preorder[3] = 15, create TreeNode(15), p = 4
+Build left subtree with build(preorder, inorder, 15)
+inorder[2] = 15 matches stop, i = 3, return null
+Build right subtree with build(preorder, inorder, 20)
+inorder[3] = 20 matches stop, i = 4, return null
+
+Back to Third Call:
+Set left child of TreeNode(20) to TreeNode(15)
+Build right subtree with build(preorder, inorder, Integer.MIN_VALUE)
+preorder[4] = 7, create TreeNode(7), p = 5
+Build left subtree with build(preorder, inorder, 7)
+inorder[4] = 7 matches stop, i = 5, return null
+Build right subtree with build(preorder, inorder, Integer.MIN_VALUE)
+i = 5 exceeds array length, return null
+
+Final Assembly:
+Set right child of TreeNode(20) to TreeNode(7)
+
+Output: [3, 9, 20, null, null, 15, 7]
+*/
 //Time: n
 //Space: n
 

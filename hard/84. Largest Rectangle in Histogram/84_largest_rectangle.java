@@ -6,10 +6,74 @@
 //by popping from the stack when encountering a shorter bar, calculating the area with the popped 
 //bar as the smallest height.
 
+/* Example
+First Loop (Traversing the histogram bars):
+i = 0 (heights[0] = 2):
+
+Stack: [-1] -> [-1, 0]
+maxArea = 0
+i = 1 (heights[1] = 1):
+
+Stack: [-1, 0]
+Pop 0
+Calculate area: 2 * 1 = 2
+maxArea = 2
+Stack: [-1] -> [-1, 1]
+maxArea = 2
+i = 2 (heights[2] = 5):
+
+Stack: [-1, 1] -> [-1, 1, 2]
+maxArea = 2
+i = 3 (heights[3] = 6):
+
+Stack: [-1, 1, 2] -> [-1, 1, 2, 3]
+maxArea = 2
+i = 4 (heights[4] = 2):
+
+Stack: [-1, 1, 2, 3]
+Pop 3
+Calculate area: 6 * 1 = 6
+maxArea = 6
+Stack: [-1, 1, 2]
+Pop 2
+Calculate area: 5 * 2 = 10
+maxArea = 10
+Stack: [-1, 1] -> [-1, 1, 4]
+maxArea = 10
+i = 5 (heights[5] = 3):
+
+Stack: [-1, 1, 4] -> [-1, 1, 4, 5]
+maxArea = 10
+Second Loop (Processing remaining bars in the stack):
+Stack: [-1, 1, 4, 5]
+
+Pop 5
+Calculate area: 3 * 1 = 3
+maxArea = 10
+Stack: [-1, 1, 4]
+Stack: [-1, 1, 4]
+
+Pop 4
+Calculate area: 2 * 4 = 8
+maxArea = 10
+Stack: [-1, 1]
+Stack: [-1, 1]
+
+Pop 1
+Calculate area: 1 * 6 = 6
+maxArea = 10
+Stack: [-1]
+Final State:
+stack = [-1]
+maxArea = 10
+Thus, the maxArea is 10 at the end of processing.
+
+*/
 /**
  * Time Complexity: O(n) - Each bar is pushed and popped from the stack at most once.
  * Space Complexity: O(n) - Extra space used for the stack.
  */
+ 
 public class Solution {
     public int largestRectangleArea(int[] heights) {
         // Use a stack to keep track of indices of histogram bars
