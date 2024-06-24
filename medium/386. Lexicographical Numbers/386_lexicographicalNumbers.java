@@ -1,26 +1,28 @@
-"""
-Performance:
-Runtime: 4 ms, faster than 91.44% of Java online submissions for Lexicographical Numbers.
-Memory Usage: 46.5 MB, less than 95.67% of Java online submissions for Lexicographical Numbers.
-"""
-
+//I approached the problem of generating all numbers in the range [1, n] sorted lexicographically using Depth-First Search (DFS). 
+//Starting from 1, I recursively build numbers by appending digits from 0 to 9 to the current number, 
+//ensuring they are added in lexicographical order. 
+//I skip adding numbers starting with 0 and stop when the constructed number exceeds n. 
+//This ensures all numbers are generated in the required order efficiently.
+//Time: n
+//Space: constant
 class Solution {
-    List<Integer> result = new ArrayList<>();
-    public List<Integer> lexicalOrder (int n) {
-        for (int i = 1; i <= 9; i++) {
-            helper(i, n);
-        }
+    public List<Integer> lexicalOrder(int n) {
+        List<Integer> result = new ArrayList<>();
+        dfs(result, n, 0);
         return result;
     }
-    
-    public void helper (int x, int n) {
-        if (x <= n) {
-            result.add(x);
-        } else {
-            return;
-        }
+
+    private void dfs(List<Integer> result, int n, int current) {
         for (int i = 0; i <= 9; i++) {
-            helper(x*10 + i, n);
+            int num = 10 * current + i;
+            // Skip numbers starting with 0
+            if (num == 0)
+                continue;
+            // Stop if number exceeds n
+            if (num > n)
+                return;
+            result.add(num);
+            dfs(result, n, num);
         }
     }
 }
