@@ -1,63 +1,66 @@
-//I used Breadth-First Search (BFS) to find the shortest transformation sequence. 
-//I first built a map of patterns to words by replacing each letter of each word with an asterisk, 
-//creating a wildcard pattern. This helped in quickly finding adjacent words that differ by one letter. 
-//I then initiated a BFS from the beginWord, using a queue to explore each word level by level. 
-//If the endWord was found, I returned the current level count. 
-//I kept track of visited words to avoid cycles. If the endWord was not found, I returned 0.
-
-//Time: nm^2 where n is the #words and m is len of the words.
-//Space: nm^2
-
+//I created a map to store all generic transformations of words in the word list. 
+//Each key in this map is a generic word formed by replacing one letter of a word with *, 
+//and the value is a list of all words that can be formed with that generic pattern. 
+//Using BFS, I started from the beginWord and tried all possible one-letter transformations, 
+//checking if the endWord is reached. If a word transformation is valid and not visited yet, 
+//it is added to the queue for further exploration.
+//Time: m^2 * n where m is the len of each word and n is total number of words
+//Space: m^2 * n
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        // Return 0 if endWord is not in wordList
-        if (!wordList.contains(endWord)) {
-            return 0;
-        }
+        // All words are of the same length
+        int wordLength = beginWord.length();
 
-        // Map to store pattern to list of words
-        Map<String, List<String>> patternToWords = new HashMap<>();
-        wordList.add(beginWord);
+        // Dictionary to hold all possible intermediate transformations
+        Map<String, List<String>> allComboDict = new HashMap<>();
 
-        // Build the pattern map
+        // Preprocess the word list into the dictionary
         for (String word : wordList) {
-            for (int i = 0; i < word.length(); i++) {
-                String pattern = word.substring(0, i) + "*" + word.substring(i + 1);
-                patternToWords.putIfAbsent(pattern, new ArrayList<>());
-                patternToWords.get(pattern).add(word);
+            for (int i = 0; i < wordLength; i++) {
+                // Create a new generic word by replacing one character with '*'
+                String newWord = word.substring(0, i) + '*' + word.substring(i + 1, wordLength);
+                // Get the list of transformations for this generic word
+                List<String> transformations = allComboDict.getOrDefault(newWord, new ArrayList<>());
+                transformations.add(word);
+                allComboDict.put(newWord, transformations);
             }
         }
 
-        // BFS initialization
-        Queue<String> queue = new LinkedList<>();
-        Set<String> visited = new HashSet<>();
-        queue.offer(beginWord);
-        visited.add(beginWord);
-        int steps = 1;
+        // Queue for BFS: holds pairs of (current word, level of transformation)
+        Queue<Pair<String, Integer>> bfsQueue = new LinkedList<>();
+        bfsQueue.add(new Pair(beginWord, 1));
 
-        // BFS loop
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                String currentWord = queue.poll();
-                // Check if we reached the endWord
-                if (currentWord.equals(endWord)) {
-                    return steps;
-                }
+        // Map to track visited words to prevent cycles
+        Map<String, Boolean> visited = new HashMap<>();
+        visited.put(beginWord, true);
 
-                // Explore all patterns of the current word
-                for (int j = 0; j < currentWord.length(); j++) {
-                    String pattern = currentWord.substring(0, j) + "*" + currentWord.substring(j + 1);
-                    for (String neighbor : patternToWords.getOrDefault(pattern, new ArrayList<>())) {
-                        if (!visited.contains(neighbor)) {
-                            queue.offer(neighbor);
-                            visited.add(neighbor);
-                        }
+        while (!bfsQueue.isEmpty()) {
+            // Get the next word and its level from the queue
+            Pair<String, Integer> currentPair = bfsQueue.remove();
+            String currentWord = currentPair.getKey();
+            int currentLevel = currentPair.getValue();
+
+            // Try all possible one-letter transformations
+            for (int i = 0; i < wordLength; i++) {
+                // Create the intermediate word
+                String newWord = currentWord.substring(0, i) + '*' + currentWord.substring(i + 1, wordLength);
+
+                // Check all words that can be formed with this intermediate word
+                for (String adjacentWord : allComboDict.getOrDefault(newWord, new ArrayList<>())) {
+                    // If the end word is found, return the current level + 1
+                    if (adjacentWord.equals(endWord)) {
+                        return currentLevel + 1;
+                    }
+                    // If the word has not been visited, mark it visited and add to the queue
+                    if (!visited.containsKey(adjacentWord)) {
+                        visited.put(adjacentWord, true);
+                        bfsQueue.add(new Pair(adjacentWord, currentLevel + 1));
                     }
                 }
             }
-            steps++;
         }
+
+        // If the end word is not found, return 0
         return 0;
     }
 }
