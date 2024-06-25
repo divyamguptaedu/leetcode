@@ -1,28 +1,13 @@
-/*
-Runtime: 0 ms, faster than 100.00% of Java online submissions for Bulb Switcher.
-Memory Usage: 40.8 MB, less than 50.27% of Java online submissions for Bulb Switcher.
-*/
-
-//brute-force
-
+//I solved the problem by recognizing a pattern in how bulbs are toggled. 
+//Each bulb is toggled in rounds that are its divisors. 
+//Thus, a bulb ends up on if it has an odd number of divisors, 
+//which occurs only for perfect squares. 
+//Therefore, the number of bulbs that remain on after n rounds is equal to 
+//the number of perfect squares less than or equal to n. 
+//This can be found by taking the integer part of the square root of n.
+//Time: constant
+//Space: constant
 class Solution {
-    public int bulbSwitch(int n) {
-        int total = 0;
-        for (int i = 1; i < n + 1; i++) {
-            boolean on = false;
-            for (int j = 1; j < n + 1; j++) {
-                if (i % j == 0)
-                    on = !on;
-            }
-            total += on ? 1 : 0;
-        }
-        return total;
-    }
-}
-
-//simple and 100%
-
-public class Solution {
     public int bulbSwitch(int n) {
         return (int) Math.sqrt(n);
     }
