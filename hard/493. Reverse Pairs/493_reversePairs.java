@@ -1,54 +1,55 @@
-"""
-Performance:
-Runtime: 56 ms, faster than 94.22% of Java online submissions for Reverse Pairs.
-Memory Usage: 49.8 MB, less than 94.45% of Java online submissions for Reverse Pairs.
-"""
-
+//I approached the problem by using a modified merge sort algorithm. I divided the array into two halves, recursively sorted each half, and then merged them. During the merge step, I counted the reverse pairs by comparing elements from both halves and checking if any element from the left half is greater than twice any element from the right half. This approach effectively combines counting reverse pairs with the sorting process, ensuring that the solution is both efficient and correct.
+//Time: nlogn
+//Space: n
 class Solution {
     public int reversePairs(int[] nums) {
-        int[] temp = new int[nums.length];
-        return mergeSort(nums, 0, nums.length - 1, temp);
+        return mergeSort(nums, 0, nums.length - 1);
     }
-    
-    public int mergeSort(int[] nums, int low, int high, int[] temp) {
+
+    private int mergeSort(int[] nums, int low, int high) {
         int count = 0;
         if (low < high) {
-            int mid = (low + high) / 2;
-            count += mergeSort(nums, low, mid, temp);
-            count += mergeSort(nums, mid + 1, high, temp);
-            count += merge(nums, low, mid + 1, high, temp);
+            int mid = low + (high - low) / 2;
+            count += mergeSort(nums, low, mid);
+            count += mergeSort(nums, mid + 1, high);
+            count += merge(nums, low, mid, high);
         }
         return count;
     }
-    
-    public int merge(int[] nums, int low, int mid, int high, int[] temp) {
+
+    private int merge(int[] nums, int low, int mid, int high) {
+        int[] leftArray = Arrays.copyOfRange(nums, low, mid + 1);
+        int[] rightArray = Arrays.copyOfRange(nums, mid + 1, high + 1);
+
+        int i = 0, j = 0, k = low;
         int count = 0;
-        int tempTwo = mid;
-        for (int i = low; i < mid; i++) {
-            while((tempTwo <= high) && (nums[i] > 2*(long) nums[tempTwo])) {
-                tempTwo++;
-            }
-            count += tempTwo - mid;
-        }
-        int i = low;
-        int j = mid;
-        int k = low;
-        while ((i <= mid - 1) && (j <= high)) {
-            if (nums[i] <= nums[j]) {
-                temp[k++] = nums[i++];
+
+        while (i < leftArray.length && j < rightArray.length) {
+            if ((long) leftArray[i] > 2 * (long) rightArray[j]) {
+                count += leftArray.length - i;
+                j++;
             } else {
-                temp[k++] = nums[j++];
+                i++;
             }
         }
-        while (i <= mid - 1) {
-            temp[k++] = nums[i++];
+
+        i = 0;
+        j = 0;
+        while (i < leftArray.length && j < rightArray.length) {
+            if (leftArray[i] <= rightArray[j]) {
+                nums[k++] = leftArray[i++];
+            } else {
+                nums[k++] = rightArray[j++];
+            }
         }
-        while (j <= high) {
-            temp[k++] = nums[j++];
-        }            
-        for (i = low; i <= high; i++) {
-            nums[i] = temp[i];
+
+        while (i < leftArray.length) {
+            nums[k++] = leftArray[i++];
         }
+        while (j < rightArray.length) {
+            nums[k++] = rightArray[j++];
+        }
+
         return count;
     }
 }
