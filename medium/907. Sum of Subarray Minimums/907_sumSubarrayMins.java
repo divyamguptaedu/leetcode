@@ -1,22 +1,42 @@
+//I approached the problem by using a monotonic increasing stack to keep track of the previous 
+//smaller elements for each element in the array. For each element, I calculated the sum of the 
+//minimums of all subarrays ending at that element by using a dynamic programming array (dp). 
+//This array stored the cumulative contributions of subarrays ending at each index. 
+//The final result was obtained by summing up all values in the dp array and taking the result modulo.
+//Time: n
+//Space: n
 class Solution {
     public int sumSubarrayMins(int[] arr) {
-        int result = 0;
+        int MOD = 1000000007;
         Stack<Integer> stack = new Stack<>();
-        long mod = (long) 1000000007;
-        stack.push(-1);
-        for (int i = 0; i < arr.length+1; i++) {
-            int currVal = (i <= arr.length - 1) ? arr[i] : 0;
-            while (stack.peek() !=-1 && currVal < arr[stack.peek()]) {
-                int index = stack.pop();
-                int j = stack.peek();
-                int left = index - j;
-                int right = i - index;
-                long add = (left * right * (long) arr[index]) % mod;
-                result += add ;
-                result %= mod;
+        int[] dp = new int[arr.length];
+
+        // Iterate through the array to populate dp array using a monotonic increasing stack
+        for (int i = 0; i < arr.length; i++) {
+            // Maintain the stack to keep elements in increasing order
+            while (!stack.empty() && arr[stack.peek()] >= arr[i]) {
+                stack.pop();
             }
+
+            // Calculate dp[i] based on the previous smaller element if it exists
+            if (!stack.isEmpty()) {
+                int previousSmaller = stack.peek();
+                dp[i] = dp[previousSmaller] + (i - previousSmaller) * arr[i];
+            } else {
+                // If no previous smaller element, consider all subarrays ending at i
+                dp[i] = (i + 1) * arr[i];
+            }
+            // Push the current index onto the stack
             stack.push(i);
         }
-        return result;
+
+        // Sum up all elements in the dp array to get the final answer
+        long sumOfMinimums = 0;
+        for (int value : dp) {
+            sumOfMinimums += value;
+            sumOfMinimums %= MOD;
+        }
+
+        return (int) sumOfMinimums;
     }
 }

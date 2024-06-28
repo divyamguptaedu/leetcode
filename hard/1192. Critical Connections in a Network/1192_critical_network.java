@@ -1,42 +1,54 @@
-"""
-Performance:
-Runtime: 177 ms, faster than 50.03% of Java online submissions for Critical Connections in a Network.
-Memory Usage: 138.7 MB, less than 48.01% of Java online submissions for Critical Connections in a Network.
-"""
+//I approached the problem of finding critical connections in a network using Tarjan's algorithm, 
+//which utilizes Depth-First Search (DFS) to identify bridges (critical connections). 
+//Initially, I constructed an adjacency list (adj) to represent the graph from the given connections. 
+//During DFS traversal, I tracked several properties for each node: time (discovery time), 
+//low (lowest discovery time reachable), and vis (visited status). 
+//If a connection (node, it) formed a bridge (where time[node] < low[it]), 
+//I added it to the bridges list. This approach effectively identifies edges whose removal would 
+//disconnect parts of the network. Finally, I returned all stored critical connections in bridges.
+//Time: v+e
+//Space: v+e
 class Solution {
+    int timer = 1;
+
     public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
-        List<List<Integer>> result = new LinkedList<>();
-        int[] array = new int[n];
-        List<Set<Integer>> graph = new ArrayList<>(n);
-        for (int i = 0; i < n;i++) {
-            graph.add(new HashSet<>());
-            array[i] = -1;
-        }
-        for (List<Integer> connection: connections) {
-            graph.get(connection.get(0)).add(connection.get(1));
-            graph.get(connection.get(1)).add(connection.get(0));
+        ArrayList<ArrayList<Integer>> adj = new ArrayList();
+        for (int i = 0; i < n; i++) {
+            adj.add(new ArrayList());
         }
 
-        helper(0, 0, graph, 0, result, array);
-        return result;
-
+        for (List<Integer> ls : connections) {
+            int u = ls.get(0);
+            int v = ls.get(1);
+            adj.get(u).add(v);
+            adj.get(v).add(u);
+        }
+        int[] vis = new int[n];
+        int[] time = new int[n];
+        int[] low = new int[n];
+        List<List<Integer>> bridges = new ArrayList();
+        dfs(0, -1, vis, adj, time, low, bridges);
+        return bridges;
     }
 
-    private int helper(int node, int parent, List<Set<Integer>> graph, int level, List<List<Integer>> result, int[] array) {
-        array[node] = level;
-        for (int child: graph.get(node)) {
-            if (child == parent) {
+    void dfs(int node, int parent, int[] vis, ArrayList<ArrayList<Integer>> adj, int[] time, int[] low,
+            List<List<Integer>> bridges) {
+        vis[node] = 1;
+        time[node] = timer;
+        low[node] = timer;
+        timer++;
+        for (int it : adj.get(node)) {
+            if (it == parent)
                 continue;
-            }
-            if (array[child] == -1) {
-                array[node] = Math.min(helper(child, node, graph, level + 1, result, array), array[node]);
+            if (vis[it] == 0) {
+                dfs(it, node, vis, adj, time, low, bridges);
+                low[node] = Math.min(low[node], low[it]);
+                if (time[node] < low[it]) {
+                    bridges.add(Arrays.asList(node, it));
+                }
             } else {
-                array[node] = Math.min(array[node], array[child]);
+                low[node] = Math.min(low[node], low[it]);
             }
         }
-        if (node != 0 && array[node] == level) {
-            result.add(Arrays.asList(new Integer[]{node, parent}));
-        }
-        return array[node];
     }
 }

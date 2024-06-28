@@ -1,23 +1,43 @@
+//I approached the problem of finding common characters across all strings in the array by using two arrays: one to track the minimum counts of characters that appear in all words (commonCharacterCounts) and another to temporarily count characters in each word (currentCharacterCounts). Initially, I populated commonCharacterCounts with counts from the first word. Then, for each subsequent word, I updated currentCharacterCounts and adjusted commonCharacterCounts to maintain the minimum counts of characters. Finally, I converted these counts back into characters and collected them into a result list.
+//Time: nk where n is num strings in words and k is avg len of strings in words.
+//Space: constant
 class Solution {
+
     public List<String> commonChars(String[] words) {
-        List<Map<Character, Integer>> valueMap = new ArrayList<>();
-        for (String word : words) {
-            Map<Character, Integer> temp = new HashMap<>();
-            for (Character char : word.toCharArray())
-                temp.put(char, temp.getOrDefault(char, 0) + 1);
-            valueMap.add(temp);
-        }
+        int wordsSize = words.length;
+        int[] commonCharacterCounts = new int[26];
+        int[] currentCharacterCounts = new int[26];
         List<String> result = new ArrayList<>();
-        for (Map.Entry<Character, Integer> entry : valueMap.get(0).entrySet()) {
-            char tempChar = entry.getKey();
-            int count = entry.getValue();
-            for (int i = 1; i < valueMap.size(); i++) {
-                count = Math.min(count, valueMap.get(i).getOrDefault(tempChar, 0));
+
+        // Initialize commonCharacterCounts with the characters from the first
+        // word
+        for (char ch : words[0].toCharArray()) {
+            commonCharacterCounts[ch - 'a']++;
+        }
+
+        for (int i = 1; i < wordsSize; i++) {
+            Arrays.fill(currentCharacterCounts, 0);
+
+            // Count characters in the current word
+            for (char ch : words[i].toCharArray()) {
+                currentCharacterCounts[ch - 'a']++;
             }
-            for (int i = 0; i < count; i++) {
-                result.add(tempChar + "");
+
+            // Update the common character counts to keep the minimum counts
+            for (int letter = 0; letter < 26; letter++) {
+                commonCharacterCounts[letter] = Math.min(
+                        commonCharacterCounts[letter],
+                        currentCharacterCounts[letter]);
             }
         }
+
+        // Collect the common characters based on the final counts
+        for (int letter = 0; letter < 26; letter++) {
+            for (int commonCount = 0; commonCount < commonCharacterCounts[letter]; commonCount++) {
+                result.add(String.valueOf((char) (letter + 'a')));
+            }
+        }
+
         return result;
     }
 }
