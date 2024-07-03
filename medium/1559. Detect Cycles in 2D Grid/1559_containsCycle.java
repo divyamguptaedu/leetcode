@@ -1,54 +1,43 @@
-//I approached the problem by using the Union-Find algorithm to detect cycles in the grid. 
-//I treated each cell as a node and connected nodes with the same character. 
-//For each cell, I checked its right and down neighbors. 
-//If two connected nodes were already in the same set, it indicated a cycle. 
-//I used path compression in the Union-Find structure to optimize the union and find operations. 
-//This way, I efficiently detected cycles in the grid.
+//I used a Depth-First Search (DFS) approach to detect cycles in a 2D grid. 
+//Starting from each unvisited cell, I recursively explored its neighbors with the same value. 
+//If I revisited a cell and the path length was 4 or more, I identified it as a cycle. 
+//I maintained a visited array to track the cells and their visit order. 
+//By checking adjacent cells while avoiding immediate backtracking, I ensured valid path exploration. 
+//If a cycle was found during the DFS, I returned true; otherwise, I continued until all cells were checked.
 //Time: mn
 //Space: mn
 class Solution {
-    private int[] parent;
+    int count = 0;
+
+    public boolean dfs(char[][] grid, int row, int col, int[][] visited, int prevRow, int prevCol, char currentChar) {
+
+        if (row < 0 || col < 0 || row >= grid.length || col >= grid[0].length || grid[row][col] != currentChar)
+            return false;
+
+        if (visited[row][col] - visited[prevRow][prevCol] >= 3)
+            return true;
+
+        if (visited[row][col] != 0)
+            return false;
+
+        visited[row][col] = count++;
+
+        return dfs(grid, row + 1, col, visited, row, col, currentChar) ||
+                dfs(grid, row - 1, col, visited, row, col, currentChar) ||
+                dfs(grid, row, col + 1, visited, row, col, currentChar) ||
+                dfs(grid, row, col - 1, visited, row, col, currentChar);
+    }
 
     public boolean containsCycle(char[][] grid) {
+
         int rows = grid.length, cols = grid[0].length;
-        parent = new int[rows * cols];
-
-        // Initialize the Union-Find parent array
-        for (int i = 0; i < parent.length; i++) {
-            parent[i] = i;
-        }
-
-        int[] directions = {0, 1, 0}; // Directions to check right and down neighbors
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                for (int k = 0; k < 2; k++) { // Check right and down neighbors
-                    int newRow = i + directions[k];
-                    int newCol = j + directions[k + 1];
-
-                    // Check if within bounds and same character
-                    if (newRow < rows && newCol < cols && grid[i][j] == grid[newRow][newCol]) {
-                        if (find(newRow * cols + newCol) == find(i * cols + j)) {
-                            return true; // Cycle detected
-                        }
-                        union(newRow * cols + newCol, i * cols + j); // Union the nodes
-                    }
-                }
+        int[][] visited = new int[rows][cols];
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                if (visited[row][col] == 0 && dfs(grid, row, col, visited, row, col, grid[row][col]))
+                    return true;
             }
         }
         return false;
-    }
-
-    // Find with path compression
-    private int find(int x) {
-        if (parent[x] != x) {
-            parent[x] = find(parent[x]);
-        }
-        return parent[x];
-    }
-
-    // Union two sets
-    private void union(int x, int y) {
-        parent[find(x)] = find(y);
     }
 }
