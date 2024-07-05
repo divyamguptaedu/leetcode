@@ -1,10 +1,8 @@
-//I approached the problem of finding the number of distinct islands in a binary matrix by identifying 
-//each island's shape through DFS traversal. For each island found (a connected component of '1's), 
-//I captured its shape by recording the relative positions of its cells in relation to its top-left corner.
-//These relative positions were then used to compute all possible pairwise distances between cells within 
-//the island. By storing these distances in a map, I ensured that the shape of each island could be uniquely 
-//represented regardless of its orientation or reflection. Finally, using a set to store these maps ensured 
-//that only unique island shapes were counted.
+//I approached the problem of finding the number of distinct islands in a binary matrix by identifying each island's shape through DFS traversal. 
+//For each island found (a connected component of '1's), I captured its shape by recording the relative positions of its cells in relation to its top-left corner. 
+//These relative positions were then used to compute all possible pairwise distances between cells within the island. 
+//By storing these distances in a map, I ensured that the shape of each island could be uniquely represented regardless of its orientation or reflection. 
+//+Finally, using a set to store these maps ensured that only unique island shapes were counted.
 //Time: mnk^2 where m and n are dimensions and k is the max number of cells in an island
 //Space: mn
 class Solution {
