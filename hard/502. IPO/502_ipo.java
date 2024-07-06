@@ -1,12 +1,9 @@
-//I approached the IPO problem by modeling each project with its required capital and 
-//potential profit using a custom Project class that implements Comparable to sort projects based on their 
-//capital requirements. Initially, I sorted all projects by their capital. 
-//Using a max heap (implemented with PriorityQueue and Collections.reverseOrder()), 
+//Initially, I sorted all projects by their capital in ascending order.
+//Using a max heap (implemented with PriorityQueue and Collections.reverseOrder()) for chosing the project with max capital.
 //I dynamically tracked and selected up to k projects that I could afford with my current capital w. 
-//For each eligible project, its profit was added to w, and 
-//this process continued until either k projects were selected or no more projects could be chosen due 
-//to insufficient capital. Finally, w represents the maximum capital achievable after selecting the 
-//optimal set of projects.
+//For each eligible project, its profit was added to w, and this process continued until either k projects were selected or 
+//no more projects could be chosen due to insufficient capital. 
+//Finally, w represents the maximum capital achievable after selecting the optimal set of projects.
 //Time: nlogn
 //Space: n
 class Solution {
