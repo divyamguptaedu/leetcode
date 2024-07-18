@@ -1,11 +1,4 @@
 /**
-Checked the node value to see if it is in the range, then used recursion on the left and right node. 
-If the node value if smaller than the minimum, then just do recursion on the right node. 
-Same vis-a-vis.
-*/
-//Time: O(n)
-//Space: O(n)
-/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
@@ -22,17 +15,23 @@ Same vis-a-vis.
  */
 class Solution {
     public int rangeSumBST(TreeNode root, int L, int R) {
-        if (root == null) {
-            return 0;
+        int result = 0;
+        Stack<TreeNode> stack = new Stack();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if (node != null) {
+                if (L <= node.val & node.val <= R) {
+                    result += node.val;
+                }
+                if (node.val > L) {
+                    stack.push(node.left);
+                }
+                if (node.val < R) {
+                    stack.push(node.right);
+                }
+            }
         }
-        if (root.val >= L && root.val <= R) {
-            return root.val + rangeSumBST(root.left, L, R) + rangeSumBST(root.right, L, R);
-        } else if (root.val < L) {
-            return rangeSumBST(root.right, L, R);
-        } else if (root.val > R){
-            return rangeSumBST(root.left, L, R);
-        } else {
-            return 0;
-        }
+        return result;
     }
 }
