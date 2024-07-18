@@ -14,22 +14,37 @@
  * }
  */
 
-//I defined a helper function that recursively traversed the left subtree, then the right subtree, and finally added the current node's value to the output list. 
-//This function was called by the main method which returned the populated list. 
-//Postorder traversal processes nodes in left-right-root order, ensuring all child nodes are processed before their parent nodes.
-//Time: n
-//Space: n
 class Solution {
-    public void postorder(TreeNode root, List<Integer> output) {
-        if (root == null) return;
-        postorder(root.left, output);
-        postorder(root.right, output);
-        output.add(root.val);
+    public List<Integer> postorderTraversal(TreeNode root) {
+        LinkedList<Integer> result = new LinkedList();
+        Deque<TreeNode> stack = new ArrayDeque();
+        if (root == null) return result;
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            root = stack.pop();
+            result.addFirst(root.val);
+            if (root.left != null) stack.push(root.left);
+            if (root.right != null) stack.push(root.right);
+        }
+
+        return result;
     }
+}
+
+class Solution {
 
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> output = new ArrayList();
         postorder(root, output);
         return output;
+    }
+
+    private void postorder(TreeNode root, List<Integer> result) {
+        if (root == null) {
+            return;
+        }
+        postorder(root.left, result);
+        postorder(root.right, result);
+        result.add(root.val);
     }
 }
