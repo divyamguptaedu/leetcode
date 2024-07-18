@@ -1,6 +1,3 @@
-//Used a simple interative BFS approach, using the length of the queue at each level 
-//and calculating the average at each level by keeping track of the sum at each level.
-
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -16,31 +13,36 @@
  *     }
  * }
  */
-//Time: O(n)
-//Space: O(m) m is the maximum nodes in a level
 class Solution {
     public List<Double> averageOfLevels(TreeNode root) {
-        Queue<TreeNode> queue = new LinkedList<>();
         List<Double> result = new ArrayList<>();
         if (root == null) {
             return result;
         }
+
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
+
         while (!queue.isEmpty()) {
-            int size = queue.size();
-            Double sum = 0.0;
-            for (int i = 0; i < size; i++) {
-                TreeNode node = queue.poll();
-                sum += node.val;
-                if (node.left != null) {
-                    queue.offer(node.left);
+            int levelSize = queue.size();
+            double sum = 0;
+
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode currentNode = queue.poll();
+                sum += currentNode.val;
+
+                if (currentNode.left != null) {
+                    queue.add(currentNode.left);
                 }
-                if (node.right != null) {
-                    queue.offer(node.right);
+
+                if (currentNode.right != null) {
+                    queue.add(currentNode.right);
                 }
             }
-            result.add(sum / size);
+
+            result.add(sum / levelSize);
         }
+
         return result;
     }
 }
