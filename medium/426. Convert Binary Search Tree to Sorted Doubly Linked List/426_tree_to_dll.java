@@ -1,8 +1,3 @@
-/**
-Did an inorder DFS traversal, in which when it comes to the node, 
-we re-link the last visited node and the current node.
-*/
-
 /*
 // Definition for a Node.
 class Node {
@@ -23,44 +18,33 @@ class Node {
     }
 };
 */
-
-//Time: O(n)
-//Space: O(n) for the recursion stack.
-
 class Solution {
-    Node first = null;
-    Node last = null;
-
     public Node treeToDoublyList(Node root) {
         if (root == null) {
-            return null;
+            return root;
         }
-        dfs_inorder(root);
+        List<Node> sorted = new ArrayList<>();
+        inorderTraversal(root, sorted);
 
-        // link the last and first to make it circular.
-        last.right = first;
-        first.left = last;
-        return first;
+        int len = sorted.size();
+        Node head = sorted.get(0);
+        Node tail = sorted.get(len - 1);
+
+        for (int i = 0; i < len; i++) {
+            Node curr = sorted.get(i);
+            curr.left = i == 0 ? tail : sorted.get(i - 1);
+            curr.right = i == len - 1 ? head : sorted.get(i + 1);
+        }
+
+        return head;
     }
 
-    public void dfs_inorder(Node currentNode) {
-        if (currentNode != null) {
-            // left
-            dfs_inorder(currentNode.left);
-
-            // node 
-            if (last != null) {
-                //link the last and current together
-                last.right = currentNode;
-                currentNode.left = last;
-            }
-            else {
-                first = currentNode; //initialize the first because it will be the smallest.
-            }
-            last = currentNode; //to be used by the next node for connection
-
-            // right
-            dfs_inorder(currentNode.right);
+    private void inorderTraversal(Node root, List<Node> sorted) {
+        if (root == null) {
+            return;
         }
+        inorderTraversal(root.left, sorted);
+        sorted.add(root);
+        inorderTraversal(root.right, sorted);
     }
 }
