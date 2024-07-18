@@ -1,49 +1,42 @@
-//Did a simple BFS while keeping track of the level and making seperate lists of each level in the result 2d list.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
  * }
  */
-
-// Time: O(n)
-// Space: O(n)
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> levels = new ArrayList<List<Integer>>();
+        List<List<Integer>> result = new ArrayList<>();
         if (root == null) {
-            return levels;
+            return result;
         }
-
-        Queue<TreeNode> queue = new LinkedList<TreeNode>();
-        queue.add(root);
+        Queue<TreeNode> queue = new LinkedList<>();
         int level = 0;
-
+        queue.add(root);
         while (!queue.isEmpty()) {
-            levels.add(new ArrayList<Integer>());
-            int level_length = queue.size();
-
-            for (int i = 0; i < level_length; i++) {
-                TreeNode node = queue.remove();
-                levels.get(level).add(node.val);
-                if (node.left != null) {
-                    queue.add(node.left);
+            int levelSize = queue.size();
+            result.add(new ArrayList<Integer>());
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode current = queue.poll();
+                result.get(level).add(current.val);
+                if (current.left != null) {
+                    queue.add(current.left);
                 }
-                if (node.right != null) {
-                    queue.add(node.right);
+                if (current.right != null) {
+                    queue.add(current.right);
                 }
             }
             level++;
         }
-        return levels;
+        return result;
     }
 }
