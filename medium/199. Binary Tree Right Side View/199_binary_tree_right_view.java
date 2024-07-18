@@ -1,11 +1,4 @@
 /**
-Because we need to traverse level by level, I used BFS. 
-Made one queue for the current level, another for the next level. 
-Added the last node of the current level to the output list. 
-Made sure to also add the child of the nodes in the current level to the next level.
-*/
-
-/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
@@ -20,41 +13,31 @@ Made sure to also add the child of the nodes in the current level to the next le
  *     }
  * }
  */
- 
-//Time: O(n)
-//Space: O(n)
-
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> output = new ArrayList();
+        List<Integer> result = new ArrayList<>();
         if (root == null) {
-            return output;
+            return result;
         }
-        
-        ArrayDeque<TreeNode> nextLevel = new ArrayDeque();
-        nextLevel.offer(root);
-        ArrayDeque<TreeNode> currentLevel = new ArrayDeque();        
-        
-        TreeNode currentNode = null;
-
-        while (!nextLevel.isEmpty()) {
-            // prepare for the next level
-            currentLevel = nextLevel;
-            nextLevel = new ArrayDeque<>();
-
-            while (! currentLevel.isEmpty()) {
-                currentNode = currentLevel.poll();
-                if (currentNode.left != null) {
-                    nextLevel.offer(currentNode.left); //add left child to the next level
-                }    
-                if (currentNode.right != null) { 
-                    nextLevel.offer(currentNode.right); //add right child to the next level
-                }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        queue.add(null);
+        TreeNode prev = root;
+        TreeNode curr = root;
+        while (!queue.isEmpty()) {
+            prev = curr;
+            curr = queue.poll();
+            while (curr != null) {
+                if (curr.left != null) queue.add(curr.left);
+                if (curr.right != null) queue.add(curr.right);
+                prev = curr;
+                curr = queue.poll();
             }
-            
-            if (currentLevel.isEmpty()) 
-                output.add(currentNode.val); //add last node of the current level to the result
+            result.add(prev.val);
+            if (!queue.isEmpty()) {
+                queue.add(null);
+            }
         }
-        return output;
+        return result;
     }
 }
