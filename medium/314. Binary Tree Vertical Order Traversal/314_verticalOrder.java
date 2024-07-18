@@ -1,9 +1,4 @@
 /**
-Used a map to have nodes by column. 
-Used BFS for the traversal, increasing and decreasing column number as we go left and right. 
-Kept track of minColumn and maxColumn to avoid having to sort the columns in the hashmap.
-*/
-/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
@@ -18,45 +13,38 @@ Kept track of minColumn and maxColumn to avoid having to sort the columns in the
  *     }
  * }
  */
-//Time Complexity: O(n)
-//Space Complexity: O(n)
-
 class Solution {
     public List<List<Integer>> verticalOrder(TreeNode root) {
-        List<List<Integer>> output = new ArrayList<>();
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        List<List<Integer>> result = new ArrayList<>();
         if (root == null) {
-            return output;
+            return result;
         }
-
-        HashMap<Integer, ArrayList<Integer>> columnMap = new HashMap();
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
         int column = 0;
-        int minColumn = 0; //keep track of min
-        int maxColumn = 0; //keep track of max
-
-        Queue<Pair<TreeNode, Integer>> queue = new ArrayDeque();
-        queue.offer(new Pair(root, column));
-
-        while (!queue.isEmpty()) { //bfs with pair of node and col
-            Pair<TreeNode, Integer> pair = queue.poll();
-            root = pair.getKey();
-            column = pair.getValue();
-
-            if (root != null) {
-                if (!columnMap.containsKey(column)) {
-                    columnMap.put(column, new ArrayList<Integer>());
-                }
-                columnMap.get(column).add(root.val);
-                minColumn = Math.min(column, minColumn);
-                maxColumn = Math.max(column, maxColumn);
-                queue.offer(new Pair(root.left, column - 1));
-                queue.offer(new Pair(root.right, column + 1));
+        int minCol = 0;
+        int maxCol = 0;
+        queue.add(new Pair(root, column));
+        while (!queue.isEmpty()) {
+            Pair<TreeNode, Integer> curr = queue.poll();
+            root = curr.getKey();
+            column = curr.getValue();
+            if (!map.containsKey(column)) {
+                map.put(column, new ArrayList<>());
+            }
+            map.get(column).add(root.val);
+            minCol = Math.min(minCol, column);
+            maxCol = Math.max(maxCol, column);
+            if (root.left != null) {
+                queue.add(new Pair(root.left, column - 1));
+            }
+            if (root.right != null) {
+                queue.add(new Pair(root.right, column + 1));
             }
         }
-
-        for (int i = minColumn; i <= maxColumn; i++) { //building the output using the map
-            output.add(columnMap.get(i));
+        for (int i = minCol; i <= maxCol; i++) {
+            result.add(map.get(i));
         }
-
-        return output;
+        return result;
     }
 }
