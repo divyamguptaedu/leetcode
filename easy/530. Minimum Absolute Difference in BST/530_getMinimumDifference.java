@@ -1,5 +1,3 @@
-//Used a simple recursive approach by keeping track of the previous node value 
-//and finding the difference from the current node value.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -18,24 +16,21 @@
 //Time: O(n)
 //Space: O(n)
 class Solution {
-    int previousNodeValue = Integer.MAX_VALUE;
-    int result = Integer.MAX_VALUE;
-
+    int minDifference = Integer.MAX_VALUE;
+    TreeNode prevNode;
     public int getMinimumDifference(TreeNode root) {
-        inorder(root);
-        return result;
+        inorderTraversal(root);
+        return minDifference;
     }
-
-    public void inorder(TreeNode root) {
-        if (root.left != null) {
-            inorder(root.left);
+    private void inorderTraversal(TreeNode node) {
+        if (node == null) {
+            return;
         }
-
-        result = Math.min(result, Math.abs(root.val - previousNodeValue));
-        previousNodeValue = root.val;
-
-        if (root.right != null) {
-            inorder(root.right);
+        inorderTraversal(node.left);
+        if (prevNode != null) {
+            minDifference = Math.min(minDifference, node.val - prevNode.val);
         }
+        prevNode = node;
+        inorderTraversal(node.right);
     }
 }
