@@ -1,8 +1,3 @@
-/**
-Used a simple approach in which the nodes are queried for their parents until null is returned. 
-On seeing null, the pointer is set to the other original node. 
-This helps reach the LCA without having to save the visited nodes in any data structure. 
-*/
 /*
 // Definition for a Node.
 class Node {
@@ -12,24 +7,36 @@ class Node {
     public Node parent;
 };
 */
-//Time Complexity: O(n)
-//Space Complexity: O(1)
+
 class Solution {
     public Node lowestCommonAncestor(Node p, Node q) {
-        Node pCopy = p;
-        Node qCopy = q;
-        while (pCopy != qCopy) {
-            if (pCopy.parent == null) {
-                pCopy = q;
-            } else {
-                pCopy = pCopy.parent;
+
+        Set<Integer> pAncestors = new HashSet<Integer>();
+        Set<Integer> qAncestors = new HashSet<Integer>();
+
+        pAncestors.add(p.val);
+        qAncestors.add(q.val);
+
+        while (p.parent != null || q.parent != null) {
+            if (p.parent != null) {
+                p = p.parent;
+                pAncestors.add(p.val);
             }
-            if (qCopy.parent == null) {
-                qCopy = p;
-            } else {
-                qCopy = qCopy.parent;
+
+            if (q.parent != null) {
+                q = q.parent;
+                qAncestors.add(q.val);
+            }
+
+            if (pAncestors.contains(q.val)) {
+                return q;
+            }
+
+            if (qAncestors.contains(p.val)) {
+                return p;
             }
         }
-        return pCopy;
+
+        return null;
     }
 }
