@@ -1,9 +1,4 @@
 /**
-Used a binary search approach to iterate the tree conditionally. 
-Made sure include the logic to determine the node with the closest value. 
-Also made sure to return the smallest node if there are multiple answers.
-*/
-/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
@@ -18,27 +13,29 @@ Also made sure to return the smallest node if there are multiple answers.
  *     }
  * }
  */
-
- //Time: O(h) h is the height of the tree
- //Space: O(1)
 class Solution {
     public int closestValue(TreeNode root, double target) {
-        int currentValue = root.val;
-        int closestValue = root.val;
+        if (root == null) {
+            return -1;
+        }
+        int result = root.val;
         while (root != null) {
-            currentValue = root.val;
-            if (Math.abs(currentValue - target) < Math.abs(closestValue - target)) {
-                closestValue = currentValue;
+            if (root.val == target) {
+                return root.val;
             }
-            if ((Math.abs(currentValue - target) == Math.abs(closestValue - target) && currentValue < closestValue)) {
-                closestValue = currentValue;
+            if (Math.abs(root.val - target) == Math.abs(result - target)) {
+                if (root.val < result) {
+                    result = root.val;
+                }
+            } else if (Math.abs(root.val - target) < Math.abs(result - target)) {
+                result = root.val;
             }
-            if (target < root.val) {
+            if (root.val > target) {
                 root = root.left;
-            } else {
+            } else if (root.val < target) {
                 root = root.right;
             }
         }
-        return closestValue;
+        return result;
     }
 }
