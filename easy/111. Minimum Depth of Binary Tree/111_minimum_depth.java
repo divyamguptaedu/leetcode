@@ -1,6 +1,3 @@
-//Used a simple recursive approach by return left+right+1 if either left or right depth is 0, 
-//or returning the minimum of left and right depth + 1 if either of the depth is not zero. 
-//Bottoms up approach.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -16,20 +13,32 @@
  *     }
  * }
  */
- //Time: O(n)
- //Space: O(n)
 class Solution {
     public int minDepth(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        int left = minDepth(root.left);
-        int right = minDepth(root.right);
-        
-        if (left == 0 || right == 0) {
-            return left + right + 1;
-        } else {
-            return Math.min(left, right) + 1;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        int depth = 1;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node.left == null && node.right == null) {
+                    return depth;
+                }
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+            depth++;
         }
+        return -1;
     }
 }
