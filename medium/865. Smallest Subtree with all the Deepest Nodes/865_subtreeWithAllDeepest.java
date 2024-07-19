@@ -1,7 +1,3 @@
-//Simply found the nodes with maxDepth and same LCA. 
-//Used recursion DFS, increased level at every left and right call. 
-//Kept track of the maxDepth. 
-//Changed the assignment of the smallestSubtree whenever left == right and greater than currentMaxDepth.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -17,31 +13,42 @@
  *     }
  * }
  */
-
-// Time: O(n)
-// Space: O(n)
 class Solution {
-    int maxDepth = 0;
-    TreeNode smallestSubtree;
-
     public TreeNode subtreeWithAllDeepest(TreeNode root) {
-        lca(root, 0); //find the lca
-        return smallestSubtree;
-    }
-
-    public int lca (TreeNode node, int level) {
-        if (node == null) {
-            return level;
+        if (root == null) {
+            return null;
         }
-        
-        int left = lca(node.left, level + 1);
-        int right = lca(node.right, level + 1);
-        
-        if (left == right && left >= maxDepth) {
-            maxDepth = left;
-            smallestSubtree = node;
+        Map<TreeNode, TreeNode> parentMap = new HashMap<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        parentMap.put(root, null);
+
+        List<TreeNode> deepestLeaves = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            deepestLeaves.clear();
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                deepestLeaves.add(node);
+                if (node.left != null) {
+                    queue.offer(node.left);
+                    parentMap.put(node.left, node);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                    parentMap.put(node.right, node);
+                }
+            }
         }
 
-        return Math.max(left, right); 
+        while (deepestLeaves.size() > 1) {
+            Set<TreeNode> parents = new HashSet<>();
+            for (TreeNode node : deepestLeaves) {
+                parents.add(parentMap.get(node));
+            }
+            deepestLeaves = new ArrayList<>(parents);
+        }
+
+        return deepestLeaves.get(0);
     }
 }
