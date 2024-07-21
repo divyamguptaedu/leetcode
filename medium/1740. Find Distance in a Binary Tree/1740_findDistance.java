@@ -1,5 +1,3 @@
-//First found the LCA of p and q, and then used DFS to find the length from the LCA to p and LCA to q, 
-//and then added them.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -15,43 +13,69 @@
  *     }
  * }
  */
-//Time: O(n)
-//Space: O(1)
 class Solution {
-
+    TreeNode root;
+    TreeNode nodeP;
+    TreeNode nodeQ;
     public int findDistance(TreeNode root, int p, int q) {
-        TreeNode lca = LCA(root, p, q);
-        return DFS(lca, p, 0) + DFS(lca, q, 0);
+        this.root = root;
+        TreeNode lca = findLCA(p, q);
+        int depthP = findDepth(lca, p);
+        int depthQ = findDepth(lca, q);
+        return depthP + depthQ;
     }
 
-    public TreeNode LCA(TreeNode currentNode, int p, int q) {
-        if (currentNode == null) {
-            return null;
+    private TreeNode findLCA(int p, int q) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        HashMap<TreeNode, TreeNode> parents = new HashMap<>();
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            if (node.left != null) {
+                parents.put(node.left, node);
+                queue.add(node.left);
+            }
+            if (node.right != null) {
+                parents.put(node.right, node);
+                queue.add(node.right);
+            }
+            if (node.val == p) {
+                this.nodeP = node;
+            }
+            if (node.val == q) {
+                this.nodeQ = node;
+            }
         }
-        if (currentNode.val == p || currentNode.val == q) {
-            return currentNode;
+        HashSet<TreeNode> ancestors = new HashSet<>();
+        TreeNode node = nodeP;
+        while (node != null) {
+            ancestors.add(node);
+            node = parents.get(node);
         }
-        TreeNode leftTree = LCA(currentNode.left, p, q);
-        TreeNode rightTree = LCA(currentNode.right, p, q);
-        if (leftTree != null && rightTree != null) {
-           return currentNode; 
+        node = nodeQ;
+        while (!ancestors.contains(node)) {
+            node = parents.get(node);
         }
-        if (leftTree == null) {
-            return rightTree;
-        } else {
-            return leftTree;
-        }  
+        return node;
     }
 
-    public int DFS(TreeNode node, int target, int length) {
-        if (node == null) {
-            return 0;
+    private int findDepth(TreeNode start, int target) {
+        Stack<Pair<TreeNode, Integer>> stack = new Stack<>();
+        stack.push(new Pair(start, 0));
+        while (!stack.isEmpty()) {
+            Pair<TreeNode, Integer> pair = stack.pop();
+            TreeNode node = pair.getKey();
+            Integer depth = pair.getValue();
+            if (node.val == target) {
+                return depth;
+            }
+            if (node.left != null) {
+                stack.add(new Pair(node.left, depth + 1));
+            }
+            if (node.right != null) {
+                stack.add(new Pair(node.right, depth + 1));
+            }
         }
-        
-        if (node.val == target) {
-            return length;
-        }
-
-        return Math.max(DFS(node.left, target, length + 1), DFS(node.right, target, length + 1));
+        return -1;
     }
 }
