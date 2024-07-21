@@ -1,4 +1,3 @@
-//Did an inorder traversal to get the nodes in sorted order. Then just created a BST using the middle value as the root.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -15,13 +14,11 @@
  * }
  */
 
-// Time Complexity = O(n)
-// Space Complexity = O(n)
-
 class Solution {
-    List<TreeNode> inorder = new ArrayList<>();
+    List<TreeNode> inorder;
     
     public TreeNode balanceBST(TreeNode root) {
+        inorder = new ArrayList<>();
         inOrder(root);
         return createBalancedBST(0, inorder.size() - 1);
     }
@@ -39,10 +36,10 @@ class Solution {
         if (left > right) {
             return null;
         }
-        int middleValueToBreakLeftRight = (left + right) / 2;
-        TreeNode currentNode = inorder.get(middleValueToBreakLeftRight);
-        currentNode.left = createBalancedBST(left, middleValueToBreakLeftRight - 1);
-        currentNode.right = createBalancedBST(middleValueToBreakLeftRight + 1, right);
-        return currentNode;
+        int middleIndexToBreakLeftRight = (left + right) / 2;
+        TreeNode root = inorder.get(middleIndexToBreakLeftRight);
+        root.left = createBalancedBST(left, middleIndexToBreakLeftRight - 1);
+        root.right = createBalancedBST(middleIndexToBreakLeftRight + 1, right);
+        return root;
     }
 }
