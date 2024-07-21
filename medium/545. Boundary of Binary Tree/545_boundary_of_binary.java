@@ -1,7 +1,3 @@
-//Approached the problem as four tasks. 
-//Made a result list, added the root, then added the left boundary while defining the rules. 
-//Then added the leaves, computed using DFS, 
-//and finally the right boundary nodes using a stack to get the reverse order.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -17,64 +13,61 @@
  *     }
  * }
  */
- //TIme: O(n)
- //Space: O(n)
-public class Solution {
-
+class Solution {
     public List<Integer> boundaryOfBinaryTree(TreeNode root) {
-        ArrayList<Integer> result = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
         if (root == null) {
             return result;
         }
-        //add root
-        if (root.left != null || root.right != null) {
-            result.add(root.val);
-        }
-        //add left boundary
-        TreeNode leftBoundaryNode = root.left;
-        while (leftBoundaryNode != null) {
-            if (leftBoundaryNode.left != null || leftBoundaryNode.right != null) {
-                result.add(leftBoundaryNode.val);
+        //add the root val to the result
+        result.add(root.val);
+
+        //add left boundary nodes
+        TreeNode leftSubtree = root.left;
+        while (leftSubtree != null) {
+            if (leftSubtree.left != null || leftSubtree.right != null) {
+                result.add(leftSubtree.val);
             }
-            if (leftBoundaryNode.left != null) {
-                leftBoundaryNode = leftBoundaryNode.left;
+            if (leftSubtree.left != null) {
+                leftSubtree = leftSubtree.left;
             } else {
-                leftBoundaryNode = leftBoundaryNode.right;
-            }
-
-        }
-        //add leaves
-        addLeaves(result, root);
-
-        //add right boundary
-        Stack<Integer> stack = new Stack<>(); //for reverse order
-        TreeNode rightBoundaryNode = root.right;
-        while (rightBoundaryNode != null) {
-            if (rightBoundaryNode.left != null || rightBoundaryNode.right != null) {
-                stack.push(rightBoundaryNode.val);
-            }
-            if (rightBoundaryNode.right != null) {
-                rightBoundaryNode = rightBoundaryNode.right;
-            } else {
-                rightBoundaryNode = rightBoundaryNode.left;
+                leftSubtree = leftSubtree.right;
             }
         }
-        while (!stack.empty()) {
-            result.add(stack.pop());
-        }
-        return result;
-    }
 
-    public void addLeaves(List<Integer> result, TreeNode node) {
-        if (node.left == null && node.right == null) {
-            result.add(node.val);
-        } else {
-            if (node.left != null) {
-                addLeaves(result, node.left);
+        //add leaf nodes
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if (node.left == null && node.right == null && node != root) {
+                result.add(node.val);
             }
             if (node.right != null) {
-                addLeaves(result, node.right);
+                stack.push(node.right);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
             }
         }
+
+        //add right boundary nodes
+        stack = new Stack<>();
+        TreeNode rightSubtree = root.right;
+        while (rightSubtree != null) {
+            if (rightSubtree.left != null || rightSubtree.right != null) {
+                stack.add(rightSubtree);
+            }
+            if (rightSubtree.right != null) {
+                rightSubtree = rightSubtree.right;
+            } else {
+                rightSubtree = rightSubtree.left;
+            }
+        }
+        while (!stack.isEmpty()) {
+            result.add(stack.pop().val);
+        }
+
+        return result;
     }
 }
