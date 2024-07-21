@@ -1,71 +1,50 @@
-/**
-Created an adjacency list and then just ran BFS on it till that K is reached. 
-Populated the result list when the depth is equal to K.
-*/
-
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-
-//Time: O(n)
-//Space: O(n)
 class Solution {
-    public List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
-        Map<TreeNode, List<TreeNode>> graph = new HashMap<>(); // get adjacency list
-        buildGraph(root, null, graph);
-
-        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
-        Set<TreeNode> visited = new HashSet<>();
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         List<Integer> result = new ArrayList<>();
-        
-        queue.add(new Pair<>(target, 0));
-        visited.add(target);
-        
+        Map<Integer, TreeNode> parent = new HashMap<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
         while (!queue.isEmpty()) {
-            Pair<TreeNode, Integer> pair = queue.poll();
-            TreeNode node = pair.getKey();
-            int distance = pair.getValue();
-            
-            if (distance == K) {
-                result.add(node.val);
-            }
-            
-            if (distance > K) {
-                break;
-            }
-            
-            for (TreeNode neighbor : graph.get(node)) {
-                if (!visited.contains(neighbor)) {
-                    visited.add(neighbor);
-                    queue.add(new Pair<>(neighbor, distance + 1));
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    parent.put(node.left.val, node);
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    parent.put(node.right.val, node);
+                    queue.add(node.right);
                 }
             }
         }
-        
+
+        Set<Integer> visited = new HashSet<>();
+        queue.add(target);
+        while (k > 0 && !queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                visited.add(node.val);
+                if (node.left != null && !visited.contains(node.left.val)) {
+                    queue.offer(node.left);
+                }
+
+                if (node.right != null && !visited.contains(node.right.val)) {
+                    queue.offer(node.right);
+                }
+
+                if (parent.containsKey(node.val) && !visited.contains(parent.get(node.val).val)) {
+                    queue.offer(parent.get(node.val));
+                }
+            }
+            k--;
+        }
+
+        while (!queue.isEmpty()) {
+            result.add(queue.poll().val);
+        }
         return result;
-    }
-    
-    private void buildGraph(TreeNode node, TreeNode parent, Map<TreeNode, List<TreeNode>> graph) {
-        if (node == null) {
-            return;
-        }
-        
-        if (!graph.containsKey(node)) {
-            graph.put(node, new ArrayList<>());
-        }
-        
-        if (parent != null) {
-            graph.get(node).add(parent);
-            graph.get(parent).add(node);
-        }
-        
-        buildGraph(node.left, node, graph);
-        buildGraph(node.right, node, graph);
     }
 }
