@@ -1,49 +1,49 @@
 /**
-Just did the inorder traversal during initialization and then returned the next and hasNext results in O(1) time.
-*/
-/**
  * Definition for a binary tree node.
  * public class TreeNode {
- * int val;
- * TreeNode left;
- * TreeNode right;
- * TreeNode(int x) { val = x; }
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
  * }
  */
-
-//Time: O(1) for the hasNext and next. O(n) for initialization.
-//Space: O(n)
 class BSTIterator {
-    ArrayList<Integer> list;
+    List<Integer> order;
     int index;
-
     public BSTIterator(TreeNode root) {
-        list = new ArrayList<Integer>();
+        order = new ArrayList<>();
+        inOrderTraversal(root, order);
         index = -1;
-        inorder(root);
     }
 
-    public void inorder(TreeNode root) {
+    private void inOrderTraversal(TreeNode root, List<Integer> order) {
         if (root == null) {
             return;
         }
-        inorder(root.left);
-        list.add(root.val);
-        inorder(root.right);
+        inOrderTraversal(root.left, order);
+        order.add(root.val);
+        inOrderTraversal(root.right, order);
     }
-
+    
     public int next() {
         index++;
-        return list.get(index);
+        return order.get(index);
     }
-
+    
     public boolean hasNext() {
-        return index + 1 < list.size();
+        return index + 1 < order.size(); 
     }
 }
 
-
-
-
-
-
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * BSTIterator obj = new BSTIterator(root);
+ * int param_1 = obj.next();
+ * boolean param_2 = obj.hasNext();
+ */
