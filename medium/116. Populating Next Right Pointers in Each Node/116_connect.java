@@ -1,4 +1,3 @@
-//For each leftmost node, used the next pointers to connect them all level by level. No extra space used.
 /*
 // Definition for a Node.
 class Node {
@@ -21,17 +20,42 @@ class Node {
     }
 };
 */
-// Time: O(n)
-// Space: O(1)
+
+// class Solution {
+//     public Node connect(Node root) {
+//         if (root == null) {
+//             return null;
+//         }
+//         Queue<Node> queue = new LinkedList<>();
+//         Node node = root;
+//         queue.add(node);
+//         while (!queue.isEmpty()) {
+//             int size = queue.size();
+//             for (int i = 0; i < size; i++) {
+//                 Node currNode = queue.poll();
+//                 if (i + 1 < size) {
+//                     currNode.next = queue.peek();
+//                 }
+//                 if (currNode.left != null) {
+//                     queue.add(currNode.left);
+//                 }
+//                 if (currNode.right != null) {
+//                     queue.add(currNode.right);
+//                 }
+//             }
+//         }
+//         return root;
+//     }
+// }
 
 class Solution {
-    public Node connect(Node root) { 
+    public Node connect(Node root) {
         if (root == null) {
             return root;
         }
-        Node leftmost = root;
-        while (leftmost.left != null) {
-            Node head = leftmost;
+        Node leftMost = root;
+        while (leftMost.left != null) {
+            Node head = leftMost;
             while (head != null) {
                 head.left.next = head.right;
                 if (head.next != null) {
@@ -39,9 +63,8 @@ class Solution {
                 }
                 head = head.next;
             }
-            leftmost = leftmost.left;
+            leftMost = leftMost.left;
         }
-        
         return root;
     }
 }
