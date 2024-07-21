@@ -1,4 +1,3 @@
-//Used a simple interative BFS approach, using the length of the queue at each level and a maxInThisRow pointer.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -14,26 +13,20 @@
  *     }
  * }
  */
-
- //Time: O(n)
- //Space: O(n)
 class Solution {
     public List<Integer> largestValues(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
         if (root == null) {
-            return new ArrayList<Integer>();
+            return result;
         }
-
-        List<Integer> result = new ArrayList<Integer>();
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
-        
         while (!queue.isEmpty()) {
-            int currentLength = queue.size();
-            int maxInThisRow = Integer.MIN_VALUE;
-            
-            for (int i = 0; i < currentLength; i++) {
-                TreeNode node = queue.remove();
-                maxInThisRow = Math.max(maxInThisRow, node.val);
+            int size = queue.size();
+            int max = Integer.MIN_VALUE;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                max = Math.max(max, node.val);
                 if (node.left != null) {
                     queue.add(node.left);
                 }
@@ -41,9 +34,8 @@ class Solution {
                     queue.add(node.right);
                 }
             }
-            result.add(maxInThisRow);
+            result.add(max);
         }
-        
         return result;
     }
 }
