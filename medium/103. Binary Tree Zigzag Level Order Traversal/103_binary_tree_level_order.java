@@ -1,5 +1,3 @@
-//Used an iterative level order traversal approach with the only difference that for alternate levels, 
-//I added the nodes to a stack instead and popped them later to add to the result list.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -15,28 +13,24 @@
  *     }
  * }
  */
- //Time: O(n)
- //Space: O(n)
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-
-        List<List<Integer>> zigzag = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
         if (root == null) {
-            return zigzag;
+            return result;
         }
 
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         boolean flag = false;
-
         while (!queue.isEmpty()) {
             int size = queue.size();
             List<Integer> level = new ArrayList<>();
-            Stack<Integer> reverseStack = new Stack<>();
+            Stack<Integer> reverse = new Stack<>();
             for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
                 if (flag) {
-                    reverseStack.add(node.val);
+                    reverse.add(node.val);
                 } else {
                     level.add(node.val);
                 }
@@ -49,12 +43,12 @@ class Solution {
             }
             flag = !flag;
 
-            while (!reverseStack.isEmpty()) {
-                level.add(reverseStack.pop());
+            while (!reverse.isEmpty()) {
+                level.add(reverse.pop());
             }
-            zigzag.add(level);
+            result.add(level);
         }
 
-        return zigzag;
+        return result;
     }
 }
