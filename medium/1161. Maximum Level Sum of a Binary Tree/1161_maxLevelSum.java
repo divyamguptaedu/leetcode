@@ -1,6 +1,3 @@
-//Used a simliar approach as 515. 
-//Used interative BFS tracking the level, calculating the sum of each level 
-//and comparing with the maxSumTillNow
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -16,25 +13,23 @@
  *     }
  * }
  */
-//Time: O(n)
-//Space: O(m) m is the max nodes in a level
 class Solution {
     public int maxLevelSum(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        int result = 0;
-        int level = 1;
-        int maxSum = Integer.MIN_VALUE;
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
-        
+        int maxSum = Integer.MIN_VALUE;
+        int maxSumLevel = 0;
+        int level = 0;
         while (!queue.isEmpty()) {
-            int currentLength = queue.size();
-            int sumInThisRow = 0;
-            for (int i = 0; i < currentLength; i++) {
-                TreeNode node = queue.remove();
-                sumInThisRow += node.val;
+            int size = queue.size();
+            int sum = 0;
+            level++;
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                sum += node.val;
                 if (node.left != null) {
                     queue.add(node.left);
                 }
@@ -42,13 +37,11 @@ class Solution {
                     queue.add(node.right);
                 }
             }
-            if (sumInThisRow > maxSum) {
-                maxSum = sumInThisRow;
-                result = level;
+            if (sum > maxSum) {
+                maxSum = sum;
+                maxSumLevel = level;
             }
-            level++;
         }
-        
-        return result;
+        return maxSumLevel;
     }
 }
