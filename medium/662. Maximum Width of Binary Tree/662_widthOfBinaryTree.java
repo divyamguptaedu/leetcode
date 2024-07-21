@@ -1,4 +1,3 @@
-//Used level order traversal while assigning nodes a number at each level starting at 0.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -14,48 +13,37 @@
  *     }
  * }
  */
-//Time: O(n)
-//Space: O(n)
-class Pair {
-    TreeNode node;
-    int num;
-    Pair (TreeNode node, int num) {
-        this.node = node;
-        this.num = num;
-    }
-} 
 class Solution {
     public int widthOfBinaryTree(TreeNode root) {
         if (root == null) {
-            return 0;
+            return 1;
         }
-        int answer = 0;
-        Queue<Pair> queue = new LinkedList<>();
-        queue.offer(new Pair(root, 0));
+        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        queue.add(new Pair(root, 0));
+        int maxWidth = Integer.MIN_VALUE;
         while (!queue.isEmpty()) {
-            int size = queue.size(); //to account of the level size
-            int temp = queue.peek().num;
-            int first = 0;
-            int last = 0;
+            Pair<TreeNode, Integer> pair = queue.peek();
+            TreeNode head = pair.getKey();
+            int headId = pair.getValue();
+            int size = queue.size();
+            Pair<TreeNode, Integer> currPair;
+            TreeNode currNode;
+            int currId = 0;
             for (int i = 0; i < size; i++) {
-                int currentId = queue.peek().num - temp;
-                TreeNode node = queue.peek().node;
-                queue.poll();
-                if (i == 0) {
-                    first = currentId;
+                currPair = queue.poll();
+                currNode = currPair.getKey();
+                currId = currPair.getValue();
+                if (currNode.left != null) {
+                    queue.add(new Pair(currNode.left, currId * 2));
                 }
-                if (i == size - 1) {
-                    last = currentId;
-                }
-                if (node.left != null) {
-                    queue.offer(new Pair(node.left, currentId * 2 + 1));
-                }
-                if (node.right != null) {
-                    queue.offer(new Pair(node.right, currentId * 2 + 2));
+                if (currNode.right != null) {
+                    queue.add(new Pair(currNode.right, currId * 2 + 1));
                 }
             }
-            answer = Math.max(answer, last - first + 1);
+            if (currId - headId + 1 > maxWidth) {
+                maxWidth = currId - headId + 1;
+            }
         }
-        return answer;
+        return maxWidth;
     }
 }
