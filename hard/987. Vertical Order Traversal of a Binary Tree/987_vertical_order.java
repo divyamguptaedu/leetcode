@@ -1,13 +1,4 @@
 /**
-Very similar question to 314. 
-Binary Tree Vertical Order Traversal; however, now each column needs to be sorted top to bottom, 
-and smallest to biggest if multiple nodes at same row and col. 
-So, used the same approach as 314. Binary Tree Vertical Order Traversal, add the row variable, 
-kept account for that in the columnMap. After columnMap is created, sorted each column by row, 
-and if row is same, then value.
-*/
-
-/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
@@ -21,63 +12,55 @@ and if row is same, then value.
  *         this.right = right;
  *     }
  * }
- */ 
-
-//Time: O(nlogn)
-//Space: O(n)
+ */
 class Solution {
     public List<List<Integer>> verticalTraversal(TreeNode root) {
-        List<List<Integer>> output = new ArrayList();
+        HashMap<Integer, List<Pair<Integer, Integer>>> map = new HashMap<>(); //(col, (row, nodeVal))
+        Queue<Pair<TreeNode, Pair<Integer, Integer>>> queue = new LinkedList<>(); //(node, (row, col))
+        List<List<Integer>> result = new ArrayList<>();
         if (root == null) {
-            return output;
+            return result;
         }
-
-        Map<Integer, ArrayList<Pair<Integer, Integer>>> columnTable = new HashMap(); // key: column; value: <row, node_value>
-        int minColumn = 0;
-        int maxColumn = 0;
-
-        Queue<Pair<TreeNode, Pair<Integer, Integer>>> queue = new ArrayDeque(); // pair of <column, <row, value>>
+        int minCol = 0;
+        int maxCol = 0;
         int row = 0;
-        int column = 0;
-        queue.offer(new Pair(root, new Pair(row, column)));
-
+        int col = 0;
+        queue.add(new Pair(root, new Pair(row, col)));
         while (!queue.isEmpty()) {
-            Pair<TreeNode, Pair<Integer, Integer>> p = queue.poll();
-            root = p.getKey();
-            row = p.getValue().getKey();
-            column = p.getValue().getValue();
-
-            if (root != null) {
-                if (!columnTable.containsKey(column)) {
-                    columnTable.put(column, new ArrayList<Pair<Integer, Integer>>());
-                }
-                columnTable.get(column).add(new Pair<>(row, root.val));
-                minColumn = Math.min(minColumn, column);
-                maxColumn = Math.max(maxColumn, column);
-
-                queue.offer(new Pair(root.left, new Pair(row + 1, column - 1))); //going left means row + 1, col - 1
-                queue.offer(new Pair(root.right, new Pair(row + 1, column + 1))); //going right means row + 1, col + 1
+            Pair<TreeNode, Pair<Integer, Integer>> node = queue.poll();
+            root = node.getKey();
+            row = node.getValue().getKey();
+            col = node.getValue().getValue();
+            if (!map.containsKey(col)) {
+                map.put(col, new ArrayList<Pair<Integer, Integer>>());
+            }
+            map.get(col).add(new Pair(row, root.val));
+            minCol = Math.min(minCol, col);
+            maxCol = Math.max(maxCol, col);
+            if (root.left != null) {
+                queue.add(new Pair(root.left, new Pair(row + 1, col - 1)));
+            }
+            if (root.right != null) {
+                queue.add(new Pair(root.right, new Pair(row + 1, col + 1)));
             }
         }
-
-        for (int i = minColumn; i <= maxColumn; i++) {
-            Collections.sort(columnTable.get(i), new Comparator<Pair<Integer, Integer>>() { // order by both "row" and "value"
+        for (int i = minCol; i <= maxCol; i++) {
+            Collections.sort(map.get(i), new Comparator<Pair<Integer, Integer>>() {
                 @Override
                 public int compare(Pair<Integer, Integer> p1, Pair<Integer, Integer> p2) {
-                    if (p1.getKey().equals(p2.getKey()))
+                    if (p1.getKey() == p2.getKey()) { //if same rows, then sort by value
                         return p1.getValue() - p2.getValue();
-                    else
+                    } else {
                         return p1.getKey() - p2.getKey();
+                    }
                 }
             });
-
-            List<Integer> sortedColumn = new ArrayList();
-            for (Pair<Integer, Integer> p : columnTable.get(i)) {
-                sortedColumn.add(p.getValue());
+            List<Integer> tempList = new ArrayList<>();
+            for (Pair<Integer, Integer> p : map.get(i)) {
+                tempList.add(p.getValue());
             }
-            output.add(sortedColumn);
+            result.add(tempList);
         }
-
-        return output;
+        return result;
     }
 }
