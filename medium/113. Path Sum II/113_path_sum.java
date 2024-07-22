@@ -41,3 +41,43 @@ class Solution {
         currentList.remove(currentList.size() - 1); //remove last
     }
 }
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        List<Integer> list = new ArrayList<>();
+        findPathSum(root, targetSum, result, list);
+        return result;  
+    }
+
+    private void findPathSum(TreeNode node, int targetSum, List<List<Integer>> result, List<Integer> list) {
+        if (node == null) {
+            return;
+        }
+        list.add(node.val);
+        if (node.left == null && node.right == null && targetSum == node.val) {
+            result.add(new ArrayList<>(list));
+        }
+        findPathSum(node.left, targetSum - node.val, result, list);
+        findPathSum(node.right, targetSum - node.val, result, list);
+        list.remove(list.size() - 1);
+    }
+}
