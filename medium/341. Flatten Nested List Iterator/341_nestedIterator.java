@@ -16,35 +16,37 @@
  *     public List<NestedInteger> getList();
  * }
  */
-//Time: O(N+L) for the NestedIterator, O(1) for others. L is the total number of lists.
-//Space: O(N+D) D is the maximum number of lists in the nestedList.
 public class NestedIterator implements Iterator<Integer> {
-    
-    private List<Integer> integers = new ArrayList<Integer>();
-    private int position = 0;
-    
+    List<Integer> flattennedList;
+    int index;
     public NestedIterator(List<NestedInteger> nestedList) {
+        flattennedList = new ArrayList<>();
         flattenList(nestedList);
+        index = 0;
     }
 
     private void flattenList(List<NestedInteger> nestedList) {
-        for (NestedInteger nestedInteger : nestedList) {
-            if (nestedInteger.isInteger()) {
-                integers.add(nestedInteger.getInteger());
+        for (NestedInteger n : nestedList) {
+            if (n.isInteger()) {
+                this.flattennedList.add(n.getInteger());
             } else {
-                flattenList(nestedInteger.getList());
+                flattenList(n.getList());
             }
         }
     }
-    
+
     @Override
     public Integer next() {
-        return integers.get(position++);
+        if (hasNext()) {
+            return this.flattennedList.get(index++);
+        } else {
+            return -1;
+        }
     }
 
     @Override
     public boolean hasNext() {
-        return position < integers.size();
+        return index < this.flattennedList.size();
     }
 }
 
