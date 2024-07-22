@@ -52,3 +52,44 @@ class Solution {
         return maximumHeight;
     }
 }
+
+class Solution {
+    int diameter;
+    HashMap<Integer, List<Integer>> adjList;
+    public int treeDiameter(int[][] edges) {
+        if (edges.length == 0) {
+            return 0;
+        }
+        adjList = new HashMap<>();
+        for (int[] edge : edges) {
+            if (!adjList.containsKey(edge[0])) {
+                adjList.put(edge[0], new ArrayList<>());
+            }
+            adjList.get(edge[0]).add(edge[1]);
+        }
+        diameter = 0;
+        height(edges[0][0]);
+        return diameter;
+    }
+
+    private int height(int node) {
+        if (!adjList.containsKey(node) || adjList.get(node).size() == 0) {
+            return 0;
+        }
+        int maxHeight1 = 0;
+        int maxHeight2 = 0;
+
+        for (int child : adjList.get(node)) {
+            int parentHeight = height(child) + 1;
+            if (parentHeight > maxHeight1) {
+                maxHeight2 = maxHeight1;
+                maxHeight1 = parentHeight;
+            } else if (parentHeight > maxHeight2) {
+                maxHeight2 = parentHeight;
+            }
+            this.diameter = Math.max(diameter, maxHeight1 + maxHeight2);
+        }
+
+        return maxHeight1;
+    }
+}
