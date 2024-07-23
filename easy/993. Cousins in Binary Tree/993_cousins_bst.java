@@ -55,3 +55,43 @@ class Solution {
         return depthOfX == depthOfY;
     }
 }
+
+class Solution {
+    TreeNode Xparent;
+    TreeNode Yparent;
+    int Xheight;
+    int Yheight;
+
+    public boolean isCousins(TreeNode root, int x, int y) {
+        traverse(root, x, y, 0, null);
+        if (Xheight == Yheight && Xparent != Yparent) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void traverse(TreeNode root, int x, int y, int height, TreeNode prev) {
+        if (root == null) {
+            return;
+        }
+        if (root.val == x) {
+            Xparent = prev;
+            Xheight = height;
+        }
+        if (root.val == y) {
+            Yparent = prev;
+            Yheight = height;
+        }
+        prev = root;
+        traverse(root.left, x, y, height + 1, prev);
+        traverse(root.right, x, y, height + 1, prev);
+        
+    }
+
+    private int height(TreeNode node) {
+        int left = height(node.left);
+        int right = height(node.right);
+        int height = Math.max(left, right) + 1;
+    }
+}
