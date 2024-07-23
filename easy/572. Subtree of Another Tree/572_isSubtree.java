@@ -17,54 +17,72 @@
  */
  //Time: O(mn) where m is the number of nodes in tree A and n is #nodes in tree B
  //Space: O(m+n)
-class Solution {
-    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        if (subRoot == null) {
-            return true;
-        }
-        if (root == null) {
-            return false;
-        } 
-        if (helper(root, subRoot)) {
-            return true;
-        }
-        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
-        
-    }
-     
-    //if the two nodes are identical (recursive implementation on child nodes)
-    public boolean helper(TreeNode root1, TreeNode root2) {
-        if (root1 == null && root2 == null) {
-            return true; 
-        }
-        return (root1 != null && root2 != null && root1.val == root2.val) && helper(root1.left , root2.left) && helper(root1.right , root2.right);
-    }
-}
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        return isSubtreeHelper(root, subRoot);
+    }
+
+    private boolean isSubtreeHelper(TreeNode root, TreeNode subRoot) {
         if (root == null) {
             return false;
         }
         if (root.val == subRoot.val) {
-            boolean result = isSame(root, subRoot);
-            if (result) {
+            if (isEqual(subRoot, root)) {
                 return true;
             }
         }
-        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+        return isSubtreeHelper(root.left, subRoot) || isSubtreeHelper(root.right, subRoot);
     }
-    
-    private boolean isSame(TreeNode r1, TreeNode r2) {
-        if (r1 == null && r2 == null) {
+
+    private boolean isEqual(TreeNode subRoot, TreeNode root) {
+        if (subRoot == null && root == null) {
             return true;
         }
-        if (r1 == null || r2 == null) {
+        if (subRoot == null) {
             return false;
         }
-        if (r1.val != r2.val) {
+        if (root == null) {
             return false;
         }
-        return isSame(r1.left, r2.left) && isSame(r1.right, r2.right);
+        if (subRoot.val != root.val) {
+            return false;
+        }
+        return isEqual(subRoot.left, root.left) && isEqual(subRoot.right, root.right);
+
+    }
+}
+
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        if (root == null) {
+            return false;
+        }
+        
+        if (isIdentical(root, subRoot)) {
+            return true;
+        }
+        return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+    }
+
+    private boolean isIdentical(TreeNode node1, TreeNode node2) {
+        if (node1 == null || node2 == null) {
+            return node1 == null && node2 == null;
+        }
+        return node1.val == node2.val && isIdentical(node1.left, node2.left) && isIdentical(node1.right, node2.right);
     }
 }
