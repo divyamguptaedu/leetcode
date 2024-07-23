@@ -22,3 +22,38 @@ class Solution {
         return root;
     }
 }
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int sum;
+    public TreeNode convertBST(TreeNode root) {
+        sum = 0;
+        traverse(root);
+        return root;
+    }
+
+    private TreeNode traverse(TreeNode node) {
+        if (node == null) {
+            return null;
+        }
+        traverse(node.right);
+        sum += node.val;
+        node.val = sum;
+        traverse(node.left);
+        return node;
+    }
+}
