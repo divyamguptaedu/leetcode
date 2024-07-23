@@ -17,29 +17,41 @@
  */
 //Time: O(n)
 //Space: O(n)
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-    int count = 0;
-        
+    int count;
     public int averageOfSubtree(TreeNode root) {
-        helper(root); //dfs
+        count = 0;
+        traverse(root);
         return count;
     }
 
-    public Pair<Integer, Integer> helper(TreeNode root) {
-        if (root == null) {
+    private Pair<Integer, Integer> traverse(TreeNode node) {
+        if (node == null) {
             return new Pair(0, 0);
         }
-        
-        Pair<Integer, Integer> left = helper(root.left);
-        Pair<Integer, Integer> right = helper(root.right);
-        
-        int nodeSum = left.getKey() + right.getKey() + root.val;
-        int nodeCount = left.getValue() + right.getValue() + 1;
-
-        if (root.val == nodeSum / (nodeCount)) {
+        Pair<Integer, Integer> leftInfo = traverse(node.left);
+        Pair<Integer, Integer> rightInfo = traverse(node.right);
+        int sum = leftInfo.getKey() + rightInfo.getKey() + node.val;
+        int numNodes = leftInfo.getValue() + rightInfo.getValue() + 1;
+        if (sum / numNodes == node.val) {
             count++;
         }
-        
-        return new Pair(nodeSum, nodeCount);
+        return new Pair(sum, numNodes);
+
     }
 }
