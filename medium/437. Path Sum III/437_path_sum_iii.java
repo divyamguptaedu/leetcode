@@ -48,3 +48,30 @@ class Solution {
         map.put(currSum, map.get(currSum) - 1);
     }
 }
+
+class Solution {
+    int count = 0;
+    int sum;
+    HashMap<Long, Integer> map = new HashMap();
+
+    public int pathSum(TreeNode root, int sum) {
+        this.sum = sum;
+        preorder(root, 0);
+        return count;
+    }
+
+    public void preorder(TreeNode node, long currSum) {
+        if (node == null) {
+            return;
+        }
+        currSum += node.val;
+        if (currSum == sum) {
+            count++;
+        }
+        count += map.getOrDefault(currSum - sum, 0);
+        map.put(currSum, map.getOrDefault(currSum, 0) + 1);
+        preorder(node.left, currSum);
+        preorder(node.right, currSum);
+        map.put(currSum, map.get(currSum) - 1);
+    }
+}
