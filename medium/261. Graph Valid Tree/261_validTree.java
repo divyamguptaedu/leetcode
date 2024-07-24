@@ -31,3 +31,40 @@ class Solution {
         }
     }
 }
+
+class Solution {
+    public boolean validTree(int n, int[][] edges) {
+        if (edges.length != n - 1) {
+            return false;
+        }
+        Map<Integer, List<Integer>> adjList = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            adjList.put(i, new ArrayList<>());
+        }
+        for (int[] edge : edges) {
+            adjList.get(edge[0]).add(edge[1]);
+            adjList.get(edge[1]).add(edge[0]);
+        }
+        
+        Map<Integer, Integer> parent = new HashMap<>();
+        parent.put(0, -1);
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+
+        while (!stack.isEmpty()) {
+            int node = stack.pop();
+            for (int child : adjList.get(node)) {
+                if (parent.get(node) == child) {
+                    continue;
+                }
+                if (parent.containsKey(child)) {
+                    return false;
+                }
+                stack.push(child);
+                parent.put(child, node);
+            }
+        }
+
+        return parent.size() == n;
+    }
+}
