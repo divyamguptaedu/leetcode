@@ -38,3 +38,38 @@ class Solution {
         return totalTime;
     }
 }
+
+class Solution {
+    public int minTime(int n, int[][] edges, List<Boolean> hasApple) {
+        HashMap<Integer, List<Integer>> adjList = new HashMap<>();
+        for (int[] edge : edges) {
+            if (!adjList.containsKey(edge[0])) {
+                adjList.put(edge[0], new ArrayList<>());
+            }
+            if (!adjList.containsKey(edge[1])) {
+                adjList.put(edge[1], new ArrayList<>());
+            }
+            adjList.get(edge[0]).add(edge[1]);
+            adjList.get(edge[1]).add(edge[0]);
+        }
+        return traversal(0, -1, adjList, hasApple);
+    }
+
+    private int traversal(int node, int parent, Map<Integer, List<Integer>> adjList, List<Boolean> hasApple) {
+        if (!adjList.containsKey(node)) {
+            return 0;
+        }
+        int totalTime = 0;
+        int childTime = 0;
+        for (int child : adjList.get(node)) {
+            if (child == parent) {
+                continue;
+            }
+            childTime = traversal(child, node, adjList, hasApple);
+            if (childTime > 0 || hasApple.get(child)) {
+                totalTime += childTime + 2;
+            }
+        }
+        return totalTime;
+    }
+}
