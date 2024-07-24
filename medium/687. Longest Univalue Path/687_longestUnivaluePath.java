@@ -38,3 +38,48 @@ class Solution {
         }
     }
 }
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int maxPath;
+    public int longestUnivaluePath(TreeNode root) {
+        maxPath = 0;
+        traverse(root);
+        return maxPath;
+    }
+
+    private int traverse(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        int left = traverse(node.left);
+        int right = traverse(node.right);
+        int pathLength = 0;
+        if (node.left != null && node.right != null && node.val == node.left.val && node.val == node.right.val) {
+            maxPath = Math.max(maxPath, left + right + 2);
+            return Math.max(left, right) + 1;
+        } else if (node.left != null && node.val == node.left.val) {
+            maxPath = Math.max(maxPath, left + 1);
+            return left + 1;
+        } else if (node.right != null && node.val == node.right.val) {
+            maxPath = Math.max(maxPath, right + 1);
+            return right + 1;
+        } else {
+            return 0;
+        }
+    }
+}
