@@ -1,5 +1,3 @@
-//Used DFS. Tracked four variables for each node - the leftMax, rightMin, isBST, 
-//and sum to determine the maximumSum BST in the tree.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -15,60 +13,37 @@
  *     }
  * }
  */
- //Time: O(n)
- //Space: O(n)
+
+class NodeValue {
+    int minValue;
+    int maxValue;
+    int maxSum;
+    NodeValue(int minValue, int maxValue, int maxSum) {
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+        this.maxSum = maxSum;
+    }
+}
+
 class Solution {
-    int resultMax = 0;
-    public int maxSumBST(TreeNode n) {
-        resultMax = 0;
-        dfs(n);
-        return resultMax;
-    }
-    
-    class Pair {
-        int sum;
-        int max;
-        int min;
-        boolean isBst;
-
-        public Pair (int s) {
-            sum = s;
-        }
-
-        public Pair(int s, boolean b, int leftMax, int rightMin) {
-            sum = s;
-            isBst = b;
-            max = leftMax; 
-            min = rightMin;
-        }
+    int result;
+    public int maxSumBST(TreeNode root) {
+        result = 0;
+        traverse(root);
+        return result;
     }
 
-    public Pair dfs(TreeNode n) {
-        if (n == null) {
-            return new Pair(0, true, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    private NodeValue traverse(TreeNode node) {
+        if (node == null) {
+            return new NodeValue(Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
         }
-
-        if (n.left == null && n.right == null) { //leaf node
-            if (resultMax < n.val) {
-                resultMax = n.val;
-            }
-            return new Pair(n.val, true, n.val, n.val);
+        NodeValue left = traverse(node.left);
+        NodeValue right = traverse(node.right);
+        if (left.maxValue < node.val && right.minValue > node.val) {
+            int sum = left.maxSum + right.maxSum + node.val;
+            result = Math.max(result, sum);
+            return new NodeValue(Math.min(node.val, left.minValue), Math.max(node.val, right.maxValue), sum);
         }
-        
-        Pair leftPair = dfs(n.left);
-        Pair rightPair = dfs(n.right);
-
-        Pair nodePair = new Pair(leftPair.sum + rightPair.sum + n.val); //calculate sum
-        if (n.val > leftPair.max && n.val < rightPair.min && leftPair.isBst && rightPair.isBst) { //bst conditions
-            nodePair.isBst = true;
-            if (resultMax < nodePair.sum) { //update resultMax
-                resultMax = nodePair.sum; 
-            }
-        } else {
-            nodePair.isBst = false;
-        }
-        nodePair.min = Math.min(n.val, leftPair.min);
-        nodePair.max = Math.max(n.val, rightPair.max);
-        return nodePair;
-    }
+        return new NodeValue(Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left.maxSum, right.maxSum));
+    } 
 }
