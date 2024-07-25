@@ -1,51 +1,56 @@
-//Prepared the adjacency list, saved the list of leaf nodes, 
-//removed the leaf nodes from the adjList along with the edges and then returned the remaining nodes.
-//Time: O(V) V is the number of nodes in the graph.
-//Space: O(V)
 class Solution {
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
 
-        if (n == 1) {
-            ArrayList<Integer> result = new ArrayList<>();
-            result.add(0);
-            return result;
+        // edge cases
+        if (n < 2) {
+            ArrayList<Integer> centroids = new ArrayList<>();
+            for (int i = 0; i < n; i++)
+                centroids.add(i);
+            return centroids;
         }
 
-        //prepare adjacency list
-        ArrayList<Set<Integer>> adjList = new ArrayList<>();
+        // Build the graph with the adjacency list
+        ArrayList<Set<Integer>> neighbors = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            adjList.add(new HashSet<Integer>());
-        }
-        for (int[] edge : edges) {
-            Integer start = edge[0];
-            Integer end = edge[1];
-            adjList.get(start).add(end);
-            adjList.get(end).add(start);
+            neighbors.add(new HashSet<Integer>());
         }
 
-        //get leaf nodes
+        for (int[] edge : edges) {
+            int start = edge[0];
+            int end = edge[1];
+            neighbors.get(start).add(end);
+            neighbors.get(end).add(start);
+        }
+
+        // Initialize the first layer of leaves
         ArrayList<Integer> leaves = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            if (adjList.get(i).size() == 1) {
+            if (neighbors.get(i).size() == 1) {
                 leaves.add(i);
             }
         }
 
-        //remove the leaf nodes
+        // Trim the leaves until reaching the centroids
         int remainingNodes = n;
         while (remainingNodes > 2) {
             remainingNodes -= leaves.size();
             ArrayList<Integer> newLeaves = new ArrayList<>();
+
+            // remove the current leaves along with the edges
             for (Integer leaf : leaves) {
-                Integer neighbor = adjList.get(leaf).iterator().next();
-                adjList.get(neighbor).remove(leaf);
-                if (adjList.get(neighbor).size() == 1) {
+                // the only neighbor left for the leaf node
+                Integer neighbor = neighbors.get(leaf).iterator().next();
+                // remove the edge along with the leaf node
+                neighbors.get(neighbor).remove(leaf);
+                if (neighbors.get(neighbor).size() == 1)
                     newLeaves.add(neighbor);
-                }
             }
+
+            // prepare for the next round
             leaves = newLeaves;
         }
 
+        // The remaining nodes are the centroids of the graph
         return leaves;
     }
 }
