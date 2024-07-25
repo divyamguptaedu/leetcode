@@ -88,3 +88,45 @@ class Solution {
         return node;
     }
 }
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
+class Solution {
+    Map<Integer, Integer> map;
+    int index;
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        index = 0;
+        map = new HashMap<>();
+        int size = inorder.length;
+        for (int i = 0; i < size; ++i) {
+            map.put(inorder[i], i);
+        }
+        return helper(preorder, inorder, 0, size - 1);
+    }
+
+    private TreeNode helper(int[] preorder, int[] inorder, int low, int high) {
+        if (low > high) {
+            return null;
+        }
+        int value = preorder[index++];
+        TreeNode root = new TreeNode(value);
+        int cut = map.get(value);
+        root.left = helper(preorder, inorder, low, cut - 1);
+        root.right = helper(preorder, inorder, cut + 1, high);
+        return root;
+    }
+}
