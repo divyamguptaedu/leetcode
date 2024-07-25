@@ -77,3 +77,67 @@ class Solution {
         return path.length() > 0;
     }
 }
+//another solution
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    TreeNode lca;
+    public String getDirections(TreeNode root, int startValue, int destValue) {
+        recurseTree(root, startValue, destValue);
+        StringBuilder pathToStart = new StringBuilder();
+        StringBuilder pathToDest = new StringBuilder();
+        findPath(lca, startValue, pathToStart);
+        findPath(lca, destValue, pathToDest);
+        StringBuilder directions = new StringBuilder();
+        directions.append("U".repeat(pathToStart.length()));
+        directions.append(pathToDest);
+        return directions.toString();
+    }
+
+    private boolean recurseTree(TreeNode currentNode, int p, int q) {
+        if (currentNode == null) {
+            return false;
+        }
+        int left = this.recurseTree(currentNode.left, p, q) ? 1 : 0;
+        int right = this.recurseTree(currentNode.right, p, q) ? 1 : 0;
+        int mid = (currentNode.val == p || currentNode.val == q) ? 1 : 0;
+        if (mid + left + right >= 2) {
+            this.lca = currentNode;
+        }
+        return (mid + left + right > 0);
+    }
+
+    private boolean findPath(TreeNode node, int nodeVal, StringBuilder sb) {
+        if (node == null) {
+            return false;
+        }
+        if (node.val == nodeVal) {
+            return true;
+        }
+        sb.append("L");
+        if (findPath(node.left, nodeVal, sb)) {
+            return true;
+        }
+        sb.setLength(sb.length() - 1);
+        sb.append("R");
+        if (findPath(node.right, nodeVal, sb)) {
+            return true;
+        }
+        sb.setLength(sb.length() - 1);
+        return false;
+    }
+}
