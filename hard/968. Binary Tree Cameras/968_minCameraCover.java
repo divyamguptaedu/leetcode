@@ -1,5 +1,3 @@
-//Used 0, 1, 2 as labels to mark if a node needs a camera, already is a camera, or is under surveillance. 
-//Used recursive DFS to iterate and increased counter at 0 and in cases when both the left and right return 2.
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -15,40 +13,38 @@
  *     }
  * }
  */
- //Time: O(n)
- //Space: O(h) h is the height of the tree
+
+ //0: need camera
+ //1: is camera
+ //2: has monitoring
 class Solution {
-    int count = 0;
+    int count;
     public int minCameraCover(TreeNode root) {
-        // 0 -> need camera
-        // 1 -> is camera
-        // 2 -> has surveillance
+        count = 0;
+        if (root == null) {
+            return count;
+        }
         if (root.left == null && root.right == null) {
             return 1;
         }
-        
-        if (solve(root) == 0) {
+        if (traverse(root) == 0) {
             count++;
         }
         return count;
     }
-    
-    public int solve(TreeNode node){
-        if (node == null) { //if a node doesn't exist, that means it has surveillance
+
+    private int traverse(TreeNode node) {
+        if (node == null) {
             return 2;
         }
-            
-        int left = solve(node.left);
-        int right = solve(node.right);
-        
-        if (left == 0 || right == 0) { // even if one needs a camera then I put a camera
+        int left = traverse(node.left);
+        int right = traverse(node.right);
+        if (left == 0 || right == 0) {
             count++;
-            return 1;       
-            
-        } else if (left == 1 || right == 1) { // even if one has a camera then I'm safe
-            return 2;    
-            
-        } else { // if both are surveilled then I need a camera
+            return 1;
+        } else if (left == 1 || right == 1) {
+            return 2;
+        } else {
             return 0;
         }
     }
