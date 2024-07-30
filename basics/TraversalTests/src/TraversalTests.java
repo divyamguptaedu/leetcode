@@ -48,13 +48,14 @@ class InOrderTraversal {
         TreeNode current = root;
 
         while (current != null || !stack.isEmpty()) {
-            while (current != null) {
+            if (current != null) {
                 stack.push(current);
                 current = current.left;
+            } else {
+                current = stack.pop();
+                result.add(current.val);
+                current = current.right;
             }
-            current = stack.pop();
-            result.add(current.val);
-            current = current.right;
         }
 
         return result;
