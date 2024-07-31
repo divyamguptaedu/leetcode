@@ -50,3 +50,42 @@ class Solution {
         return false;
     }
 }
+
+//implemented again
+class Solution {
+    char[][] board;
+    int rows;
+    int cols;
+    int[][] dirs = new int[][] {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
+
+    public boolean exist(char[][] board, String word) {
+        this.board = board;
+        this.rows = board.length;
+        this.cols = board[0].length;
+
+        for (int row = 0; row < this.rows; ++row) {
+            for (int col = 0; col < this.cols; ++col) {
+                if (find(row, col, word, 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean find(int row, int col, String word, int index) {
+        if (index >= word.length()) {
+            return true;
+        }
+        if (row >= 0 && row < rows && col >= 0 && col < cols && board[row][col] == word.charAt(index)) {
+            this.board[row][col] = '#';
+            for (int[] dir : dirs) {
+                if (find(row + dir[0], col + dir[1], word, index + 1)) {
+                    return true;
+                }
+            }
+            this.board[row][col] = word.charAt(index);
+        }
+        return false;
+    }
+}
