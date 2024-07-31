@@ -51,3 +51,41 @@ class Solution {
     }
     
 }
+
+//implemented again
+class Solution {
+    public int shortestPathBinaryMatrix(int[][] grid) {
+        int rows = grid.length;
+        int cols = grid[0].length;
+        int currRow = 0;
+        int currCol = 0;
+        if (grid[currRow][currCol] == 1) {
+            return -1;
+        }
+        if (rows == 1 && cols == 1) {
+            return 1;
+        }
+        int[][] dirs = new int[][] {{-1, 0}, {-1, -1}, {0, -1}, {1, -1}, {1, 0}, {1, 1}, {0, 1}, {-1, 1}};
+        grid[currRow][currCol] = 1;
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[] {currRow, currCol, 1});
+        while (!queue.isEmpty()) {
+            int[] currState = queue.poll();
+            currRow = currState[0];
+            currCol = currState[1];
+            int currDis = currState[2];
+            for (int[] dir : dirs) {
+                int newRow = currRow + dir[0];
+                int newCol = currCol + dir[1];
+                if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && grid[newRow][newCol] == 0) {
+                    if (newRow == rows - 1 && newCol == cols - 1) {
+                        return currDis + 1;
+                    }
+                    grid[newRow][newCol] = 1;
+                    queue.add(new int[] {newRow, newCol, currDis + 1});
+                }
+            }
+        }
+        return -1;
+    }
+}
