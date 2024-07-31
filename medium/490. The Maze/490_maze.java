@@ -40,3 +40,40 @@ class Solution {
         return false;
     }
 }
+
+//implemented again
+class Solution {
+    int rows;
+    int cols;
+    boolean[][] visited;
+    int[][] maze;
+    int[] destination;
+    int[][] dirs;
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        this.rows = maze.length;
+        this.cols = maze[0].length;
+        this.visited = new boolean[rows][cols];
+        this.destination = destination;
+        this.dirs = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        this.maze = maze;
+        return find(start[0], start[1]);
+    }
+
+    private boolean find(int i, int j) {
+        if (visited[i][j]) return false;
+        if (i == destination[0] && j == destination[1]) return true;
+        visited[i][j] = true;
+        for (int[] dir : dirs) {
+            int newRow = i;
+            int newCol = j;
+            while (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && maze[newRow][newCol] == 0) {
+                newRow += dir[0];
+                newCol += dir[1];
+            }
+            if (find(newRow - dir[0], newCol - dir[1])) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
