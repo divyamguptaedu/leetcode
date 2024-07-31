@@ -36,3 +36,35 @@ class Solution {
         return -1;
     }
 }
+
+//another implementation
+class Solution {
+    public int nearestExit(char[][] maze, int[] entrance) {
+        int row = maze.length;
+        int col = maze[0].length;
+        int startRow = entrance[0];
+        int startCol = entrance[1];
+        int[][] dirs = new int[][] {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        maze[startRow][startCol] = '+';
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[] {startRow, startCol, 0});
+        while (!queue.isEmpty()) {
+            int[] currEntry = queue.poll();
+            int currentRow = currEntry[0];
+            int currentCol = currEntry[1];
+            int currentDis = currEntry[2];
+            for (int[] dir : dirs) {
+                int newRow = currentRow + dir[0];
+                int newCol = currentCol + dir[1];
+                if (newRow >= 0 && newRow < row && newCol >= 0 && newCol < col && maze[newRow][newCol] == '.') {
+                    if (newRow == 0 || newRow == row - 1 || newCol == 0 || newCol == col - 1) {
+                        return currentDis + 1;
+                    }
+                    maze[newRow][newCol] = '+';
+                    queue.add(new int[] {newRow, newCol, currentDis + 1});
+                }
+            }
+        }
+        return -1;
+    }
+}
