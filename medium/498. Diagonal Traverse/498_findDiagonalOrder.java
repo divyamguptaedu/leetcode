@@ -61,3 +61,57 @@ class Solution {
         return result;
     }
 }
+
+//
+
+class Solution {
+    int rows;
+    int cols;
+    int[] result;
+    int[][] mat;
+    boolean reverse;
+    int index;
+    public int[] findDiagonalOrder(int[][] mat) {
+        this.index = 0;
+        this.mat = mat;
+        this.rows = mat.length;
+        this.cols = mat[0].length;
+        this.result = new int[rows * cols];
+        ArrayList<Integer> temp;
+        int row = 0;
+        this.reverse = true;
+        for (int col = 0; col < cols; col++) {  
+            temp = new ArrayList<>();
+            getDiagonalList(row, col, temp);
+            reverse = !reverse;
+        }
+        int col_ = cols - 1;
+        for (int row_ = 1; row_ < rows; row_++) {
+            temp = new ArrayList<>();
+            getDiagonalList(row_, col_, temp);
+            reverse = !reverse;
+        }
+        return result;
+    }
+
+    private void getDiagonalList(int row, int col, ArrayList<Integer> temp) {
+        while (isValidMove(row, col)) {
+            temp.add(mat[row][col]);
+            row++;
+            col--;
+        }
+        if (this.reverse) {
+            Collections.reverse(temp);
+        }
+        for (int i : temp) {
+            result[index++] = i;
+        }
+    }
+
+    private boolean isValidMove(int i, int j) {
+        if (i >= 0 && i < rows && j >= 0 && j < cols) {
+            return true;
+        }
+        return false;
+    }
+}
