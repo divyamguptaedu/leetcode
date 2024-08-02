@@ -7,42 +7,82 @@ Memory Usage: 47.7 MB, less than 22.37% of Java online submissions for Recover B
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
  * }
  */
+// class Solution {
+//     private void swap(TreeNode a, TreeNode b) {
+//         int temp = a.val;
+//         a.val = b.val;
+//         b.val = temp;
+//     }
+
+//     public void recoverTree(TreeNode root) {
+//         Stack<TreeNode> stack = new Stack<>();
+//         TreeNode x = null;
+//         TreeNode y = null;
+//         TreeNode temp = null;
+//         while (!stack.isEmpty() || root != null) {
+//             while (root != null) {
+//                 stack.add(root);
+//                 root = root.left;
+//             }
+//             root = stack.pop();
+//             if (temp != null && root.val < temp.val) {
+//                 y = root;
+//                 if (x == null) {
+//                     x = temp;
+//                 } else {
+//                     break;
+//                 }
+//             }
+//             temp = root;
+//             root = root.right;
+//         }
+//         swap(x, y);
+//     }
+// }
+
 class Solution {
-    
-    TreeNode previous = null;
-    TreeNode first = null;
-    TreeNode second = null;
-    
+    TreeNode x = null;
+    TreeNode y = null;
+    TreeNode prev = null;
+
+
     public void recoverTree(TreeNode root) {
-        inorder(root);
-        int temp = first.val;
-        first.val = second.val;
-        second.val = temp;
+        findTwoSwapped(root);
+        swap(x, y);
     }
-    private void inorder (TreeNode root) {
-        if (root == null) {
+
+    private void findTwoSwapped(TreeNode current) {
+        if (current == null) {
             return;
         }
-        inorder(root.left);
-        if (previous != null && root.val < previous.val) { 
-            if (first == null) {
-                first = previous;
+        findTwoSwapped(current.left);
+        if (prev != null && current.val < prev.val) {
+            y = current;
+            if (x == null) {
+                x = prev;
+            } else {
+                return;
             }
-            second = root;
         }
-        previous = root;
-        inorder(root.right);
+        prev = current;
+        findTwoSwapped(current.right);
+    }
+
+    private void swap(TreeNode a, TreeNode b) {
+        int temp = a.val;
+        a.val = b.val;
+        b.val = temp;
     }
 }
