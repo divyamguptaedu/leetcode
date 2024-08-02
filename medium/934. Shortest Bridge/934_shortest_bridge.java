@@ -73,3 +73,52 @@ class Solution {
     }
 
 }
+
+
+//another solution
+class Solution {
+    int rows;
+    int cols;
+    int[][] dirs;
+    public int shortestBridge(int[][] grid) {
+        this.rows = grid.length;
+        this.cols = grid[0].length;
+        this.dirs = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        Queue<int[]> queue = new LinkedList<>();
+        for (int i = 0; i < rows && queue.isEmpty(); i++) {
+            for (int j = 0; j < cols && queue.isEmpty(); j++) {
+                if (grid[i][j] == 1) {
+                    dfs(i, j, queue, grid);
+                }
+            }
+        }
+        while (!queue.isEmpty()) {
+            int[] curr = queue.poll();
+            for (int[] dir : dirs) {
+                int i = curr[0] + dir[0];
+                int j = curr[1] + dir[1];
+                if (i < 0 || i == rows || j < 0 || j == cols || grid[i][j] == -1) {
+                    continue;
+                }
+                if (grid[i][j] == 1) {
+                    return curr[2];
+                }
+                grid[i][j] = -1;
+                queue.add(new int[] {i, j, curr[2] + 1});
+            }
+        }
+
+        return -1;
+    }
+
+    private void dfs(int i, int j, Queue<int[]> queue, int[][] grid) {
+        if (i < 0 || i == rows || j < 0 || j == cols || grid[i][j] != 1) {
+            return;
+        }
+        grid[i][j] = -1;
+        queue.add(new int[] {i, j, 0});
+        for (int[] dir : dirs) {
+            dfs(i + dir[0], j + dir[1], queue, grid);
+        }
+    }
+}
