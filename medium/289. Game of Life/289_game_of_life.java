@@ -67,3 +67,49 @@ class Solution {
         }
     }
 }
+
+//another solution
+class Solution {
+    int[][] dirs = new int[][] {{0, -1}, {-1, -1}, {-1, 0}, {-1, 1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}};
+    int rows;
+    int cols;
+    int[][] board;
+    public void gameOfLife(int[][] board) {
+        this.board = board;
+        List<int[]> changesToProcess = new ArrayList<>();
+        this.rows = board.length;
+        this.cols = board[0].length;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                int liveNeighbors = numLiveNeighbors(i, j);
+                if (board[i][j] == 0 && liveNeighbors == 3) {
+                    changesToProcess.add(new int[] {i, j, 1});
+                }
+                if (board[i][j] == 1) {
+                    if (liveNeighbors < 2) {
+                        changesToProcess.add(new int[] {i, j, 0});
+                    } 
+                    if (liveNeighbors > 3) {
+                        changesToProcess.add(new int[] {i, j, 0});
+                    }
+                }
+            }
+        }
+        
+        for (int[] change : changesToProcess) {
+            board[change[0]][change[1]] = change[2];
+        }
+    }
+
+    private int numLiveNeighbors(int x, int y) {
+        int count = 0;
+        for (int[] dir : dirs) {
+            int i = x + dir[0];
+            int j = y + dir[1];
+            if (i >= 0 && i < rows && j >= 0 && j < cols && board[i][j] == 1) {
+                count++;
+            }
+        }
+        return count;
+    }
+}

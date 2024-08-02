@@ -59,3 +59,35 @@ class Solution {
         }
     }
 }
+
+//another solution
+class Solution {
+    public void wallsAndGates(int[][] rooms) {
+        int rows = rooms.length;
+        int cols = rooms[0].length;
+        int[][] dirs = new int[][] {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
+        Queue<int[]> queue = new LinkedList<>();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (rooms[i][j] == 0) {
+                    queue.add(new int[] {i, j});
+                }
+            }
+        }
+        while (!queue.isEmpty()) {
+            int[] curr = queue.poll();
+            int row = curr[0];
+            int col = curr[1];
+            for (int[] dir : dirs) {
+                int r = row + dir[0];
+                int c = col + dir[1];
+                if (r < 0 || r >= rows || c < 0 || c >= cols || rooms[r][c] != Integer.MAX_VALUE) {
+                    continue;
+                }
+                rooms[r][c] = rooms[row][col] + 1;
+                queue.add(new int[] {r, c});
+            }
+        }
+
+    }
+}

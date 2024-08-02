@@ -37,3 +37,66 @@ class Solution {
         return farmlandGroups.stream().toArray(int[][]::new); // Convert the list to a 2D array and return it
     }
 }
+
+//another solution
+class Solution {
+    int rows;
+    int cols;
+    int[][] land;
+    int[][] dirs;
+    public int[][] findFarmland(int[][] land) {
+        this.rows = land.length;
+        this.cols = land[0].length;
+        this.land = land;
+        this.dirs = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> farmland;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (land[i][j] == 1) {
+                    farmland = new ArrayList<>();
+                    farmland.add(i);
+                    farmland.add(j);
+                    dfs(i, j, farmland);
+                    result.add(farmland);
+                }
+            }
+        }
+        int[][] solution = new int[result.size()][4];
+        int index1 = 0;
+        int index2 = 0;
+        for (List<Integer> list : result) {
+            for (Integer x : list) {
+                solution[index1][index2] = x;
+                index2++;
+            }
+            index2 = 0;
+            index1++;
+        }
+        return solution;
+    }
+
+    private void dfs(int i, int j, List<Integer> farmland) {
+        if (i >= 0 && i < rows && j >= 0 && j < cols && land[i][j] == 1) {
+            land[i][j] = -1;
+            if (isBottomRight(i, j)) {
+                farmland.add(i);
+                farmland.add(j);
+                return;
+            }
+            for (int[] dir : dirs) {
+                dfs(i + dir[0], j + dir[1], farmland);
+            }
+        }
+    }
+
+    private boolean isBottomRight(int i, int j) {
+        if (i + 1 >= 0 && i + 1 < rows && land[i + 1][j] != 0) {
+            return false;
+        }
+        if (j + 1 >= 0 && j + 1 < cols && land[i][j + 1] != 0) {
+            return false;
+        }
+        return true;
+    }
+}

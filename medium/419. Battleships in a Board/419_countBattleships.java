@@ -38,3 +38,41 @@ class Solution {
         dfs(board, i, j - 1, n, m);
     }
 }
+
+class Solution {
+    int rows;
+    int cols;
+    char[][] board;
+    int count;
+    int[][] dirH;
+    int[][] dirV;
+    public int countBattleships(char[][] board) {
+        this.rows = board.length;
+        this.cols = board[0].length;
+        this.board = board;
+        this.count = 0;
+        this.dirH = new int[][] {{0, 1}, {0, -1}};
+        this.dirV = new int[][] {{1, 0}, {-1, 0}};
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (board[i][j] == 'X') {
+                    count++;
+                    markAsEmpty(i, j);
+                }
+            }
+        }
+        return count;
+    }
+
+    private void markAsEmpty(int i, int j) {
+        if (i >= 0 && i < rows && j >= 0 && j < cols && board[i][j] == 'X') {
+            board[i][j] = '.';
+            for (int[] dir : dirH) {
+                markAsEmpty(i + dir[0], j + dir[1]);
+            }
+            for (int[] dir : dirV) {
+               markAsEmpty(i + dir[0], j + dir[1]); 
+            }
+        }
+    }
+}
