@@ -51,3 +51,45 @@ class Solution {
         return result;
     }
 }
+
+//another solution
+class Solution {
+    int rows;
+    int cols;
+    boolean[][] visited;
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int[][] dirs = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        this.rows = matrix.length;
+        this.cols = matrix[0].length;
+        this.visited = new boolean[rows][cols];
+        int index = 0;
+        List<Integer> result = new ArrayList<>();
+        result.add(matrix[0][0]);
+        visited[0][0] = true;
+        int count = 1;
+        int i = 0;
+        int j = 0;
+        while (count != rows * cols) {
+            while (canMove(i + dirs[index][0], j + dirs[index][1])) {
+                i += dirs[index][0];
+                j += dirs[index][1];
+                result.add(matrix[i][j]);
+                visited[i][j] = true;
+                count++;
+            }
+            if (index != 3) {
+                index++;
+            } else {
+                index = 0;
+            }
+        }
+        return result;
+    }
+
+    private boolean canMove(int i, int j) {
+        if (i >= 0 && i < rows && j >= 0 && j < cols && !visited[i][j]) {
+            return true;
+        }
+        return false;
+    }
+}
