@@ -30,3 +30,25 @@ class Solution {
         return result;
     }
 }
+
+//another solution
+class Solution {
+    public int[][] multiply(int[][] mat1, int[][] mat2) {
+        int rows1 = mat1.length;
+        int cols1 = mat1[0].length;
+        int rows2 = mat2.length;
+        int cols2 = mat2[0].length;
+
+        int[][] result = new int[rows1][cols2];
+        for (int i = 0; i < rows1; i++) {
+            for (int j = 0; j < cols1; j++) {
+                if (mat1[i][j] != 0) {
+                    for (int k = 0; k < cols2; k++) {
+                        result[i][k] += mat1[i][j] * mat2[j][k];
+                    }
+                }
+            }
+        }
+        return result;
+    }
+}
