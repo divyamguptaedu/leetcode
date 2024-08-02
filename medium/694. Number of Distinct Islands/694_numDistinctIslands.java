@@ -51,3 +51,44 @@ class Solution {
         currentIsland.append('0'); // Mark the end of the path in this direction
     }
 }
+
+//another solution
+class Solution {
+    int rows;
+    int cols;
+    int[][] grid;
+    boolean[][] visited;
+    StringBuilder sb;
+    public int numDistinctIslands(int[][] grid) {
+        this.rows = grid.length;
+        this.cols = grid[0].length;
+        this.grid = grid;
+        this.visited = new boolean[rows][cols];
+        HashSet<String> set = new HashSet<>();
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (!visited[i][j] && grid[i][j] == 1) {
+                    sb = new StringBuilder();
+                    dfs(i, j, '0');
+                    set.add(sb.toString());
+                }
+            }
+        }
+
+        return set.size();
+    }
+
+    private void dfs(int i, int j, char dir) {
+        if (i >= 0 && i < rows && j >= 0 && j < cols && !visited[i][j] && grid[i][j] == 1) {
+            visited[i][j] = true;
+            sb.append(dir);
+            dfs(i + 1, j, 'D');
+            dfs(i - 1, j, 'U');
+            dfs(i, j + 1, 'R');
+            dfs(i, j - 1, 'L');
+            sb.append('0'); //important to remember this part
+        }
+    }
+
+}
