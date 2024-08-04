@@ -79,3 +79,56 @@ class Solution {
         return -1;
     }
 }
+
+//another solution
+
+class State {
+    int row;
+    int col;
+    int effort;
+
+    public State (int row, int col, int effort) {
+        this.row = row;
+        this.col = col;
+        this.effort = effort;
+    }
+}
+
+class Solution {
+    public int minimumEffortPath(int[][] heights) {
+        int rows = heights.length;
+        int cols = heights[0].length;
+        int[][] dirs = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        State start = new State(0, 0, 0);
+        PriorityQueue<State> queue = new PriorityQueue<>((a, b) -> a.effort - b.effort);
+        int[][] effortTillNow = new int[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                effortTillNow[i][j] = Integer.MAX_VALUE;
+            }
+        }
+        effortTillNow[0][0] = 0;
+        queue.add(start);
+        while (!queue.isEmpty()) {
+            State curr = queue.poll();
+            if (curr.effort > effortTillNow[curr.row][curr.col]) continue;
+            if (curr.row == rows - 1 && curr.col == cols - 1) {
+                return curr.effort;
+            }
+            for (int[] dir : dirs) {
+                int nextRow = curr.row + dir[0];
+                int nextCol = curr.col + dir[1];
+                if (nextRow >= 0 && nextRow < rows && nextCol >= 0 && nextCol < cols) {
+                    int nextEffort = Math.max(curr.effort, Math.abs(heights[curr.row][curr.col] - heights[nextRow][nextCol]));
+                    State nextState = new State(nextRow, nextCol, nextEffort);
+                    if (nextEffort < effortTillNow[nextRow][nextCol]) {
+                        effortTillNow[nextRow][nextCol] = nextEffort;
+                        queue.add(nextState);
+                    }
+
+                }
+            }
+        }
+        return -1;
+    }
+}
