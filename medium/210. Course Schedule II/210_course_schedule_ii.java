@@ -52,3 +52,32 @@ class Solution {
         return new int[0];
     }
 }
+
+
+//another solution
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        int index = 0;
+        int[] result = new int[numCourses];
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int[] incomingEdges = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) map.put(i, new ArrayList<>());
+        for (int[] prereq : prerequisites) {
+            map.get(prereq[1]).add(prereq[0]);
+            incomingEdges[prereq[0]]++;
+        }
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) if (incomingEdges[i] == 0) queue.add(i);
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+            result[index] = node;
+            index++;
+            for (int neighbor : map.get(node)) {
+                incomingEdges[neighbor]--;
+                if (incomingEdges[neighbor] == 0) queue.add(neighbor);
+            }
+        }
+        if (index == numCourses) return result;
+        return new int[0];
+    }
+}
