@@ -42,3 +42,31 @@ class Solution {
         return nodesVisited == numCourses;
     }
 }
+
+//another solution
+
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[] incomingEdges = new int[numCourses];
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int i = 0; i < numCourses; i++) map.put(i, new ArrayList<>());
+        for (int[] prereq : prerequisites) {
+            map.get(prereq[1]).add(prereq[0]);
+            incomingEdges[prereq[0]]++;
+        }
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (incomingEdges[i] == 0) queue.add(i);
+        }
+        int nodesVisited = 0;
+        while (!queue.isEmpty()) {
+            int node = queue.poll();
+            nodesVisited++;
+            for (int neighbor : map.get(node)) {
+                incomingEdges[neighbor]--;
+                if (incomingEdges[neighbor] == 0) queue.add(neighbor);
+            }
+        }
+        return nodesVisited == numCourses;
+    }
+}
