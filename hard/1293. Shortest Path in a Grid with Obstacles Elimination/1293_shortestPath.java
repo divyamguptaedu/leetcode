@@ -73,3 +73,61 @@ class Solution {
         return -1; // Return -1 if no valid path is found within the constraints
     }
 }
+
+//another solution
+class State {
+    int distanceFromStart;
+    int row;
+    int col;
+    int k;
+
+    public State(int distanceFromStart, int row, int col, int k) {
+        this.distanceFromStart = distanceFromStart;
+        this.row = row;
+        this.col = col;
+        this.k = k;
+    }
+
+    @Override
+    public int hashCode() {
+        return (this.row * 100) + (this.col * 10) + this.k;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof State)) return false;
+        State newState = (State) other;
+        return (this.row == newState.row && this.col == newState.col && this.k == newState.k);
+    }
+}
+
+class Solution {
+    public int shortestPath(int[][] grid, int k) {
+        int rows = grid.length;
+        int cols = grid[0].length;
+        int[][] dirs = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        if (rows + cols - 2 <= k) return rows + cols - 2;
+        Queue<State> queue = new LinkedList<>();
+        HashSet<State> seen = new HashSet<>();
+        State start = new State(0, 0, 0, k);
+        queue.add(start);
+        seen.add(start);
+        while (!queue.isEmpty()) {
+            State curr = queue.poll();
+            if (curr.row == rows - 1 && curr.col == cols - 1) return curr.distanceFromStart;
+            for (int[] dir : dirs) {
+                int nextRow = curr.row + dir[0];
+                int nextCol = curr.col + dir[1];
+                if (nextRow >= 0 && nextRow < rows && nextCol >= 0 && nextCol < cols) {
+                    int nextK = curr.k - grid[nextRow][nextCol];
+                    State newState = new State(curr.distanceFromStart + 1, nextRow, nextCol, nextK);
+                    if (nextK >= 0 && !seen.contains(newState)) {
+                        seen.add(newState);
+                        queue.add(newState);
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+}
