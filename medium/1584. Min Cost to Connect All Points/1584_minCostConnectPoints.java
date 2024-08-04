@@ -57,3 +57,33 @@ class Solution {
         return totalCost;
     }
 }
+
+//another solution
+class Solution {
+    public int minCostConnectPoints(int[][] points) {
+        int n = points.length;
+        PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>((a, b) -> (a.getKey() - b.getKey()));;
+        boolean[] visited = new boolean[n];
+        pq.add(new Pair(0, 0));
+        int result = 0;
+        int count = 0;
+        while (count < n) {
+            Pair<Integer, Integer> topElement = pq.poll();
+            int weight = topElement.getKey();
+            int currNode = topElement.getValue();
+            if (visited[currNode]) {
+                continue;
+            }
+            visited[currNode] = true;
+            result += weight;
+            count++;
+            for (int nextNode = 0; nextNode < n; nextNode++) {
+                if (!visited[nextNode]) {
+                    int nextWeight = Math.abs(points[currNode][0] - points[nextNode][0]) + Math.abs(points[currNode][1] - points[nextNode][1]);
+                    pq.add(new Pair(nextWeight, nextNode));
+                }
+            }
+        }
+        return result;
+    }
+}
