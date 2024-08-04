@@ -52,3 +52,52 @@ class Solution {
         }
     }
 }
+
+//another solution
+class Solution {
+    public List<List<String>> accountsMerge(List<List<String>> accounts) {
+        Map<String, List<String>> adjList = new HashMap<>();
+        Set<String> visited = new HashSet<>();
+        for (List<String> account : accounts) {
+            int accountSize = account.size();
+            String accountFirstEmail = account.get(1);
+            for (int i = 2; i < accountSize; i++) {
+                String accountEmail = account.get(i);
+                if (!adjList.containsKey(accountFirstEmail)) {
+                    adjList.put(accountFirstEmail, new ArrayList<>());
+                }
+                adjList.get(accountFirstEmail).add(accountEmail);
+                if (!adjList.containsKey(accountEmail)) {
+                    adjList.put(accountEmail, new ArrayList<>());
+                }
+                adjList.get(accountEmail).add(accountFirstEmail);
+            }
+        }
+        List<List<String>> mergedAccounts = new ArrayList<>();
+        for (List<String> account : accounts) {
+            String accountName = account.get(0);
+            String accountFirstEmail = account.get(1);
+            if (!visited.contains(accountFirstEmail)) {
+                List<String> mergedAccount = new ArrayList<>();
+                mergedAccount.add(accountName);
+                dfs(accountFirstEmail, mergedAccount, adjList, visited);
+                Collections.sort(mergedAccount.subList(1, mergedAccount.size()));
+                mergedAccounts.add(mergedAccount);
+            }
+        }
+        return mergedAccounts;
+    }
+
+    private void dfs(String email, List<String> mergedAccount, Map<String, List<String>> adjList, Set<String> visited) {
+        visited.add(email);
+        mergedAccount.add(email);
+        if (!adjList.containsKey(email)) {
+            return;
+        }
+        for (String neighbor : adjList.get(email)) {
+            if (!visited.contains(neighbor)) {
+                dfs(neighbor, mergedAccount, adjList, visited);
+            }
+        }
+    }
+}
