@@ -50,3 +50,53 @@ class Solution {
         }
     }
 }
+
+//another solution
+
+class Solution {
+    Integer rows = 0;
+    Integer cols = 0;
+    int[][] dirs = new int[][] {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    public void solve(char[][] board) {
+        if (board == null || board.length == 0) return;
+        this.rows = board.length;
+        this.cols = board[0].length;
+        List<Pair<Integer, Integer>> borders = new LinkedList<Pair<Integer, Integer>>();
+        for (int r = 0; r < this.rows; ++r) {
+            borders.add(new Pair(r, 0));
+            borders.add(new Pair(r, this.cols - 1));
+        }
+        for (int c = 0; c < this.cols; ++c) {
+            borders.add(new Pair(0, c));
+            borders.add(new Pair(this.rows - 1, c));
+        }
+        for (Pair<Integer, Integer> pair : borders) {
+            if (board[pair.getKey()][pair.getValue()] == 'O') {
+                this.dfs(board, pair.getKey(), pair.getValue());
+            }
+        }
+        for (int r = 0; r < this.rows; ++r) {
+            for (int c = 0; c < this.cols; ++c) {
+                if (board[r][c] == 'O') board[r][c] = 'X';
+                if (board[r][c] == 'E') board[r][c] = 'O';
+            }
+        }
+    }
+
+    private void dfs(char[][] board, int row, int col) {
+        board[row][col] = 'E';
+        for (int[] dir : dirs) {
+            int newRow = row + dir[0];
+            int newCol = col + dir[1];
+            if (isValidMove(newRow, newCol) && board[newRow][newCol] == 'O') {
+                dfs(board, newRow, newCol);
+            }
+        }
+    }
+
+    private boolean isValidMove(int i, int j) {
+        return (i >= 0 && i < rows && j >= 0 && j < cols);
+    }
+
+
+}
