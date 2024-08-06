@@ -97,3 +97,52 @@ class Solution {
         return startNode.value == currentNode.value;
     }
 }
+
+
+//another solution
+
+class Solution {
+    public int[][] validArrangement(int[][] pairs) {
+        Map<Integer, Stack<Integer>> adjList = new HashMap<>();
+        Map<Integer, Integer> outDegrees = new HashMap<>();
+        Map<Integer, Integer> inDegrees = new HashMap<>();
+
+        for (int[] pair : pairs) {
+            adjList.computeIfAbsent(pair[0], k -> new Stack<>()).add(pair[1]);
+            outDegrees.put(pair[0], outDegrees.getOrDefault(pair[0], 0) + 1);
+            inDegrees.put(pair[1], inDegrees.getOrDefault(pair[1], 0) + 1);
+        }
+
+        int start = pairs[0][0];
+
+        for (int node : adjList.keySet()) {
+            int out = outDegrees.getOrDefault(node, 0);
+            int in = inDegrees.getOrDefault(node, 0);
+            if (out > in) {
+                start = node;
+                break;
+            }
+        }
+
+        List<Integer> path = new ArrayList<>();
+        Stack<Integer> stack = new Stack<>();
+        stack.push(start);
+
+        while (!stack.isEmpty()) {
+            int u = stack.peek();
+            if (adjList.containsKey(u) && !adjList.get(u).isEmpty()) {
+                stack.push(adjList.get(u).pop());
+            } else {
+                path.add(stack.pop());
+            }
+        }
+
+        int[][] result = new int[path.size() - 1][2];
+        for (int i = path.size() - 1; i > 0; i--) {
+            result[path.size() - 1 - i][0] = path.get(i);
+            result[path.size() - 1 - i][1] = path.get(i - 1);
+        }
+
+        return result;
+    }
+}
