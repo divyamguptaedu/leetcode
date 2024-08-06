@@ -66,3 +66,53 @@ class Solution {
         return order.length() < total ? "" : order.toString();
     }
 }
+
+
+//another solution
+class Solution {
+    public String alienOrder(String[] words) {
+        Map<Character, List<Character>> adjList = new HashMap<>();
+        Map<Character, Integer> numEdgesComingIn = new HashMap<>();
+        for (String word : words) {
+            for (Character ch : word.toCharArray()) {
+                adjList.put(ch, new ArrayList<>());
+                numEdgesComingIn.put(ch, 0);
+            }
+        }
+        for (int i = 0; i < words.length - 1; i++) {
+            String word1 = words[i];
+            String word2 = words[i + 1];
+            if (word1.length() > word2.length() && word1.startsWith(word2)) {
+                return "";
+            }
+            for (int j = 0; j < Math.min(word1.length(), word2.length()); j++) {
+                if (word1.charAt(j) != word2.charAt(j)) {
+                    adjList.get(word1.charAt(j)).add(word2.charAt(j));
+                    numEdgesComingIn.put(word2.charAt(j), numEdgesComingIn.get(word2.charAt(j)) + 1);
+                    break;
+                }
+            }
+        }
+        StringBuilder result = new StringBuilder();
+        Queue<Character> queueOfNextChars = new LinkedList<>();
+        for (Character ch : numEdgesComingIn.keySet()) {
+            if (numEdgesComingIn.get(ch).equals(0)) {
+                queueOfNextChars.add(ch);
+            }
+        }
+        while (!queueOfNextChars.isEmpty()) {
+            Character ch = queueOfNextChars.poll();
+            result.append(ch);
+            for (Character neighbor : adjList.get(ch)) {
+                numEdgesComingIn.put(neighbor, numEdgesComingIn.get(neighbor) - 1);
+                if (numEdgesComingIn.get(neighbor).equals(0)) {
+                    queueOfNextChars.add(neighbor);
+                }
+            }
+        }
+        if (result.length() < numEdgesComingIn.size()) {
+            return "";
+        }
+        return result.toString();
+    }
+}
