@@ -28,60 +28,66 @@ import static org.junit.jupiter.api.Assertions.*;
  *     }
  * }
  */
+
 class SolutionOne {
-    int nodeCount = 0;
-
     public TreeNode canMerge(List<TreeNode> trees) {
-        // Convert List to array for easier manipulation
-        int n = trees.size();
-        if (n == 1) return trees.get(0);
+        Map<Integer, TreeNode> rootMap = new HashMap<>();
+        Set<Integer> leaves = new HashSet<>();
 
-        TreeNode[] treeArray = new TreeNode[n];
-        trees.toArray(treeArray);
-
-        // Initialize mappings
-        Map<Integer, TreeNode> leafToTreeMap = new HashMap<>();
-        Map<Integer, TreeNode> rootToTreeMap = new HashMap<>();
-        int maxValue = 0;
-
-        // Populate the maps and find the maximum node value
-        for (TreeNode tree : treeArray) {
-            rootToTreeMap.put(tree.val, tree);
-            if (tree.val > maxValue) maxValue = tree.val;
+        // Populate rootMap and leafMap
+        for (TreeNode tree : trees) {
+            rootMap.put(tree.val, tree);
             if (tree.left != null) {
-                if (tree.left.val > maxValue) maxValue = tree.left.val;
-                leafToTreeMap.put(tree.left.val, tree);
+                leaves.add(tree.left.val);
             }
             if (tree.right != null) {
-                if (tree.right.val > maxValue) maxValue = tree.right.val;
-                leafToTreeMap.put(tree.right.val, tree);
+                leaves.add(tree.right.val);
             }
         }
 
-        // Attempt to merge trees based on leaf and root mappings
         TreeNode rootTree = null;
-        for (TreeNode tree : treeArray) {
-            if (leafToTreeMap.containsKey(tree.val)) {
-                TreeNode parentTree = leafToTreeMap.get(tree.val);
-                if (parentTree.left != null && parentTree.left.val == tree.val) {
-                    parentTree.left = tree;
-                } else {
-                    parentTree.right = tree;
-                }
-                nodeCount++;
-            } else {
+        // Attempt to merge trees
+        for (TreeNode tree : trees) {
+            if (!leaves.contains(tree.val)) {
                 if (rootTree != null) {
-                    return null; // More than one possible root, invalid BST
+                    return null; // More than one root candidate, invalid BST
                 }
                 rootTree = tree;
             }
         }
 
-        // Check if all nodes are used and if the resulting tree is a valid BST
-        if (nodeCount != n - 1 || rootTree == null) return null;
+        if (rootTree == null) return null;
+
+        // Start merging
+        if (!merge(rootTree, rootMap)) return null;
+
+        // Check if all nodes are used
+        if (rootMap.size() != 1) return null;
+
+        // Check if the resulting tree is a valid BST
         if (!isValidBST(rootTree, Long.MIN_VALUE, Long.MAX_VALUE)) return null;
 
         return rootTree;
+    }
+
+    private boolean merge(TreeNode node, Map<Integer, TreeNode> rootMap) {
+        if (node == null) return true;
+
+        if (node.left != null && rootMap.containsKey(node.left.val)) {
+            TreeNode leftSubTree = rootMap.get(node.left.val);
+            node.left = leftSubTree;
+            rootMap.remove(node.left.val);
+            if (!merge(leftSubTree, rootMap)) return false;
+        }
+
+        if (node.right != null && rootMap.containsKey(node.right.val)) {
+            TreeNode rightSubTree = rootMap.get(node.right.val);
+            node.right = rightSubTree;
+            rootMap.remove(node.right.val);
+            if (!merge(rightSubTree, rootMap)) return false;
+        }
+
+        return true;
     }
 
     private boolean isValidBST(TreeNode node, long min, long max) {
@@ -90,6 +96,7 @@ class SolutionOne {
         return isValidBST(node.left, min, node.val) && isValidBST(node.right, node.val, max);
     }
 }
+
 
 // Test cases
 class SolutionTest {
