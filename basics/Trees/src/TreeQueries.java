@@ -25,110 +25,147 @@ import static org.junit.jupiter.api.Assertions.*;
  * }
  */
 class SolutionTwo {
+    Integer greatCount = 0; // Tracks the count of "great" nodes
 
-    public int countGreatEnoughNodes(TreeNode root, int k) {
-        if (root == null || k <= 0) return 0;
+    public int countGreatEnoughNodes(TreeNode node, int k) {
+        dfs(node, k);
+        return greatCount; // Return the final count of "great" nodes
+    }
 
-        Map<TreeNode, Integer> subtreeSizes = new HashMap<>();
-        Map<TreeNode, List<Integer>> subtreeValues = new HashMap<>();
-        dfs(root, subtreeSizes, subtreeValues);
+    private List<Integer> dfs(TreeNode currentNode, int threshold) {
+        if (currentNode == null) {
+            return new ArrayList<>(); // Base case: return an empty list for null nodes
+        }
 
-        int count = 0;
-        for (TreeNode node : subtreeSizes.keySet()) {
-            int subtreeSize = subtreeSizes.get(node);
-            if (subtreeSize >= k) {
-                long smallerCount = subtreeValues.get(node).stream().filter(value -> value < node.val).count();
-                if (smallerCount >= k) {
-                    count++;
-                }
+        List<Integer> leftSubtree = dfs(currentNode.left, threshold);
+        List<Integer> rightSubtree = dfs(currentNode.right, threshold);
+
+        // Max heap to keep track of the top k largest values
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+
+        // Combine values from left and right subtrees while maintaining the heap size
+        for (int value : leftSubtree) {
+            maxHeap.offer(value);
+            if (maxHeap.size() > threshold) {
+                maxHeap.poll();
+            }
+        }
+        for (int value : rightSubtree) {
+            maxHeap.offer(value);
+            if (maxHeap.size() > threshold) {
+                maxHeap.poll();
             }
         }
 
-        return count;
-    }
+        // Check if the current node is "great" based on the heap's top value
+        if (maxHeap.size() == threshold && currentNode.val > maxHeap.peek()) {
+            greatCount++;
+        }
 
-    private int dfs(TreeNode node, Map<TreeNode, Integer> subtreeSizes, Map<TreeNode, List<Integer>> subtreeValues) {
-        if (node == null) return 0;
+        maxHeap.offer(currentNode.val);
+        if (maxHeap.size() > threshold) {
+            maxHeap.poll();
+        }
 
-        List<Integer> values = new ArrayList<>();
-        values.add(node.val);
-        int leftSize = dfs(node.left, subtreeSizes, subtreeValues);
-        int rightSize = dfs(node.right, subtreeSizes, subtreeValues);
-
-        values.addAll(subtreeValues.getOrDefault(node.left, Collections.emptyList()));
-        values.addAll(subtreeValues.getOrDefault(node.right, Collections.emptyList()));
-
-        subtreeSizes.put(node, leftSize + rightSize + 1);
-        subtreeValues.put(node, values);
-
-        return leftSize + rightSize + 1;
+        return new ArrayList<>(maxHeap);
     }
 }
 
 class SolutionTwoTest {
+    SolutionTwo solution;
+    @BeforeEach
+    void setup() {
+        solution = new SolutionTwo();
+    }
+    @Test
+    void testExampleCase() {
+        // Tree: [7,6,5,4,3,2,1]
+        TreeNode root = new TreeNode(7);
+        root.left = new TreeNode(6);
+        root.right = new TreeNode(5);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(3);
+        root.right.left = new TreeNode(2);
+        root.right.right = new TreeNode(1);
 
-    private SolutionTwo solution = new SolutionTwo();
-
-    // Helper method to create a tree from a list of node values
-    private TreeNode createTree(Integer[] values) {
-        if (values.length == 0) return null;
-
-        TreeNode[] nodes = new TreeNode[values.length];
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] != null) {
-                nodes[i] = new TreeNode(values[i]);
-            }
-        }
-
-        for (int i = 0; i < values.length; i++) {
-            if (nodes[i] != null) {
-                int leftIndex = 2 * i + 1;
-                int rightIndex = 2 * i + 2;
-                if (leftIndex < values.length && nodes[leftIndex] != null) {
-                    nodes[i].left = nodes[leftIndex];
-                }
-                if (rightIndex < values.length && nodes[rightIndex] != null) {
-                    nodes[i].right = nodes[rightIndex];
-                }
-            }
-        }
-        return nodes[0];
+        // k = 2, nodes with values 7, 6, and 5 are "great enough"
+        assertEquals(3, solution.countGreatEnoughNodes(root, 2));
     }
 
     @Test
-    void testCountGreatEnoughNodes() {
-        TreeNode root = createTree(new Integer[]{7,6,5,4,3,2,1});
-        int k = 2;
-        int result = solution.countGreatEnoughNodes(root, k);
-        assertEquals(3, result);
+    void testSingleNode() {
+        // Tree: [10]
+        TreeNode root = new TreeNode(10);
 
-        root = createTree(new Integer[]{1,2,3});
-        k = 1;
-        result = solution.countGreatEnoughNodes(root, k);
-        assertEquals(0, result);
+        // k = 1, the single node is not "great enough" since its value is not greater than any other node in its subtree (itself only)
+        assertEquals(0, solution.countGreatEnoughNodes(root, 1));
+
+        // k = 2, not enough nodes in the subtree
+        assertEquals(0, solution.countGreatEnoughNodes(root, 2));
     }
 
     @Test
-    void testSingleNodeTree() {
-        TreeNode root = createTree(new Integer[]{1});
-        int k = 1;
-        int result = solution.countGreatEnoughNodes(root, k);
-        assertEquals(0, result);
+    void testTwoNodes() {
+        // Tree: [8,3]
+        TreeNode root = new TreeNode(8);
+        root.left = new TreeNode(3);
+
+        // k = 1, the root node (8) is "great enough" because its value is greater than the single value (3) in its subtree
+        assertEquals(1, solution.countGreatEnoughNodes(root, 1));
+
+        // k = 2, root (8) has a subtree size of 2, and its value is greater than 1 value (3) in its subtree
+        assertEquals(1, solution.countGreatEnoughNodes(root, 2));
     }
 
     @Test
-    void testTreeWithAllNodesHavingSameValue() {
-        TreeNode root = createTree(new Integer[]{5,5,5,5,5,5,5});
-        int k = 3;
-        int result = solution.countGreatEnoughNodes(root, k);
-        assertEquals(0, result);
+    void testUnbalancedTree() {
+        // Tree: [5,4,null,3,null,2,null,1]
+        TreeNode root = new TreeNode(5);
+        root.left = new TreeNode(4);
+        root.left.left = new TreeNode(3);
+        root.left.left.left = new TreeNode(2);
+        root.left.left.left.left = new TreeNode(1);
+
+        // k = 2, nodes with values 5, 4, and 3 are "great enough"
+        assertEquals(3, solution.countGreatEnoughNodes(root, 2));
+    }
+
+    @Test
+    void testBalancedTree() {
+        // Tree: [10,5,15,3,7,13,20]
+        TreeNode root = new TreeNode(10);
+        root.left = new TreeNode(5);
+        root.right = new TreeNode(15);
+        root.left.left = new TreeNode(3);
+        root.left.right = new TreeNode(7);
+        root.right.left = new TreeNode(13);
+        root.right.right = new TreeNode(20);
+
+        // k = 3, nodes 10 is the only node "great enough"
+        assertEquals(1, solution.countGreatEnoughNodes(root, 3));
     }
 
     @Test
     void testEmptyTree() {
+        // Empty tree
         TreeNode root = null;
-        int k = 1;
-        int result = solution.countGreatEnoughNodes(root, k);
-        assertEquals(0, result);
+
+        // k = 1, no nodes in the tree
+        assertEquals(0, solution.countGreatEnoughNodes(root, 1));
+    }
+
+    @Test
+    void testLargeKValue() {
+        // Tree: [7,6,5,4,3,2,1]
+        TreeNode root = new TreeNode(7);
+        root.left = new TreeNode(6);
+        root.right = new TreeNode(5);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(3);
+        root.right.left = new TreeNode(2);
+        root.right.right = new TreeNode(1);
+
+        // k = 10, k is larger than the number of nodes in any subtree, so no node is "great enough"
+        assertEquals(0, solution.countGreatEnoughNodes(root, 10));
     }
 }
